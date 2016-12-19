@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/image_background_pattern"
-    android:gravity="top|clip_horizontal">
-</bitmap>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#161A1E"/>
+    </item>
+    <item>
+        <bitmap
+            android:src="@drawable/image_background_pattern_small"
+            android:gravity="top">
+        </bitmap>
+    </item>
+</layer-list>
