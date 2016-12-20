@@ -2,9 +2,9 @@ package fo2rist.github.com.mclaren.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,11 +15,21 @@ import fo2rist.github.com.mclaren.R;
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView textViewDate;
+        public TextView textViewTime;
+        public TextView textViewContent;
+        public TextView textViewSource;
+        public ImageSwitcher imageSwitcher;
         public ImageView imageView;
+
         public ViewHolder(View rootView) {
             super(rootView);
-            textView = (TextView) rootView.findViewById(R.id.text);
+            textViewDate = (TextView) rootView.findViewById(R.id.text_date);
+            textViewTime = (TextView) rootView.findViewById(R.id.text_time);
+            textViewContent = (TextView) rootView.findViewById(R.id.text_content);
+            textViewSource = (TextView) rootView.findViewById(R.id.text_source);
+
+            imageSwitcher = (ImageSwitcher) rootView.findViewById(R.id.image_switcher);
             imageView = (ImageView) rootView.findViewById(R.id.image);
         }
     }
@@ -35,7 +45,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText("test");
+        holder.textViewContent.setText("test");
     }
 
     @Override

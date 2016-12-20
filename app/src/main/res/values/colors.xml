@@ -6,4 +6,8 @@
     <color name="colorAccentLight">#FF5252</color>
     <color name="colorAccent">#D50000</color>
 
+    <color name="textPrimaryWhite">@android:color/primary_text_dark</color>
+    <color name="textSecondaryWhite">@android:color/secondary_text_dark</color>
+    <color name="textPrimaryBlack">@android:color/primary_text_light</color>
+    <color name="textSecondaryBlack">@android:color/tertiary_text_light</color>
 </resources>
