@@ -1,10 +1,10 @@
 package fo2rist.github.com.mclaren.models;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,38 +25,63 @@ public class FeedItem implements Serializable {
         Other
     }
 
-    Date dateTime;
-    Type type;
+    Date dateTime_;
+    Type type_ = Type.Text; //The default one
     @NonNull
-    String text;
-    SourceType sourceType;
-    String sourceName;
-    List<URL> imageUrls = new ArrayList<URL>();
+    String text_;
+    SourceType sourceType_ = SourceType.Other; //The default one
+    String sourceName_;
+    List<Uri> imageUris_ = new ArrayList<>();
+
+    public FeedItem(Date dateTime, String text, SourceType sourceType, String sourceName_) {
+        this.dateTime_ = dateTime;
+        this.text_ = text;
+        this.sourceType_ = sourceType;
+        this.sourceName_ = sourceName_;
+    }
+
+    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, Uri imageUri) {
+        this.dateTime_ = dateTime;
+        this.type_ = Type.Photo;
+        this.text_ = text;
+        this.sourceType_ = sourceType;
+        this.sourceName_ = sourceName;
+        this.imageUris_.add(imageUri);
+    }
+
+    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, List<Uri> imageUris) {
+        this.dateTime_ = dateTime;
+        this.type_ = Type.Gallery;
+        this.text_ = text;
+        this.sourceType_ = sourceType;
+        this.sourceName_ = sourceName;
+        this.imageUris_.addAll(imageUris);
+    }
 
     public Date getDateTime() {
-        return dateTime;
+        return dateTime_;
     }
 
     public Type getType() {
-        return type;
+        return type_;
     }
 
     @NonNull
     public String getText() {
-        return text;
+        return text_;
     }
 
     public SourceType getSourceType() {
-        return sourceType;
+        return sourceType_;
     }
 
     public String getSourceName() {
-        return sourceName;
+        return sourceName_;
     }
 
     @NonNull
-    public List<URL> getImageUrls() {
-        return imageUrls;
+    public List<Uri> getImageUrls() {
+        return imageUris_;
     }
 
     /**
@@ -64,11 +89,11 @@ public class FeedItem implements Serializable {
      * @return the first image if there are many or null
      */
     @Nullable
-    public URL getImage() {
-        if (imageUrls.isEmpty()) {
+    public Uri getImageUri() {
+        if (imageUris_.isEmpty()) {
             return null;
         } else {
-            return imageUrls.get(0);
+            return imageUris_.get(0);
         }
     }
 }

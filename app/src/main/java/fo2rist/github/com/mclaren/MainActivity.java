@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         //setup views
         listFeed.setHasFixedSize(true);
         listFeed.setLayoutManager(new LinearLayoutManager(this));
-        feedAdapter_ = new FeedAdapter();
+        feedAdapter_ = new FeedAdapter(this);
         listFeed.setAdapter(feedAdapter_);
 
         listRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
