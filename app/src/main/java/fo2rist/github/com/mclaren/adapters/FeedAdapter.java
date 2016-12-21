@@ -60,12 +60,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         items_.add(feedItem);
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image same", FeedItem.SourceType.Twitter, "@fo2rist", Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         items_.add(feedItem);
+
         ArrayList<Uri> imageUrls = new ArrayList<>();
         imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_background_pattern_small"));
         imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_splash"));
         imageUrls.add(Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery", FeedItem.SourceType.Instagram, "@fo2rist", imageUrls);
         items_.add(feedItem);
+
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery same", FeedItem.SourceType.Twitter, "@fo2rist", imageUrls);
         items_.add(feedItem);
         /*END DEBUG*/

@@ -35,6 +35,7 @@ public class FeedItem implements Serializable {
 
     public FeedItem(Date dateTime, String text, SourceType sourceType, String sourceName_) {
         this.dateTime_ = dateTime;
+        this.type_ = Type.Text;
         this.text_ = text;
         this.sourceType_ = sourceType;
         this.sourceName_ = sourceName_;
