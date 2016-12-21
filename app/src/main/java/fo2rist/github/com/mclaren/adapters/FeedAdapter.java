@@ -96,6 +96,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.imageView.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
                 break;
+            case Video:
+                holder.imageSwitcher.setVisibility(View.VISIBLE);
+                holder.imageView.setImageURI(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/ic_menu_slideshow"));
+                break;
             case Text:
                 holder.imageSwitcher.setVisibility(View.GONE);
                 break;

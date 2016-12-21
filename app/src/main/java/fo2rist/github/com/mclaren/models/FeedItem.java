@@ -16,6 +16,7 @@ public class FeedItem implements Serializable {
     public enum Type {
         Photo,
         Gallery,
+        Video,
         Text
     }
 
