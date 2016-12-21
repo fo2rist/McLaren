@@ -3,6 +3,7 @@
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView listFeed;
+    private SwipeRefreshLayout listRefreshLayout;
 
     private RecyclerView.Adapter feedAdapter_;
 
@@ -49,13 +51,25 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //get view
+        //get views
         listFeed = (RecyclerView) findViewById(R.id.list_feed);
+        listRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh_layout);
+
         //setup views
         listFeed.setHasFixedSize(true);
         listFeed.setLayoutManager(new LinearLayoutManager(this));
-        feedAdapter_ = new FeedAdapter();
+        feedAdapter_ = new FeedAdapter(this);
         listFeed.setAdapter(feedAdapter_);
+
+        listRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                /*DEBUG*/
+                Snackbar.make(listFeed, "Not now boy", Snackbar.LENGTH_SHORT).show();
+                listRefreshLayout.setRefreshing(false);
+                /*END DEBUG*/
+            }
+        });
     }
 
     @Override
