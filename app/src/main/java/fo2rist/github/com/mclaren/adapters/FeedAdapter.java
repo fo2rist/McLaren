@@ -11,8 +11,6 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import android.text.format.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +33,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public ImageSwitcher imageSwitcher;
         public ImageView imageView;
 
+        public FeedItem currentItem_;
+
         public ViewHolder(View rootView) {
             super(rootView);
             textViewDate = (TextView) rootView.findViewById(R.id.text_date);
@@ -44,6 +44,23 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
             imageSwitcher = (ImageSwitcher) rootView.findViewById(R.id.image_switcher);
             imageView = (ImageView) rootView.findViewById(R.id.image);
+
+            imageSwitcher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (currentItem_.getType()) {
+                        case Video:
+                            //Not implemented yet
+                            break;
+                        case Gallery:
+                            imageView.setImageURI(currentItem_.getImageUris().get(1));
+                            break;
+                        case Text:
+                        case Photo:
+                            break;
+                    }
+                }
+            });
         }
     }
 
@@ -62,8 +79,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         items_.add(feedItem);
 
         ArrayList<Uri> imageUrls = new ArrayList<>();
-        imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_background_pattern_small"));
         imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_splash"));
+        imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_background_pattern_small"));
         imageUrls.add(Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery", FeedItem.SourceType.Instagram, "@fo2rist", imageUrls);
         items_.add(feedItem);
@@ -85,6 +102,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         FeedItem feedItem = items_.get(position);
+
+        holder.currentItem_ = feedItem;
+
         holder.textViewDate.setText(DateFormat.getDateFormat(context_).format(feedItem.getDateTime()));
         holder.textViewTime.setText(DateFormat.getTimeFormat(context_).format(feedItem.getDateTime()));
         switch (feedItem.getType()) {
