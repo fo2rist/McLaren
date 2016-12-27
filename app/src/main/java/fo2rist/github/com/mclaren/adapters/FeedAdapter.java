@@ -123,15 +123,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             case Text:
                 holder.imageSwitcher.setVisibility(View.GONE);
                 break;
+            case WebPage:
+                holder.imageSwitcher.setVisibility(View.GONE); //TODO display preview here 23.12.2016 fo2rist
+                break;
         }
         holder.textViewContent.setText(feedItem.getText());
         holder.textViewSource.setText(feedItem.getSourceName());
         switch (feedItem.getSourceType()) {
             case Instagram:
-                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_gallery), null, null, null);
+                holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gallery, 0, 0, 0);
                 break;
             case Twitter:
-                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_share), null, null, null);
+                holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_share, 0, 0, 0);
                 break;
             case Other:
                 holder.textViewSource.setCompoundDrawables(null, null, null, null);

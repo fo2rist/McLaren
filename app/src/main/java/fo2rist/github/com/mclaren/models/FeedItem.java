@@ -17,7 +17,8 @@ public class FeedItem implements Serializable {
         Photo,
         Gallery,
         Video,
-        Text
+        Text,
+        WebPage
     }
 
     public enum SourceType {
