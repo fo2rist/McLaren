@@ -1,11 +1,11 @@
 /**/package fo2rist.github.com.mclaren;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,14 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import fo2rist.github.com.mclaren.adapters.FeedAdapter;
+import fo2rist.github.com.mclaren.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    private RecyclerView listFeed;
-    private SwipeRefreshLayout listRefreshLayout;
-
-    private RecyclerView.Adapter feedAdapter_;
+        implements NavigationView.OnNavigationItemSelectedListener,
+        NewsfeedFragment.OnFragmentInteractionListener,
+        CircuitsFragment.OnListFragmentInteractionListener
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,26 +49,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_newsfeed);
 
-        //get views
-        listFeed = (RecyclerView) findViewById(R.id.list_feed);
-        listRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh_layout);
-
-        //setup views
-        listFeed.setHasFixedSize(true);
-        listFeed.setLayoutManager(new LinearLayoutManager(this));
-        feedAdapter_ = new FeedAdapter(this);
-        listFeed.setAdapter(feedAdapter_);
-
-        listRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                /*DEBUG*/
-                Snackbar.make(listFeed, "Not now boy", Snackbar.LENGTH_SHORT).show();
-                listRefreshLayout.setRefreshing(false);
-                /*END DEBUG*/
-            }
-        });
+        navigateNewsfeed();
     }
 
     @Override
@@ -104,24 +86,57 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_newsfeed) {
-            // Handle the camera action
+            navigateNewsfeed();
         } else if (id == R.id.nav_circuits) {
-
+            navigateCircuits();
         } else if (id == R.id.nav_drivers) {
-
+            navigateDrivers();
         } else if (id == R.id.nav_car) {
-
+            navigateCars();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    private void navigateNewsfeed() {
+        Fragment fragment = new NewsfeedFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content_frame, fragment)
+                .commit();
+    }
+
+    private void navigateCircuits() {
+        Fragment fragment = new CircuitsFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content_frame, fragment)
+                .commit();
+    }
+
+    private void navigateDrivers() {
+
+    }
+
+    private void navigateCars() {
+
     }
 }

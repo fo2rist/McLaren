@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <!-- main content -->
@@ -22,7 +22,11 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
         android:background="@drawable/side_nav_bar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:theme="@style/AppTheme.NavigationView"
+        app:headerLayout="@layout/navigation_drawer_header"
+        app:itemIconTint="@color/menu_item_color"
+        app:itemTextColor="@color/menu_item_color"
+        app:itemTextAppearance="@style/AppTheme.MenuFont"
         app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
