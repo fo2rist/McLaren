@@ -82,7 +82,7 @@ public class FeedItem implements Serializable {
     }
 
     @NonNull
-    public List<Uri> getImageUrls() {
+    public List<Uri> getImageUris() {
         return imageUris_;
     }
 

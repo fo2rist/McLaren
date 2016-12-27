@@ -17,8 +17,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.NavigationView" parent="ThemeOverlay.AppCompat.Dark" />
+
     <style name="AppTheme.SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+
+    <style name="AppTheme.MenuFont" parent="@android:style/TextAppearance.Material.Large" >
+        <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
 </resources>

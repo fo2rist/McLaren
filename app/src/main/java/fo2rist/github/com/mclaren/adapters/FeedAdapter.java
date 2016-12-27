@@ -118,7 +118,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 break;
             case Video:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.imageView.setImageURI(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/ic_menu_slideshow"));
+                holder.imageView.setImageURI(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/ic_slideshow"));
                 break;
             case Text:
                 holder.imageSwitcher.setVisibility(View.GONE);
@@ -128,10 +128,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.textViewSource.setText(feedItem.getSourceName());
         switch (feedItem.getSourceType()) {
             case Instagram:
-                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_menu_gallery), null, null, null);
+                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_gallery), null, null, null);
                 break;
             case Twitter:
-                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_menu_manage), null, null, null);
+                holder.textViewSource.setCompoundDrawables(ContextCompat.getDrawable(context_, R.drawable.ic_share), null, null, null);
                 break;
             case Other:
                 holder.textViewSource.setCompoundDrawables(null, null, null, null);

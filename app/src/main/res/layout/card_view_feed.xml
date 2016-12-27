@@ -67,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:text="instagram"
             android:textColor="@color/textSecondaryBlack"
-            android:drawableLeft="@drawable/ic_menu_gallery"
+            android:drawableLeft="@drawable/ic_gallery"
             android:background="@drawable/background_feed_item"
             android:layout_marginEnd="44dp" />
 
