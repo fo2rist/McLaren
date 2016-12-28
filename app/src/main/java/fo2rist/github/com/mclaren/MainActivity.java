@@ -16,8 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import fo2rist.github.com.mclaren.adapters.FeedAdapter;
-import fo2rist.github.com.mclaren.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -49,9 +47,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_newsfeed);
 
-        navigateNewsfeed();
+        //Populate main content area on the first launch
+        if (savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.nav_newsfeed);
+            navigateNewsfeed();
+        }
     }
 
     @Override
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle navigation rootView_ item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_newsfeed) {
@@ -112,8 +113,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
+    public void onCircuitsFragmentInteraction(String circuitName, int number) {
+        Snackbar.make(getWindow().getCurrentFocus(), circuitName, Snackbar.LENGTH_SHORT).show();
+        //TODO start activity here 28.12 fo2rist
     }
 
     private void navigateNewsfeed() {
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void navigateCircuits() {
-        Fragment fragment = new CircuitsFragment();
+        Fragment fragment = CircuitsFragment.newInstance(2);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)

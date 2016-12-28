@@ -10,22 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fo2rist.github.com.mclaren.dummy.DummyContent;
-import fo2rist.github.com.mclaren.dummy.DummyContent.DummyItem;
-
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Circuits.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
 public class CircuitsFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+    /**
+     * This interface must be implemented by activities that contain this fragment.
+     */
+    public interface OnListFragmentInteractionListener {
+        /**
+         * Circuit with given name and number selected
+         * @param number 1-based number of circuit in the championship
+         */
+        void onCircuitsFragmentInteraction(String circuitName, int number);
+    }
+
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 2;
-    private OnListFragmentInteractionListener mListener;
+    private int columnCount_ = 2;
+    private OnListFragmentInteractionListener listener_;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,8 +40,6 @@ public class CircuitsFragment extends Fragment {
     public CircuitsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static CircuitsFragment newInstance(int columnCount) {
         CircuitsFragment fragment = new CircuitsFragment();
         Bundle args = new Bundle();
@@ -49,25 +53,26 @@ public class CircuitsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            columnCount_ = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_circuits_list, container, false);
+        View view = inflater.inflate(R.layout.content_circuits_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (columnCount_ <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount_));
             }
-            recyclerView.setAdapter(new CircuitsAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new CircuitsAdapter(getResources().getStringArray(R.array.circuit_names), listener_));
         }
         return view;
     }
@@ -77,7 +82,7 @@ public class CircuitsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+            listener_ = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -87,21 +92,7 @@ public class CircuitsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener_ = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="circuit_names">
+        <item>Australian GP</item>
+        <item>Bahrain GP</item>
+        <item>Chinese GP</item>
+        <item>Russian GP</item>
+        <item>Spanish GP</item>
+        <item>Monaco GP</item>
+        <item>Canadian GP</item>
+        <item>European GP</item>
+        <item>Austrian GP</item>
+        <item>British GP</item>
+        <item>Hungarian GP</item>
+        <item>German GP</item>
+        <item>Belgian GP</item>
+        <item>Italian GP</item>
+        <item>Singapore GP</item>
+        <item>Malaysian GP</item>
+        <item>Japanese GP</item>
+        <item>United States GP</item>
+        <item>Mexican GP</item>
+        <item>Brazilian GP</item>
+        <item>Abu Dhabi GP</item>
+    </string-array>
+
+</resources>
