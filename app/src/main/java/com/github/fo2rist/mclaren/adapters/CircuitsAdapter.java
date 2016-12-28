@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.adapters;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.CircuitsFragment.OnListFragmentInteractionListener;
+import com.github.fo2rist.mclaren.R;
 
 import java.util.Arrays;
 import java.util.List;

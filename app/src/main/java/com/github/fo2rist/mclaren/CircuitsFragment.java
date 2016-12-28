@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.fo2rist.mclaren.adapters.CircuitsAdapter;
+
 /**
  * A fragment representing a list of Circuits.
  * <p/>
