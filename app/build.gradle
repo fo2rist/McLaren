@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "fo2rist.github.com.mclaren"
+        applicationId "com.github.fo2rist.mclaren"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1

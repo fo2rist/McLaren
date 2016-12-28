@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren;
+package com.github.fo2rist.mclaren;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import fo2rist.github.com.mclaren.CircuitsFragment.OnListFragmentInteractionListener;
+import com.github.fo2rist.mclaren.CircuitsFragment.OnListFragmentInteractionListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +56,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.item_ = circuitNames_.get(position);
 
-        holder.imageMap_.setImageURI(Uri.parse(String.format("android.resource://fo2rist.github.com.mclaren/drawable/circuit_%02d", position+1)));
+        holder.imageMap_.setImageURI(Uri.parse(String.format("android.resource://com.github.fo2rist.mclaren/drawable/circuit_%02d", position+1)));
 
         holder.rootView_.setOnClickListener(new View.OnClickListener() {
             @Override

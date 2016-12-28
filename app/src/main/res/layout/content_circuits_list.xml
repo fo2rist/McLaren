@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="fo2rist.github.com.mclaren.CircuitFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/horizontal_padding"
@@ -11,5 +10,5 @@
     android:paddingTop="@dimen/vertical_padding"
     android:paddingBottom="@dimen/vertical_padding"
     app:layoutManager="GridLayoutManager"
-    tools:context="fo2rist.github.com.mclaren.CircuitsFragment"
+    tools:context="com.github.fo2rist.mclaren.CircuitsFragment"
     tools:listitem="@layout/item_circuit" />

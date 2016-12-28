@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren;
+package com.github.fo2rist.mclaren;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren.models;
+package com.github.fo2rist.mclaren.models;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

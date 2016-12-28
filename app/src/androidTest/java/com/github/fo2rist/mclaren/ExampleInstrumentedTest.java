@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren;
+package com.github.fo2rist.mclaren;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("fo2rist.github.com.mclaren", appContext.getPackageName());
+        assertEquals("com.github.fo2rist.mclaren", appContext.getPackageName());
     }
 }

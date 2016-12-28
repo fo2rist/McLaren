@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren.adapters;
+package com.github.fo2rist.mclaren.adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import fo2rist.github.com.mclaren.R;
-import fo2rist.github.com.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.models.FeedItem;
 
 /**
  * Adapter for main page feed of news.
@@ -72,14 +72,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         items_.add(feedItem);
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Two bla", FeedItem.SourceType.Instagram, "@fo2rist");
         items_.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image", FeedItem.SourceType.Other, "@fo2rist", Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_splash"));
+        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image", FeedItem.SourceType.Other, "@fo2rist", Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
         items_.add(feedItem);
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image same", FeedItem.SourceType.Twitter, "@fo2rist", Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         items_.add(feedItem);
 
         ArrayList<Uri> imageUrls = new ArrayList<>();
-        imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_splash"));
-        imageUrls.add(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/image_background_pattern_small"));
+        imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
+        imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_background_pattern_small"));
         imageUrls.add(Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery", FeedItem.SourceType.Instagram, "@fo2rist", imageUrls);
         items_.add(feedItem);
@@ -117,7 +117,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 break;
             case Video:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.imageView.setImageURI(Uri.parse("android.resource://fo2rist.github.com.mclaren/drawable/ic_slideshow"));
+                holder.imageView.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_slideshow"));
                 break;
             case Text:
                 holder.imageSwitcher.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren;
+package com.github.fo2rist.mclaren;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fo2rist.github.com.mclaren.adapters.FeedAdapter;
+import com.github.fo2rist.mclaren.adapters.FeedAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

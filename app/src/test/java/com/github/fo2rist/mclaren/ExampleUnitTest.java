@@ -1,4 +1,4 @@
-package fo2rist.github.com.mclaren;
+package com.github.fo2rist.mclaren;
 
 import org.junit.Test;
 
