@@ -2,7 +2,6 @@ package fo2rist.github.com.mclaren.adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +92,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_feed, parent, false);
+                .inflate(R.layout.item_feed, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
