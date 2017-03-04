@@ -2,9 +2,11 @@ package com.github.fo2rist.mclaren;
 
 import android.content.Context;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.github.fo2rist.mclaren.pages.MainPage;
+import com.github.fo2rist.mclaren.pages.NewsfeedPage;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,8 +17,8 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.NavigationViewActions.navigateTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
 import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.not;
 
@@ -24,6 +26,8 @@ import static org.hamcrest.Matchers.not;
 public class MainActivityTest {
 
     private Context context;
+    private MainPage mainPage = new MainPage();
+    private NewsfeedPage newsfeedPage = new NewsfeedPage();
 
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
@@ -33,56 +37,59 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testMainScreenLayout() {
-        onView(withId(R.id.main_content_frame));
-        onView(withId(R.id.fab)).check(matches(isDisplayed()));
+    public void testMainScreenLayout() throws Exception {
+        mainPage.onContentFrame()
+                .check(displayed());
+        mainPage.onToolbar()
+                .check(displayed());
+        mainPage.onFloatingButton()
+                .check(displayed());
     }
 
     @Test
-    public void testSideMenu() {
-        onView(withText("Newsfeed")).check(matches(not(isDisplayed())));
+    public void testSideMenu() throws Exception {
+        mainPage.onMenuNewsfeed()
+                .check(matches(not(isDisplayed())));
 
-        openNavigationDrawer();
+        mainPage.openNavigationDrawer();
 
-        onView(withText("Newsfeed")).check(matches(isDisplayed()));
-        onView(withText("Drivers")).check(matches(isDisplayed()));
-        onView(withText("Circuits")).check(matches(isDisplayed()));
-        onView(withText("Car")).check(matches(isDisplayed()));
+        mainPage.onMenuNewsfeed()
+                .check(displayed());
+        mainPage.onMenuCircuits()
+                .check(displayed());
+        mainPage.onMenuDrivers()
+                .check(displayed());
+        mainPage.onMenuCar()
+                .check(displayed());
     }
 
     @Test
-    public void testOptionsMenu() {
+    public void testOptionsMenu() throws Exception {
         Espresso.openActionBarOverflowOrOptionsMenu(context);
-        onView(withText("Settings")).check(matches(isDisplayed()));
+        onView(withText("Settings"))
+                .check(displayed());
     }
 
     @Test
-    public void testNavigationToSamePage() {
-        openNavigationDrawer();
-
-        onView(withId(R.id.nav_view)).perform(navigateTo(R.id.nav_newsfeed));
-    }
-
-    @Test
-    public void testNavigationToAllPages() throws InterruptedException {
-        openNavigationDrawer();
-        navigateToMenuItem(R.id.nav_drivers);
-        openNavigationDrawer();
-        navigateToMenuItem(R.id.nav_circuits);
-        openNavigationDrawer();
-        navigateToMenuItem(R.id.nav_car);
-
-        //and back to the initial
-        openNavigationDrawer();
+    public void testNavigationToSamePage() throws Exception {
+        newsfeedPage.onNewsList()
+                .check(displayed());
         navigateToMenuItem(R.id.nav_newsfeed);
+        newsfeedPage.onNewsList()
+                .check(displayed());
+    }
+
+    @Test
+    public void testDriversPages() throws Exception {
+        navigateToMenuItem(R.id.nav_drivers);
+
     }
 
     private void navigateToMenuItem(int menuItemId) throws InterruptedException {
-        onView(withId(R.id.nav_view)).perform(navigateTo(menuItemId));
+        mainPage.openNavigationDrawer();
+        mainPage.onNavigationView()
+                .perform(navigateTo(menuItemId));
         sleep(1000);
     }
 
-    private void openNavigationDrawer() {
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-    }
 }
