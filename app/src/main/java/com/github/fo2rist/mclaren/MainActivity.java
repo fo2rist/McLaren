@@ -19,8 +19,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        NewsfeedFragment.OnFragmentInteractionListener,
-        CircuitsFragment.OnListFragmentInteractionListener
+        NewsfeedFragment.OnNewsfeedFragmentInteractionListener,
+        CircuitsFragment.OnCircuitsFragmentInteractionListener,
+        DriversFragment.OnDriversFragmentInteractionListener
 {
 
     @Override
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onNewsfeedFragmentInteraction(Uri uri) {
 
     }
 
@@ -118,27 +119,34 @@ public class MainActivity extends AppCompatActivity
         //TODO start activity here 28.12 fo2rist
     }
 
+    @Override
+    public void onDriversFragmentInteraction(Uri uri) {
+
+    }
+
     private void navigateNewsfeed() {
-        Fragment fragment = new NewsfeedFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_content_frame, fragment)
-                .commit();
+        navigateToNewFragment(
+                new NewsfeedFragment());
     }
 
     private void navigateCircuits() {
-        Fragment fragment = CircuitsFragment.newInstance(2);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_content_frame, fragment)
-                .commit();
+        navigateToNewFragment(
+                CircuitsFragment.newInstanceForColumns(2));
     }
 
     private void navigateDrivers() {
-
+        navigateToNewFragment(
+                new DriversFragment() );
     }
 
     private void navigateCars() {
 
+    }
+
+    private void navigateToNewFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content_frame, fragment)
+                .commit();
     }
 }

@@ -1,14 +1,17 @@
 package com.github.fo2rist.mclaren.adapters;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.fo2rist.mclaren.CircuitsFragment.OnListFragmentInteractionListener;
+import com.github.fo2rist.mclaren.CircuitsFragment.OnCircuitsFragmentInteractionListener;
 import com.github.fo2rist.mclaren.R;
 
 import java.util.Arrays;
@@ -16,7 +19,7 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a Circuit map and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link OnCircuitsFragmentInteractionListener}.
  */
 public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHolder> {
 
@@ -26,6 +29,8 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
         public final ImageView imageMap_;
         public final TextView textName_;
         public final TextView textDetails;
+
+        public Animation animation_;
 
         public String item_;
 
@@ -38,10 +43,14 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
         }
     }
 
+    private Context context_;
     private final List<String> circuitNames_;
-    private final OnListFragmentInteractionListener listener_;
+    private final OnCircuitsFragmentInteractionListener listener_;
 
-    public CircuitsAdapter(String[] items, OnListFragmentInteractionListener listener) {
+    private int lastAnimatedItem_ = -1;
+
+    public CircuitsAdapter(Context context, String[]items, OnCircuitsFragmentInteractionListener listener) {
+        context_ = context;
         circuitNames_ = Arrays.asList(items);
         listener_ = listener;
     }
@@ -69,11 +78,26 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
                 }
             }
         });
+
+        if (needToAnimateItemAtPosition(position)) {
+            holder.animation_ = AnimationUtils.loadAnimation(context_,
+                    position % 2 == 0 ? R.anim.slide_in_from_left : R.anim.slide_in_from_right);
+            holder.itemView.startAnimation(holder.animation_);
+        }
     }
 
     @Override
     public int getItemCount() {
         return circuitNames_.size();
+    }
+
+    private boolean needToAnimateItemAtPosition(int position) {
+        if (lastAnimatedItem_ < position) {
+            lastAnimatedItem_ = position;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
