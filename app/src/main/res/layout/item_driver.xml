@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/properties_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/driver_portrait_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/driver_alonso"
+                />
+            <TextView
+                android:id="@+id/driver_number_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/textPrimaryWhite"
+                tools:text="#FA14"
+                />
+            <TextView
+                android:id="@+id/driver_result_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/driver_number_text"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/textPrimaryWhite"
+                tools:text="10th / 54pts"
+                />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

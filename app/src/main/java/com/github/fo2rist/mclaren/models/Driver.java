@@ -1,24 +1,24 @@
 package com.github.fo2rist.mclaren.models;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import android.support.annotation.NonNull;
 
-import static android.R.attr.propertyName;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /** Info about the driver. */
-public class Driver {
+public class Driver implements Serializable {
 
     public interface Property {
         String getName();
     };
 
-    enum MandatoryProperty implements Property {
-        MANDATORY_TAG("Tag"),
-        MANDATORY_NAME("Name"),
-        MANDATORY_DATE_OF_BIRTH("Date of Birth"),
-        MANDATORY_NATIONALITY("Nationality"),
-        MANDATORY_TWITTER("Twitter");
+    public enum MandatoryProperty implements Property {
+        NAME("Name"),
+        DATE_OF_BIRTH("Date of Birth"),
+        NATIONALITY("Nationality"),
+        TWITTER("Twitter");
 
         private String propertyName_;
 
@@ -31,16 +31,20 @@ public class Driver {
         }
     }
 
-    enum OptionalProperty implements Property {
-        OPTIONAL_WORLD_CHAMPIONSHIPS("World Championships"),
-        OPTIONAL_BEST_FINISH("Best Race Finish"),
-        OPTIONAL_PODIUMS("Podiums"),
-        OPTIONAL_POLE_POSITIONS("Pole Positions"),
-        OPTIONAL_FASTEST_LAPS("Fastest Laps");
+    public enum AdditionalProperty implements Property {
+        TAG("Tag"),
+        WORLD_CHAMPIONSHIPS("World Championships"),
+        BEST_FINISH("Best Race Finish"),
+        PODIUMS("Podiums"),
+        POLE_POSITIONS("Pole Positions"),
+        FASTEST_LAPS("Fastest Laps"),
+        PLACE("Place"),
+        POINTS("Points")
+        ;
 
         String propertyName_;
 
-        OptionalProperty(String name) {
+        AdditionalProperty(String name) {
             propertyName_ = name;
         }
 
@@ -48,37 +52,34 @@ public class Driver {
             return propertyName_;
         }
     }
-    
-    private LinkedHashMap<String, String> properties;
 
-    public Driver(Map<String, String> properties) {
+    private String id_;
+    private HashMap<String, String> properties_;
+
+    public Driver(@NonNull String id, @NonNull Map<String, String> properties) {
+        //check that all mandatory properties present first
         for (Property key: MandatoryProperty.values()) {
-            String value = properties.get(key.getName());
-
-            if (value != null) {
-                properties.put(key.getName(), value);
-            } else {
+            if (!properties.containsKey(key.getName())) {
                 throw new IllegalArgumentException(String.format("Required property %s doesn't exist.", key.getName()));
             }
         }
 
-        for (Property key: OptionalProperty.values()) {
-            String value = properties.get(key.getName());
+        id_ = id;
+        properties_ = new HashMap<>(properties);
+    }
 
-            if (value != null) {
-                properties.put(key.getName(), value);
-            }
-        }
-
+    /** Id to identify driver model inside the app. */
+    public String getId() {
+        return id_;
     }
 
     /**
      * Get any property of the driver.
-     * One or {@link MandatoryProperty} and {@link OptionalProperty}.
+     * One or {@link MandatoryProperty} and {@link AdditionalProperty}.
      * @return property value or 'null' if not exists
      */
     public String getProperty(Property property) {
-        return properties.get(propertyName);
+        return properties_.get(property.getName());
     }
 
 }

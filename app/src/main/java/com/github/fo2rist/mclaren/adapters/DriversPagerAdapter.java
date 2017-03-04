@@ -5,18 +5,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.github.fo2rist.mclaren.DriverSubFragment;
+import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
+
+import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Alonso;
+import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Button;
+import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Vandoorne;
 
 /**
- * Represet "tabs" on drivers page
+ * Represent "tabs" on drivers page
  */
 public class DriversPagerAdapter extends FragmentPagerAdapter {
-    DriverSubFragment pages[] = new DriverSubFragment[3];
+    private DriverId driverIds[] = new DriverId[] {
+            Alonso, Vandoorne, Button
+    };
+    private DriverSubFragment pages[] = new DriverSubFragment[driverIds.length];
 
     public DriversPagerAdapter(FragmentManager fm) {
         super(fm);
-        pages[0] = DriverSubFragment.newInstance("Alonso");
-        pages[1] = DriverSubFragment.newInstance("VanDorne");
-        pages[2] = DriverSubFragment.newInstance("Button");
+        for (int i = 0; i < driverIds.length; i++) {
+            pages[i] = DriverSubFragment.newInstance(driverIds[i]);
+        }
     }
 
     @Override
@@ -31,6 +39,6 @@ public class DriversPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pages[position].getTitle();
+        return driverIds[position].name();
     }
 }
