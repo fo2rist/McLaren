@@ -17,6 +17,7 @@ import com.github.fo2rist.mclaren.models.Driver.AdditionalProperty;
 import com.github.fo2rist.mclaren.models.Driver.MandatoryProperty;
 import com.github.fo2rist.mclaren.models.DriversFactory;
 import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
+import com.github.fo2rist.mclaren.widgets.DriverDetailsLineView;
 
 public class DriverSubFragment extends Fragment {
     public static final String ARG_DRIVER = "ARG_DRIVER";
@@ -82,12 +83,14 @@ public class DriverSubFragment extends Fragment {
                 continue;
             }
 
-            TextView textView = new TextView(getContext());
-            textView.setText(property.getName() + " " + propertyValue);
-            textView.setLayoutParams(new LayoutParams(
+            DriverDetailsLineView propertyView = new DriverDetailsLineView(getContext());
+            propertyView.setLayoutParams(new LayoutParams(
                     LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT));
-            propertiesList.addView(textView);
+            propertyView.setContent(property.getDisplayName(), propertyValue);
+            propertiesList.addView(propertyView);
+
+            propertiesList.invalidate();
         }
     }
 

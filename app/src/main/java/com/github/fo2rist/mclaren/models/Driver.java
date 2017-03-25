@@ -11,7 +11,7 @@ import java.util.Map;
 public class Driver implements Serializable {
 
     public interface Property {
-        String getName();
+        String getDisplayName();
     };
 
     public enum MandatoryProperty implements Property {
@@ -26,7 +26,7 @@ public class Driver implements Serializable {
             propertyName_ = name;
         }
 
-        public String getName() {
+        public String getDisplayName() {
             return propertyName_;
         }
     }
@@ -48,7 +48,7 @@ public class Driver implements Serializable {
             propertyName_ = name;
         }
 
-        public String getName() {
+        public String getDisplayName() {
             return propertyName_;
         }
     }
@@ -59,8 +59,8 @@ public class Driver implements Serializable {
     public Driver(@NonNull String id, @NonNull Map<String, String> properties) {
         //check that all mandatory properties present first
         for (Property key: MandatoryProperty.values()) {
-            if (!properties.containsKey(key.getName())) {
-                throw new IllegalArgumentException(String.format("Required property %s doesn't exist.", key.getName()));
+            if (!properties.containsKey(key.getDisplayName())) {
+                throw new IllegalArgumentException(String.format("Required property %s doesn't exist.", key.getDisplayName()));
             }
         }
 
@@ -79,7 +79,7 @@ public class Driver implements Serializable {
      * @return property value or 'null' if not exists
      */
     public String getProperty(Property property) {
-        return properties_.get(property.getName());
+        return properties_.get(property.getDisplayName());
     }
 
 }

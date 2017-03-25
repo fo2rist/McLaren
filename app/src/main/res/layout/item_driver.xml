@@ -8,14 +8,19 @@
     <LinearLayout
         android:id="@+id/properties_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/driver_portrait_image"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 tools:src="@drawable/driver_alonso"
                 />
             <TextView
@@ -36,5 +41,13 @@
                 tools:text="10th / 54pts"
                 />
         </android.support.constraint.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            android:layout_marginLeft="@dimen/horizontal_padding"
+            android:layout_marginRight="@dimen/horizontal_padding"
+            android:layout_marginBottom="@dimen/vertical_margin"
+            />
     </LinearLayout>
 </ScrollView>

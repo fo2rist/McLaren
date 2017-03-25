@@ -9,6 +9,8 @@ import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
 
 import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Alonso;
 import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Button;
+import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Matsushita;
+import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Turvey;
 import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Vandoorne;
 
 /**
@@ -16,7 +18,7 @@ import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Vandoorn
  */
 public class DriversPagerAdapter extends FragmentPagerAdapter {
     private DriverId driverIds[] = new DriverId[] {
-            Alonso, Vandoorne, Button
+            Alonso, Vandoorne, Button, Turvey, Matsushita
     };
     private DriverSubFragment pages[] = new DriverSubFragment[driverIds.length];
 
@@ -37,8 +39,4 @@ public class DriversPagerAdapter extends FragmentPagerAdapter {
         return pages.length;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return driverIds[position].name();
-    }
 }

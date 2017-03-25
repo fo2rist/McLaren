@@ -17,11 +17,9 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.NavigationViewActions.navigateTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
-import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
@@ -78,14 +76,14 @@ public class MainActivityTest {
     public void testNavigationToSamePage() throws Exception {
         newsfeedPage.onNewsList()
                 .check(displayed());
-        navigateToMenuItem(R.id.nav_newsfeed);
+        mainPage.navigateToMenuItem(R.id.nav_newsfeed);
         newsfeedPage.onNewsList()
                 .check(displayed());
     }
 
     @Test
     public void testDriversPages() throws Exception {
-        navigateToMenuItem(R.id.nav_drivers);
+        mainPage.navigateToMenuItem(R.id.nav_drivers);
         //Alonso present
         onView(withText("#FA14"))
                 .check(displayed());
@@ -113,12 +111,4 @@ public class MainActivityTest {
             .check(displayed())
             .perform(swipeLeft());
     }
-
-    private void navigateToMenuItem(int menuItemId) throws InterruptedException {
-        mainPage.openNavigationDrawer();
-        mainPage.onNavigationView()
-                .perform(navigateTo(menuItemId));
-        sleep(1000);
-    }
-
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_marginTop="20dp"
+    >
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -13,9 +13,10 @@
         android:fontFamily="sans-serif-light"
         tools:text="Date of Birth" />
     <TextView
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textPrimaryWhite"
         android:fontFamily="sans-serif"
         tools:text="29.07.1981" />
-</LinearLayout>
+</merge>

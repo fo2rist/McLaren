@@ -7,6 +7,7 @@ import android.support.test.espresso.contrib.DrawerActions;
 import com.github.fo2rist.mclaren.R;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.contrib.NavigationViewActions.navigateTo;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -45,5 +46,11 @@ public class MainPage {
 
     public void openNavigationDrawer() {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+    }
+
+    public void navigateToMenuItem(int menuItemId) throws InterruptedException {
+        openNavigationDrawer();
+        onNavigationView()
+                .perform(navigateTo(menuItemId));
     }
 }
