@@ -47,6 +47,8 @@ public class DriversFactory {
 
         map.put(AdditionalProperty.PLACE.getDisplayName(), null);
         map.put(AdditionalProperty.POINTS.getDisplayName(), null);
+        map.put(AdditionalProperty.TEAM_LINK.getDisplayName(), "http://www.mclaren.com/formula1/team/fernando-alonso/");
+        map.put(AdditionalProperty.HERITAGE_LINK.getDisplayName(), "http://www.mclaren.com/formula1/heritage/driver/fernando-alonso/");
         return new Driver("alonso", map);
     }
 
@@ -63,6 +65,7 @@ public class DriversFactory {
         map.put(AdditionalProperty.PODIUMS.getDisplayName(), "0");
         map.put(AdditionalProperty.POLE_POSITIONS.getDisplayName(), "0");
         map.put(AdditionalProperty.FASTEST_LAPS.getDisplayName(), "0");
+        map.put(AdditionalProperty.TEAM_LINK.getDisplayName(), "http://www.mclaren.com/formula1/team/stoffel-vandoorne/");
 
         return new Driver("vandoorne", map);
     }
@@ -73,6 +76,12 @@ public class DriversFactory {
         map.put(MandatoryProperty.DATE_OF_BIRTH.getDisplayName(), "19.01.1980");
         map.put(MandatoryProperty.NATIONALITY.getDisplayName(), "British");
         map.put(MandatoryProperty.TWITTER.getDisplayName(), "@JensonButton");
+
+        map.put(AdditionalProperty.WORLD_CHAMPIONSHIPS.getDisplayName(), "1");
+        map.put(AdditionalProperty.BEST_FINISH.getDisplayName(), "1st x 15");
+        map.put(AdditionalProperty.POLE_POSITIONS.getDisplayName(), "8");
+        map.put(AdditionalProperty.FASTEST_LAPS.getDisplayName(), "8");
+        map.put(AdditionalProperty.TEAM_LINK.getDisplayName(), "http://www.mclaren.com/formula1/team/jenson-button/");
 
         return new Driver("button", map);
     }

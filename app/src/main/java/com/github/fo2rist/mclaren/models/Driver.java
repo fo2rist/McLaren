@@ -39,7 +39,9 @@ public class Driver implements Serializable {
         POLE_POSITIONS("Pole Positions"),
         FASTEST_LAPS("Fastest Laps"),
         PLACE("Place"),
-        POINTS("Points")
+        POINTS("Points"),
+        TEAM_LINK("Team Page"),
+        HERITAGE_LINK("Heritage Page"),
         ;
 
         String propertyName_;
