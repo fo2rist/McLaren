@@ -33,7 +33,7 @@ public class DriversFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DriversFragment newInstance(String param1, String param2) {
+    public static DriversFragment newInstance() {
         DriversFragment fragment = new DriversFragment();
         return fragment;
     }

@@ -49,6 +49,10 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
 
     private Driver driver;
 
+    public DriverSubFragment() {
+        // Required empty public constructor
+    }
+
     public static DriverSubFragment newInstance(DriverId driverId) {
         DriverSubFragment fragment = new DriverSubFragment();
         Bundle args = new Bundle();

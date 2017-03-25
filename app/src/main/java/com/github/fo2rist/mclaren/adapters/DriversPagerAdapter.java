@@ -2,7 +2,7 @@ package com.github.fo2rist.mclaren.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.github.fo2rist.mclaren.DriverSubFragment;
 import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
@@ -16,7 +16,7 @@ import static com.github.fo2rist.mclaren.models.DriversFactory.DriverId.Vandoorn
 /**
  * Represent "tabs" on drivers page
  */
-public class DriversPagerAdapter extends FragmentPagerAdapter {
+public class DriversPagerAdapter extends FragmentStatePagerAdapter {
     private DriverId driverIds[] = new DriverId[] {
             Alonso, Vandoorne, Button, Turvey, Matsushita
     };
