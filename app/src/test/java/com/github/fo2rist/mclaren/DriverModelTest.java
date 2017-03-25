@@ -15,15 +15,15 @@ public class DriverModelTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testThrowsExceptionOnEmptyProperties() throws Exception {
-        Map<String, String> emptyProperties = new HashMap<>();
+        Map<Driver.Property, String> emptyProperties = new HashMap<>();
         new Driver("any_id", emptyProperties);
     }
 
     @Test
     public void testConstructedWithMandatoryProperties() throws Exception {
-        Map<String, String> completeProperties = new HashMap<>();
+        Map<Driver.Property, String> completeProperties = new HashMap<>();
         for (MandatoryProperty prop: MandatoryProperty.values()) {
-            completeProperties.put(prop.getDisplayName(), "anything");
+            completeProperties.put(prop, "anything");
         }
         new Driver("any_id", completeProperties);
     }

@@ -56,12 +56,12 @@ public class Driver implements Serializable {
     }
 
     private String id_;
-    private HashMap<String, String> properties_;
+    private HashMap<Property, String> properties_;
 
-    public Driver(@NonNull String id, @NonNull Map<String, String> properties) {
+    public Driver(@NonNull String id, @NonNull Map<Property, String> properties) {
         //check that all mandatory properties present first
         for (Property key: MandatoryProperty.values()) {
-            if (!properties.containsKey(key.getDisplayName())) {
+            if (!properties.containsKey(key)) {
                 throw new IllegalArgumentException(String.format("Required property %s doesn't exist.", key.getDisplayName()));
             }
         }
@@ -81,7 +81,7 @@ public class Driver implements Serializable {
      * @return property value or 'null' if not exists
      */
     public String getProperty(Property property) {
-        return properties_.get(property.getDisplayName());
+        return properties_.get(property);
     }
 
 }
