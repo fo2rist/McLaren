@@ -67,7 +67,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         if (context instanceof OnDriverSubFragmentInteractionListener) {
             listener = (OnDriverSubFragmentInteractionListener) context;
         } else {
-            Timber.e(context.toString() + " must implement OnDriverSubFragmentInteractionListener");
+            Timber.e("%s must implement OnDriverSubFragmentInteractionListener", context.toString());
         }
     }
 

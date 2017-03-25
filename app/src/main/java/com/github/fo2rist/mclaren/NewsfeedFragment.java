@@ -85,7 +85,7 @@ public class NewsfeedFragment extends Fragment {
         if (context instanceof OnNewsfeedFragmentInteractionListener) {
             listener_ = (OnNewsfeedFragmentInteractionListener) context;
         } else {
-            Timber.e(context.toString() + " must implement OnDriversFragmentInteractionListener");
+            Timber.e("%s must implement OnDriversFragmentInteractionListener", context.toString());
         }
     }
 
