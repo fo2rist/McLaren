@@ -55,7 +55,7 @@ public class DriverSubFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
-                R.layout.item_driver,
+                R.layout.fragment_driver_item,
                 container,
                 false);
 
