@@ -5,12 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.adapters.DriversPagerAdapter;
+
+import timber.log.Timber;
 
 
 /**
@@ -43,8 +44,7 @@ public class DriversFragment extends Fragment {
         if (context instanceof OnDriversFragmentInteractionListener) {
             listener = (OnDriversFragmentInteractionListener) context;
         } else {
-            Log.e("McLaren",
-                    context.toString() + " must implement OnDriversFragmentInteractionListener");
+            Timber.e(context.toString() + " must implement OnDriversFragmentInteractionListener");
         }
     }
 
@@ -54,9 +54,7 @@ public class DriversFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_drivers, container, false);
 
         DriversPagerAdapter driversAdapter = new DriversPagerAdapter(getFragmentManager());

@@ -8,12 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.adapters.FeedAdapter;
+
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,8 +85,7 @@ public class NewsfeedFragment extends Fragment {
         if (context instanceof OnNewsfeedFragmentInteractionListener) {
             listener_ = (OnNewsfeedFragmentInteractionListener) context;
         } else {
-            Log.e("McLaren",
-                    context.toString() + " must implement OnDriversFragmentInteractionListener");
+            Timber.e(context.toString() + " must implement OnDriversFragmentInteractionListener");
         }
     }
 

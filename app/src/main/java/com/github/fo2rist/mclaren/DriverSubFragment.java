@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,11 @@ import com.github.fo2rist.mclaren.models.DriversFactory;
 import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
 import com.github.fo2rist.mclaren.widgets.DriverDetailsLineView;
 
+import timber.log.Timber;
+
 import static android.text.TextUtils.isEmpty;
 
-public class DriverSubFragment extends Fragment {
+public class DriverSubFragment extends Fragment implements View.OnClickListener {
 
     public interface OnDriverSubFragmentInteractionListener {
         void onDriverSubFragmentIneraction(Uri uri);
@@ -46,7 +47,7 @@ public class DriverSubFragment extends Fragment {
 
     private OnDriverSubFragmentInteractionListener listener;
 
-    private Driver driver_;
+    private Driver driver;
 
     public static DriverSubFragment newInstance(DriverId driverId) {
         DriverSubFragment fragment = new DriverSubFragment();
@@ -62,8 +63,7 @@ public class DriverSubFragment extends Fragment {
         if (context instanceof OnDriverSubFragmentInteractionListener) {
             listener = (OnDriverSubFragmentInteractionListener) context;
         } else {
-            Log.e("McLaren",
-                    context.toString() + " must implement OnDriverSubFragmentInteractionListener");
+            Timber.e(context.toString() + " must implement OnDriverSubFragmentInteractionListener");
         }
     }
 
@@ -72,7 +72,7 @@ public class DriverSubFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         DriverId driverId = (DriverId) args.getSerializable(ARG_DRIVER);
-        driver_ = DriversFactory.getDriverModel(driverId);
+        driver = DriversFactory.getDriverModel(driverId);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class DriverSubFragment extends Fragment {
                 container,
                 false);
 
-        populateViews(rootView, driver_);
+        populateViews(rootView);
         return rootView;
     }
 
@@ -92,17 +92,28 @@ public class DriverSubFragment extends Fragment {
         listener = null;
     }
 
-    private void populateViews(View rootView, Driver driver) {
+    private void populateViews(View rootView) {
         TextView titleTextView = (TextView) rootView.findViewById(R.id.driver_number_text);
         titleTextView.setText(driver.getProperty(AdditionalProperty.TAG));
 
         TextView subtitleTextView = (TextView) rootView.findViewById(R.id.driver_result_text);
         subtitleTextView.setText(
-                getPlaceAndPointsText(driver));
+                getPlaceAndPointsText());
 
         ImageView portraitView = (ImageView) rootView.findViewById(R.id.driver_portrait_image);
         portraitView.setImageURI(
-                getPortraitImageUri(driver));
+                getPortraitImageUri());
+
+        View teamLinkButton = rootView.findViewById(R.id.team_link_button);
+        if (driver.getProperty(AdditionalProperty.TEAM_LINK) != null) {
+            teamLinkButton.setVisibility(View.VISIBLE);
+            teamLinkButton.setOnClickListener(this);
+        }
+        View heritageLinkButton = rootView.findViewById(R.id.heritage_link_button);
+        if (driver.getProperty(AdditionalProperty.HERITAGE_LINK) != null) {
+            heritageLinkButton.setVisibility(View.VISIBLE);
+            heritageLinkButton.setOnClickListener(this);
+        }
 
         LinearLayout propertiesList = (LinearLayout) rootView.findViewById(R.id.properties_linearlayout);
         for(Driver.Property property: propertiesToDisplayInList) {
@@ -121,7 +132,7 @@ public class DriverSubFragment extends Fragment {
     }
 
     @NonNull
-    private String getPlaceAndPointsText(Driver driver) {
+    private String getPlaceAndPointsText() {
         String place = driver.getProperty(AdditionalProperty.PLACE);
         String points = driver.getProperty(AdditionalProperty.POINTS);
 
@@ -132,7 +143,7 @@ public class DriverSubFragment extends Fragment {
         }
     }
 
-    private Uri getPortraitImageUri(Driver driver) {
+    private Uri getPortraitImageUri() {
         return Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/driver_" + driver.getId());
     }
 
@@ -148,4 +159,21 @@ public class DriverSubFragment extends Fragment {
         return layoutParams;
     }
 
+    @Override
+    public void onClick(View sender) {
+        switch (sender.getId()) {
+            case R.id.team_link_button:
+                openLink(driver.getProperty(AdditionalProperty.TEAM_LINK));
+                break;
+            case R.id.heritage_link_button:
+                openLink(driver.getProperty(AdditionalProperty.HERITAGE_LINK));
+                break;
+        }
+    }
+
+    private void openLink(String uriString) {
+        if (listener != null) {
+            listener.onDriverSubFragmentIneraction(Uri.parse(uriString));
+        }
+    }
 }

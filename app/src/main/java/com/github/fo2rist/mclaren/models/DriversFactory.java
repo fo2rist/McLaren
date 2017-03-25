@@ -77,6 +77,7 @@ public class DriversFactory {
         map.put(MandatoryProperty.NATIONALITY, "British");
         map.put(MandatoryProperty.TWITTER, "@JensonButton");
 
+        map.put(AdditionalProperty.TAG, "#JB");
         map.put(AdditionalProperty.WORLD_CHAMPIONSHIPS, "1");
         map.put(AdditionalProperty.BEST_FINISH, "1st x 15");
         map.put(AdditionalProperty.POLE_POSITIONS, "8");

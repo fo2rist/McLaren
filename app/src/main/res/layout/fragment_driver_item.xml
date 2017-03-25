@@ -45,26 +45,33 @@
                 style="@style/TextLightSubheader"
                 tools:text="10th / 54pts"
                 />
-            <ImageButton
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/team_link_button"
-                android:layout_width="@dimen/icon_list"
-                android:layout_height="@dimen/icon_list"
-                android:src="@drawable/ic_menu_drivers"
-                android:layout_marginLeft="@dimen/margin_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_menu_drivers"
+                android:layout_marginLeft="@dimen/margin_one"
+                android:layout_marginTop="@dimen/margin_half"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/driver_number_text"
-                android:tint="@color/colorAccent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:tint="@color/textPrimaryWhite"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:visibility="gone"
                 tools:visibility="visible"
                 />
-            <ImageButton
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/heritage_link_button"
-                android:layout_width="@dimen/icon_list"
-                android:layout_height="@dimen/icon_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu_team_mclaren"
+                android:layout_marginTop="@dimen/margin_five"
                 app:layout_constraintLeft_toLeftOf="@id/team_link_button"
-                app:layout_constraintTop_toBottomOf="@id/team_link_button"
-                android:tint="@color/colorAccent"
+                app:layout_constraintTop_toTopOf="@id/team_link_button"
+                android:tint="@color/textPrimaryWhite"
+                android:background="@color/colorAccent"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:visibility="gone"
                 tools:visibility="visible"
                 />
@@ -73,8 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorAccent"
-            android:layout_marginLeft="@dimen/margin_half"
-            android:layout_marginRight="@dimen/margin_half"
             android:layout_marginBottom="@dimen/margin_two"
             />
     </LinearLayout>
