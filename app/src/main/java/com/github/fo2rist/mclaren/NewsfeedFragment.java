@@ -14,15 +14,33 @@ import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.adapters.FeedAdapter;
 
+import timber.log.Timber;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewsfeedFragment.OnFragmentInteractionListener} interface
+ * {@link OnNewsfeedFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link NewsfeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class NewsfeedFragment extends Fragment {
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnNewsfeedFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onNewsfeedFragmentInteraction(Uri uri);
+    }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,9 +53,9 @@ public class NewsfeedFragment extends Fragment {
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
 
-    private RecyclerView.Adapter feedAdapter_;
+    private FeedAdapter feedAdapter_;
 
-    private OnFragmentInteractionListener mListener;
+    private OnNewsfeedFragmentInteractionListener listener_;
 
     public NewsfeedFragment() {
         // Required empty public constructor
@@ -59,6 +77,16 @@ public class NewsfeedFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnNewsfeedFragmentInteractionListener) {
+            listener_ = (OnNewsfeedFragmentInteractionListener) context;
+        } else {
+            Timber.e(context.toString() + " must implement OnDriversFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -97,42 +125,17 @@ public class NewsfeedFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener_ = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (listener_ != null) {
+            listener_.onNewsfeedFragmentInteraction(uri);
+        }
     }
+
 }

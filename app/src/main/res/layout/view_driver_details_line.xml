@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/margin_two"
+    android:layout_marginLeft="@dimen/margin_two"
+    >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/TextSecondaryLightSubheader"
+        tools:text="Date of Birth"
+        />
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextSubheader"
+        tools:text="29.07.1981"
+        tools:layout_marginLeft="100dp"
+        />
+</merge>

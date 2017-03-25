@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.adapters;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,12 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import android.text.format.DateFormat;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.models.FeedItem;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.models.FeedItem;
 
 /**
  * Adapter for main page feed of news.
@@ -67,6 +67,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     public FeedAdapter(Context context) {
         context_ = context;
+        addDebugItems();
+    }
+
+    private void addDebugItems() {
         /*DEBUG*/
         FeedItem feedItem = new FeedItem(Calendar.getInstance().getTime(), "One bla", FeedItem.SourceType.Twitter, "@fo2rist");
         items_.add(feedItem);

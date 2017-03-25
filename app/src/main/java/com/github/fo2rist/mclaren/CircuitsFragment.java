@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.adapters.CircuitsAdapter;
 
+import timber.log.Timber;
+
 /**
  * A fragment representing a list of Circuits.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnCircuitsFragmentInteractionListener}
  * interface.
  */
 public class CircuitsFragment extends Fragment {
@@ -23,7 +25,7 @@ public class CircuitsFragment extends Fragment {
     /**
      * This interface must be implemented by activities that contain this fragment.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface OnCircuitsFragmentInteractionListener {
         /**
          * Circuit with given name and number selected
          * @param number 1-based number of circuit in the championship
@@ -33,7 +35,7 @@ public class CircuitsFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int columnCount_ = 2;
-    private OnListFragmentInteractionListener listener_;
+    private OnCircuitsFragmentInteractionListener listener_;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,7 +44,7 @@ public class CircuitsFragment extends Fragment {
     public CircuitsFragment() {
     }
 
-    public static CircuitsFragment newInstance(int columnCount) {
+    public static CircuitsFragment newInstanceForColumns(int columnCount) {
         CircuitsFragment fragment = new CircuitsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -74,7 +76,11 @@ public class CircuitsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount_));
             }
-            recyclerView.setAdapter(new CircuitsAdapter(getResources().getStringArray(R.array.circuit_names), listener_));
+
+            recyclerView.setAdapter(
+                    new CircuitsAdapter(getContext(),
+                            getResources().getStringArray(R.array.circuit_names),
+                            listener_));
         }
         return view;
     }
@@ -83,11 +89,10 @@ public class CircuitsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            listener_ = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnCircuitsFragmentInteractionListener) {
+            listener_ = (OnCircuitsFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+            Timber.e(context.toString() + " must implement OnCircuitsFragmentInteractionListener");
         }
     }
 
@@ -96,5 +101,4 @@ public class CircuitsFragment extends Fragment {
         super.onDetach();
         listener_ = null;
     }
-
 }

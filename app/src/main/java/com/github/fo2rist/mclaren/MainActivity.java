@@ -1,13 +1,13 @@
 /**/package com.github.fo2rist.mclaren;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,12 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        NewsfeedFragment.OnFragmentInteractionListener,
-        CircuitsFragment.OnListFragmentInteractionListener
+        NewsfeedFragment.OnNewsfeedFragmentInteractionListener,
+        CircuitsFragment.OnCircuitsFragmentInteractionListener,
+        DriversFragment.OnDriversFragmentInteractionListener,
+        DriverSubFragment.OnDriverSubFragmentInteractionListener
 {
 
     @Override
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onNewsfeedFragmentInteraction(Uri uri) {
 
     }
 
@@ -118,27 +121,42 @@ public class MainActivity extends AppCompatActivity
         //TODO start activity here 28.12 fo2rist
     }
 
+    @Override
+    public void onDriversFragmentInteraction(Uri uri) {
+
+    }
+
+
+    @Override
+    public void onDriverSubFragmentIneraction(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
     private void navigateNewsfeed() {
-        Fragment fragment = new NewsfeedFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_content_frame, fragment)
-                .commit();
+        navigateToNewFragment(
+                new NewsfeedFragment());
     }
 
     private void navigateCircuits() {
-        Fragment fragment = CircuitsFragment.newInstance(2);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_content_frame, fragment)
-                .commit();
+        navigateToNewFragment(
+                CircuitsFragment.newInstanceForColumns(2));
     }
 
     private void navigateDrivers() {
-
+        navigateToNewFragment(
+                new DriversFragment() );
     }
 
     private void navigateCars() {
 
     }
+
+    private void navigateToNewFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content_frame, fragment)
+                .commit();
+    }
+
 }
