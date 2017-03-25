@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class DriversFragment extends Fragment {
         void onDriversFragmentInteraction(Uri uri);
     }
 
-    private OnDriversFragmentInteractionListener mListener;
+    private OnDriversFragmentInteractionListener listener;
 
     public DriversFragment() {
         // Required empty public constructor
@@ -40,10 +41,10 @@ public class DriversFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnDriversFragmentInteractionListener) {
-            mListener = (OnDriversFragmentInteractionListener) context;
+            listener = (OnDriversFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnDriversFragmentInteractionListener");
+            Log.e("McLaren",
+                    context.toString() + " must implement OnDriversFragmentInteractionListener");
         }
     }
 
@@ -68,7 +69,7 @@ public class DriversFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
 }

@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         NewsfeedFragment.OnNewsfeedFragmentInteractionListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
-        DriversFragment.OnDriversFragmentInteractionListener
+        DriversFragment.OnDriversFragmentInteractionListener,
+        DriverSubFragment.OnDriverSubFragmentInteractionListener
 {
 
     @Override
@@ -124,6 +125,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    @Override
+    public void onDriverSubFragmentIneraction(Uri uri) {
+
+    }
+
     private void navigateNewsfeed() {
         navigateToNewFragment(
                 new NewsfeedFragment());
@@ -149,4 +156,5 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.main_content_frame, fragment)
                 .commit();
     }
+
 }

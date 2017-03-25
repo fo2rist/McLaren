@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,8 +91,8 @@ public class CircuitsFragment extends Fragment {
         if (context instanceof OnCircuitsFragmentInteractionListener) {
             listener_ = (OnCircuitsFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnCircuitsFragmentInteractionListener");
+            Log.e("McLaren",
+                    context.toString() + " must implement OnCircuitsFragmentInteractionListener");
         }
     }
 

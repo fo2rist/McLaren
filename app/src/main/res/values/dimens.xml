@@ -5,4 +5,7 @@
     <dimen name="margin_three">24dp</dimen>
     <dimen name="margin_four">32dp</dimen>
     <dimen name="margin_five">40dp</dimen>
+
+    <dimen name="icon_actionbar">24dp</dimen>
+    <dimen name="icon_list">32dp</dimen>
 </resources>

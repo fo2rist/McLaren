@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class NewsfeedFragment extends Fragment {
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
 
-    private RecyclerView.Adapter feedAdapter_;
+    private FeedAdapter feedAdapter_;
 
     private OnNewsfeedFragmentInteractionListener listener_;
 
@@ -75,6 +76,17 @@ public class NewsfeedFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnNewsfeedFragmentInteractionListener) {
+            listener_ = (OnNewsfeedFragmentInteractionListener) context;
+        } else {
+            Log.e("McLaren",
+                    context.toString() + " must implement OnDriversFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -113,6 +125,12 @@ public class NewsfeedFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener_ = null;
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (listener_ != null) {
@@ -120,20 +138,4 @@ public class NewsfeedFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnNewsfeedFragmentInteractionListener) {
-            listener_ = (OnNewsfeedFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnDriversFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener_ = null;
-    }
 }

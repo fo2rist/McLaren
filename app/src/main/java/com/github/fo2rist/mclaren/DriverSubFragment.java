@@ -1,10 +1,12 @@
 package com.github.fo2rist.mclaren;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,11 @@ import com.github.fo2rist.mclaren.widgets.DriverDetailsLineView;
 import static android.text.TextUtils.isEmpty;
 
 public class DriverSubFragment extends Fragment {
+
+    public interface OnDriverSubFragmentInteractionListener {
+        void onDriverSubFragmentIneraction(Uri uri);
+    }
+
     public static final String ARG_DRIVER = "ARG_DRIVER";
 
     private static final Driver.Property[] propertiesToDisplayInList = {
@@ -37,6 +44,8 @@ public class DriverSubFragment extends Fragment {
             AdditionalProperty.FASTEST_LAPS
     };
 
+    private OnDriverSubFragmentInteractionListener listener;
+
     private Driver driver_;
 
     public static DriverSubFragment newInstance(DriverId driverId) {
@@ -45,6 +54,17 @@ public class DriverSubFragment extends Fragment {
         args.putSerializable(ARG_DRIVER, driverId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnDriverSubFragmentInteractionListener) {
+            listener = (OnDriverSubFragmentInteractionListener) context;
+        } else {
+            Log.e("McLaren",
+                    context.toString() + " must implement OnDriverSubFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -66,13 +86,19 @@ public class DriverSubFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
     private void populateViews(View rootView, Driver driver) {
         TextView titleTextView = (TextView) rootView.findViewById(R.id.driver_number_text);
         titleTextView.setText(driver.getProperty(AdditionalProperty.TAG));
 
         TextView subtitleTextView = (TextView) rootView.findViewById(R.id.driver_result_text);
         subtitleTextView.setText(
-                getPlacePointsLine(driver));
+                getPlaceAndPointsText(driver));
 
         ImageView portraitView = (ImageView) rootView.findViewById(R.id.driver_portrait_image);
         portraitView.setImageURI(
@@ -95,7 +121,7 @@ public class DriverSubFragment extends Fragment {
     }
 
     @NonNull
-    private String getPlacePointsLine(Driver driver) {
+    private String getPlaceAndPointsText(Driver driver) {
         String place = driver.getProperty(AdditionalProperty.PLACE);
         String points = driver.getProperty(AdditionalProperty.POINTS);
 
