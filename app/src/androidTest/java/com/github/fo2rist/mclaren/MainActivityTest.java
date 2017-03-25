@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -84,31 +85,30 @@ public class MainActivityTest {
     @Test
     public void testDriversPages() throws Exception {
         mainPage.navigateToMenuItem(R.id.nav_drivers);
-        //Alonso present
+        //Alonso present/ title etc
         onView(withText("#FA14"))
                 .check(displayed());
-        onView(withText("Fernando Alonso"))
-                .check(displayed());
-        onView(withText("@alo_official"))
-                .check(displayed());
-        onView(withText("29.07.1981"))
-                .check(displayed());
-        onView(withText("Spanish"))
-                .check(displayed());
-        onView(withText("2"))
-                .check(displayed());
+        //all properties
+        checkPropertyTextPresent("Fernando Alonso");
+        checkPropertyTextPresent("@alo_official");
+        checkPropertyTextPresent("29.07.1981");
+        checkPropertyTextPresent("Spanish");
+        checkPropertyTextPresent("2");
 
-        onView(withText("1st x 32"))
-                .check(displayed());
-        onView(withText("97"))
-                .check(displayed());
-        onView(withText("22"))
-                .check(displayed());
-        onView(withText("21"))
-                .check(displayed());
+        checkPropertyTextPresent("1st x 32");
+        checkPropertyTextPresent("97");
+        checkPropertyTextPresent("22");
+        checkPropertyTextPresent("21");
 
+        //second driver present
         driversPage.onViewPager()
             .check(displayed())
             .perform(swipeLeft());
+    }
+
+    private void checkPropertyTextPresent(String text) {
+        onView(withText(text))
+                .perform(scrollTo())
+                .check(displayed());
     }
 }
