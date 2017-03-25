@@ -5,6 +5,7 @@ android:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+    - '.+constraint-layout.+'
   components:
     - tools
     - platform-tools
