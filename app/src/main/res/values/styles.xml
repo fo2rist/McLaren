@@ -23,9 +23,50 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
-
     <style name="AppTheme.MenuFont" parent="@android:style/TextAppearance.Material.Large" >
         <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="TextLightHeader">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/textPrimaryWhite</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextSubheader">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/textPrimaryWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextLightSubheader">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/textPrimaryWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextSecondaryLightSubheader">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/textSecondaryWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextBody">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/textPrimaryWhite</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextLightBody">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/textPrimaryWhite</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextSecondaryLightBody">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/textSecondaryWhite</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

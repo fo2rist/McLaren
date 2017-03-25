@@ -9,8 +9,7 @@
         android:id="@+id/properties_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_one">
+        android:orientation="vertical">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -28,17 +27,22 @@
                 android:id="@+id/driver_number_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_two"
+                android:layout_marginRight="@dimen/margin_two"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/textPrimaryWhite"
+                style="@style/TextLightHeader"
                 tools:text="#FA14"
                 />
             <TextView
                 android:id="@+id/driver_result_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_half"
+                android:layout_marginRight="@dimen/margin_two"
                 app:layout_constraintTop_toBottomOf="@id/driver_number_text"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/textPrimaryWhite"
+                style="@style/TextLightSubheader"
                 tools:text="10th / 54pts"
                 />
         </android.support.constraint.ConstraintLayout>
@@ -48,7 +52,7 @@
             android:background="@color/colorAccent"
             android:layout_marginLeft="@dimen/margin_half"
             android:layout_marginRight="@dimen/margin_half"
-            android:layout_marginBottom="@dimen/margin_one"
+            android:layout_marginBottom="@dimen/margin_two"
             />
     </LinearLayout>
 </ScrollView>

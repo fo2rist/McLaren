@@ -9,14 +9,6 @@
         android:id="@+id/drivers_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/drivers_pager_title_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:textColor="@color/textPrimaryWhite"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp" />
     </android.support.v4.view.ViewPager>
 
 </FrameLayout>

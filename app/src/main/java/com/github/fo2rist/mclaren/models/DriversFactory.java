@@ -45,8 +45,8 @@ public class DriversFactory {
         map.put(AdditionalProperty.POLE_POSITIONS.getDisplayName(), "22");
         map.put(AdditionalProperty.FASTEST_LAPS.getDisplayName(), "21");
 
-        map.put(AdditionalProperty.PLACE.getDisplayName(), "10");
-        map.put(AdditionalProperty.POINTS.getDisplayName(), "54");
+        map.put(AdditionalProperty.PLACE.getDisplayName(), null);
+        map.put(AdditionalProperty.POINTS.getDisplayName(), null);
         return new Driver("alonso", map);
     }
 

@@ -25,7 +25,6 @@ public class DriverDetailsLineView extends LinearLayout {
 
     private void init() {
         inflate(getContext(), R.layout.view_driver_details_line, this);
-
         titleView = (TextView) findViewById(R.id.title);
         valueView = (TextView) findViewById(R.id.value);
     }
