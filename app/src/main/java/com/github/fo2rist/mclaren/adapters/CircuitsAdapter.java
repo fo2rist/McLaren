@@ -63,7 +63,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item_ = circuitNames_.get(position);
 
         holder.imageMap_.setImageURI(Uri.parse(String.format("android.resource://com.github.fo2rist.mclaren/drawable/circuit_%02d", position+1)));
@@ -74,7 +74,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
                 if (null != listener_) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    listener_.onCircuitsFragmentInteraction(holder.item_, position+1);
+                    listener_.onCircuitsFragmentInteraction(holder.item_, holder.getAdapterPosition());
                 }
             }
         });

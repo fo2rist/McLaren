@@ -44,7 +44,7 @@ public class DriversFragment extends Fragment {
         if (context instanceof OnDriversFragmentInteractionListener) {
             listener = (OnDriversFragmentInteractionListener) context;
         } else {
-            Timber.e(context.toString() + " must implement OnDriversFragmentInteractionListener");
+            Timber.e("%s must implement OnDriversFragmentInteractionListener", context.toString());
         }
     }
 

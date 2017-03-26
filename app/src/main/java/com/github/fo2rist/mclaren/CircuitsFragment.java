@@ -92,7 +92,7 @@ public class CircuitsFragment extends Fragment {
         if (context instanceof OnCircuitsFragmentInteractionListener) {
             listener_ = (OnCircuitsFragmentInteractionListener) context;
         } else {
-            Timber.e(context.toString() + " must implement OnCircuitsFragmentInteractionListener");
+            Timber.e("%s must implement OnCircuitsFragmentInteractionListener", context.toString());
         }
     }
 
