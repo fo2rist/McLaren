@@ -30,7 +30,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public TextView textViewContent;
         public TextView textViewSource;
         public ImageSwitcher imageSwitcher;
-        public ImageView imageView;
+        public ImageView image;
+        public ImageView imageItemType;
 
         public FeedItem currentItem_;
 
@@ -42,7 +43,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             textViewSource = (TextView) rootView.findViewById(R.id.text_source);
 
             imageSwitcher = (ImageSwitcher) rootView.findViewById(R.id.image_switcher);
-            imageView = (ImageView) rootView.findViewById(R.id.image);
+            image = (ImageView) rootView.findViewById(R.id.image);
+            imageItemType = (ImageView) rootView.findViewById(R.id.image_type);
 
             imageSwitcher.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,7 +54,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                             //Not implemented yet
                             break;
                         case Gallery:
-                            imageView.setImageURI(currentItem_.getImageUris().get(1));
+                            image.setImageURI(currentItem_.getImageUris().get(1));
                             break;
                         case Text:
                         case Photo:
@@ -113,27 +115,35 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         switch (feedItem.getType()) {
             case Gallery:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.imageView.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                holder.image.setContentDescription(feedItem.getText());
+                holder.imageItemType.setImageResource(R.drawable.ic_gallery);
                 break;
             case Photo:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.imageView.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                holder.image.setContentDescription(feedItem.getText());
+                holder.imageItemType.setImageResource(R.drawable.ic_photo);
                 break;
             case Video:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.imageView.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_slideshow"));
+                holder.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_slideshow"));
+                holder.image.setContentDescription(feedItem.getText());
+                holder.imageItemType.setImageResource(R.drawable.ic_video);
                 break;
             case Text:
                 holder.imageSwitcher.setVisibility(View.GONE);
+                holder.imageItemType.setImageResource(R.drawable.ic_text);
                 break;
             case WebPage:
                 holder.imageSwitcher.setVisibility(View.GONE); //TODO display preview here 23.12.2016 fo2rist
+                holder.imageItemType.setImageResource(R.drawable.ic_web);
                 break;
         }
         holder.textViewContent.setText(feedItem.getText());
         holder.textViewSource.setText(feedItem.getSourceName());
         switch (feedItem.getSourceType()) {
-            case Instagram:
+            case Instagram: //TODO display proper images here 17.04.2017
                 holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gallery, 0, 0, 0);
                 break;
             case Twitter:

@@ -16,6 +16,7 @@ import com.github.fo2rist.mclaren.R;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * {@link RecyclerView.Adapter} that can display a Circuit map and makes a call to the
@@ -56,6 +57,11 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
     }
 
     @Override
+    public int getItemCount() {
+        return circuitNames_.size();
+    }
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_circuit, parent, false);
@@ -64,10 +70,10 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item_ = circuitNames_.get(position);
-
-        holder.imageMap_.setImageURI(Uri.parse(String.format("android.resource://com.github.fo2rist.mclaren/drawable/circuit_%02d", position+1)));
-
+        String circuitName = circuitNames_.get(position);
+        holder.item_ = circuitName;
+        holder.imageMap_.setImageURI(getCircuitImageUriByNumber(position));
+        holder.imageMap_.setContentDescription(circuitName);
         holder.rootView_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,9 +92,9 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.ViewHo
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return circuitNames_.size();
+    private Uri getCircuitImageUriByNumber(int position) {
+        return Uri.parse(String.format(Locale.US,
+                                "android.resource://com.github.fo2rist.mclaren/drawable/circuit_%02d", position+1));
     }
 
     private boolean needToAnimateItemAtPosition(int position) {
