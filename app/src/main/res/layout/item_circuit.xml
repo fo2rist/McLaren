@@ -20,8 +20,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
         android:scaleType="centerInside"
-        android:src="@drawable/circuit_01"/>
-    
+        android:contentDescription="@null"
+        tools:src="@drawable/circuit_01"
+        />
     <TextView
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
@@ -31,8 +32,8 @@
         app:layout_constraintTop_toBottomOf="@+id/image_map"
         app:layout_constraintLeft_toLeftOf="@+id/image_map"
         tools:text="Imola"
-        android:visibility="gone"/>
-
+        android:visibility="gone"
+        />
     <TextView
         android:id="@+id/text_details"
         android:layout_width="wrap_content"
@@ -42,5 +43,6 @@
         app:layout_constraintTop_toBottomOf="@+id/text_name"
         app:layout_constraintLeft_toLeftOf="@+id/text_name"
         tools:text="unknown date"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 </android.support.constraint.ConstraintLayout>

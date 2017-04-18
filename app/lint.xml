@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!--Resources that are used by generated links-->
+    <issue id="UnusedResources">
+        <ignore path="**/res/drawable*/circuit_*.png" />
+        <ignore path="**/res/drawable*/driver_*.png" />
+    </issue>
+    <!-- There is nothing to index at the moment -->
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+</lint>
