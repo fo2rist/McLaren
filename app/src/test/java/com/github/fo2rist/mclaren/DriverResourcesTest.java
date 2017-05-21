@@ -31,9 +31,8 @@ public class DriverResourcesTest {
         return Arrays.asList(new DriverId[][]{{DriverId.Alonso}, {DriverId.Vandoorne}});
     }
 
-    public DriverId driverId;
+    private DriverId driverId;
 
-    private DriverSubFragment fragment;
     private LinearLayout rootLayout;
     private ImageView portraitImage;
     private Driver driverModel;
@@ -46,7 +45,7 @@ public class DriverResourcesTest {
     public void setUp() throws Exception {
         driverModel = DriversFactory.getDriverModel(driverId);
 
-        fragment = DriverSubFragment.newInstance(driverId);
+        DriverSubFragment fragment = DriverSubFragment.newInstance(driverId);
         startFragment(fragment);
 
         rootLayout = (LinearLayout) fragment.getView().findViewById(R.id.properties_linearlayout);

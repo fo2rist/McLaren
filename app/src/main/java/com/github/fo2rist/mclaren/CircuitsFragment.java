@@ -65,23 +65,24 @@ public class CircuitsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.content_circuits_list, container, false);
+        View view = inflater.inflate(R.layout.fragmentt_circuits_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (columnCount_ <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount_));
-            }
-
-            recyclerView.setAdapter(
-                    new CircuitsAdapter(getContext(),
-                            getResources().getStringArray(R.array.circuit_names),
-                            listener_));
+        if (!(view instanceof RecyclerView)) {
+            throw new IllegalArgumentException("Layout should be a single Recycler View");
         }
+
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view;
+        if (columnCount_ <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount_));
+        }
+
+        recyclerView.setAdapter(
+                new CircuitsAdapter(getContext(),
+                        getResources().getStringArray(R.array.circuit_names),
+                        listener_));
         return view;
     }
 
