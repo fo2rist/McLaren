@@ -101,7 +101,7 @@ public class NewsfeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
 
         listFeed = (RecyclerView) rootView.findViewById(R.id.list_feed);
         listRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.list_refresh_layout);
