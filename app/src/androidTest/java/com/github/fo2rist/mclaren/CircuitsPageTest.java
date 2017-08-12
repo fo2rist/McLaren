@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.fo2rist.mclaren.pages.CircuitsPage;
@@ -10,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 
 @RunWith(AndroidJUnit4.class)
 public class CircuitsPageTest extends BaseMainActivityTest {
@@ -25,14 +26,15 @@ public class CircuitsPageTest extends BaseMainActivityTest {
     @Test
     public void testFirstItemPresent() throws Exception {
         circuitsPage.onCircuitsList()
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+                .perform(actionOnItemAtPosition(0, click()));
 
     }
 
     @Test
     public void testLastItemPresent() throws Exception {
         circuitsPage.onCircuitsList()
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+                .perform(actionOnItemAtPosition(19, scrollTo()))
+                .perform(actionOnItemAtPosition(19, click()));
     }
 
 }

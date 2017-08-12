@@ -30,12 +30,12 @@ public class CircuitsFragment extends Fragment {
          * Circuit with given name and number selected
          * @param number 1-based number of circuit in the championship
          */
-        void onCircuitsFragmentInteraction(String circuitName, int number);
+        void onCircuitSelected(String circuitName, int number);
     }
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int columnCount_ = 2;
-    private OnCircuitsFragmentInteractionListener listener_;
+    private int columnCount = 2;
+    private OnCircuitsFragmentInteractionListener listener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -57,7 +57,7 @@ public class CircuitsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            columnCount_ = getArguments().getInt(ARG_COLUMN_COUNT);
+            columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -73,16 +73,16 @@ public class CircuitsFragment extends Fragment {
 
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
-        if (columnCount_ <= 1) {
+        if (columnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount_));
+            recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
         recyclerView.setAdapter(
                 new CircuitsAdapter(getContext(),
                         getResources().getStringArray(R.array.circuit_names),
-                        listener_));
+                        listener));
         return view;
     }
 
@@ -91,7 +91,7 @@ public class CircuitsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnCircuitsFragmentInteractionListener) {
-            listener_ = (OnCircuitsFragmentInteractionListener) context;
+            listener = (OnCircuitsFragmentInteractionListener) context;
         } else {
             Timber.e("%s must implement OnCircuitsFragmentInteractionListener", context.toString());
         }
@@ -100,6 +100,6 @@ public class CircuitsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        listener_ = null;
+        listener = null;
     }
 }
