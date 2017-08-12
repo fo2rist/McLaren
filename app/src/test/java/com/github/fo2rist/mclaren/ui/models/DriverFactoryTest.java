@@ -1,8 +1,8 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui.models;
 
-import com.github.fo2rist.mclaren.models.Driver;
-import com.github.fo2rist.mclaren.models.DriversFactory;
-import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
+import com.github.fo2rist.mclaren.ui.models.Driver;
+import com.github.fo2rist.mclaren.ui.models.DriversFactory;
+import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,8 +1,9 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.pages.NewsfeedPage;
 
 import org.junit.Test;

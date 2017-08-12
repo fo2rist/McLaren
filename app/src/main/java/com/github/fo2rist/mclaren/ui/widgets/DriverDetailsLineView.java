@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.widgets;
+package com.github.fo2rist.mclaren.ui.widgets;
 
 
 import android.content.Context;

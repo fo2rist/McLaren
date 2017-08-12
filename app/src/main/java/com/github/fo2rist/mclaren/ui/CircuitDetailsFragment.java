@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.github.fo2rist.mclaren.uiutils.ResourcesUtils.getCircuitDetailedImageUriByNumber;
+import com.github.fo2rist.mclaren.R;
+
+import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitDetailedImageUriByNumber;
 
 
 public class CircuitDetailsFragment extends Fragment {

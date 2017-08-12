@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.uiutils;
+package com.github.fo2rist.mclaren.ui.utils;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

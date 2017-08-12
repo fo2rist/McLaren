@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -6,6 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.fo2rist.mclaren.pages.CircuitDetailsPage;
+import com.github.fo2rist.mclaren.ui.CircuitDetailsActivity;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

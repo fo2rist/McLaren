@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.adapters;
+package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
 import android.net.Uri;

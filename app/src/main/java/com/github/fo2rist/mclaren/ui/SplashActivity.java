@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

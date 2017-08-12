@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.fo2rist.mclaren.adapters.CircuitsAdapter;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.adapters.CircuitsAdapter;
 
 import timber.log.Timber;
 

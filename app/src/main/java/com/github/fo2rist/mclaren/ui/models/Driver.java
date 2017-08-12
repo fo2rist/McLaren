@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.models;
+package com.github.fo2rist.mclaren.ui.models;
 
 import android.support.annotation.NonNull;
 

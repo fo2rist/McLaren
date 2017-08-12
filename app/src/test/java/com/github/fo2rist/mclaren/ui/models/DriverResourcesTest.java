@@ -1,22 +1,21 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui.models;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.github.fo2rist.mclaren.models.Driver;
-import com.github.fo2rist.mclaren.models.Driver.AdditionalProperty;
-import com.github.fo2rist.mclaren.models.Driver.MandatoryProperty;
-import com.github.fo2rist.mclaren.models.DriversFactory;
-import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
-
+import com.github.fo2rist.mclaren.BuildConfig;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.DriverSubFragment;
+import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty;
+import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty;
+import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.ParameterizedRobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static com.github.fo2rist.mclaren.utilities.LayoutUtils.assertContainsViewWithText;
 import static junit.framework.Assert.assertNotNull;

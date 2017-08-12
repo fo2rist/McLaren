@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.adapters;
+package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +10,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.fo2rist.mclaren.CircuitsFragment.OnCircuitsFragmentInteractionListener;
+import com.github.fo2rist.mclaren.ui.CircuitsFragment.OnCircuitsFragmentInteractionListener;
 import com.github.fo2rist.mclaren.R;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.fo2rist.mclaren.uiutils.ResourcesUtils.getCircuitImageUriByNumber;
+import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitImageUriByNumber;
 
 /**
  * {@link RecyclerView.Adapter} that can display a Circuit map and makes a call to the

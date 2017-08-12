@@ -1,10 +1,11 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 
 import com.github.fo2rist.mclaren.pages.MainPage;
 
+import com.github.fo2rist.mclaren.ui.MainActivity;
 import org.junit.Before;
 import org.junit.Rule;
 

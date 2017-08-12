@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,12 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.github.fo2rist.mclaren.models.Driver;
-import com.github.fo2rist.mclaren.models.Driver.AdditionalProperty;
-import com.github.fo2rist.mclaren.models.Driver.MandatoryProperty;
-import com.github.fo2rist.mclaren.models.DriversFactory;
-import com.github.fo2rist.mclaren.models.DriversFactory.DriverId;
-import com.github.fo2rist.mclaren.widgets.DriverDetailsLineView;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.models.Driver;
+import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty;
+import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty;
+import com.github.fo2rist.mclaren.ui.models.DriversFactory;
+import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
+import com.github.fo2rist.mclaren.ui.widgets.DriverDetailsLineView;
 
 import timber.log.Timber;
 

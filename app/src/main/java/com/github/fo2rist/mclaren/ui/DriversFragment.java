@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,7 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.fo2rist.mclaren.adapters.DriversPagerAdapter;
+import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.adapters.DriversPagerAdapter;
 
 import timber.log.Timber;
 

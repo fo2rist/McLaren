@@ -1,4 +1,4 @@
-/**/package com.github.fo2rist.mclaren;
+/**/package com.github.fo2rist.mclaren.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.github.fo2rist.mclaren.R;
 
 
 public class MainActivity extends AppCompatActivity

@@ -1,7 +1,7 @@
-package com.github.fo2rist.mclaren;
+package com.github.fo2rist.mclaren.ui.models;
 
-import com.github.fo2rist.mclaren.models.Driver;
-import com.github.fo2rist.mclaren.models.Driver.MandatoryProperty;
+import com.github.fo2rist.mclaren.ui.models.Driver;
+import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
