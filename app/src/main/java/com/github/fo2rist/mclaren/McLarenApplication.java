@@ -9,6 +9,7 @@ public class McLarenApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Setup logger
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }

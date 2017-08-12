@@ -116,9 +116,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCircuitsFragmentInteraction(String circuitName, int number) {
-        Snackbar.make(getWindow().getCurrentFocus(), circuitName, Snackbar.LENGTH_SHORT).show();
-        //TODO start activity here 28.12 fo2rist
+    public void onCircuitSelected(String circuitName, int number) {
+        startActivity(CircuitDetailsActivity.createIntent(this, circuitName, number));
     }
 
     @Override
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity
 
     private void navigateNewsfeed() {
         navigateToNewFragment(
-                new NewsfeedFragment());
+                NewsfeedFragment.newInstance());
     }
 
     private void navigateCircuits() {
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity
 
     private void navigateDrivers() {
         navigateToNewFragment(
-                new DriversFragment() );
+                DriversFragment.newInstance());
     }
 
     private void navigateCars() {
@@ -156,6 +155,14 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)
+                .commit();
+    }
+
+    private void addNewFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content_frame, fragment)
+                .addToBackStack("dive_navigation_to_new_fragment")
                 .commit();
     }
 
