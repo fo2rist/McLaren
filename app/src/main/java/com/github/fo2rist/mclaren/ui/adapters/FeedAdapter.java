@@ -47,12 +47,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             imageSwitcher.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (currentItem_.getType()) {
+                    switch (currentItem_.type) {
                         case Video:
                             //Not implemented yet
                             break;
                         case Gallery:
-                            image.setImageURI(currentItem_.getImageUris().get(1));
+                            image.setImageURI(currentItem_.imageUris[1]);
                             break;
                         case Message:
                         case Image:
@@ -84,25 +84,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
         holder.currentItem_ = feedItem;
 
-        holder.textViewDate.setText(DateFormat.getDateFormat(context_).format(feedItem.getDateTime()));
-        holder.textViewTime.setText(DateFormat.getTimeFormat(context_).format(feedItem.getDateTime()));
-        switch (feedItem.getType()) {
+        holder.textViewDate.setText(DateFormat.getDateFormat(context_).format(feedItem.dateTime));
+        holder.textViewTime.setText(DateFormat.getTimeFormat(context_).format(feedItem.dateTime));
+        switch (feedItem.type) {
             case Gallery:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
-                holder.image.setContentDescription(feedItem.getText());
+                holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_gallery);
                 break;
             case Image:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
-                holder.image.setContentDescription(feedItem.getText());
+                holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_photo);
                 break;
             case Video:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_slideshow"));
-                holder.image.setContentDescription(feedItem.getText());
+                holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_video);
                 break;
             case Message:
@@ -114,9 +114,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 holder.imageItemType.setImageResource(R.drawable.ic_web);
                 break;
         }
-        holder.textViewContent.setText(feedItem.getText());
-        holder.textViewSource.setText(feedItem.getSourceName());
-        switch (feedItem.getSourceType()) {
+        holder.textViewContent.setText(feedItem.text);
+        holder.textViewSource.setText(feedItem.sourceName);
+        switch (feedItem.sourceType) {
             case Instagram: //TODO display proper images here 17.04.2017
                 holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gallery, 0, 0, 0);
                 break;

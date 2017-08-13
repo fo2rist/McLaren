@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,65 +26,44 @@ public class FeedItem implements Serializable {
         Unknown,
     }
 
-    Date dateTime_;
-    Type type_ = Type.Message; //The default one
     @NonNull
-    String text_;
-    SourceType sourceType_ = SourceType.Unknown; //The default one
-    String sourceName_;
-    List<Uri> imageUris_ = new ArrayList<>();
-
-    public FeedItem(Date dateTime, String text, SourceType sourceType, String sourceName_) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Message;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName_;
-    }
-
-    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, Uri imageUri) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Image;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName;
-        this.imageUris_.add(imageUri);
-    }
-
-    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, List<Uri> imageUris) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Gallery;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName;
-        this.imageUris_.addAll(imageUris);
-    }
-
-    public Date getDateTime() {
-        return dateTime_;
-    }
-
-    public Type getType() {
-        return type_;
-    }
-
+    public final Type type;
     @NonNull
-    public String getText() {
-        return text_;
-    }
-
-    public SourceType getSourceType() {
-        return sourceType_;
-    }
-
-    public String getSourceName() {
-        return sourceName_;
-    }
-
+    public final String text;
     @NonNull
-    public List<Uri> getImageUris() {
-        return imageUris_;
+    public final Date dateTime;
+    @NonNull
+    public final SourceType sourceType;
+    @NonNull
+    public final String sourceName;
+    @NonNull
+    public final Uri[] imageUris; //TODO change to not depend on Android
+
+    public static FeedItem createMessage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName) {
+        return new FeedItem(Type.Message, text, dateTime, sourceType, sourceName);
     }
+
+    public static FeedItem createImage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, @NonNull Uri imageUri) {
+        return new FeedItem(Type.Image, text, dateTime, sourceType, sourceName, imageUri);
+    }
+
+    public static FeedItem createGallery(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, @NonNull List<Uri> imageUris) {
+        return new FeedItem(Type.Gallery, text, dateTime, sourceType, sourceName, imageUris.toArray(new Uri[imageUris.size()]));
+    }
+
+    public FeedItem(@NonNull Type type, @NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, Uri...imageUris) {
+        this.type = type;
+        this.text = text;
+        this.dateTime = dateTime;
+        this.sourceType = sourceType;
+        this.sourceName = sourceName;
+        this.imageUris = imageUris;
+    }
+
 
     /**
      * Get single image. Should be null for text posts.
@@ -93,10 +71,10 @@ public class FeedItem implements Serializable {
      */
     @Nullable
     public Uri getImageUri() {
-        if (imageUris_.isEmpty()) {
+        if (imageUris.length == 0) {
             return null;
         } else {
-            return imageUris_.get(0);
+            return imageUris[0];
         }
     }
 }

@@ -6,6 +6,7 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.web.FeedWebsevice;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebservice;
 import com.github.fo2rist.mclaren.web.model.McLarenFeed;
+import com.github.fo2rist.mclaren.web.model.McLarenFeedConverter;
 import com.github.fo2rist.mclaren.web.model.ResponseParser;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class McLarenFeedRepository implements FeedRepository, Callback {
 
     private List<FeedItem> parse(String response) {
         McLarenFeed mcLarenFeed = ResponseParser.parseFeed(response);
-        return getDebugItems();
+        return McLarenFeedConverter.convertFeed(mcLarenFeed);
     }
 
     @Override
@@ -68,23 +69,25 @@ public class McLarenFeedRepository implements FeedRepository, Callback {
     private ArrayList<FeedItem> getDebugItems() {
         ArrayList<FeedItem> items = new ArrayList<>();
 
-        FeedItem feedItem = new FeedItem(Calendar.getInstance().getTime(), "One bla", FeedItem.SourceType.Twitter, "@fo2rist");
+        FeedItem feedItem = FeedItem.createMessage("One bla", Calendar.getInstance().getTime(), FeedItem.SourceType.Twitter, "@fo2rist");
         items.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Two bla", FeedItem.SourceType.Instagram, "@fo2rist");
+        feedItem = FeedItem.createMessage("Two bla", Calendar.getInstance().getTime(), FeedItem.SourceType.Instagram, "@alo_official");
         items.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image", FeedItem.SourceType.Unknown, "@fo2rist", Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
+        feedItem = FeedItem.createImage("Bla bla image", Calendar.getInstance().getTime(), FeedItem.SourceType.Unknown, "@fo2rist", Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
         items.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image same", FeedItem.SourceType.Twitter, "@fo2rist", Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
+        feedItem = FeedItem.createImage("Bla bla image twitter", Calendar.getInstance().getTime(), FeedItem.SourceType.Twitter, "@alo_official", Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
         items.add(feedItem);
 
         ArrayList<Uri> imageUrls = new ArrayList<>();
         imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
         imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_background_pattern_small"));
         imageUrls.add(Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery", FeedItem.SourceType.Instagram, "@fo2rist", imageUrls);
+        feedItem = FeedItem.createGallery("Bla bla gallery Instagram", Calendar.getInstance().getTime(), FeedItem.SourceType.Instagram,
+                "@fo2rist", imageUrls);
         items.add(feedItem);
 
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery same", FeedItem.SourceType.Twitter, "@fo2rist", imageUrls);
+        feedItem = FeedItem.createGallery("Bla bla gallery Twitter", Calendar.getInstance().getTime(), FeedItem.SourceType.Twitter,
+                "@alo_official", imageUrls);
         items.add(feedItem);
 
         return items;
