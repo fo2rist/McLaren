@@ -13,9 +13,7 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -56,8 +54,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         case Gallery:
                             image.setImageURI(currentItem_.getImageUris().get(1));
                             break;
-                        case Text:
-                        case Photo:
+                        case Message:
+                        case Image:
                             break;
                     }
                 }
@@ -69,30 +67,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     public FeedAdapter(Context context) {
         context_ = context;
-        addDebugItems();
-    }
-
-    private void addDebugItems() {
-        /*DEBUG*/
-        FeedItem feedItem = new FeedItem(Calendar.getInstance().getTime(), "One bla", FeedItem.SourceType.Twitter, "@fo2rist");
-        items_.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Two bla", FeedItem.SourceType.Instagram, "@fo2rist");
-        items_.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image", FeedItem.SourceType.Other, "@fo2rist", Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
-        items_.add(feedItem);
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla image same", FeedItem.SourceType.Twitter, "@fo2rist", Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
-        items_.add(feedItem);
-
-        ArrayList<Uri> imageUrls = new ArrayList<>();
-        imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_splash"));
-        imageUrls.add(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/image_background_pattern_small"));
-        imageUrls.add(Uri.parse("https://static.pexels.com/photos/33045/lion-wild-africa-african.jpg"));
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery", FeedItem.SourceType.Instagram, "@fo2rist", imageUrls);
-        items_.add(feedItem);
-
-        feedItem = new FeedItem(Calendar.getInstance().getTime(), "Bla bla gallery same", FeedItem.SourceType.Twitter, "@fo2rist", imageUrls);
-        items_.add(feedItem);
-        /*END DEBUG*/
     }
 
     @Override
@@ -119,7 +93,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 holder.image.setContentDescription(feedItem.getText());
                 holder.imageItemType.setImageResource(R.drawable.ic_gallery);
                 break;
-            case Photo:
+            case Image:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
                 holder.image.setContentDescription(feedItem.getText());
@@ -131,11 +105,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 holder.image.setContentDescription(feedItem.getText());
                 holder.imageItemType.setImageResource(R.drawable.ic_video);
                 break;
-            case Text:
+            case Message:
                 holder.imageSwitcher.setVisibility(View.GONE);
                 holder.imageItemType.setImageResource(R.drawable.ic_text);
                 break;
-            case WebPage:
+            case Article:
                 holder.imageSwitcher.setVisibility(View.GONE); //TODO display preview here 23.12.2016 fo2rist
                 holder.imageItemType.setImageResource(R.drawable.ic_web);
                 break;
@@ -149,7 +123,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             case Twitter:
                 holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_share, 0, 0, 0);
                 break;
-            case Other:
+            case Unknown:
                 holder.textViewSource.setCompoundDrawables(null, null, null, null);
                 break;
         }
@@ -158,5 +132,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return items_.size();
+    }
+
+    public void setItems(List<FeedItem> items) {
+        items_.clear();
+        items_.addAll(items);
+        notifyDataSetChanged();
     }
 }

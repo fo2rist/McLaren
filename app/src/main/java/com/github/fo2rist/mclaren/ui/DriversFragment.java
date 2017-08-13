@@ -22,7 +22,7 @@ import timber.log.Timber;
 public class DriversFragment extends Fragment {
 
     /**
-     * This interface must be implemented by activities that contain this fragment
+     * This interface must be implemented by activities that contain this fragment.
      */
     public interface OnDriversFragmentInteractionListener {
         void onDriversFragmentInteraction(Uri uri);

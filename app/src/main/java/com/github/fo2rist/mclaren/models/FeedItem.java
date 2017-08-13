@@ -14,30 +14,30 @@ import java.util.List;
  */
 public class FeedItem implements Serializable {
     public enum Type {
-        Photo,
+        Image,
         Gallery,
         Video,
-        Text,
-        WebPage
+        Message,
+        Article,
     }
 
     public enum SourceType {
         Twitter,
         Instagram,
-        Other
+        Unknown,
     }
 
     Date dateTime_;
-    Type type_ = Type.Text; //The default one
+    Type type_ = Type.Message; //The default one
     @NonNull
     String text_;
-    SourceType sourceType_ = SourceType.Other; //The default one
+    SourceType sourceType_ = SourceType.Unknown; //The default one
     String sourceName_;
     List<Uri> imageUris_ = new ArrayList<>();
 
     public FeedItem(Date dateTime, String text, SourceType sourceType, String sourceName_) {
         this.dateTime_ = dateTime;
-        this.type_ = Type.Text;
+        this.type_ = Type.Message;
         this.text_ = text;
         this.sourceType_ = sourceType;
         this.sourceName_ = sourceName_;
@@ -45,7 +45,7 @@ public class FeedItem implements Serializable {
 
     public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, Uri imageUri) {
         this.dateTime_ = dateTime;
-        this.type_ = Type.Photo;
+        this.type_ = Type.Image;
         this.text_ = text;
         this.sourceType_ = sourceType;
         this.sourceName_ = sourceName;
