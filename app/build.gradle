@@ -36,6 +36,7 @@ dependencies {
     //networking
     compile "com.google.code.gson:gson:2.8.1"
     compile "com.squareup.okhttp3:okhttp:3.7.0"
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     //logger
     compile "com.jakewharton.timber:timber:4.5.1"
@@ -47,14 +48,16 @@ dependencies {
     androidTestAnnotationProcessor project.daggerCompiler
 
     testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-core:2.7.19"
+    testCompile "org.mockito:mockito-core:2.8.9"
     testCompile "org.robolectric:robolectric:3.3.1"
     testCompile "org.robolectric:shadows-support-v4:3.0"
 
     androidTestCompile "com.android.support:support-annotations:$project.supportVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.2"
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2", {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:3.0.0", {
         exclude group: 'com.android.support'
-    })
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.0', {
+        exclude group: 'com.android.support'
+    }
 
 }
