@@ -78,7 +78,6 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
         listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);
 
         //setup views
-        listFeed.setHasFixedSize(false);
         listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
         feedAdapter = new FeedAdapter(getContext());
         listFeed.setAdapter(feedAdapter);

@@ -21,89 +21,105 @@ import java.util.List;
  * Adapter for main page feed of news.
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
-    private Context context_;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewDate;
-        public TextView textViewTime;
-        public TextView textViewContent;
-        public TextView textViewSource;
-        public ImageSwitcher imageSwitcher;
-        public ImageView image;
-        public ImageView imageItemType;
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        View rootView;
+        TextView textViewDate;
+        TextView textViewTime;
+        TextView textViewContent;
+        TextView textViewSource;
+        ImageSwitcher imageSwitcher;
+        ImageView image;
+        ImageView imageItemType;
+        ImageView imageSource;
 
-        public FeedItem currentItem_;
+        private FeedItem currentItem;
+        private int currentGalleryIndex;
 
-        public ViewHolder(View rootView) {
+        ViewHolder(View rootView) {
             super(rootView);
-            textViewDate = (TextView) rootView.findViewById(R.id.text_date);
-            textViewTime = (TextView) rootView.findViewById(R.id.text_time);
-            textViewContent = (TextView) rootView.findViewById(R.id.text_content);
-            textViewSource = (TextView) rootView.findViewById(R.id.text_source);
+            this.rootView = rootView;
+            this.textViewDate = rootView.findViewById(R.id.text_date);
+            this.textViewTime = rootView.findViewById(R.id.text_time);
+            this.textViewContent = rootView.findViewById(R.id.text_content);
+            this.textViewSource = rootView.findViewById(R.id.text_source);
 
-            imageSwitcher = (ImageSwitcher) rootView.findViewById(R.id.image_switcher);
-            image = (ImageView) rootView.findViewById(R.id.image);
-            imageItemType = (ImageView) rootView.findViewById(R.id.image_type);
+            this.imageSwitcher = rootView.findViewById(R.id.image_switcher);
+            this.image = rootView.findViewById(R.id.image);
+            this.imageItemType = rootView.findViewById(R.id.image_type);
+            this.imageSource = rootView.findViewById(R.id.image_source);
 
-            imageSwitcher.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    switch (currentItem_.type) {
-                        case Video:
-                            //Not implemented yet
-                            break;
-                        case Gallery:
-                            Picasso.with(image.getContext()).load(currentItem_.imageUris[1]).into(image);
-                            break;
-                        case Message:
-                        case Image:
-                            break;
-                    }
-                }
-            });
+            this.imageSwitcher.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (currentItem.type) {
+                case Video:
+                    //Not implemented yet
+                    break;
+                case Gallery:
+                    loadImage(image, getNextImage());
+                    break;
+                case Message:
+                case Image:
+                    break;
+            }
+        }
+
+        void setCurrentItem(FeedItem item) {
+            currentItem = item;
+            currentGalleryIndex = 0;
+        }
+
+        Uri getCurrentImage() {
+            return currentItem.imageUris[currentGalleryIndex];
+        }
+
+        Uri getNextImage() {
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentItem.imageUris.length;
+            return getCurrentImage();
         }
     }
 
-    private List<FeedItem> items_ = new ArrayList<>();
+    private Context context;
+    private List<FeedItem> items = new ArrayList<>();
 
     public FeedAdapter(Context context) {
-        context_ = context;
+        this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_feed, parent, false);
-
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        FeedItem feedItem = items_.get(position);
+        FeedItem feedItem = items.get(position);
 
-        holder.currentItem_ = feedItem;
+        holder.setCurrentItem(feedItem);
 
-        holder.textViewDate.setText(DateFormat.getDateFormat(context_).format(feedItem.dateTime));
-        holder.textViewTime.setText(DateFormat.getTimeFormat(context_).format(feedItem.dateTime));
+        holder.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.dateTime));
+        holder.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.dateTime));
         switch (feedItem.type) {
             case Gallery:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
-                Picasso.with(holder.image.getContext()).load(feedItem.getImageUri()).into(holder.image);
+                loadImage(holder.image, holder.getCurrentImage());
                 holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_gallery);
                 break;
             case Image:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                Picasso.with(holder.image.getContext()).load(feedItem.getImageUri()).into(holder.image);
+                loadImage(holder.image, holder.getCurrentImage());
                 holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_photo);
                 break;
             case Video:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_slideshow"));
+                holder.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_video"));
                 holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_video);
                 break;
@@ -120,25 +136,33 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.textViewSource.setText(feedItem.sourceName);
         switch (feedItem.sourceType) {
             case Instagram: //TODO display proper images here 17.04.2017
-                holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gallery, 0, 0, 0);
+                holder.imageSource.setImageResource(R.drawable.ic_gallery);
+                holder.imageSource.setVisibility(View.VISIBLE);
                 break;
             case Twitter:
-                holder.textViewSource.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_share, 0, 0, 0);
+                holder.imageSource.setImageResource(R.drawable.ic_share);
+                holder.imageSource.setVisibility(View.VISIBLE);
                 break;
             case Unknown:
-                holder.textViewSource.setCompoundDrawables(null, null, null, null);
+                holder.imageSource.setImageResource(0);
+                holder.imageSource.setVisibility(View.GONE);
                 break;
         }
     }
 
+    private static void loadImage(ImageView imageView, Uri imageUri) {
+        Picasso.with(imageView.getContext()).load(imageUri).into(imageView);
+    }
+
     @Override
     public int getItemCount() {
-        return items_.size();
+        return items.size();
     }
 
     public void setItems(List<FeedItem> items) {
-        items_.clear();
-        items_.addAll(items);
+        this.items.clear();
+        this.items.addAll(items);
         notifyDataSetChanged();
     }
+
 }
