@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web;
 
+import com.github.fo2rist.mclaren.BuildConfig;
 import javax.inject.Inject;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -12,10 +13,9 @@ public class McLarenFeedWebservice implements FeedWebsevice {
     /** Placeholder that Web API returns in image URLs to specify height. */
     public static final String HEIGHT_PLACEHOLDER = "HEIGHT_PLACEHOLDER";
 
-    private static final String MCLAREN_FEED_URL = "http://cdn.mcl-app-api.com/api/v1/content";
-    private static final String MCLAREN_RACE_INFO_URL = "http://cdn.mcl-app-api.com/api/v1/race/141"; //141 - Hungary GP 2017
-    private static final String MCLAREN_RACE_LIFE_DATA_URL = "http://cdn.mcl-app-api.com/api/v1/live/141";
-
+    private static final String MCLAREN_FEED_URL = BuildConfig.MCLAREN_FEED_URL;
+    private static final String MCLAREN_RACE_INFO_URL = BuildConfig.MCLAREN_RACE_INFO_URL;
+    private static final String MCLAREN_RACE_LIFE_DATA_URL = BuildConfig.MCLAREN_RACE_LIFE_DATA_URL;
     private static final Headers DEFAULT_HEADERS = Headers.of(
             "Content-Type",     "application/json; charset=utf-8",
             "Authorization",    "token IVZtVW5ZekpWI2s2OEJiRXltVCZ0MVNoeWdyI1pSM28="

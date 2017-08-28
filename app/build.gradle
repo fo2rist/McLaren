@@ -22,6 +22,13 @@ android {
         abortOnError true
         htmlReport true
     }
+
+    def properties = readProperties("env/mclaren.properties")
+    applicationVariants.all { variant ->
+        setConfigProperty('MCLAREN_FEED_URL', properties, variant)
+        setConfigProperty('MCLAREN_RACE_INFO_URL', properties, variant)
+        setConfigProperty('MCLAREN_RACE_LIFE_DATA_URL', properties, variant)
+    }
 }
 
 dependencies {
@@ -61,5 +68,35 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.0', {
         exclude group: 'com.android.support'
     }
+}
 
+/**
+ * Load bunc of properties from file.
+ * @return {@link Properties}
+ */
+def readProperties(configFileName) {
+    def properties = new Properties()
+    try {
+        properties.load(new FileInputStream(rootProject.file(configFileName)))
+        println "Load properties from configuration file"
+    } catch (IOException any) {
+        println "Properties file ${configFileName} not found will use ENV variabled."
+    }
+    return properties
+}
+
+/**
+ * Set build config variable by name.
+ * Check properties file first, then ENV, set "null" if not found.
+ */
+static def setConfigProperty(String propertyName, Properties properties, variant) {
+    def propertyValue = properties.getProperty(propertyName) ?: System.getenv(propertyName)
+    variant.buildConfigField "String", propertyName, wrapString(propertyValue)
+    if (propertyValue == null)
+        System.err.println "Property ${propertyName} not found and set to null for variant ${variant.name}"
+}
+
+/** Wrap string var to be used as string literal in java code. */
+static def wrapString(stringVar) {
+    return "\"${stringVar}\""
 }
