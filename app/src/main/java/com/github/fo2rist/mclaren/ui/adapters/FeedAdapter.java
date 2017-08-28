@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                             //Not implemented yet
                             break;
                         case Gallery:
-                            image.setImageURI(currentItem_.imageUris[1]);
+                            Picasso.with(image.getContext()).load(currentItem_.imageUris[1]).into(image);
                             break;
                         case Message:
                         case Image:
@@ -90,12 +91,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             case Gallery:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
                 holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                Picasso.with(holder.image.getContext()).load(feedItem.getImageUri()).into(holder.image);
                 holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_gallery);
                 break;
             case Image:
                 holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.image.setImageURI(Uri.parse(feedItem.getImageUri().toString()));
+                Picasso.with(holder.image.getContext()).load(feedItem.getImageUri()).into(holder.image);
                 holder.image.setContentDescription(feedItem.text);
                 holder.imageItemType.setImageResource(R.drawable.ic_photo);
                 break;

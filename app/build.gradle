@@ -27,26 +27,28 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$project.supportVersion"
-    compile "com.android.support:support-v4:$project.supportVersion"
-    compile "com.android.support:design:$project.supportVersion"
     compile "com.android.support:cardview-v7:$project.supportVersion"
-    compile "com.android.support:recyclerview-v7:$project.supportVersion"
     compile "com.android.support.constraint:constraint-layout:1.0.2"
+    compile "com.android.support:design:$project.supportVersion"
+    compile "com.android.support:recyclerview-v7:$project.supportVersion"
+    compile "com.android.support:support-v4:$project.supportVersion"
 
-    //networking
+    // networking
     compile "com.google.code.gson:gson:2.8.1"
     compile "com.squareup.okhttp3:okhttp:3.7.0"
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    //logger
+    // logger
     compile "com.jakewharton.timber:timber:4.5.1"
 
     // dependency injection
-    compile project.dagger
+    compile project.daggerAndroidSupport, {
+        exclude group: 'com.google.code.findbugs'
+    }
     annotationProcessor project.daggerCompiler
-    testAnnotationProcessor project.daggerCompiler
-    androidTestAnnotationProcessor project.daggerCompiler
+    annotationProcessor project.daggerAnnotationProcessor
 
+    // test libraries
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-core:2.8.9"
     testCompile "org.robolectric:robolectric:3.3.1"

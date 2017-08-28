@@ -29,6 +29,7 @@ project.ext {
     BUILD_TOOLS_VERSION = '26.0.1'
     supportVersion = '26.0.1'
     // dependency injection
-    dagger = 'com.google.dagger:dagger:2.6.1'
-    daggerCompiler = 'com.google.dagger:dagger-compiler:2.6.1'
+    daggerAndroidSupport = 'com.google.dagger:dagger-android-support:2.11'
+    daggerAnnotationProcessor = 'com.google.dagger:dagger-android-processor:2.11'
+    daggerCompiler = 'com.google.dagger:dagger-compiler:2.11'
 }

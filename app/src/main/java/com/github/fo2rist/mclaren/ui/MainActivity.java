@@ -18,18 +18,32 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.fo2rist.mclaren.R;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import javax.inject.Inject;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements HasSupportFragmentInjector,
+        NavigationView.OnNavigationItemSelectedListener,
         NewsfeedFragment.OnNewsfeedFragmentInteractionListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
         DriversFragment.OnDriversFragmentInteractionListener,
         DriverSubFragment.OnDriverSubFragmentInteractionListener
 {
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -167,5 +181,4 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack("dive_navigation_to_new_fragment")
                 .commit();
     }
-
 }

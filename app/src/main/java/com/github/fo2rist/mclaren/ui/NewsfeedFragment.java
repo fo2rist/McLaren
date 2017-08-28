@@ -17,6 +17,7 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
 import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
+import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -50,8 +51,7 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
     }
 
     public static NewsfeedFragment newInstance() {
-        NewsfeedFragment fragment = new NewsfeedFragment();
-        return fragment;
+        return new NewsfeedFragment();
     }
 
     @Override
@@ -66,17 +66,16 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
-        presenter = new NewsfeedPresenter();//TODO inject it with dagger
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
 
-        listFeed = (RecyclerView) rootView.findViewById(R.id.list_feed);
-        listRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.list_refresh_layout);
+        listFeed = rootView.findViewById(R.id.list_feed);
+        listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);
 
         //setup views
         listFeed.setHasFixedSize(false);

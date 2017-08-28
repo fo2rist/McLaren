@@ -3,7 +3,6 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
-import com.github.fo2rist.mclaren.repository.McLarenFeedRepository;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -13,9 +12,12 @@ public class NewsfeedPresenter implements NewsfeedContract.Presenter, FeedReposi
     @Inject
     FeedRepository feedRepository;
 
+    @Inject
+    NewsfeedPresenter() {
+    }
+
     @Override
     public void onStart(NewsfeedContract.View view) {
-        feedRepository = new McLarenFeedRepository(); //TODO inject
         this.view = view;
         this.feedRepository.subscribe(this);
 
