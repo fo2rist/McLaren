@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * Adapter for main page feed of news.
  */
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         View rootView;
         TextView textViewDate;
         TextView textViewTime;
@@ -36,7 +36,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private FeedItem currentItem;
         private int currentGalleryIndex;
 
-        ViewHolder(View rootView) {
+        FeedViewHolder(View rootView) {
             super(rootView);
             this.rootView = rootView;
             this.textViewDate = rootView.findViewById(R.id.text_date);
@@ -63,6 +63,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     break;
                 case Message:
                 case Image:
+                case Article:
                     break;
             }
         }
@@ -90,14 +91,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_feed, parent, false);
-        return new ViewHolder(view);
+        return new FeedViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(FeedViewHolder holder, int position) {
         FeedItem feedItem = items.get(position);
 
         holder.setCurrentItem(feedItem);
@@ -135,17 +136,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.textViewContent.setText(feedItem.text);
         holder.textViewSource.setText(feedItem.sourceName);
         switch (feedItem.sourceType) {
-            case Instagram: //TODO display proper images here 17.04.2017
-                holder.imageSource.setImageResource(R.drawable.ic_gallery);
-                holder.imageSource.setVisibility(View.VISIBLE);
+            case Instagram:
+                holder.imageSource.setImageResource(R.drawable.ic_instagram);
                 break;
             case Twitter:
-                holder.imageSource.setImageResource(R.drawable.ic_share);
-                holder.imageSource.setVisibility(View.VISIBLE);
+                holder.imageSource.setImageResource(R.drawable.ic_twitter);
                 break;
             case Unknown:
-                holder.imageSource.setImageResource(0);
-                holder.imageSource.setVisibility(View.GONE);
+                holder.imageSource.setImageResource(R.drawable.ic_transmission);
                 break;
         }
     }
