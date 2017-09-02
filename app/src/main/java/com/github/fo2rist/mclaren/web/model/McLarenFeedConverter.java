@@ -1,7 +1,5 @@
 package com.github.fo2rist.mclaren.web.model;
 
-import android.net.Uri;
-
 import com.github.fo2rist.mclaren.models.FeedItem;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,10 +48,12 @@ public class McLarenFeedConverter {
     }
 
     private static String fetchText(McLarenFeedItem mcLarenFeedItem) {
-        if (mcLarenFeedItem.type == McLarenFeedItem.Type.ARTICLE) {
-            return mcLarenFeedItem.title;
-        } else {
-            return mcLarenFeedItem.content;
+        switch (mcLarenFeedItem.type) {
+            case ARTICLE:
+            case GALLERY:
+                return mcLarenFeedItem.title;
+            default:
+               return mcLarenFeedItem.content;
         }
     }
 
@@ -83,13 +83,13 @@ public class McLarenFeedConverter {
         }
     }
 
-    private static Uri[] fetchMediaUris(McLarenFeedItem mcLarenFeedItem) {
+    private static String[] fetchMediaUris(McLarenFeedItem mcLarenFeedItem) {
         if (mcLarenFeedItem.media == null) {
-            return new Uri[0];
+            return new String[0];
         } else {
-            Uri[] result = new Uri[mcLarenFeedItem.media.size()];
+            String[] result = new String[mcLarenFeedItem.media.size()];
             for (int i = 0; i < mcLarenFeedItem.media.size(); i++) {
-                result[i] = Uri.parse(mcLarenFeedItem.media.get(i).url);
+                result[i] = mcLarenFeedItem.media.get(i).url;
             }
             return result;
         }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.squareup.picasso.Picasso;
+import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +59,53 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     //Not implemented yet
                     break;
                 case Gallery:
-                    loadImage(image, getNextImage());
+                    ImageUtils.loadImage(image, getNextImageUri());
                     break;
                 case Message:
                 case Image:
                 case Article:
+                    break;
+            }
+        }
+
+        void display(Context context, FeedItem feedItem) {
+            this.setCurrentItem(feedItem);
+
+            this.displayDateTime(context);
+
+            switch (feedItem.type) {
+                case Gallery:
+                    displayImage(getCurrentImageUri());
+                    displayDataTypeIcon(R.drawable.ic_gallery);
+                    break;
+                case Image:
+                    displayImage(getCurrentImageUri());
+                    displayDataTypeIcon(R.drawable.ic_photo);
+                    break;
+                case Video:
+                    this.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_video"));
+                    displayDataTypeIcon(R.drawable.ic_video);
+                    break;
+                case Message:
+                    hideImage();
+                    displayDataTypeIcon(R.drawable.ic_text);
+                    break;
+                case Article:
+                    displayImage(getCurrentImageUri());
+                    displayDataTypeIcon(R.drawable.ic_web);
+                    break;
+            }
+            this.textViewContent.setText(feedItem.text);
+            this.textViewSource.setText(feedItem.sourceName);
+            switch (feedItem.sourceType) {
+                case Instagram:
+                    this.imageSource.setImageResource(R.drawable.ic_instagram);
+                    break;
+                case Twitter:
+                    this.imageSource.setImageResource(R.drawable.ic_twitter);
+                    break;
+                case Unknown:
+                    this.imageSource.setImageResource(R.drawable.ic_transmission);
                     break;
             }
         }
@@ -73,13 +115,36 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             currentGalleryIndex = 0;
         }
 
-        Uri getCurrentImage() {
+        private void displayDateTime(Context context) {
+            this.textViewDate.setText(DateFormat.getDateFormat(context).format(currentItem.dateTime));
+            this.textViewTime.setText(DateFormat.getTimeFormat(context).format(currentItem.dateTime));
+        }
+
+        private void displayDataTypeIcon(int ic_gallery) {
+            this.imageItemType.setImageResource(ic_gallery);
+        }
+
+        private void displayImage(String imageUri) {
+            if (imageUri == null) {
+                hideImage();
+            } else {
+                this.imageSwitcher.setVisibility(View.VISIBLE);
+                ImageUtils.loadImage(this.image, imageUri);
+                this.image.setContentDescription(currentItem.text);
+            }
+        }
+
+        private void hideImage() {
+            this.imageSwitcher.setVisibility(View.GONE);
+        }
+
+        private String getCurrentImageUri() {
             return currentItem.imageUris[currentGalleryIndex];
         }
 
-        Uri getNextImage() {
+        private String getNextImageUri() {
             currentGalleryIndex = (currentGalleryIndex + 1) % currentItem.imageUris.length;
-            return getCurrentImage();
+            return getCurrentImageUri();
         }
     }
 
@@ -100,56 +165,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
         FeedItem feedItem = items.get(position);
-
-        holder.setCurrentItem(feedItem);
-
-        holder.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.dateTime));
-        holder.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.dateTime));
-        switch (feedItem.type) {
-            case Gallery:
-                holder.imageSwitcher.setVisibility(View.VISIBLE);
-                loadImage(holder.image, holder.getCurrentImage());
-                holder.image.setContentDescription(feedItem.text);
-                holder.imageItemType.setImageResource(R.drawable.ic_gallery);
-                break;
-            case Image:
-                holder.imageSwitcher.setVisibility(View.VISIBLE);
-                loadImage(holder.image, holder.getCurrentImage());
-                holder.image.setContentDescription(feedItem.text);
-                holder.imageItemType.setImageResource(R.drawable.ic_photo);
-                break;
-            case Video:
-                holder.imageSwitcher.setVisibility(View.VISIBLE);
-                holder.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_video"));
-                holder.image.setContentDescription(feedItem.text);
-                holder.imageItemType.setImageResource(R.drawable.ic_video);
-                break;
-            case Message:
-                holder.imageSwitcher.setVisibility(View.GONE);
-                holder.imageItemType.setImageResource(R.drawable.ic_text);
-                break;
-            case Article:
-                holder.imageSwitcher.setVisibility(View.GONE); //TODO display preview here 23.12.2016 fo2rist
-                holder.imageItemType.setImageResource(R.drawable.ic_web);
-                break;
-        }
-        holder.textViewContent.setText(feedItem.text);
-        holder.textViewSource.setText(feedItem.sourceName);
-        switch (feedItem.sourceType) {
-            case Instagram:
-                holder.imageSource.setImageResource(R.drawable.ic_instagram);
-                break;
-            case Twitter:
-                holder.imageSource.setImageResource(R.drawable.ic_twitter);
-                break;
-            case Unknown:
-                holder.imageSource.setImageResource(R.drawable.ic_transmission);
-                break;
-        }
-    }
-
-    private static void loadImage(ImageView imageView, Uri imageUri) {
-        Picasso.with(imageView.getContext()).load(imageUri).into(imageView);
+        holder.display(context, feedItem);
     }
 
     @Override

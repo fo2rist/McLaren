@@ -1,10 +1,13 @@
 package com.github.fo2rist.mclaren.web.model;
 
+import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(JUnit4.class)
@@ -34,6 +37,16 @@ public class FeedParserTest {
     public void testReadDataParsedWithoutErrors() throws Exception {
         McLarenFeed mcLarenFeedItems = ResponseParser.parseFeed(TestData.REAL_FEED_RESPONSE);
 
+        McLarenFeedItem item = mcLarenFeedItems.get(0);
         assertEquals(TestData.REAL_FEED_SIZE, mcLarenFeedItems.size());
+        assertEquals("@mclaren", item.author);
+        assertNull(null, item.body);
+        assertTrue(item.content.startsWith("The swimming pool"));
+        assertEquals(McLarenFeedItem.Source.INSTAGRAM, item.source);
+        assertEquals(McLarenFeedItem.Type.IMAGE, item.type);
+        assertFalse(item.hidden);
+        assertEquals(1, item.media.size());
+        assertEquals(new Date(Date.UTC(2017-1900, 8-1, 12, 10, 34, 06)),
+                item.publicationDate);
     }
 }

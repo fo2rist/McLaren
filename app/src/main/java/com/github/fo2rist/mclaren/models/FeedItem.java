@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.models;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -37,7 +36,7 @@ public class FeedItem implements Serializable {
     @NonNull
     public final String sourceName;
     @NonNull
-    public final Uri[] imageUris; //TODO change to not depend on Android
+    public final String[] imageUris;
 
     public static FeedItem createMessage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
             @NonNull String sourceName) {
@@ -45,17 +44,17 @@ public class FeedItem implements Serializable {
     }
 
     public static FeedItem createImage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, @NonNull Uri imageUri) {
+            @NonNull String sourceName, @NonNull String imageUri) {
         return new FeedItem(Type.Image, text, dateTime, sourceType, sourceName, imageUri);
     }
 
     public static FeedItem createGallery(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, @NonNull List<Uri> imageUris) {
-        return new FeedItem(Type.Gallery, text, dateTime, sourceType, sourceName, imageUris.toArray(new Uri[imageUris.size()]));
+            @NonNull String sourceName, @NonNull List<String> imageUris) {
+        return new FeedItem(Type.Gallery, text, dateTime, sourceType, sourceName, imageUris.toArray(new String[imageUris.size()]));
     }
 
     public FeedItem(@NonNull Type type, @NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, Uri...imageUris) {
+            @NonNull String sourceName, String...imageUris) {
         this.type = type;
         this.text = text;
         this.dateTime = dateTime;
@@ -70,7 +69,7 @@ public class FeedItem implements Serializable {
      * @return the first image if there are many or null
      */
     @Nullable
-    public Uri getImageUri() {
+    public String getImageUri() {
         if (imageUris.length == 0) {
             return null;
         } else {

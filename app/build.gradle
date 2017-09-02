@@ -28,6 +28,8 @@ android {
         setConfigProperty('MCLAREN_FEED_URL', properties, variant)
         setConfigProperty('MCLAREN_RACE_INFO_URL', properties, variant)
         setConfigProperty('MCLAREN_RACE_LIFE_DATA_URL', properties, variant)
+        setConfigProperty('MCLAREN_CDN_AUTH', properties, variant)
+        setConfigProperty('MCLAREN_TAB_API_AUTH', properties, variant)
     }
 }
 
@@ -44,6 +46,7 @@ dependencies {
     compile "com.google.code.gson:gson:2.8.1"
     compile "com.squareup.okhttp3:okhttp:3.7.0"
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
     // logger
     compile "com.jakewharton.timber:timber:4.5.1"
