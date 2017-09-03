@@ -22,27 +22,84 @@ android {
         abortOnError true
         htmlReport true
     }
+
+    def properties = readProperties("env/mclaren.properties")
+    applicationVariants.all { variant ->
+        setConfigProperty('MCLAREN_FEED_URL', properties, variant)
+        setConfigProperty('MCLAREN_RACE_INFO_URL', properties, variant)
+        setConfigProperty('MCLAREN_RACE_LIFE_DATA_URL', properties, variant)
+        setConfigProperty('MCLAREN_CDN_AUTH', properties, variant)
+        setConfigProperty('MCLAREN_TAB_API_AUTH', properties, variant)
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$project.supportVersion"
-    compile "com.android.support:support-v4:$project.supportVersion"
-    compile "com.android.support:design:$project.supportVersion"
     compile "com.android.support:cardview-v7:$project.supportVersion"
-    compile "com.android.support:recyclerview-v7:$project.supportVersion"
     compile "com.android.support.constraint:constraint-layout:1.0.2"
+    compile "com.android.support:design:$project.supportVersion"
+    compile "com.android.support:recyclerview-v7:$project.supportVersion"
+    compile "com.android.support:support-v4:$project.supportVersion"
+
+    // networking
+    compile "com.google.code.gson:gson:2.8.1"
+    compile "com.squareup.okhttp3:okhttp:3.7.0"
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+    // logger
     compile "com.jakewharton.timber:timber:4.5.1"
 
+    // dependency injection
+    compile project.daggerAndroidSupport, {
+        exclude group: 'com.google.code.findbugs'
+    }
+    annotationProcessor project.daggerCompiler
+    annotationProcessor project.daggerAnnotationProcessor
+
+    // test libraries
     testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-core:2.7.19"
+    testCompile "org.mockito:mockito-core:2.8.9"
     testCompile "org.robolectric:robolectric:3.3.1"
     testCompile "org.robolectric:shadows-support-v4:3.0"
 
     androidTestCompile "com.android.support:support-annotations:$project.supportVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.2"
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2", {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:3.0.0", {
         exclude group: 'com.android.support'
-    })
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.0', {
+        exclude group: 'com.android.support'
+    }
+}
 
+/**
+ * Load bunc of properties from file.
+ * @return {@link Properties}
+ */
+def readProperties(configFileName) {
+    def properties = new Properties()
+    try {
+        properties.load(new FileInputStream(rootProject.file(configFileName)))
+        println "Load properties from configuration file"
+    } catch (IOException any) {
+        println "Properties file ${configFileName} not found will use ENV variabled."
+    }
+    return properties
+}
+
+/**
+ * Set build config variable by name.
+ * Check properties file first, then ENV, set "null" if not found.
+ */
+static def setConfigProperty(String propertyName, Properties properties, variant) {
+    def propertyValue = properties.getProperty(propertyName) ?: System.getenv(propertyName)
+    variant.buildConfigField "String", propertyName, wrapString(propertyValue)
+    if (propertyValue == null)
+        System.err.println "Property ${propertyName} not found and set to null for variant ${variant.name}"
+}
+
+/** Wrap string var to be used as string literal in java code. */
+static def wrapString(stringVar) {
+    return "\"${stringVar}\""
 }

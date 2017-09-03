@@ -10,5 +10,5 @@
     android:paddingTop="@dimen/margin_half"
     android:paddingBottom="@dimen/margin_half"
     app:layoutManager="GridLayoutManager"
-    tools:context="com.github.fo2rist.mclaren.CircuitsFragment"
+    tools:context="com.github.fo2rist.mclaren.ui.CircuitsFragment"
     tools:listitem="@layout/item_circuit" />

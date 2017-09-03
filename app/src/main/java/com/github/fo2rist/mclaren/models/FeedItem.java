@@ -1,11 +1,9 @@
 package com.github.fo2rist.mclaren.models;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,89 +12,68 @@ import java.util.List;
  */
 public class FeedItem implements Serializable {
     public enum Type {
-        Photo,
+        Image,
         Gallery,
         Video,
-        Text,
-        WebPage
+        Message,
+        Article,
     }
 
     public enum SourceType {
         Twitter,
         Instagram,
-        Other
-    }
-
-    Date dateTime_;
-    Type type_ = Type.Text; //The default one
-    @NonNull
-    String text_;
-    SourceType sourceType_ = SourceType.Other; //The default one
-    String sourceName_;
-    List<Uri> imageUris_ = new ArrayList<>();
-
-    public FeedItem(Date dateTime, String text, SourceType sourceType, String sourceName_) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Text;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName_;
-    }
-
-    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, Uri imageUri) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Photo;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName;
-        this.imageUris_.add(imageUri);
-    }
-
-    public FeedItem(Date dateTime, @NonNull String text, SourceType sourceType, String sourceName, List<Uri> imageUris) {
-        this.dateTime_ = dateTime;
-        this.type_ = Type.Gallery;
-        this.text_ = text;
-        this.sourceType_ = sourceType;
-        this.sourceName_ = sourceName;
-        this.imageUris_.addAll(imageUris);
-    }
-
-    public Date getDateTime() {
-        return dateTime_;
-    }
-
-    public Type getType() {
-        return type_;
+        Unknown,
     }
 
     @NonNull
-    public String getText() {
-        return text_;
-    }
-
-    public SourceType getSourceType() {
-        return sourceType_;
-    }
-
-    public String getSourceName() {
-        return sourceName_;
-    }
-
+    public final Type type;
     @NonNull
-    public List<Uri> getImageUris() {
-        return imageUris_;
+    public final String text;
+    @NonNull
+    public final Date dateTime;
+    @NonNull
+    public final SourceType sourceType;
+    @NonNull
+    public final String sourceName;
+    @NonNull
+    public final String[] imageUris;
+
+    public static FeedItem createMessage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName) {
+        return new FeedItem(Type.Message, text, dateTime, sourceType, sourceName);
     }
+
+    public static FeedItem createImage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, @NonNull String imageUri) {
+        return new FeedItem(Type.Image, text, dateTime, sourceType, sourceName, imageUri);
+    }
+
+    public static FeedItem createGallery(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, @NonNull List<String> imageUris) {
+        return new FeedItem(Type.Gallery, text, dateTime, sourceType, sourceName, imageUris.toArray(new String[imageUris.size()]));
+    }
+
+    public FeedItem(@NonNull Type type, @NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
+            @NonNull String sourceName, String...imageUris) {
+        this.type = type;
+        this.text = text;
+        this.dateTime = dateTime;
+        this.sourceType = sourceType;
+        this.sourceName = sourceName;
+        this.imageUris = imageUris;
+    }
+
 
     /**
      * Get single image. Should be null for text posts.
      * @return the first image if there are many or null
      */
     @Nullable
-    public Uri getImageUri() {
-        if (imageUris_.isEmpty()) {
+    public String getImageUri() {
+        if (imageUris.length == 0) {
             return null;
         } else {
-            return imageUris_.get(0);
+            return imageUris[0];
         }
     }
 }
