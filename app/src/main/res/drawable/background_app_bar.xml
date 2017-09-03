@@ -6,7 +6,7 @@
     </item>
     <item
         android:left="8dp"
-        android:drawable="@drawable/image_red_stripe">
+        android:drawable="@color/colorAccentLight">
     </item>
     <item
         android:left="12dp"

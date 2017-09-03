@@ -3,7 +3,7 @@
     <item
         android:top="0dp"
         android:left="0dp"
-        android:drawable="@android:color/holo_red_light">
+        android:drawable="@color/colorAccentLight">
     </item>
 
     <item
