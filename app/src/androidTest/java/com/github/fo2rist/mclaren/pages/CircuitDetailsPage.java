@@ -15,4 +15,8 @@ public class CircuitDetailsPage {
     public ViewInteraction onCircuitImage() {
         return onView(withId(R.id.circuit_image));
     }
+
+    public ViewInteraction onCircuitDetails() {
+        return onView(withId(R.id.circuit_details));
+    }
 }

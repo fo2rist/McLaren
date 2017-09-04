@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <color android:color="#161A1E"/>
+    <item
+        android:left="0dp"
+        android:drawable="@color/colorMediumDark">
     </item>
-    <item>
-        <bitmap
-            android:src="@drawable/image_background_pattern_small"
-            android:gravity="top">
-        </bitmap>
+    <item
+        android:left="8dp"
+        android:drawable="@drawable/image_red_stripe">
+    </item>
+    <item
+        android:left="12dp"
+        android:drawable="@color/colorMediumDark">
     </item>
 </layer-list>

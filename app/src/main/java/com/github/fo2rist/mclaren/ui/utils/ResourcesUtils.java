@@ -7,12 +7,12 @@ import com.github.fo2rist.mclaren.BuildConfig;
 import java.util.Locale;
 
 public class ResourcesUtils {
-    public static Uri getCircuitImageUriByNumber(int position) {
-        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_%02d", position + 1)));
+    public static Uri getCircuitImageUriById(String id) {
+        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_%s_thumb", id)));
     }
 
-    public static Uri getCircuitDetailedImageUriByNumber(int position) {
-        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_detailed_%02d", position + 1)));
+    public static Uri getCircuitDetailedImageUriById(String id) {
+        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_%s", id)));
     }
 
     @NonNull

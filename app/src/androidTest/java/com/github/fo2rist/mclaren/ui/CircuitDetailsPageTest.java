@@ -6,7 +6,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.fo2rist.mclaren.pages.CircuitDetailsPage;
-import com.github.fo2rist.mclaren.ui.CircuitDetailsActivity;
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,10 +19,17 @@ import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displaye
 
 @RunWith(AndroidJUnit4.class)
 public class CircuitDetailsPageTest {
-    private static final String MONACO_GP_NAME = "Monaco GP";
-    private static final int MONACO_GP_INDEX = 5;
-    private static final String AUSTRALIA_GP_NAME = "Australia GP";
-    private static final int AUSTRALIA_GP_INDEX = 0;
+
+    private static final String ID = "id";
+    private static final String COUNTRY_CODE = "CODE";
+    private static final String TRACK_NAME = "track name";
+    private static final String CITY = "City";
+    private static final String GP_NAME = "GP name";
+    private static final Date START_DATE = new Date(1, 1, 1);
+
+    private static final CalendarEvent EVENT
+            = new CalendarEvent(ID, COUNTRY_CODE, TRACK_NAME, CITY, GP_NAME, START_DATE);
+
     @Rule
     public ActivityTestRule<CircuitDetailsActivity> rule
             = new ActivityTestRule<>(CircuitDetailsActivity.class, false, false);
@@ -35,28 +43,22 @@ public class CircuitDetailsPageTest {
 
     @Test
     public void testMonacoLayoutPresent() throws Exception {
-        launchActivity(MONACO_GP_NAME, MONACO_GP_INDEX);
+        launchActivity(EVENT);
 
-        assertCircuitDetailsPresent(MONACO_GP_NAME);
-    }
-
-    @Test
-    public void testAustraliaLayoutPresent() throws Exception {
-        launchActivity(AUSTRALIA_GP_NAME, AUSTRALIA_GP_INDEX);
-
-        assertCircuitDetailsPresent(AUSTRALIA_GP_NAME);
-    }
-
-    private void assertCircuitDetailsPresent(String circuitName) {
         page.onCircuitTitle()
                 .check(displayed())
-                .check(matches(withText(circuitName)));
+                .check(matches(withText(GP_NAME)));
+
         page.onCircuitImage()
                 .check(displayed());
+
+        page.onCircuitDetails()
+                .check(displayed())
+                .check(matches(withText(CITY + " >> " + TRACK_NAME)));
     }
 
-    private void launchActivity(String circuitName, int circuitNumber) {
+    private void launchActivity(CalendarEvent event) {
         rule.launchActivity(
-                CircuitDetailsActivity.createIntent(context, circuitName, circuitNumber));
+                CircuitDetailsActivity.createIntent(context, event));
     }
 }

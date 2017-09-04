@@ -22,7 +22,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                tools:src="@drawable/circuit_detailed_06"
+                tools:src="@drawable/circuit_monaco"
                 tools:ignore="ContentDescription"
                 />
             <TextView
@@ -35,6 +35,17 @@
                 app:layout_constraintRight_toRightOf="parent"
                 style="@style/TextLightHeader"
                 tools:text="Monaco GP"
+                />
+            <TextView
+                android:id="@+id/circuit_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_two"
+                android:layout_marginBottom="@dimen/margin_two"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/TextLightSubheader"
+                tools:text="Monte Carlo >> Circuit de Monaco"
                 />
         </android.support.constraint.ConstraintLayout>
         <View

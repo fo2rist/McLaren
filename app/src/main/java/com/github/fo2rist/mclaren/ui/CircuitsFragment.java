@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.adapters.CircuitsAdapter;
 
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
+import com.github.fo2rist.mclaren.ui.models.CalendarEventsLoader;
+import java.util.List;
 import timber.log.Timber;
 
 /**
@@ -29,9 +32,9 @@ public class CircuitsFragment extends Fragment {
     public interface OnCircuitsFragmentInteractionListener {
         /**
          * Circuit with given name and number selected
-         * @param number 1-based number of circuit in the championship
+         * @param number 1-based number of circuit in the current championship
          */
-        void onCircuitSelected(String circuitName, int number);
+        void onCircuitSelected(CalendarEvent event, int number);
     }
 
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -66,7 +69,7 @@ public class CircuitsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmentt_circuits_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_circuits_list, container, false);
 
         if (!(view instanceof RecyclerView)) {
             throw new IllegalArgumentException("Layout should be a single Recycler View");
@@ -80,10 +83,9 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
+        List<CalendarEvent> eventsCalendar = new CalendarEventsLoader(getContext(), 2017).getCalendar();
         recyclerView.setAdapter(
-                new CircuitsAdapter(getContext(),
-                        getResources().getStringArray(R.array.circuit_names),
-                        listener));
+                new CircuitsAdapter(getContext(), eventsCalendar, listener));
         return view;
     }
 

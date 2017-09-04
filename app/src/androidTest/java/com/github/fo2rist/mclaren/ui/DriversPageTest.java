@@ -36,7 +36,7 @@ public class DriversPageTest extends BaseMainActivityTest {
         checkPropertyTextPresent("1st x 32");
         checkPropertyTextPresent("97");
         checkPropertyTextPresent("22");
-        checkPropertyTextPresent("21");
+        checkPropertyTextPresent("23");
 
         //second driver present
         driversPage.onViewPager()

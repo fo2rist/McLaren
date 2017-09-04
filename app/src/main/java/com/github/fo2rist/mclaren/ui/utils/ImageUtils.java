@@ -12,6 +12,7 @@ public class ImageUtils {
     private static final String TAB_API_WIDTH_PLACEHOLDER = "{width}";
     private static final String TAB_API_HEIGHT_PLACEHOLDER = "{height}";
 
+    //TODO tab-api doesn't not support images larger than original size. Let's handle it on client. 2017-02-09
     private static final int DEFAULT_WIDTH = 800;
     private static final int DEFAULT_HEIGHT = 600;
 

@@ -23,10 +23,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the {@link OnNewsfeedFragmentInteractionListener}
- * interface to handle interaction events.
- * Use the {@link NewsfeedFragment#newInstance} factory method to create an instance of this fragment.
+ * Shows social feed.
  */
 public class NewsfeedFragment extends Fragment implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener {
 

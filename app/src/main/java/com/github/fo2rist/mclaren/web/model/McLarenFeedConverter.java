@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.web.model;
 
+import android.text.TextUtils;
+
 import com.github.fo2rist.mclaren.models.FeedItem;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +52,11 @@ public class McLarenFeedConverter {
     private static String fetchText(McLarenFeedItem mcLarenFeedItem) {
         switch (mcLarenFeedItem.type) {
             case ARTICLE:
-            case GALLERY:
                 return mcLarenFeedItem.title;
+            case GALLERY:
+                return TextUtils.isEmpty(mcLarenFeedItem.title)
+                        ? mcLarenFeedItem.content
+                        : mcLarenFeedItem.title;
             default:
                return mcLarenFeedItem.content;
         }
