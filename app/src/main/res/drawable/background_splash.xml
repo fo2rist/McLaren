@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/background_main" />
     <item
-        android:drawable="@android:color/black"/>
-
-    <item>
+        android:right="16dp"
+        android:bottom="68dp">
         <bitmap
-            android:gravity="center"
-            android:src="@drawable/image_splash"/>
+            android:gravity="right|bottom"
+            android:src="@drawable/image_sneaky_kiwi"
+            android:tint="@color/colorAccentLight"
+            />
     </item>
 </layer-list>
