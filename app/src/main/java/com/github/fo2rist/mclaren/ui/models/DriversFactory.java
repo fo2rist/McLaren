@@ -4,25 +4,31 @@ import java.util.HashMap;
 
 public class DriversFactory {
     public enum DriverId {
-        Alonso,
-        Vandoorne,
-        Button,
-        Turvey,
-        Matsushita
+        ALONSO,
+        VANDOORNE,
+        BUTTON,
+        TURVEY,
+        MATSUSHITA,
+        DEVRIES,
+        NORRIS,
     }
 
     public static Driver getDriverModel(DriverId driver) {
         switch (driver) {
-            case Alonso:
+            case ALONSO:
                 return getAlonsoModel();
-            case Vandoorne:
+            case VANDOORNE:
                 return getVandoorneModel();
-            case Button:
+            case BUTTON:
                 return getButtonModel();
-            case Turvey:
+            case TURVEY:
                 return getTurveyModel();
-            case Matsushita:
+            case MATSUSHITA:
                 return getMatsushitaModel();
+            case DEVRIES:
+                return getDeVriesModel();
+            case NORRIS:
+                return getNorrisModel();
             default:
                 throw new IllegalArgumentException("Usupported driver: " + driver);
         }
@@ -40,7 +46,7 @@ public class DriversFactory {
         map.put(Driver.AdditionalProperty.BEST_FINISH, "1st x 32");
         map.put(Driver.AdditionalProperty.PODIUMS, "97");
         map.put(Driver.AdditionalProperty.POLE_POSITIONS, "22");
-        map.put(Driver.AdditionalProperty.FASTEST_LAPS, "21");
+        map.put(Driver.AdditionalProperty.FASTEST_LAPS, "23");
 
         map.put(Driver.AdditionalProperty.PLACE, null);
         map.put(Driver.AdditionalProperty.POINTS, null);
@@ -58,7 +64,7 @@ public class DriversFactory {
 
         map.put(Driver.AdditionalProperty.TAG, "#SV2");
         map.put(Driver.AdditionalProperty.WORLD_CHAMPIONSHIPS, "0");
-        map.put(Driver.AdditionalProperty.BEST_FINISH, "10th x 1");
+        map.put(Driver.AdditionalProperty.BEST_FINISH, "10th x 2");
         map.put(Driver.AdditionalProperty.PODIUMS, "0");
         map.put(Driver.AdditionalProperty.POLE_POSITIONS, "0");
         map.put(Driver.AdditionalProperty.FASTEST_LAPS, "0");
@@ -102,5 +108,25 @@ public class DriversFactory {
         map.put(Driver.MandatoryProperty.TWITTER, "@Nobu_Mat13");
 
         return new Driver("matsushita", map);
+    }
+
+    private static Driver getDeVriesModel() {
+        HashMap<Driver.Property, String> map = new HashMap<>();
+        map.put(Driver.MandatoryProperty.NAME, "Nyck De Vries");
+        map.put(Driver.MandatoryProperty.DATE_OF_BIRTH, "06.02.1995");
+        map.put(Driver.MandatoryProperty.NATIONALITY, "Dutch");
+        map.put(Driver.MandatoryProperty.TWITTER, "@nyckdevries");
+
+        return new Driver("devries", map);
+    }
+
+    private static Driver getNorrisModel() {
+        HashMap<Driver.Property, String> map = new HashMap<>();
+        map.put(Driver.MandatoryProperty.NAME, "Lando Norris");
+        map.put(Driver.MandatoryProperty.DATE_OF_BIRTH, "13.11.1999");
+        map.put(Driver.MandatoryProperty.NATIONALITY, "British");
+        map.put(Driver.MandatoryProperty.TWITTER, "@LandoNorris");
+
+        return new Driver("norris", map);
     }
 }

@@ -27,7 +27,7 @@ public class DriverResourcesTest {
 
     @ParameterizedRobolectricTestRunner.Parameters(name = "Main Driver Fragment populated for {0}")
     public static List<DriverId[]> data() {
-        return Arrays.asList(new DriverId[][]{{DriverId.Alonso}, {DriverId.Vandoorne}});
+        return Arrays.asList(new DriverId[][]{{DriverId.ALONSO}, {DriverId.VANDOORNE}});
     }
 
     private DriverId driverId;

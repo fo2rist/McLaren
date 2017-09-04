@@ -33,7 +33,7 @@
         android:layout_marginTop="@dimen/margin_one"
         android:singleLine="true"
         android:ellipsize="end"
-        style="@style/TextBody"
+        style="@style/TextLightBody"
         tools:text="Monaco Grand Prix"
         tools:ignore="Deprecated"
         />
@@ -44,6 +44,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/image_map"
         app:layout_constraintLeft_toLeftOf="@+id/image_map"
         android:layout_marginLeft="@dimen/margin_one"
+        android:layout_marginBottom="@dimen/margin_one"
         style="@style/TextSecondaryLightBody"
         tools:text="Monte Carlo\n29 Jun – 01 Jul"
         />

@@ -1,17 +1,14 @@
 package com.github.fo2rist.mclaren.ui.models;
 
-import com.github.fo2rist.mclaren.ui.models.Driver;
-import com.github.fo2rist.mclaren.ui.models.DriversFactory;
 import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
-
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 
-import java.util.Arrays;
-import java.util.List;
-
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.runners.Parameterized.Parameters;
 
@@ -37,10 +34,12 @@ public class DriverFactoryTest {
     private void assertMandatoryFieldsPresent(Driver driver) {
         for (Driver.MandatoryProperty property: Driver.MandatoryProperty.values()) {
             assertNotNull(driver.getProperty(property));
+            assertFalse(driver.getProperty(property).isEmpty());
         }
     }
 
     private void assertIdPresent(Driver driver) {
         assertNotNull(driver.getId());
+        assertFalse(driver.getId().isEmpty());
     }
 }
