@@ -26,7 +26,7 @@ public class MainActivityTest extends BaseMainActivityTest {
         mainPage.onToolbar()
                 .check(displayed());
         mainPage.onFloatingButton()
-                .check(displayed());
+                .check(matches(not(isDisplayed())));
     }
 
     @Test

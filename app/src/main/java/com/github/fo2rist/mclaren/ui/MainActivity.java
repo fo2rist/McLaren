@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity
             navigateCars();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -130,8 +131,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCircuitSelected(String circuitName, int number) {
-        startActivity(CircuitDetailsActivity.createIntent(this, circuitName, number));
+    public void onCircuitSelected(CalendarEvent event, int number) {
+        startActivity(CircuitDetailsActivity.createIntent(this, event));
     }
 
     @Override
@@ -169,14 +170,6 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)
-                .commit();
-    }
-
-    private void addNewFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_content_frame, fragment)
-                .addToBackStack("dive_navigation_to_new_fragment")
                 .commit();
     }
 }

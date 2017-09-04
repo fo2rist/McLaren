@@ -47,8 +47,8 @@ public class DriverResourcesTest {
         DriverSubFragment fragment = DriverSubFragment.newInstance(driverId);
         startFragment(fragment);
 
-        rootLayout = (LinearLayout) fragment.getView().findViewById(R.id.properties_linearlayout);
-        portraitImage = (ImageView) fragment.getView().findViewById(R.id.driver_portrait_image);
+        rootLayout = fragment.getView().findViewById(R.id.properties_linearlayout);
+        portraitImage = fragment.getView().findViewById(R.id.driver_portrait_image);
     }
 
     @Test

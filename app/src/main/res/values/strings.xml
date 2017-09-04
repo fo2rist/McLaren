@@ -15,4 +15,8 @@
 
     <string name="content_description_link_to_driver_s_page">Link to driver\'s page</string>
     <string name="content_description_link_to_driver_s_page_at_heritage_section">Link to driver\'s page at Heritage section</string>
+
+    <string name="calendar_event_details_format">%1$s\n%2$s – %3$s</string>
+    <string name="calendar_event_date_format">dd MMM</string>
+    <string name="circuit_details_format">%1$s >> %2$s</string>
 </resources>

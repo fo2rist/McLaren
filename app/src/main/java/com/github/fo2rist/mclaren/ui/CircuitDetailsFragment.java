@@ -11,23 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 
-import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitDetailedImageUriByNumber;
+import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitDetailedImageUriById;
 
 
 public class CircuitDetailsFragment extends Fragment {
 
-    private static final String ARG_CIRCUIT_NAME = "circuit_name";
-    private static final String ARG_CIRCUIT_NUMBER = "circuit_number";
+    private static final String ARG_EVENT = "event";
 
-    private String circuitName;
-    private int circuitNumber;
+    private CalendarEvent event;
 
     @NonNull
-    public static Bundle createLaunchBundle(String circuitName, int circuitNumber) {
+    public static Bundle createLaunchBundle(CalendarEvent event) {
         Bundle args = new Bundle();
-        args.putString(ARG_CIRCUIT_NAME, circuitName);
-        args.putInt(ARG_CIRCUIT_NUMBER, circuitNumber);
+        args.putSerializable(ARG_EVENT, event);
         return args;
     }
 
@@ -48,14 +46,10 @@ public class CircuitDetailsFragment extends Fragment {
             throw new IllegalArgumentException("No arguments provided");
         }
 
-        circuitName = bundle.getString(ARG_CIRCUIT_NAME, null);
-        circuitNumber = bundle.getInt(ARG_CIRCUIT_NUMBER, -1);
+        event = (CalendarEvent) bundle.getSerializable(ARG_EVENT);
 
-        if (circuitName == null) {
+        if (event == null) {
             throw new IllegalArgumentException("No circuit provided to display");
-        }
-        if (circuitNumber < 0) {
-            throw new IllegalArgumentException("No circuit number provided");
         }
     }
 
@@ -70,9 +64,13 @@ public class CircuitDetailsFragment extends Fragment {
     }
 
     private void populateView(View rootView) {
-        ImageView circuitImageView = (ImageView) rootView.findViewById(R.id.circuit_image);
-        circuitImageView.setImageURI(getCircuitDetailedImageUriByNumber(circuitNumber));
-        TextView circuitTitleView = (TextView) rootView.findViewById(R.id.circuit_title);
-        circuitTitleView.setText(circuitName);
+        ImageView circuitImageView = rootView.findViewById(R.id.circuit_image);
+        circuitImageView.setImageURI(getCircuitDetailedImageUriById(event.circuitId));
+
+        TextView circuitTitleView = rootView.findViewById(R.id.circuit_title);
+        circuitTitleView.setText(event.grandPrixName);
+
+        TextView circuitDetailsView = rootView.findViewById(R.id.circuit_details);
+        circuitDetailsView.setText(getString(R.string.circuit_details_format, event.city, event.trackName));
     }
 }

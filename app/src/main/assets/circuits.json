@@ -1,0 +1,142 @@
+[
+  {
+    "id": "austria",
+    "country": "AUS",
+    "track": "Melbourne Grand Prix Circuit",
+    "city": "Melbourne",
+    "name": "Australian Grand Prix"
+  },
+  {
+    "id": "china",
+    "country": "CHN",
+    "track": "Shanghai International Circuit",
+    "city": "Shanghai",
+    "name": "Chinese Grand Prix"
+  },
+  {
+    "id": "bahrain",
+    "country": "BHR",
+    "track": "Bahrain International Circuit",
+    "city": "Sakhir",
+    "name": "Bahrain Grand Prix"
+  },
+  {
+    "id": "russia",
+    "country": "RUS",
+    "track": "Sochi Autodrom",
+    "city": "Sochi",
+    "name": "Russian Grand Prix"
+  },
+  {
+    "id": "spain",
+    "country": "ESP",
+    "track": "Circuit de Barcelona-Catalunya",
+    "city": "Barcelona",
+    "name": "Spanish Grand Prix"
+  },
+  {
+    "id": "monaco",
+    "country": "MCO",
+    "track": "Circuit de Monaco",
+    "city": "Monte Carlo",
+    "name": "Monaco Grand Prix"
+  },
+  {
+    "id": "canada",
+    "country": "CAN",
+    "track": "Circuit Gilles Villeneuve",
+    "city": "Montreal",
+    "name": "Canadian Grand Prix"
+  },
+  {
+    "id": "azerbaijan",
+    "country": "AZE",
+    "track": "Baku City Circuit",
+    "city": "Baku",
+    "name": "Azerbaijan Grand Prix"
+  },
+  {
+    "id": "austria",
+    "country": "AUT",
+    "track": "Red Bull Ring",
+    "city": "Spielberg",
+    "name": "Austrian Grand Prix"
+  },
+  {
+    "id": "britain",
+    "country": "GBR",
+    "track": "Silverstone Circuit",
+    "city": "Silverstone",
+    "name": "British Grand Prix"
+  },
+  {
+    "id": "hungary",
+    "country": "HUN",
+    "track": "Hungaroring",
+    "city": "Budapest",
+    "name": "Hungarian Grand Prix"
+  },
+  {
+    "id": "belgium",
+    "country": "BEL",
+    "track": "Circuit de Spa-Francorchamps",
+    "city": "Spa-Francorchamps",
+    "name": "Belgian Grand Prix"
+  },
+  {
+    "id": "italy",
+    "country": "ITA",
+    "track": "Autodromo Nazionale Monza",
+    "city": "Monza",
+    "name": "Italian Grand Prix"
+  },
+  {
+    "id": "singapore",
+    "country": "SGP",
+    "track": "Marina Bay Street Circuit",
+    "city": "Singapore",
+    "name": "Singapore Grand Prix"
+  },
+  {
+    "id": "malaysia",
+    "country": "MYS",
+    "track": "Sepang International Circuit",
+    "city": "Kuala Lumpur",
+    "name": "Malaysian Grand Prix"
+  },
+  {
+    "id": "japan",
+    "country": "JPN",
+    "track": "Suzuka International Racing Course",
+    "city": "Suzuka",
+    "name": "Japanese Grand Prix"
+  },
+  {
+    "id": "united_states",
+    "country": "USA",
+    "track": "Circuit of the Americas",
+    "city": "Austin",
+    "name": "United States Grand Prix"
+  },
+  {
+    "id": "mexico",
+    "country": "MEX",
+    "track": "Autódromo Hermanos Rodríguez",
+    "city": "Mexico City",
+    "name": "Mexican Grand Prix"
+  },
+  {
+    "id": "brazil",
+    "country": "BRA",
+    "track": "Autódromo José Carlos Pace",
+    "city": "São Paulo",
+    "name": "Brazilian Grand Prix"
+  },
+  {
+    "id": "abu_dhabi",
+    "country": "ARE",
+    "track": "Yas Marina Circuit",
+    "city": "Abu Dhabi",
+    "name": "Abu Dhabi Grand Prix"
+  }
+]
