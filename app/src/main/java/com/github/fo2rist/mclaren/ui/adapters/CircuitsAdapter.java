@@ -16,6 +16,7 @@ import com.github.fo2rist.mclaren.ui.CircuitsFragment.OnCircuitsFragmentInteract
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitImageUriById;
 
@@ -54,7 +55,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     public CircuitsAdapter(Context context, List<CalendarEvent> calendarEvents, OnCircuitsFragmentInteractionListener listener) {
         this.context = context;
-        this.dateFormatter = new SimpleDateFormat(context.getString(R.string.calendar_event_date_format));
+        this.dateFormatter = new SimpleDateFormat(context.getString(R.string.calendar_event_date_format), Locale.US);
         this.calendarEvents = calendarEvents;
         this.listener = listener;
     }

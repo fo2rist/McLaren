@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <!--Resources that are used by generated links-->
+    <!-- Resources that are used by generated links -->
     <issue id="UnusedResources">
         <ignore path="**/res/drawable*/circuit_*.png" />
         <ignore path="**/res/drawable*/driver_*.png" />
+        <!-- And anydpi resources -->
+        <ignore path="**/res/mipmap-anydpi*/**"/>
     </issue>
+    <!-- Resources we only have in onde density -->
+    <issue id="IconDensities">
+        <ignore path="**" />
+    </issue>
+    <issue id="IconMissingDensityFolder" severity="ignore" />
     <!-- There is nothing to index at the moment -->
     <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <!--We don't care bout RTL-->
+    <issue id="RtlHardcoded" severity="ignore" />
+    <issue id="RtlCompat" severity="ignore" />
+	<issue id="RtlEnabled" severity="ignore" />
+    <!-- Anydpi resources produce false lint error-->
+    <issue id="IconLauncherFormat">
+        <ignore path="**/res/mipmap-anydpi*/**"/>
+    </issue>
 </lint>
