@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web.model;
 
+import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
 import java.util.Date;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,10 +36,10 @@ public class FeedParserTest {
 
     @Test
     public void testReadDataParsedWithoutErrors() throws Exception {
-        McLarenFeed mcLarenFeedItems = ResponseParser.parseFeed(TestData.REAL_FEED_RESPONSE);
+        McLarenFeed mcLarenFeedItems = ResponseParser.parseFeed(McLarenFeedResponse.REAL_FEED_RESPONSE);
 
         McLarenFeedItem item = mcLarenFeedItems.get(0);
-        assertEquals(TestData.REAL_FEED_SIZE, mcLarenFeedItems.size());
+        assertEquals(McLarenFeedResponse.REAL_FEED_SIZE, mcLarenFeedItems.size());
         assertEquals("@mclaren", item.author);
         assertNull(null, item.body);
         assertTrue(item.content.startsWith("The swimming pool"));

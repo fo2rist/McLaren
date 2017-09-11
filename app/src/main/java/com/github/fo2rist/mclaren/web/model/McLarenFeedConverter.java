@@ -27,6 +27,7 @@ public class McLarenFeedConverter {
     private static FeedItem convertFeedItem(McLarenFeedItem mcLarenFeedItem) {
         return new FeedItem(fetchType(mcLarenFeedItem),
                 fetchText(mcLarenFeedItem),
+                fetchContent(mcLarenFeedItem),
                 fetchDate(mcLarenFeedItem),
                 fetchSourceType(mcLarenFeedItem),
                 fetchSourceName(mcLarenFeedItem),
@@ -60,6 +61,10 @@ public class McLarenFeedConverter {
             default:
                return mcLarenFeedItem.content;
         }
+    }
+
+    private static String fetchContent(McLarenFeedItem mcLarenFeedItem) {
+        return mcLarenFeedItem.content;
     }
 
     private static Date fetchDate(McLarenFeedItem mcLarenFeedItem) {

@@ -17,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
+import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -28,10 +31,10 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity
         implements HasSupportFragmentInjector,
         NavigationView.OnNavigationItemSelectedListener,
-        NewsfeedFragment.OnNewsfeedFragmentInteractionListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
         DriversFragment.OnDriversFragmentInteractionListener,
-        DriverSubFragment.OnDriverSubFragmentInteractionListener
+        DriverSubFragment.OnDriverSubFragmentInteractionListener,
+        FeedAdapter.OnFeedInteractionListener
 {
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
@@ -117,17 +120,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_drivers) {
             navigateDrivers();
         } else if (id == R.id.nav_car) {
-            navigateCars();
+            navigateCar();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onNewsfeedFragmentInteraction(Uri uri) {
-
     }
 
     @Override
@@ -162,8 +160,8 @@ public class MainActivity extends AppCompatActivity
                 DriversFragment.newInstance());
     }
 
-    private void navigateCars() {
-
+    private void navigateCar() {
+        startActivity(PreviewActivity.createUrlIntent(this, LinkUtils.getMclarenCarLink()));
     }
 
     private void navigateToNewFragment(Fragment fragment) {
@@ -171,5 +169,10 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)
                 .commit();
+    }
+
+    @Override
+    public void onItemDetailsRequested(FeedItem item) {
+        startActivity(PreviewActivity.createFeedItemIntent(this, item));
     }
 }

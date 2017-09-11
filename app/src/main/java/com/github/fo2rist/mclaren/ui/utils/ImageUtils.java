@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.utils;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
@@ -30,7 +31,14 @@ public class ImageUtils {
                 .into(imageView);
     }
 
+    /**
+     * @return null for null or empty source urls
+     */
     private static Uri buildImageUri(String imageUri, int width, int height) {
+        if (TextUtils.isEmpty(imageUri)) {
+            return null;
+        }
+
         String uriWithSubstitutions;
         if (imageUri.contains(TAB_API_WIDTH_PLACEHOLDER) || imageUri.contains(TAB_API_HEIGHT_PLACEHOLDER)) {
             uriWithSubstitutions = replaceWidthHeight(imageUri,

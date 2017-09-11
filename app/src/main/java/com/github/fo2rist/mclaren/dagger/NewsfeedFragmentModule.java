@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.dagger;
 
 import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
-import com.github.fo2rist.mclaren.ui.NewsfeedPresenter;
+import com.github.fo2rist.mclaren.ui.presenters.NewsfeedPresenter;
 import dagger.Module;
 import dagger.Provides;
 

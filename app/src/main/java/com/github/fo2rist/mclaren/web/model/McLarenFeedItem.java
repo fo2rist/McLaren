@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.web.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
  *  - content: plain string for Message, and Gallery from Twitter, html for Article and Gallery from null
  *  - body: null of html for some Gallery posts
  */
-public class McLarenFeedItem {
+public class McLarenFeedItem implements Serializable{
     enum Type {
         @SerializedName("image")
         IMAGE,
@@ -36,18 +37,18 @@ public class McLarenFeedItem {
         INSTAGRAM,
     }
 
-    Type type;
-    String author;
-    int id;
-    int likes;
-    int likeStep;
-    String origin;
-    boolean hidden;
-    boolean promotional;
-    Date publicationDate;
-    Source source;
-    String title;
-    String content;
-    String body;
+    public Type type;
+    public String author;
+    public int id;
+    public int likes;
+    public int likeStep;
+    public String origin;
+    public boolean hidden;
+    public boolean promotional;
+    public Date publicationDate;
+    public Source source;
+    public String title;
+    public String content;
+    public String body;
     ArrayList<McLarenMediaItem> media;
 }

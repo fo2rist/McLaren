@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.ui;
+package com.github.fo2rist.mclaren.ui.presenters;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
