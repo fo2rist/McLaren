@@ -5,4 +5,6 @@
     <dimen name="margin_three">24dp</dimen>
     <dimen name="margin_four">32dp</dimen>
     <dimen name="margin_five">40dp</dimen>
+
+    <dimen name="preview_height">200dp</dimen>
 </resources>

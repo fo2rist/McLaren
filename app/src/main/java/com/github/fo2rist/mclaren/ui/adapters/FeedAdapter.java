@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.models.FeedItem.Type;
 import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,11 @@ import java.util.List;
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
-    static class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface OnFeedInteractionListener {
+        void onItemDetailsRequested(FeedItem item);
+    }
+
+    class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         View rootView;
         TextView textViewDate;
         TextView textViewTime;
@@ -32,6 +39,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         ImageView image;
         ImageView imageItemType;
         ImageView imageSource;
+        View containerSource;
 
         private FeedItem currentItem;
         private int currentGalleryIndex;
@@ -43,6 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.textViewTime = rootView.findViewById(R.id.text_time);
             this.textViewContent = rootView.findViewById(R.id.text_content);
             this.textViewSource = rootView.findViewById(R.id.text_source);
+            this.containerSource = rootView.findViewById(R.id.container_source);
 
             this.imageSwitcher = rootView.findViewById(R.id.image_switcher);
             this.image = rootView.findViewById(R.id.image);
@@ -50,21 +59,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.imageSource = rootView.findViewById(R.id.image_source);
 
             this.imageSwitcher.setOnClickListener(this);
+            this.textViewContent.setOnClickListener(this);
+            this.containerSource.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            switch (currentItem.type) {
-                case Video:
-                    //Not implemented yet
-                    break;
-                case Gallery:
-                    ImageUtils.loadImage(image, getNextImageUri());
-                    break;
-                case Message:
-                case Image:
-                case Article:
-                    break;
+            if (currentItem.type == Type.Gallery && view.getId() == R.id.image_switcher){
+                ImageUtils.loadImage(image, getNextImageUri());
+            } else {
+                notifyItemRequested(currentItem);
             }
         }
 
@@ -120,8 +124,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.textViewTime.setText(DateFormat.getTimeFormat(context).format(currentItem.dateTime));
         }
 
-        private void displayDataTypeIcon(int ic_gallery) {
-            this.imageItemType.setImageResource(ic_gallery);
+        private void displayDataTypeIcon(@DrawableRes int iconResource) {
+            this.imageItemType.setImageResource(iconResource);
         }
 
         private void displayImage(String imageUri) {
@@ -148,11 +152,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
     }
 
-    private Context context;
+    private final Context context;
+    private final WeakReference<OnFeedInteractionListener> listenerReference;
     private List<FeedItem> items = new ArrayList<>();
 
-    public FeedAdapter(Context context) {
+    public FeedAdapter(Context context, OnFeedInteractionListener listener) {
         this.context = context;
+        this.listenerReference = new WeakReference<>(listener);
     }
 
     @Override
@@ -179,4 +185,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         notifyDataSetChanged();
     }
 
+    void notifyItemRequested(FeedItem item) {
+        OnFeedInteractionListener listener = listenerReference.get();
+        if (listener != null) {
+            listener.onItemDetailsRequested(item);
+        }
+    }
 }

@@ -29,6 +29,8 @@ public class FeedItem implements Serializable {
     public final Type type;
     @NonNull
     public final String text;
+    @Nullable
+    public final String content;
     @NonNull
     public final Date dateTime;
     @NonNull
@@ -40,29 +42,29 @@ public class FeedItem implements Serializable {
 
     public static FeedItem createMessage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
             @NonNull String sourceName) {
-        return new FeedItem(Type.Message, text, dateTime, sourceType, sourceName);
+        return new FeedItem(Type.Message, text, null, dateTime, sourceType, sourceName);
     }
 
     public static FeedItem createImage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
             @NonNull String sourceName, @NonNull String imageUri) {
-        return new FeedItem(Type.Image, text, dateTime, sourceType, sourceName, imageUri);
+        return new FeedItem(Type.Image, text, null, dateTime, sourceType, sourceName, imageUri);
     }
 
     public static FeedItem createGallery(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
             @NonNull String sourceName, @NonNull List<String> imageUris) {
-        return new FeedItem(Type.Gallery, text, dateTime, sourceType, sourceName, imageUris.toArray(new String[imageUris.size()]));
+        return new FeedItem(Type.Gallery, text, null, dateTime, sourceType, sourceName, imageUris.toArray(new String[imageUris.size()]));
     }
 
-    public FeedItem(@NonNull Type type, @NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, String...imageUris) {
+    public FeedItem(@NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
+            @NonNull SourceType sourceType, @NonNull String sourceName, String...imageUris) {
         this.type = type;
         this.text = text;
+        this.content = content;
         this.dateTime = dateTime;
         this.sourceType = sourceType;
         this.sourceName = sourceName;
         this.imageUris = imageUris;
     }
-
 
     /**
      * Get single image. Should be null for text posts.

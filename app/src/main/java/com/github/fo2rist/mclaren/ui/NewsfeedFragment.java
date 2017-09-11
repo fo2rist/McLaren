@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,22 +23,16 @@ import timber.log.Timber;
 
 /**
  * Shows social feed.
+ * Parent activity must implement {@link FeedAdapter.OnFeedInteractionListener}
  */
 public class NewsfeedFragment extends Fragment implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener {
-
-    /**
-     * This interface must be implemented by activities that contain this fragment.
-     */
-    public interface OnNewsfeedFragmentInteractionListener {
-        void onNewsfeedFragmentInteraction(Uri uri);
-    }
 
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
 
     private FeedAdapter feedAdapter;
 
-    private OnNewsfeedFragmentInteractionListener listener;
+    private FeedAdapter.OnFeedInteractionListener listener;
     @Inject
     NewsfeedContract.Presenter presenter;
 
@@ -54,10 +47,10 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnNewsfeedFragmentInteractionListener) {
-            listener = (OnNewsfeedFragmentInteractionListener) context;
+        if (context instanceof FeedAdapter.OnFeedInteractionListener) {
+            listener = (FeedAdapter.OnFeedInteractionListener) context;
         } else {
-            Timber.e("%s must implement OnDriversFragmentInteractionListener", context.toString());
+            Timber.e("%s must implement FeedAdapter.OnFeedInteractionListener", context.toString());
         }
     }
 
@@ -76,7 +69,7 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
 
         //setup views
         listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        feedAdapter = new FeedAdapter(getContext());
+        feedAdapter = new FeedAdapter(getContext(), listener);
         listFeed.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
 
