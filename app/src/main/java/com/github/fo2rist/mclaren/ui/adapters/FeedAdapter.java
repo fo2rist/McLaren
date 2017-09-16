@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.models.FeedItem.Type;
 import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -65,10 +64,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         @Override
         public void onClick(View view) {
-            if (currentItem.type == Type.Gallery && view.getId() == R.id.image_switcher){
-                ImageUtils.loadImage(image, getNextImageUri());
-            } else {
-                notifyItemRequested(currentItem);
+            switch (currentItem.type) {
+                case Message:
+                    //ignore
+                    break;
+                case Image:
+                case Gallery:
+                case Video:
+                case Article:
+                    notifyItemRequested(currentItem);
+                    break;
             }
         }
 
@@ -144,11 +149,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         private String getCurrentImageUri() {
             return currentItem.imageUris[currentGalleryIndex];
-        }
-
-        private String getNextImageUri() {
-            currentGalleryIndex = (currentGalleryIndex + 1) % currentItem.imageUris.length;
-            return getCurrentImageUri();
         }
     }
 

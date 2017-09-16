@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.Visibility.GONE;
+import static android.support.test.espresso.matcher.ViewMatchers.Visibility.VISIBLE;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webContent;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
@@ -54,7 +55,7 @@ public class WebPreviewActivityTest extends ActivityTestBase {
         rule.launchActivity(PreviewActivity.createFeedItemIntent(context, HTML_ARTICLE_ITEM));
 
         page.onToolbarImage()
-                .check(displayed());
+                .check(matches(withEffectiveVisibility(VISIBLE)));
         page.onWebView()
                 .check(displayed());
         page.onGalleyView()
