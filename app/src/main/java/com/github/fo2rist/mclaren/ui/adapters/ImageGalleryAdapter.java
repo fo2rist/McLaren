@@ -36,4 +36,9 @@ public class ImageGalleryAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
 }
