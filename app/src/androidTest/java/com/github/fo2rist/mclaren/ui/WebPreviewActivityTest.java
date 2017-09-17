@@ -20,8 +20,8 @@ import static android.support.test.espresso.web.matcher.DomMatchers.hasElementWi
 import static android.support.test.espresso.web.model.Atoms.getCurrentUrl;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static com.github.fo2rist.mclaren.testdata.FeedItems.HTML_ARTICLE_ITEM;
+import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.MCLAREN_COM;
 import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.HTTP;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.WWW_MCLAREN_COM;
 import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
 import static org.hamcrest.Matchers.containsString;
 
@@ -34,10 +34,10 @@ public class WebPreviewActivityTest extends ActivityTestBase {
 
     @Test
     public void testLoadsUrl() throws Exception {
-        rule.launchActivity(PreviewActivity.createUrlIntent(context, HTTP + WWW_MCLAREN_COM));
+        rule.launchActivity(PreviewActivity.createUrlIntent(context, HTTP + MCLAREN_COM));
 
         onWebView()
-                .check(webMatches(getCurrentUrl(), containsString(WWW_MCLAREN_COM)));
+                .check(webMatches(getCurrentUrl(), containsString(MCLAREN_COM)));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class WebPreviewActivityTest extends ActivityTestBase {
 
     @Test
     public void testToolbarImageInvisibleInUrlMode() throws Exception {
-        rule.launchActivity(PreviewActivity.createUrlIntent(context, HTTP + WWW_MCLAREN_COM));
+        rule.launchActivity(PreviewActivity.createUrlIntent(context, HTTP + MCLAREN_COM));
 
         page.onToolbarImage()
                 .check(matches(withEffectiveVisibility(GONE)));
