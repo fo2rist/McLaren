@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_newsfeed"
-            android:icon="@drawable/ic_menu_newsfeed"
+            android:icon="@drawable/ic_menu_feed"
             android:title="@string/navigation_item_newsfeed" />
         <item
             android:id="@+id/nav_circuits"
-            android:icon="@drawable/ic_menu_circuits"
+            android:icon="@drawable/ic_menu_circuit"
             android:title="@string/navigation_item_circuits" />
         <item
             android:id="@+id/nav_drivers"
-            android:icon="@drawable/ic_menu_drivers"
+            android:icon="@drawable/ic_menu_driver"
             android:title="@string/navigation_item_drivers" />
         <item
             android:id="@+id/nav_car"
-            android:icon="@drawable/ic_menu_car"
+            android:icon="@drawable/ic_menu_wheel"
             android:title="@string/navigation_item_car" />
     </group>
 
@@ -24,12 +24,8 @@
         android:visible="false">
         <item
             android:id="@+id/nav_team_mclaren"
-            android:icon="@drawable/ic_menu_team_mclaren"
-            android:title="@string/navigation_item_team_mclaren"/>
-        <item
-            android:id="@+id/nav_partners"
-            android:icon="@drawable/ic_menu_partners"
-            android:title="@string/navigation_item_partners"/>
+            android:icon="@drawable/ic_laurel"
+            android:title=""/>
     </group>
 
 </menu>
