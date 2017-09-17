@@ -3,16 +3,22 @@ package com.github.fo2rist.mclaren.ui.widgets;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils;
+import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
+import com.luseen.autolinklibrary.AutoLinkMode;
+import com.luseen.autolinklibrary.AutoLinkOnClickListener;
+import com.luseen.autolinklibrary.AutoLinkTextView;
 
-public class DriverDetailsLineView extends LinearLayout {
+public class DriverDetailsLineView extends LinearLayout implements AutoLinkOnClickListener {
 
     private TextView titleView;
-    private TextView valueView;
+    private AutoLinkTextView valueView;
 
     public DriverDetailsLineView(Context context) {
         this(context, null);
@@ -25,12 +31,21 @@ public class DriverDetailsLineView extends LinearLayout {
 
     private void init() {
         inflate(getContext(), R.layout.view_driver_details_line, this);
-        titleView = (TextView) findViewById(R.id.title);
-        valueView = (TextView) findViewById(R.id.value);
+        titleView = findViewById(R.id.title);
+        valueView = findViewById(R.id.value);
+
+        valueView.addAutoLinkMode(AutoLinkMode.MODE_MENTION);
+        valueView.setAutoLinkOnClickListener(this);
+        valueView.setMentionModeColor(ContextCompat.getColor(getContext(), R.color.textSecondaryWhite));
     }
 
     public void setContent(CharSequence title, CharSequence value) {
         titleView.setText(title);
-        valueView.setText(value);
+        valueView.setAutoLinkText(value.toString());
+    }
+
+    @Override
+    public void onAutoLinkTextClick(AutoLinkMode autoLinkMode, String autoLink) {
+        LinkUtils.openInBrowser(getContext(), FeedLinkUtils.getTwitterPageLink(autoLink));
     }
 }

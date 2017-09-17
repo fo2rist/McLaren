@@ -11,7 +11,7 @@
         style="@style/TextSecondaryLightSubheader"
         tools:text="Date of Birth"
         />
-    <TextView
+    <com.luseen.autolinklibrary.AutoLinkTextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
