@@ -2,8 +2,8 @@
 <lint>
     <!-- Resources that are used by generated links -->
     <issue id="UnusedResources">
-        <ignore path="**/res/drawable*/circuit_*.png" />
-        <ignore path="**/res/drawable*/driver_*.png" />
+        <ignore path="**/res/drawable*/circuit_*.*" />
+        <ignore path="**/res/drawable*/driver_*.*" />
         <!-- And anydpi resources -->
         <ignore path="**/res/mipmap-anydpi*/**"/>
     </issue>
