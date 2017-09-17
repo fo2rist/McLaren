@@ -2,8 +2,9 @@ package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,17 @@ import android.widget.TextView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
+import com.luseen.autolinklibrary.AutoLinkMode;
+import com.luseen.autolinklibrary.AutoLinkOnClickListener;
+import com.luseen.autolinklibrary.AutoLinkTextView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
+
+import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.getFeedHashtagLink;
+import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.getFeedMentionLink;
+import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.openInBrowser;
 
 /**
  * Adapter for main page feed of news.
@@ -28,11 +37,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         void onItemDetailsRequested(FeedItem item);
     }
 
-    class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AutoLinkOnClickListener {
         View rootView;
         TextView textViewDate;
         TextView textViewTime;
-        TextView textViewContent;
+        AutoLinkTextView textViewContent;
         TextView textViewSource;
         ImageSwitcher imageSwitcher;
         ImageView image;
@@ -58,53 +67,136 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.imageSource = rootView.findViewById(R.id.image_source);
 
             this.imageSwitcher.setOnClickListener(this);
-            this.textViewContent.setOnClickListener(this);
             this.containerSource.setOnClickListener(this);
+
+            this.textViewContent.addAutoLinkMode(
+                    AutoLinkMode.MODE_HASHTAG,
+                    AutoLinkMode.MODE_MENTION,
+                    AutoLinkMode.MODE_URL);
+            this.textViewContent.setAutoLinkOnClickListener(this);
+            this.textViewContent.setMentionModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
+            this.textViewContent.setHashtagModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
+            this.textViewContent.setUrlModeColor(ContextCompat.getColor(context, R.color.colorAccent));
         }
 
         @Override
         public void onClick(View view) {
-            switch (currentItem.type) {
-                case Message:
-                    //ignore
+            switch (view.getId()) {
+                case R.id.image_switcher:
+                    onFeedImageClicked(currentItem);
                     break;
-                case Image:
-                case Gallery:
-                case Video:
-                case Article:
-                    notifyItemRequested(currentItem);
+                case R.id.container_source:
+                    onFeedSourceClicked(currentItem);
                     break;
             }
         }
 
+        private void onFeedImageClicked(FeedItem feedItem) {
+            notifyItemRequested(feedItem);
+        }
+
+        private void onFeedSourceClicked(FeedItem feedItem) {
+            openInBrowser(context, getFeedMentionLink(feedItem, feedItem.sourceName));
+        }
+
+        @Override
+        public void onAutoLinkTextClick(AutoLinkMode autoLinkMode, String autoLink) {
+            String link;
+            switch (autoLinkMode) {
+                case MODE_HASHTAG:
+                    link = getFeedHashtagLink(currentItem, autoLink);
+                    break;
+                case MODE_MENTION:
+                    link = getFeedMentionLink(currentItem, autoLink);
+                    break;
+                case MODE_URL:
+                    link = autoLink;
+                    break;
+                default:
+                    Timber.w("Clicked unknown link: " + autoLink + " in mode: " + autoLinkMode);
+                    link = null;
+                    break;
+            }
+            if (!TextUtils.isEmpty(link)) {
+                openInBrowser(context, link);
+            }
+        }
+
         void display(Context context, FeedItem feedItem) {
-            this.setCurrentItem(feedItem);
+            setCurrentItem(feedItem);
 
-            this.displayDateTime(context);
+            displayDateTime(context, feedItem);
+            displayImage(feedItem);
+            displayDataTypeIcon(feedItem);
+            displayText(feedItem);
+            displaySource(feedItem);
+        }
 
+        private void displayDateTime(Context context, FeedItem feedItem) {
+            this.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.dateTime));
+            this.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.dateTime));
+        }
+
+        private void displayImage(FeedItem feedItem) {
             switch (feedItem.type) {
                 case Gallery:
                     displayImage(getCurrentImageUri());
-                    displayDataTypeIcon(R.drawable.ic_gallery);
                     break;
                 case Image:
                     displayImage(getCurrentImageUri());
-                    displayDataTypeIcon(R.drawable.ic_photo);
                     break;
                 case Video:
                     this.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_video"));
-                    displayDataTypeIcon(R.drawable.ic_video);
                     break;
                 case Message:
                     hideImage();
-                    displayDataTypeIcon(R.drawable.ic_text);
                     break;
                 case Article:
                     displayImage(getCurrentImageUri());
-                    displayDataTypeIcon(R.drawable.ic_web);
                     break;
             }
-            this.textViewContent.setText(feedItem.text);
+        }
+
+        void setCurrentItem(FeedItem item) {
+            currentItem = item;
+            currentGalleryIndex = 0;
+        }
+
+        private void displayImage(String imageUri) {
+            if (imageUri == null) {
+                hideImage();
+            } else {
+                this.imageSwitcher.setVisibility(View.VISIBLE);
+                ImageUtils.loadImage(this.image, imageUri);
+                this.image.setContentDescription(currentItem.text);
+            }
+        }
+
+        private void displayDataTypeIcon(FeedItem feedItem) {
+            switch (feedItem.type) {
+                case Gallery:
+                    this.imageItemType.setImageResource(R.drawable.ic_gallery);
+                    break;
+                case Image:
+                    this.imageItemType.setImageResource(R.drawable.ic_photo);
+                    break;
+                case Video:
+                    this.imageItemType.setImageResource(R.drawable.ic_video);
+                    break;
+                case Message:
+                    this.imageItemType.setImageResource(R.drawable.ic_text);
+                    break;
+                case Article:
+                    this.imageItemType.setImageResource(R.drawable.ic_web);
+                    break;
+            }
+        }
+
+        private void displayText(FeedItem feedItem) {
+            this.textViewContent.setAutoLinkText(feedItem.text);
+        }
+
+        private void displaySource(FeedItem feedItem) {
             this.textViewSource.setText(feedItem.sourceName);
             switch (feedItem.sourceType) {
                 case Instagram:
@@ -116,30 +208,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Unknown:
                     this.imageSource.setImageResource(R.drawable.ic_transmission);
                     break;
-            }
-        }
-
-        void setCurrentItem(FeedItem item) {
-            currentItem = item;
-            currentGalleryIndex = 0;
-        }
-
-        private void displayDateTime(Context context) {
-            this.textViewDate.setText(DateFormat.getDateFormat(context).format(currentItem.dateTime));
-            this.textViewTime.setText(DateFormat.getTimeFormat(context).format(currentItem.dateTime));
-        }
-
-        private void displayDataTypeIcon(@DrawableRes int iconResource) {
-            this.imageItemType.setImageResource(iconResource);
-        }
-
-        private void displayImage(String imageUri) {
-            if (imageUri == null) {
-                hideImage();
-            } else {
-                this.imageSwitcher.setVisibility(View.VISIBLE);
-                ImageUtils.loadImage(this.image, imageUri);
-                this.image.setContentDescription(currentItem.text);
             }
         }
 

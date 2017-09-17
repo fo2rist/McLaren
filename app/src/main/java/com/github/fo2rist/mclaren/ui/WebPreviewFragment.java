@@ -16,7 +16,7 @@ import android.webkit.WebViewClient;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.utils.McLarenHtmlUtils;
 
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.WWW_MCLAREN_COM;
+import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.MCLAREN_COM;
 
 
 public class WebPreviewFragment extends Fragment {
@@ -67,7 +67,7 @@ public class WebPreviewFragment extends Fragment {
         WebViewClient webViewClient = new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //keep all mclaren related navigation inside the view
-                if (url.contains(WWW_MCLAREN_COM)) {
+                if (url.contains(MCLAREN_COM)) {
                     return false;
                 } else {
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
