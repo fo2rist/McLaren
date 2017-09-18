@@ -64,7 +64,7 @@ public class DriversFactory {
 
         map.put(Driver.AdditionalProperty.TAG, "#SV2");
         map.put(Driver.AdditionalProperty.WORLD_CHAMPIONSHIPS, "0");
-        map.put(Driver.AdditionalProperty.BEST_FINISH, "10th x 2");
+        map.put(Driver.AdditionalProperty.BEST_FINISH, "7th x 1");
         map.put(Driver.AdditionalProperty.PODIUMS, "0");
         map.put(Driver.AdditionalProperty.POLE_POSITIONS, "0");
         map.put(Driver.AdditionalProperty.FASTEST_LAPS, "0");
