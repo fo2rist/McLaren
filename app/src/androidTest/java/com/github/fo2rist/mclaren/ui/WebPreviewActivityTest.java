@@ -20,8 +20,8 @@ import static android.support.test.espresso.web.matcher.DomMatchers.hasElementWi
 import static android.support.test.espresso.web.model.Atoms.getCurrentUrl;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static com.github.fo2rist.mclaren.testdata.FeedItems.HTML_ARTICLE_ITEM;
-import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.MCLAREN_COM;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.HTTP;
+import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.MCLAREN_COM;
+import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.HTTP;
 import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
 import static org.hamcrest.Matchers.containsString;
 

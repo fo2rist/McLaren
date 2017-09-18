@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils;
 import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
+import com.github.fo2rist.mclaren.ui.utils.IntentUtils;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -46,6 +46,6 @@ public class DriverDetailsLineView extends LinearLayout implements AutoLinkOnCli
 
     @Override
     public void onAutoLinkTextClick(AutoLinkMode autoLinkMode, String autoLink) {
-        LinkUtils.openInBrowser(getContext(), FeedLinkUtils.getTwitterPageLink(autoLink));
+        IntentUtils.openInBrowser(getContext(), LinkUtils.getTwitterPageLink(autoLink));
     }
 }
