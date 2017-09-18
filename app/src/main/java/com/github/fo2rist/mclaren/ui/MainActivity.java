@@ -69,12 +69,14 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationViewMain = findViewById(R.id.nav_view_main);
+        navigationViewMain.setNavigationItemSelectedListener(this);
+        NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
+        navigationViewFooter.setNavigationItemSelectedListener(this);
 
         //Populate main content area on the first launch
         if (savedInstanceState == null) {
-            navigationView.setCheckedItem(R.id.nav_newsfeed);
+            navigationViewMain.setCheckedItem(R.id.nav_newsfeed);
             navigateNewsfeed();
         }
     }
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
         return true;
     }
 
@@ -123,7 +125,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_drivers) {
             navigateDrivers();
         } else if (id == R.id.nav_car) {
-            navigateCar();
+            openCarPage();
+        } else if (id == R.id.nav_official_site) {
+            openMcLarenWebsite();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -163,8 +167,12 @@ public class MainActivity extends AppCompatActivity
                 DriversFragment.newInstance());
     }
 
-    private void navigateCar() {
-        startActivity(PreviewActivity.createUrlIntent(this, LinkUtils.getMclarenCarLink()));
+    private void openCarPage() {
+        openInBrowser(this, LinkUtils.getMcLarenCarLink());
+    }
+
+    private void openMcLarenWebsite() {
+        openInBrowser(this, LinkUtils.getMcLarenFormula1Link());
     }
 
     private void navigateToNewFragment(Fragment fragment) {

@@ -37,7 +37,7 @@ public class LinkUtils {
             case Instagram:
                 return getInstagramPageLink(mentionId);
             case Unknown:
-                return getMclarenFormula1Link();
+                return getMcLarenFormula1Link();
             default:
                 return null;
         }
@@ -76,11 +76,11 @@ public class LinkUtils {
         return INSTAGRAM_HASHTAG_BASE_PATH + hashtag;
     }
 
-    public static String getMclarenFormula1Link() {
+    public static String getMcLarenFormula1Link() {
         return MCLAREN_F1_BASE_PATH;
     }
 
-    public static String getMclarenCarLink() {
+    public static String getMcLarenCarLink() {
         return MCLAREN_F1_BASE_PATH + "car/";
     }
 

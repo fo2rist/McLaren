@@ -24,8 +24,12 @@ public class MainPage {
         return onView(withId(R.id.fab));
     }
 
-    public ViewInteraction onNavigationView() {
-        return onView(withId(R.id.nav_view));
+    private ViewInteraction onNavigationView() {
+        return onView(withId(R.id.nav_view_main));
+    }
+
+    private ViewInteraction onFooterNavigationView() {
+        return onView(withId(R.id.nav_view_footer));
     }
 
     public ViewInteraction onMenuNewsfeed() {
@@ -52,5 +56,15 @@ public class MainPage {
         openNavigationDrawer();
         onNavigationView()
                 .perform(navigateTo(menuItemId));
+    }
+
+    public void navigateToFooterMenuItem(int menuItemId) throws InterruptedException {
+        openNavigationDrawer();
+        onFooterNavigationView()
+                .perform(navigateTo(menuItemId));
+    }
+
+    public ViewInteraction onMenuOfficialSite() {
+        return onView(withText("Official site"));
     }
 }
