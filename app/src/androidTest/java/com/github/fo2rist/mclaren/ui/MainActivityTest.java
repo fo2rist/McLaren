@@ -71,7 +71,7 @@ public class MainActivityTest extends BaseMainActivityTest {
     @Test
     public void testNavigationToSamePage() throws Exception {
         NewsfeedPage newsfeedPage = new NewsfeedPage();
-        
+
         newsfeedPage.onNewsList()
                 .check(displayed());
         mainPage.navigateToMenuItem(R.id.nav_newsfeed);
