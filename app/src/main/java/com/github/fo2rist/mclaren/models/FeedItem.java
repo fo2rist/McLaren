@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Represent single item in the feed.
@@ -37,32 +36,21 @@ public class FeedItem implements Serializable {
     public final SourceType sourceType;
     @NonNull
     public final String sourceName;
+    /** Non displayable link that may be found in source data. */
+    @NonNull
+    public final String embeddedLink;
     @NonNull
     public final String[] imageUris;
 
-    public static FeedItem createMessage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName) {
-        return new FeedItem(Type.Message, text, null, dateTime, sourceType, sourceName);
-    }
-
-    public static FeedItem createImage(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, @NonNull String imageUri) {
-        return new FeedItem(Type.Image, text, null, dateTime, sourceType, sourceName, imageUri);
-    }
-
-    public static FeedItem createGallery(@NonNull String text, @NonNull Date dateTime, @NonNull SourceType sourceType,
-            @NonNull String sourceName, @NonNull List<String> imageUris) {
-        return new FeedItem(Type.Gallery, text, null, dateTime, sourceType, sourceName, imageUris.toArray(new String[imageUris.size()]));
-    }
-
     public FeedItem(@NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
-            @NonNull SourceType sourceType, @NonNull String sourceName, String...imageUris) {
+            @NonNull SourceType sourceType, @NonNull String sourceName, String embeddedLink, String... imageUris) {
         this.type = type;
         this.text = text;
         this.content = content;
         this.dateTime = dateTime;
         this.sourceType = sourceType;
         this.sourceName = sourceName;
+        this.embeddedLink = embeddedLink;
         this.imageUris = imageUris;
     }
 

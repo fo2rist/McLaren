@@ -8,6 +8,7 @@ import org.junit.runners.JUnit4;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
@@ -46,6 +47,7 @@ public class FeedParserTest {
         assertEquals(McLarenFeedItem.Source.INSTAGRAM, item.source);
         assertEquals(McLarenFeedItem.Type.IMAGE, item.type);
         assertFalse(item.hidden);
+        assertNotNull(item.tweetText);
         assertEquals(1, item.media.size());
         assertEquals(new Date(Date.UTC(2017-1900, 8-1, 12, 10, 34, 06)),
                 item.publicationDate);

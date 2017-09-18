@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -24,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
-import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.getFeedHashtagLink;
-import static com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils.getFeedMentionLink;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.openInBrowser;
+import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.openInBrowser;
+import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getFeedHashtagLink;
+import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getFeedMentionLink;
 
 /**
  * Adapter for main page feed of news.
@@ -139,18 +138,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         private void displayImage(FeedItem feedItem) {
             switch (feedItem.type) {
-                case Gallery:
-                    displayImage(getCurrentImageUri());
-                    break;
-                case Image:
-                    displayImage(getCurrentImageUri());
-                    break;
-                case Video:
-                    this.image.setImageURI(Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/ic_video"));
-                    break;
                 case Message:
                     hideImage();
                     break;
+                case Gallery:
+                case Image:
+                case Video:
                 case Article:
                     displayImage(getCurrentImageUri());
                     break;

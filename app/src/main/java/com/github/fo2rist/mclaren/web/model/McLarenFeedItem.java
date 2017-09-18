@@ -12,6 +12,7 @@ import java.util.Date;
  *  - sourceId string id
  *  - tweetText string
  *  - appOnly boolean
+ *  - tweetText string may be set for all kind of posts not just tweets
  * Fields with conditional meaning:
  *  - content: plain string for Message, and Gallery from Twitter, html for Article and Gallery from null
  *  - body: null of html for some Gallery posts
@@ -50,5 +51,6 @@ public class McLarenFeedItem implements Serializable{
     public String title;
     public String content;
     public String body;
+    public String tweetText;
     ArrayList<McLarenMediaItem> media;
 }
