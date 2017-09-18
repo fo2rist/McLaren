@@ -27,6 +27,9 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 
+import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.openInBrowser;
+import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getMediaLink;
+
 
 public class MainActivity extends AppCompatActivity
         implements HasSupportFragmentInjector,
@@ -173,6 +176,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemDetailsRequested(FeedItem item) {
-        startActivity(PreviewActivity.createFeedItemIntent(this, item));
+        if (item.type == FeedItem.Type.Video) {
+            //TODO just play video like all other media types
+            openInBrowser(this, getMediaLink(item));
+        } else {
+            startActivity(PreviewActivity.createFeedItemIntent(this, item));
+        }
     }
 }

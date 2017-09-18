@@ -1,11 +1,13 @@
 package com.github.fo2rist.mclaren.web.model;
 
 import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  * Converts web-models to plain app models.
@@ -31,6 +33,7 @@ public class McLarenFeedConverter {
                 fetchDate(mcLarenFeedItem),
                 fetchSourceType(mcLarenFeedItem),
                 fetchSourceName(mcLarenFeedItem),
+                fetchHiddenLink(mcLarenFeedItem),
                 fetchMediaUris(mcLarenFeedItem));
     }
 
@@ -91,6 +94,17 @@ public class McLarenFeedConverter {
         } else {
             return "";
         }
+    }
+
+    private static String fetchHiddenLink(McLarenFeedItem mcLarenFeedItem) {
+        if (!TextUtils.isEmpty(mcLarenFeedItem.tweetText)) {
+            Matcher linkMatcher = Patterns.WEB_URL.matcher(mcLarenFeedItem.tweetText);
+            if (linkMatcher.find()) {
+                return linkMatcher.group();
+            }
+        }
+
+        return "";
     }
 
     private static String[] fetchMediaUris(McLarenFeedItem mcLarenFeedItem) {
