@@ -20,7 +20,7 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import com.github.fo2rist.mclaren.ui.utils.FeedLinkUtils;
+import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void navigateCar() {
-        startActivity(PreviewActivity.createUrlIntent(this, FeedLinkUtils.getMclarenCarLink()));
+        startActivity(PreviewActivity.createUrlIntent(this, LinkUtils.getMclarenCarLink()));
     }
 
     private void navigateToNewFragment(Fragment fragment) {
