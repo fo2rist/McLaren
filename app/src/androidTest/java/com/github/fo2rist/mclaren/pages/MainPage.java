@@ -48,6 +48,10 @@ public class MainPage {
         return onView(withText("Car"));
     }
 
+    public ViewInteraction onOptionMenuAbout() {
+        return onView(withText("About"));
+    }
+
     public void openNavigationDrawer() {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
     }

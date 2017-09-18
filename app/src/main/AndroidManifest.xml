@@ -24,10 +24,14 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.CircuitDetailsActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".ui.MainActivity"
+            />
         <activity
             android:name=".ui.PreviewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.MainActivity"
+            />
     </application>
 
 </manifest>

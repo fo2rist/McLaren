@@ -3,7 +3,6 @@ package com.github.fo2rist.mclaren.ui;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.net.Uri;
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -13,12 +12,14 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.not;
@@ -57,14 +58,20 @@ public class MainActivityTest extends BaseMainActivityTest {
 
     @Test
     public void testOptionsMenu() throws Exception {
-        Espresso.openActionBarOverflowOrOptionsMenu(context);
-        onView(withText("Settings"))
-                .check(displayed());
+        initViewIntents();
+
+        openActionBarOverflowOrOptionsMenu(context);
+        mainPage.onOptionMenuAbout()
+                .check(displayed())
+                .perform(click());
+
+        intended(hasComponent(PreviewActivity.class.getName()));
     }
 
     @Test
     public void testNavigationToSamePage() throws Exception {
         NewsfeedPage newsfeedPage = new NewsfeedPage();
+        
         newsfeedPage.onNewsList()
                 .check(displayed());
         mainPage.navigateToMenuItem(R.id.nav_newsfeed);
@@ -78,7 +85,7 @@ public class MainActivityTest extends BaseMainActivityTest {
 
         mainPage.navigateToFooterMenuItem(R.id.nav_car);
 
-        Intents.intended(hasData(any(Uri.class)));
+        intended(hasData(any(Uri.class)));
     }
 
     @Test
@@ -87,7 +94,7 @@ public class MainActivityTest extends BaseMainActivityTest {
 
         mainPage.navigateToFooterMenuItem(R.id.nav_official_site);
 
-        Intents.intended(hasData(any(Uri.class)));
+        intended(hasData(any(Uri.class)));
     }
 
     private void initViewIntents() {
