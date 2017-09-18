@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 public class LinkUtilsUrlsTest {
 
     @Test
-    public void testUnknonwSourceTreatAsMclarenF1Link() throws Exception {
+    public void testUnknonwSourceTreatAsMcLarenF1Link() throws Exception {
         String link = LinkUtils.getFeedMentionLink(FeedItems.MCLAREN_ARTICLE_ITEM,
                 "any");
 

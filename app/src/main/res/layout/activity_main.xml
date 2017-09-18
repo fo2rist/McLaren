@@ -16,17 +16,43 @@
 
     <!--navigation drawer-->
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="false"
         android:background="@drawable/background_side_nav_bar"
         android:theme="@style/AppTheme.NavigationView"
-        app:headerLayout="@layout/navigation_drawer_header"
-        app:itemIconTint="@color/menu_item_color"
-        app:itemTextColor="@color/menu_item_color"
-        app:itemTextAppearance="@style/AppTheme.MenuFont"
-        app:menu="@menu/activity_main_drawer" />
-
+        android:fitsSystemWindows="false"
+        android:layout_gravity="start"
+        >
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/nav_view_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    app:headerLayout="@layout/navigation_drawer_header"
+                    style="@style/DrawerMenu"
+                    app:menu="@menu/main_drawer_menu">
+                </android.support.design.widget.NavigationView>
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/nav_view_footer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    style="@style/DrawerMenu"
+                    app:menu="@menu/footer_drawer_menu"
+                    />
+            </LinearLayout>
+        </ScrollView>
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
