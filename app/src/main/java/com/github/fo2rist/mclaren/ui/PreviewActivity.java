@@ -17,7 +17,7 @@ import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 
 public class PreviewActivity extends AppCompatActivity {
 
@@ -100,7 +100,7 @@ public class PreviewActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(imageUri)) {
             headerImage.setVisibility(View.GONE);
         } else {
-            ImageUtils.loadImage(headerImage, imageUri);
+            McLarenImageDownloader.loadImage(headerImage, imageUri);
         }
     }
 

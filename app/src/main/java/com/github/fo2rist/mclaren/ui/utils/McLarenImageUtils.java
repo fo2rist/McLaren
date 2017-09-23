@@ -2,39 +2,24 @@ package com.github.fo2rist.mclaren.ui.utils;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.ImageView;
 
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
-
-public class ImageUtils {
+/**
+ * Helps with McLaren API specific image URLs
+ */
+public class McLarenImageUtils {
     /* Placeholders that Web API returns in image URLs to specify width. */
-    public static final String CDN_API_WIDTH_PLACEHOLDER = "WIDTH_PLACEHOLDER";
-    public static final String CDN_API_HEIGHT_PLACEHOLDER = "HEIGHT_PLACEHOLDER";
+    private static final String CDN_API_WIDTH_PLACEHOLDER = "WIDTH_PLACEHOLDER";
+    private static final String CDN_API_HEIGHT_PLACEHOLDER = "HEIGHT_PLACEHOLDER";
     private static final String TAB_API_WIDTH_PLACEHOLDER = "{width}";
     private static final String TAB_API_HEIGHT_PLACEHOLDER = "{height}";
 
-    //TODO tab-api doesn't not support images larger than original size. Let's handle it on client. 2017-02-09
-    private static final int DEFAULT_WIDTH = 800;
-    private static final int DEFAULT_HEIGHT = 600;
-
-    private ImageUtils() {
-    }
-
-    public static void loadImage(ImageView imageView, String imageUri) {
-        loadImage(imageView, imageUri, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    }
-
-    public static void loadImage(ImageView imageView, String imageUri, int width, int height) {
-        Uri loadUri = buildImageUri(imageUri, width, height);
-        McLarenImageDownloader.getLoader(imageView.getContext())
-                .load(loadUri)
-                .into(imageView);
+    private McLarenImageUtils() {
     }
 
     /**
      * @return null for null or empty source urls
      */
-    private static Uri buildImageUri(String imageUri, int width, int height) {
+    public static Uri buildImageUri(String imageUri, int width, int height) {
         if (TextUtils.isEmpty(imageUri)) {
             return null;
         }

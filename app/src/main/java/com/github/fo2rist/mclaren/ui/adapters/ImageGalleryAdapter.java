@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 
 public class ImageGalleryAdapter extends PagerAdapter {
 
@@ -15,13 +15,15 @@ public class ImageGalleryAdapter extends PagerAdapter {
 
     public ImageGalleryAdapter(Context context, String[] imageUris) {
         this.imageUris = imageUris;
+        //pre cache all images form network on adapter creation
+        McLarenImageDownloader.cacheImages(context, imageUris);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(container.getContext());
         imageView.setId(R.id.image);
-        ImageUtils.loadImage(imageView, imageUris[position]);
+        McLarenImageDownloader.loadImage(imageView, imageUris[position]);
         container.addView(imageView);
 
         return imageView;
