@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.ui.utils.ImageUtils;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -160,7 +160,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 hideImage();
             } else {
                 this.imageSwitcher.setVisibility(View.VISIBLE);
-                ImageUtils.loadImage(this.image, imageUri);
+                McLarenImageDownloader.loadImage(this.image, imageUri);
                 this.image.setContentDescription(currentItem.text);
             }
         }
