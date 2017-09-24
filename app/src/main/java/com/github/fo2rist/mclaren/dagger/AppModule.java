@@ -1,6 +1,8 @@
 package com.github.fo2rist.mclaren.dagger;
 
 import com.github.fo2rist.mclaren.repository.FeedRepository;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
 import com.github.fo2rist.mclaren.repository.McLarenFeedRepository;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.web.FeedWebsevice;
@@ -27,5 +29,11 @@ public abstract class AppModule {
     @Singleton
     static FeedWebsevice provideFeedWebservice(McLarenFeedWebservice webservice) {
         return webservice;
+    }
+
+    @Provides
+    @Singleton
+    static FeedRepositoryPubSub provideFeedRepositoryPubSub(FeedRepositoryPubSubImpl pubSub) {
+        return pubSub;
     }
 }

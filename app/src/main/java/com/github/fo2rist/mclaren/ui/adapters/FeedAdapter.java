@@ -35,6 +35,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     public interface OnFeedInteractionListener {
         void onItemDetailsRequested(FeedItem item);
+        void onLastItemDisplayed();
     }
 
     class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AutoLinkOnClickListener {
@@ -232,6 +233,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
+        if (position == getItemCount() - 1) {
+            notifyLastItemDisplayed();
+        }
         FeedItem feedItem = items.get(position);
         holder.display(context, feedItem);
     }
@@ -256,7 +260,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         } else if (newFeedItems.isEmpty()) {
             return false;
         } else {
-            return this.items.get(0).id < newFeedItems.get(0).id;
+            return this.items.get(0).id < newFeedItems.iterator().next().id;
         }
     }
 
@@ -290,6 +294,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         OnFeedInteractionListener listener = listenerReference.get();
         if (listener != null) {
             listener.onItemDetailsRequested(item);
+        }
+    }
+
+    private void notifyLastItemDisplayed() {
+        OnFeedInteractionListener listener = listenerReference.get();
+        if (listener != null) {
+            listener.onLastItemDisplayed();
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.web;
 
+import android.support.annotation.Nullable;
+
 import com.github.fo2rist.mclaren.BuildConfig;
 import javax.inject.Inject;
 import okhttp3.Callback;
@@ -18,10 +20,20 @@ public class McLarenFeedWebservice implements FeedWebsevice {
 
     private OkHttpClient client = new OkHttpClient();
 
-    private Request feedRequest = new Request.Builder()
-            .url(MCLAREN_FEED_URL)
-            .headers(DEFAULT_HEADERS)
-            .build();
+    private Request latestFeedRequest = createFeedRequest(null);
+
+    private static Request createFeedRequest(@Nullable Integer pageNumber) {
+        String finalUrl;
+        if (pageNumber == null) {
+            finalUrl = MCLAREN_FEED_URL;
+        } else {
+            finalUrl = MCLAREN_FEED_URL + "?p=" + pageNumber; //Yep it's dirty
+        }
+        return new Request.Builder()
+                .url(finalUrl)
+                .headers(DEFAULT_HEADERS)
+                .build();
+    }
 
     @Inject
     McLarenFeedWebservice() {
@@ -29,6 +41,13 @@ public class McLarenFeedWebservice implements FeedWebsevice {
 
     @Override
     public void requestFeed(Callback callback) {
-        client.newCall(feedRequest).enqueue(callback);
+        client.newCall(latestFeedRequest)
+                .enqueue(callback);
+    }
+
+    @Override
+    public void requestPreviousFeedPage(int pageNumber, Callback callback) {
+        client.newCall(createFeedRequest(pageNumber))
+                .enqueue(callback);
     }
 }

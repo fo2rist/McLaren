@@ -2,8 +2,6 @@ package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +23,9 @@ import timber.log.Timber;
  * Shows social feed.
  * Parent activity must implement {@link FeedAdapter.OnFeedInteractionListener}
  */
-public class NewsfeedFragment extends Fragment implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class NewsfeedFragment
+        extends Fragment
+        implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedInteractionListener {
 
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
@@ -69,11 +69,10 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
 
         //setup views
         listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        feedAdapter = new FeedAdapter(getContext(), listener);
+        feedAdapter = new FeedAdapter(getContext(), this);
         listFeed.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
 
-        /*DEBUG*/debug_handler = new Handler(Looper.getMainLooper());
         presenter.onStart(this);
         return rootView;
     }
@@ -83,29 +82,39 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
         presenter.onRefreshRequested();
     }
 
-    Handler debug_handler;
     @Override
     public void setFeed(final List<FeedItem> feedItems) {
-        /*DEBUG*/
-        debug_handler.post(new Runnable() {
-            @Override
-            public void run() {
-                boolean hasNewerItems = feedAdapter.setItems(feedItems);
-                if (hasNewerItems) {
-                    listFeed.scrollToPosition(0);
-                }
+        boolean hasNewerItems = feedAdapter.setItems(feedItems);
+        if (hasNewerItems) {
+            listFeed.scrollToPosition(0);
+        }
+    }
 
-                /*DEBUG*///should be also called then request timed out
-                listRefreshLayout.setRefreshing(false);
-                /*END DEBUG*/
-            }
-        });
-        /*END DEBUG*/
+    @Override
+    public void hideProgress() {
+        listRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.onStop();
+        super.onDestroyView();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onItemDetailsRequested(FeedItem item) {
+        listener.onItemDetailsRequested(item);
+    }
+
+    @Override
+    public void onLastItemDisplayed() {
+        listener.onLastItemDisplayed();
+        presenter.onLoadMoreRequested();
     }
 }

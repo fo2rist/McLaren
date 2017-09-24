@@ -21,6 +21,10 @@ public class ImagePreviewPresenter implements ImagePreviewContract.Presenter {
         showItemContent();
     }
 
+    @Override
+    public void onStop() {
+    }
+
     private void showItemContent() {
         view.showImages(item.imageUris);
     }
