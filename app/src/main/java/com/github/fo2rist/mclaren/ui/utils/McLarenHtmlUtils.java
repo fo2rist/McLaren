@@ -30,8 +30,6 @@ public class McLarenHtmlUtils {
         return rawMcLarenHtml
                 .replace("\\r", "")
                 .replace("\\n", "\n")
-//            .replace("\\t", "\t")
-//            .replace("\\\"", "\"");
         ;
     }
 }

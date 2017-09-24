@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -240,13 +241,52 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         return items.size();
     }
 
-    public void setItems(List<FeedItem> items) {
+    public boolean setItems(List<FeedItem> items) {
+        boolean hasNewerItems = hasNewerItems(items);
+        DiffUtil.DiffResult diff = DiffUtil.calculateDiff(createListComparisonCallback(this.items, items), false);
         this.items.clear();
         this.items.addAll(items);
-        notifyDataSetChanged();
+        diff.dispatchUpdatesTo(this);
+        return hasNewerItems;
     }
 
-    void notifyItemRequested(FeedItem item) {
+    private boolean hasNewerItems(List<FeedItem> newFeedItems) {
+        if (this.items.isEmpty()) {
+            return !newFeedItems.isEmpty();
+        } else if (newFeedItems.isEmpty()) {
+            return false;
+        } else {
+            return this.items.get(0).id < newFeedItems.get(0).id;
+        }
+    }
+
+    private DiffUtil.Callback createListComparisonCallback(final List<FeedItem> oldItems, final List<FeedItem> newItems) {
+        return new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return oldItems.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return newItems.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return areContentsTheSame(oldItemPosition, newItemPosition);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                FeedItem oldItem = oldItems.get(oldItemPosition);
+                FeedItem newItem = newItems.get(newItemPosition);
+                return oldItem.equals(newItem);
+            }
+        };
+    }
+
+    private void notifyItemRequested(FeedItem item) {
         OnFeedInteractionListener listener = listenerReference.get();
         if (listener != null) {
             listener.onItemDetailsRequested(item);

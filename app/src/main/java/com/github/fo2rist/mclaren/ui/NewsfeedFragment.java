@@ -90,7 +90,11 @@ public class NewsfeedFragment extends Fragment implements NewsfeedContract.View,
         debug_handler.post(new Runnable() {
             @Override
             public void run() {
-                feedAdapter.setItems(feedItems);
+                boolean hasNewerItems = feedAdapter.setItems(feedItems);
+                if (hasNewerItems) {
+                    listFeed.scrollToPosition(0);
+                }
+
                 /*DEBUG*///should be also called then request timed out
                 listRefreshLayout.setRefreshing(false);
                 /*END DEBUG*/
