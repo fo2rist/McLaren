@@ -4,4 +4,6 @@ import okhttp3.Callback;
 
 public interface FeedWebsevice {
     void requestFeed(Callback callback);
+
+    void requestPreviousFeedPage(int pageNumber, Callback callback);
 }

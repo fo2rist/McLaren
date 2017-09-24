@@ -6,7 +6,8 @@ import com.github.fo2rist.mclaren.models.FeedItem.Type;
 import java.util.Date;
 
 public class FeedItems {
-    public static final String TITLE = "test title";
+    private static final int ID = 1;
+    private static final String TITLE = "test title";
     private static final String CONTENT = "test content";
     private static final String SOURCE_NAME_TEST = "test source";
     private static final String SOURCE_NAME_MCLAREN = "mclaren.com";
@@ -14,6 +15,7 @@ public class FeedItems {
     private static final String[] IMAGES = new String[]{""};
 
     public static final FeedItem TWITTER_GALLERY_ITEM = new FeedItem(
+            ID,
             Type.Gallery,
             TITLE,
             CONTENT,
@@ -24,6 +26,7 @@ public class FeedItems {
             IMAGES);
 
     public static final FeedItem INSTAGRAM_GALLERY_ITEM = new FeedItem(
+            ID,
             Type.Gallery,
             TITLE,
             CONTENT,
@@ -34,6 +37,7 @@ public class FeedItems {
             IMAGES);
 
     public static final FeedItem MCLAREN_ARTICLE_ITEM = new FeedItem(
+            ID,
             Type.Article,
             TITLE,
             CONTENT,
@@ -43,6 +47,7 @@ public class FeedItems {
             EMBEDDED_LINK);
 
     public static final FeedItem VIDEO_ITEM = new FeedItem(
+            ID,
             Type.Video,
             TITLE,
             CONTENT,
