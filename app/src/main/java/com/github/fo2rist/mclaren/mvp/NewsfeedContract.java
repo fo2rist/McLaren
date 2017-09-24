@@ -11,6 +11,7 @@ public interface NewsfeedContract {
 
     interface Presenter extends BasePresenter<View> {
         void onRefreshRequested();
+        void onScrolledToSecondThird();
         void onLoadMoreRequested();
     }
 }

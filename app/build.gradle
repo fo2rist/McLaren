@@ -54,6 +54,9 @@ dependencies {
     //event bus
     compile 'org.greenrobot:eventbus:3.0.0'
 
+    //joda
+    compile 'joda-time:joda-time:2.9.9'
+
     // logger
     compile "com.jakewharton.timber:timber:4.5.1"
 

@@ -43,6 +43,11 @@ public class NewsfeedPresenter implements NewsfeedContract.Presenter {
     }
 
     @Override
+    public void onScrolledToSecondThird() {
+        this.feedRepository.prepareForLoading();
+    }
+
+    @Override
     public void onLoadMoreRequested() {
         this.feedRepository.loadPrevious();
     }

@@ -194,8 +194,4 @@ public class MainActivity extends AppCompatActivity
             startActivity(PreviewActivity.createFeedItemIntent(this, item));
         }
     }
-
-    @Override
-    public void onLastItemDisplayed() {
-    }
 }

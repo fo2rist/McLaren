@@ -33,9 +33,15 @@ import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getFeedMentionLink;
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
+
     public interface OnFeedInteractionListener {
         void onItemDetailsRequested(FeedItem item);
-        void onLastItemDisplayed();
+    }
+
+    public interface OnFeedScrollingListener {
+        void onScrolledToSecondThird();
+
+        void onScrolledToBottom();
     }
 
     class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AutoLinkOnClickListener {
@@ -216,12 +222,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     }
 
     private final Context context;
-    private final WeakReference<OnFeedInteractionListener> listenerReference;
+    private final WeakReference<OnFeedInteractionListener> interactionListenerReference;
+    private final WeakReference<OnFeedScrollingListener> scrollingListenerReference;
     private List<FeedItem> items = new ArrayList<>();
 
-    public FeedAdapter(Context context, OnFeedInteractionListener listener) {
+    public FeedAdapter(Context context,
+            OnFeedInteractionListener interactionListener,
+            OnFeedScrollingListener scrollingListener) {
         this.context = context;
-        this.listenerReference = new WeakReference<>(listener);
+        this.interactionListenerReference = new WeakReference<>(interactionListener);
+        this.scrollingListenerReference = new WeakReference<>(scrollingListener);
     }
 
     @Override
@@ -233,11 +243,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
+        notofiAboutScrollEventsIfNecessary(position);
+        FeedItem feedItem = items.get(position);
+        holder.display(context, feedItem);
+    }
+
+    private void notofiAboutScrollEventsIfNecessary(int position) {
+        if (position == getItemCount() / 3 + 1) {
+            notifyItemFromSeconThirdDisplayed();
+        }
         if (position == getItemCount() - 1) {
             notifyLastItemDisplayed();
         }
-        FeedItem feedItem = items.get(position);
-        holder.display(context, feedItem);
     }
 
     @Override
@@ -291,16 +308,23 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     }
 
     private void notifyItemRequested(FeedItem item) {
-        OnFeedInteractionListener listener = listenerReference.get();
+        OnFeedInteractionListener listener = interactionListenerReference.get();
         if (listener != null) {
             listener.onItemDetailsRequested(item);
         }
     }
 
-    private void notifyLastItemDisplayed() {
-        OnFeedInteractionListener listener = listenerReference.get();
+    private void notifyItemFromSeconThirdDisplayed() {
+        OnFeedScrollingListener listener = scrollingListenerReference.get();
         if (listener != null) {
-            listener.onLastItemDisplayed();
+            listener.onScrolledToSecondThird();
+        }
+    }
+
+    private void notifyLastItemDisplayed() {
+        OnFeedScrollingListener listener = scrollingListenerReference.get();
+        if (listener != null) {
+            listener.onScrolledToBottom();
         }
     }
 }
