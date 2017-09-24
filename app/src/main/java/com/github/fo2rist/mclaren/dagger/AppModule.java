@@ -5,7 +5,9 @@ import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
 import com.github.fo2rist.mclaren.repository.McLarenFeedRepository;
 import com.github.fo2rist.mclaren.ui.MainActivity;
+import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.FeedWebsevice;
+import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebservice;
 import dagger.Module;
 import dagger.Provides;
@@ -35,5 +37,11 @@ public abstract class AppModule {
     @Singleton
     static FeedRepositoryPubSub provideFeedRepositoryPubSub(FeedRepositoryPubSubImpl pubSub) {
         return pubSub;
+    }
+
+    @Provides
+    @Singleton
+    static FeedHistoryPredictor provideHistoryPredictor(McLarenFeedHistoryPredictor historyPredictor) {
+        return historyPredictor;
     }
 }

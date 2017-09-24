@@ -25,7 +25,7 @@ import timber.log.Timber;
  */
 public class NewsfeedFragment
         extends Fragment
-        implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedInteractionListener {
+        implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedScrollingListener {
 
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
@@ -69,7 +69,7 @@ public class NewsfeedFragment
 
         //setup views
         listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        feedAdapter = new FeedAdapter(getContext(), this);
+        feedAdapter = new FeedAdapter(getContext(), listener, this);
         listFeed.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
 
@@ -108,13 +108,12 @@ public class NewsfeedFragment
     }
 
     @Override
-    public void onItemDetailsRequested(FeedItem item) {
-        listener.onItemDetailsRequested(item);
+    public void onScrolledToSecondThird() {
+        presenter.onScrolledToSecondThird();
     }
 
     @Override
-    public void onLastItemDisplayed() {
-        listener.onLastItemDisplayed();
+    public void onScrolledToBottom() {
         presenter.onLoadMoreRequested();
     }
 }
