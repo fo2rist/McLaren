@@ -243,14 +243,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
-        notofiAboutScrollEventsIfNecessary(position);
+        notifiAboutScrollEventsIfNecessary(position);
         FeedItem feedItem = items.get(position);
         holder.display(context, feedItem);
     }
 
-    private void notofiAboutScrollEventsIfNecessary(int position) {
+    private void notifiAboutScrollEventsIfNecessary(int position) {
         if (position == getItemCount() / 3 + 1) {
-            notifyItemFromSeconThirdDisplayed();
+            notifyItemFromSecondThirdDisplayed();
         }
         if (position == getItemCount() - 1) {
             notifyLastItemDisplayed();
@@ -274,11 +274,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     private boolean hasNewerItems(List<FeedItem> newFeedItems) {
         if (this.items.isEmpty()) {
             return !newFeedItems.isEmpty();
-        } else if (newFeedItems.isEmpty()) {
-            return false;
-        } else {
-            return this.items.get(0).id < newFeedItems.iterator().next().id;
         }
+
+        if (newFeedItems.isEmpty()) {
+            return false;
+        }
+
+        return this.items.get(0).id < newFeedItems.iterator().next().id;
     }
 
     private DiffUtil.Callback createListComparisonCallback(final List<FeedItem> oldItems, final List<FeedItem> newItems) {
@@ -314,7 +316,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
     }
 
-    private void notifyItemFromSeconThirdDisplayed() {
+    private void notifyItemFromSecondThirdDisplayed() {
         OnFeedScrollingListener listener = scrollingListenerReference.get();
         if (listener != null) {
             listener.onScrolledToSecondThird();
