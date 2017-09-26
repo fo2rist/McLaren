@@ -14,9 +14,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.utils.McLarenHtmlUtils;
+import com.github.fo2rist.mclaren.utils.McLarenHtmlUtils;
 
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.MCLAREN_COM;
+import static com.github.fo2rist.mclaren.utils.LinkUtils.MCLAREN_COM;
 
 
 public class WebPreviewFragment extends Fragment {

@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.ParameterizedRobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.github.fo2rist.mclaren.utilities.LayoutUtils.assertContainsViewWithText;
+import static com.github.fo2rist.mclaren.testutilities.LayoutUtils.assertContainsViewWithText;
 import static junit.framework.Assert.assertNotNull;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 

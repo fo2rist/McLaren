@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
-import com.github.fo2rist.mclaren.ui.utils.IntentUtils;
+import com.github.fo2rist.mclaren.utils.LinkUtils;
+import com.github.fo2rist.mclaren.utils.IntentUtils;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;

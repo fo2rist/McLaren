@@ -20,7 +20,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAct
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
+import static com.github.fo2rist.mclaren.testutilities.CustomViewAssertions.displayed;
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.not;
 

@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.ui.utils;
+package com.github.fo2rist.mclaren.utils;
 
 import android.net.Uri;
 import android.text.TextUtils;

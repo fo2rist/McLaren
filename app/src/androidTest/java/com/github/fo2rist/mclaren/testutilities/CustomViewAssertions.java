@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.utilities;
+package com.github.fo2rist.mclaren.testutilities;
 
 
 import android.support.test.espresso.ViewAssertion;

@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.ui.utils;
+package com.github.fo2rist.mclaren.utils;
 
 public class McLarenHtmlUtils {
     private static final String DEFAULT_CSS =

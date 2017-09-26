@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
+import static com.github.fo2rist.mclaren.testutilities.CustomViewAssertions.displayed;
 
 @RunWith(AndroidJUnit4.class)
 public class CircuitDetailsPageTest {
