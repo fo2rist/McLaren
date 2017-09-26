@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
-import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.openInBrowser;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getFeedHashtagLink;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getFeedMentionLink;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
+import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedHashtagLink;
+import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedMentionLink;
 
 /**
  * Adapter for main page feed of news.

@@ -12,7 +12,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
+import static com.github.fo2rist.mclaren.testutilities.CustomViewAssertions.displayed;
 
 
 @RunWith(AndroidJUnit4.class)

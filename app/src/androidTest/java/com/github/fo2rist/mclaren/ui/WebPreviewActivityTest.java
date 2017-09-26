@@ -3,8 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.fo2rist.mclaren.pages.PreviewPage;
-import com.github.fo2rist.mclaren.utilities.ActivityTestBase;
-import com.github.fo2rist.mclaren.utilities.WebActivityTestRule;
+import com.github.fo2rist.mclaren.testutilities.ActivityTestBase;
+import com.github.fo2rist.mclaren.testutilities.WebActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +20,9 @@ import static android.support.test.espresso.web.matcher.DomMatchers.hasElementWi
 import static android.support.test.espresso.web.model.Atoms.getCurrentUrl;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static com.github.fo2rist.mclaren.testdata.FeedItems.HTML_ARTICLE_ITEM;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.MCLAREN_COM;
-import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.HTTP;
-import static com.github.fo2rist.mclaren.utilities.CustomViewAssertions.displayed;
+import static com.github.fo2rist.mclaren.utils.LinkUtils.MCLAREN_COM;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTP;
+import static com.github.fo2rist.mclaren.testutilities.CustomViewAssertions.displayed;
 import static org.hamcrest.Matchers.containsString;
 
 @RunWith(AndroidJUnit4.class)

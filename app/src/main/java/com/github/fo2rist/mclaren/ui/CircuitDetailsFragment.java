@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 
-import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitDetailedImageUriById;
+import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDetailedImageUriById;
 
 
 public class CircuitDetailsFragment extends Fragment {

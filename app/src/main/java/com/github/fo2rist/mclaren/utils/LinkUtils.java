@@ -1,11 +1,11 @@
-package com.github.fo2rist.mclaren.ui.utils;
+package com.github.fo2rist.mclaren.utils;
 
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 
-import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.HTTP;
-import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.HTTPS;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTP;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTPS;
 
 public class LinkUtils {
     public static final String INSTAGRAM_COM = "www.instagram.com";

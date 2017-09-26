@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.BuildConfig;
-import com.github.fo2rist.mclaren.ui.utils.McLarenImageUtils;
+import com.github.fo2rist.mclaren.utils.McLarenImageUtils;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.utilities;
+package com.github.fo2rist.mclaren.testutilities;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

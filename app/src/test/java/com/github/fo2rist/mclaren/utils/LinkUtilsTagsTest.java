@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.ui.utils;
+package com.github.fo2rist.mclaren.utils;
 
 import com.github.fo2rist.mclaren.testdata.FeedItems;
 import java.util.Arrays;

@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-import static com.github.fo2rist.mclaren.ui.utils.ResourcesUtils.getCircuitImageUriById;
+import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitImageUriById;
 
 /**
  * {@link RecyclerView.Adapter} that can display a Circuit map and makes a call to the

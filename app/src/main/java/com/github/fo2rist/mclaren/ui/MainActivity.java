@@ -20,15 +20,17 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import com.github.fo2rist.mclaren.ui.utils.LinkUtils;
+import com.github.fo2rist.mclaren.utils.LinkUtils;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 
-import static com.github.fo2rist.mclaren.ui.utils.IntentUtils.openInBrowser;
-import static com.github.fo2rist.mclaren.ui.utils.LinkUtils.getMediaLink;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.createMcLarenAppIntent;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.launchSafely;
+import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
+import static com.github.fo2rist.mclaren.utils.LinkUtils.getMediaLink;
 
 
 public class MainActivity extends AppCompatActivity
@@ -60,6 +62,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 //TODO navigate to transmission center once the race is live.
+
+                launchSafely(MainActivity.this,
+                        createMcLarenAppIntent(MainActivity.this));
             }
         });
 
