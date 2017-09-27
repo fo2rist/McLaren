@@ -12,6 +12,7 @@
         android:id="@+id/properties_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_one"
         android:orientation="vertical">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,10 +34,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_two"
                 android:layout_marginEnd="@dimen/margin_two"
+                android:drawableRight="@drawable/ic_info"
+                android:drawableTint="@color/textSecondaryWhite"
+                android:drawablePadding="@dimen/margin_half"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 style="@style/TextLightHeader"
                 tools:text="Monaco GP"
+                tools:targetApi="m"
                 />
             <TextView
                 android:id="@+id/circuit_details"

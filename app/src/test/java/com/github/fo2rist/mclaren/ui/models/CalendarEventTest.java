@@ -12,12 +12,10 @@ public class CalendarEventTest {
 
     @Test
     public void testEndDateCalculatedProperly() throws Exception {
-        CalendarEvent event = new CalendarEvent("", "", "", "", "",
-                new Date(100, 0, 1));
-        assertEquals(new Date(100, 0, 3), event.endDate);
+        java.util.Date endDate = CalendarEvent.calculateEndDate(new Date(100, 0, 1));
+        assertEquals(new Date(100, 0, 3), endDate);
 
-        CalendarEvent eventAtEdge = new CalendarEvent("", "", "", "", "",
-                new Date(100, 0, 31));
-        assertEquals(new Date(100, 1, 2), eventAtEdge.endDate);
+        java.util.Date endDateAtEdge = CalendarEvent.calculateEndDate(new Date(100, 0, 31));
+        assertEquals(new Date(100, 1, 2), endDateAtEdge);
     }
 }
