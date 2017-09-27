@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
@@ -36,5 +37,15 @@ public class CircuitDetailsActivity extends AppCompatActivity{
                 .beginTransaction()
                 .replace(android.R.id.content, fragment)
                 .commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

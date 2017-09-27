@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="calendar_event_details_format">%1$s\n%2$s – %3$s</string>
+    <string name="calendar_event_date_format">dd MMM</string>
+    <string name="circuit_details_format">%1$s >> %2$s</string>
+    <string name="distance_km_format">%.3f km</string>
 </resources>

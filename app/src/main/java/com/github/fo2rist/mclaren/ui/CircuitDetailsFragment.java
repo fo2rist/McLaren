@@ -8,15 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
+import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
+import com.github.fo2rist.mclaren.utils.IntentUtils;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDetailedImageUriById;
 
 
-public class CircuitDetailsFragment extends Fragment {
+public class CircuitDetailsFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_EVENT = "event";
 
@@ -69,8 +72,30 @@ public class CircuitDetailsFragment extends Fragment {
 
         TextView circuitTitleView = rootView.findViewById(R.id.circuit_title);
         circuitTitleView.setText(event.grandPrixName);
+        circuitTitleView.setOnClickListener(this);
 
         TextView circuitDetailsView = rootView.findViewById(R.id.circuit_details);
         circuitDetailsView.setText(getString(R.string.circuit_details_format, event.city, event.trackName));
+
+        LinearLayout propertiesList = rootView.findViewById(R.id.properties_linearlayout);
+
+        addInformationLine(propertiesList, "Laps", String.valueOf(event.laps));
+        addInformationLine(propertiesList, "Length", getString(R.string.distance_km_format, event.length));
+        addInformationLine(propertiesList, "Total Distance", getString(R.string.distance_km_format, event.distance));
+        addInformationLine(propertiesList, "Seasons", event.seasons);
+        addInformationLine(propertiesList, "Grand Prix Held", String.valueOf(event.gpHeld));
+    }
+
+    private void addInformationLine(LinearLayout propertiesList, String propertyName, String propertyValue) {
+        InformationLineView propertyView = new InformationLineView(getContext());
+        propertyView.setContent(propertyName, propertyValue);
+        propertiesList.addView(propertyView);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.circuit_title) {
+            IntentUtils.launchSafely(getContext(), IntentUtils.createBrowserIntent(event.wikiLink));
+        }
     }
 }

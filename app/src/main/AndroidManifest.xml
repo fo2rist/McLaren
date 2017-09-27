@@ -26,7 +26,6 @@
         <activity
             android:name=".ui.CircuitDetailsActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".ui.MainActivity"
             />
         <activity
             android:name=".ui.PreviewActivity"

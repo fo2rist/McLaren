@@ -37,8 +37,7 @@ public class CalendarEventsLoader {
 
         for(GrandPrix gp: grandPrixes) {
             Circuit circuit = findCircuit(circuits, gp);
-            calendarEvents.add(
-                    new CalendarEvent(circuit.id, circuit.country, circuit.track, circuit.city, circuit.name, gp.date));
+            calendarEvents.add(new CalendarEvent(circuit, gp));
         }
         return calendarEvents;
     }

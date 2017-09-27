@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
@@ -20,8 +19,7 @@ import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty;
 import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty;
 import com.github.fo2rist.mclaren.ui.models.DriversFactory;
 import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
-import com.github.fo2rist.mclaren.ui.widgets.DriverDetailsLineView;
-
+import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
 import timber.log.Timber;
 
 import static android.text.TextUtils.isEmpty;
@@ -98,14 +96,14 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
     }
 
     private void populateViews(View rootView) {
-        TextView titleTextView = (TextView) rootView.findViewById(R.id.driver_number_text);
+        TextView titleTextView = rootView.findViewById(R.id.driver_number_text);
         titleTextView.setText(driver.getProperty(AdditionalProperty.TAG));
 
-        TextView subtitleTextView = (TextView) rootView.findViewById(R.id.driver_result_text);
+        TextView subtitleTextView = rootView.findViewById(R.id.driver_result_text);
         subtitleTextView.setText(
                 getPlaceAndPointsText());
 
-        ImageView portraitView = (ImageView) rootView.findViewById(R.id.driver_portrait_image);
+        ImageView portraitView = rootView.findViewById(R.id.driver_portrait_image);
         portraitView.setImageURI(
                 getPortraitImageUri());
 
@@ -120,19 +118,16 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
             heritageLinkButton.setOnClickListener(this);
         }
 
-        LinearLayout propertiesList = (LinearLayout) rootView.findViewById(R.id.properties_linearlayout);
+        LinearLayout propertiesList = rootView.findViewById(R.id.properties_linearlayout);
         for(Driver.Property property: propertiesToDisplayInList) {
             String propertyValue = driver.getProperty(property);
             if (propertyValue == null) {
                 continue;
             }
 
-            DriverDetailsLineView propertyView = new DriverDetailsLineView(getContext());
-            propertyView.setLayoutParams(getPropertyLineLayout());
+            InformationLineView propertyView = new InformationLineView(getContext());
             propertyView.setContent(property.getDisplayName(), propertyValue);
             propertiesList.addView(propertyView);
-
-            propertiesList.invalidate();
         }
     }
 
@@ -150,18 +145,6 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
 
     private Uri getPortraitImageUri() {
         return Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/driver_" + driver.getId());
-    }
-
-    @NonNull
-    private LayoutParams getPropertyLineLayout() {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(
-                getContext().getResources().getDimensionPixelSize(R.dimen.margin_five),//left
-                getContext().getResources().getDimensionPixelSize(R.dimen.margin_half), //top
-                getContext().getResources().getDimensionPixelSize(R.dimen.margin_five),//right
-                getContext().getResources().getDimensionPixelSize(R.dimen.margin_half)  //bottom
-        );
-        return layoutParams;
     }
 
     @Override
