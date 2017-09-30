@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web.model;
+package com.github.fo2rist.mclaren.web.models;
 
 import java.util.ArrayList;
 
