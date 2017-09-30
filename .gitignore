@@ -39,3 +39,6 @@ captures/
 
 # Keystore files
 *.jks
+
+#Private properties
+fabric.properties
