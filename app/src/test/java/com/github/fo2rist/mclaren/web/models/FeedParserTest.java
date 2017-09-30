@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web.model;
+package com.github.fo2rist.mclaren.web.models;
 
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
 import java.util.Date;

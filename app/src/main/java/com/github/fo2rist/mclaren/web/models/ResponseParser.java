@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web.model;
+package com.github.fo2rist.mclaren.web.models;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

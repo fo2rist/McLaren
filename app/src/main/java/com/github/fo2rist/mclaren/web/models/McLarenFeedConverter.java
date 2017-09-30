@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web.model;
+package com.github.fo2rist.mclaren.web.models;
 
 import android.text.TextUtils;
 import android.util.Patterns;

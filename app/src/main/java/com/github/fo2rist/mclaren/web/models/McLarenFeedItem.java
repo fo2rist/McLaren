@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web.model;
+package com.github.fo2rist.mclaren.web.models;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
