@@ -1,8 +1,22 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion project.COMPILE_SDK_VERSION
     buildToolsVersion project.BUILD_TOOLS_VERSION
+
+    def properties = readProperties("env/mclaren.properties")
+
     defaultConfig {
         applicationId "com.github.fo2rist.mclaren"
         targetSdkVersion project.TARGET_SDK_VERSION
@@ -10,6 +24,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [crashlyticsKey: readProperty('CRASHLYTICS_KEY', properties)]
     }
     buildTypes {
         release {
@@ -23,7 +38,6 @@ android {
         htmlReport true
     }
 
-    def properties = readProperties("env/mclaren.properties")
     applicationVariants.all { variant ->
         setConfigProperty('MCLAREN_FEED_URL', properties, variant)
         setConfigProperty('MCLAREN_RACE_INFO_URL', properties, variant)
@@ -31,6 +45,10 @@ android {
         setConfigProperty('MCLAREN_CDN_AUTH', properties, variant)
         setConfigProperty('MCLAREN_TAB_API_AUTH', properties, variant)
     }
+}
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
@@ -41,6 +59,9 @@ dependencies {
     compile "com.android.support:design:$project.supportVersion"
     compile "com.android.support:recyclerview-v7:$project.supportVersion"
     compile "com.android.support:support-v4:$project.supportVersion"
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 
     // autolink for textview embedded links
     compile 'com.github.armcha:AutoLinkTextView:0.3.0'
@@ -105,10 +126,14 @@ def readProperties(configFileName) {
  * Check properties file first, then ENV, set "null" if not found.
  */
 static def setConfigProperty(String propertyName, Properties properties, variant) {
-    def propertyValue = properties.getProperty(propertyName) ?: System.getenv(propertyName)
+    def propertyValue = readProperty(propertyName, properties)
     variant.buildConfigField "String", propertyName, wrapString(propertyValue)
     if (propertyValue == null)
         System.err.println "Property ${propertyName} not found and set to null for variant ${variant.name}"
+}
+
+private static String readProperty(String propertyName, Properties properties) {
+    return properties.getProperty(propertyName) ?: System.getenv(propertyName)
 }
 
 /** Wrap string var to be used as string literal in java code. */
