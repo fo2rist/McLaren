@@ -21,7 +21,7 @@ android {
         applicationId "com.github.fo2rist.mclaren"
         targetSdkVersion project.TARGET_SDK_VERSION
         minSdkVersion project.MIN_SDK_VERSION
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [crashlyticsKey: readProperty('CRASHLYTICS_KEY', properties)]
