@@ -46,16 +46,17 @@ public class McLarenFeedHistoryPredictorTest {
     @Test
     public void testDoubleStartIsNotAllowed() throws Exception {
         predictor.startPrediction();
-        verify(mockWebservice, only()).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, only()).requestFeedPage(anyInt(), any(WebCallback.class));
 
         reset(mockWebservice);
 
         predictor.startPrediction();
-        verify(mockWebservice, never()).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(WebCallback.class));
     }
 
     @Test
     public void testPageResolvedWhenResponsesCorrect() throws Exception {
+        //a page between predicted one and last existing one
         int lastExistingPage = (predictor.guessClosestNotExistingPage() + LATEST_KNOWN_PAGE) / 2;
         testPageDetectedProperly(lastExistingPage);
     }
@@ -67,22 +68,22 @@ public class McLarenFeedHistoryPredictorTest {
     }
 
     private void testPageDetectedProperly(int lastExistingPage) {
-        setMockserverResponseToSetFirstPage(lastExistingPage);
+        setupMockServerToReturnExistingPage(lastExistingPage);
 
         predictor.startPrediction();
 
-        verify(mockWebservice, atLeastOnce()).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(WebCallback.class));
         assertEquals(lastExistingPage - 1, predictor.getFirstHistoryPage());
         assertFalse(predictor.isActive());
     }
 
     @Test
     public void testPageUnknonwIfThereIsNoResponse() throws Exception {
-        setMockserverResponseToFailure();
+        setupMockServerToAlwaysFail();
 
         predictor.startPrediction();
 
-        verify(mockWebservice, atLeastOnce()).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(WebCallback.class));
         assertFalse(predictor.isActive());
     }
 
@@ -90,7 +91,7 @@ public class McLarenFeedHistoryPredictorTest {
         return new URL(BuildConfig.MCLAREN_FEED_URL + "?p=" + page);
     }
 
-    private void setMockserverResponseToSetFirstPage(final int lastExistingPage) {
+    private void setupMockServerToReturnExistingPage(final int lastExistingPage) {
         doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, WebCallback>() {
             @Override
             public void answer(Integer pageNumber, WebCallback callback) throws Throwable {
@@ -100,15 +101,15 @@ public class McLarenFeedHistoryPredictorTest {
                     callback.onSuccess(createUrlForPage(pageNumber), pageNumber, 200, "");
                 }
             }
-        })).when(mockWebservice).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        })).when(mockWebservice).requestFeedPage(anyInt(), any(WebCallback.class));
     }
 
-    private void setMockserverResponseToFailure() {
+    private void setupMockServerToAlwaysFail() {
         doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, WebCallback>() {
             @Override
             public void answer(Integer pageNumber, WebCallback callback) throws Throwable {
                 callback.onFailure(createUrlForPage(pageNumber), pageNumber, 500, null);
             }
-        })).when(mockWebservice).requestFeedPageHead(anyInt(), any(WebCallback.class));
+        })).when(mockWebservice).requestFeedPage(anyInt(), any(WebCallback.class));
     }
 }

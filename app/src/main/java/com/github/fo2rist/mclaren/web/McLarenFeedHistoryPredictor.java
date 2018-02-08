@@ -24,6 +24,7 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
         }
     }
 
+    //today 2017 02 07 page 504 days 136
     // As of Sep 2017.09.24 it's 454
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     static final int LATEST_KNOWN_PAGE = 454;
@@ -81,8 +82,8 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
         //once we define a starting point to lookup we just wait for next answer and either shift top or bottom line
         //of possibilities window
         setActive(true);
-        int nextPageToAsk  = guessClosestNotExistingPage();
-        websevice.requestFeedPageHead(nextPageToAsk, this);
+
+        requestPage(guessClosestNotExistingPage());
     }
 
     @Override
@@ -95,6 +96,10 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
         Days daysBetween = Days.daysBetween(LATEST_KNOWN_DATE, LocalDate.now());
 
         return LATEST_KNOWN_PAGE + daysBetween.getDays() * APPROXIMATED_DAYS_PER_PAGE + APPROXIMATED_EXTRA_PAGES_BUFFER;
+    }
+
+    private void requestPage(int nextPageToAsk) {
+        websevice.requestFeedPage(nextPageToAsk, this);
     }
 
     @Override
@@ -129,8 +134,7 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
             setActive(false);
         } else {
             //otherwise, bisect
-            int nextPageToAsk = (currentBottom.pageNumber + currentTop.pageNumber + 1) / 2;
-            websevice.requestFeedPageHead(nextPageToAsk, this);
+            requestPage((currentBottom.pageNumber + currentTop.pageNumber + 1) / 2);
         }
     }
 
