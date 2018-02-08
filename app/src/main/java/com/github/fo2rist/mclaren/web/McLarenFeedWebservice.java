@@ -79,12 +79,6 @@ public class McLarenFeedWebservice implements FeedWebsevice {
                 .enqueue(new CallbackWrapper(callback));
     }
 
-    @Override
-    public void requestFeedPageHead(int pageNumber, WebCallback callback) {
-        client.newCall(createFeedPageRequest(HEAD, pageNumber))
-                .enqueue(new CallbackWrapper(callback));
-    }
-
     private Request createLatestFeedRequest() {
         return createFeedPageRequest(GET, null);
     }
