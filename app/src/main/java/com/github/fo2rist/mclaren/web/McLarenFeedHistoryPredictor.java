@@ -24,11 +24,11 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
         }
     }
 
-    //today 2017 02 07 page 504 days 136
-    // As of Sep 2017.09.24 it's 454
+    // As of 2017.09.24 it was 454
+    // As of 2018.02.07 it was 504
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    static final int LATEST_KNOWN_PAGE = 454;
-    private static final LocalDate LATEST_KNOWN_DATE = new LocalDate(2017, 9, 24);
+    static final int LATEST_KNOWN_PAGE = 504;
+    private static final LocalDate LATEST_KNOWN_DATE = new LocalDate(2018, 2, 7);
     private static final int APPROXIMATED_DAYS_PER_PAGE = 3;
     private static final int APPROXIMATED_EXTRA_PAGES_BUFFER = 3;
 
@@ -37,7 +37,7 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
     private final FeedWebsevice websevice   ;
 
     /** Newest checked page. */
-    private PageStatus currentTop = new PageStatus(Integer.MAX_VALUE - 10 * LATEST_KNOWN_PAGE, false);
+    private PageStatus currentTop = new PageStatus(LATEST_KNOWN_PAGE * 100, false); //initially page way in the future
     /** Oldest checked page. */
     private PageStatus currentBottom = new PageStatus(LATEST_KNOWN_PAGE, true);
     /** First page that contains items older than latest feed page. */
