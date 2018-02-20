@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -216,7 +217,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.imageSwitcher.setVisibility(View.GONE);
         }
 
+        @Nullable
         private String getCurrentImageUri() {
+            if (currentItem == null || currentItem.imageUris.length == 0) {
+                return null;
+            }
             return currentItem.imageUris[currentGalleryIndex];
         }
     }
