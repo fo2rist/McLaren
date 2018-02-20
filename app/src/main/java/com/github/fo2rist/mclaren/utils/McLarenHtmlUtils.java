@@ -18,7 +18,15 @@ public class McLarenHtmlUtils {
     private McLarenHtmlUtils() {
     }
 
+    /**
+     * Add styles to the HTML to make it prettier and strip from incorrect escape sequences.
+     * @return udpated HTML or empty string if source HTML is null
+     */
     public static String pretify(String rawMcLarenHtml) {
+        if (rawMcLarenHtml == null) {
+            return "";
+        }
+
         return addCSS(replaceEscapeSequences(rawMcLarenHtml));
     }
 
