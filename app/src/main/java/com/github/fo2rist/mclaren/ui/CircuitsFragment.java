@@ -38,7 +38,9 @@ public class CircuitsFragment extends Fragment {
     }
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int columnCount = 2;
+    private static final int DEFAULT_COLUMNS_COUNT = 2;
+
+    private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
 
     /**
@@ -59,9 +61,13 @@ public class CircuitsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fetchBundleParameters();
+    }
 
-        if (getArguments() != null) {
-            columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+    private void fetchBundleParameters() {
+        Bundle args = getArguments();
+        if (args != null) {
+            columnCount = args.getInt(ARG_COLUMN_COUNT, DEFAULT_COLUMNS_COUNT);
         }
     }
 

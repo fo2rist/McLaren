@@ -71,9 +71,23 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fetchBundleParameters();
+    }
+
+    private void fetchBundleParameters() {
         Bundle args = getArguments();
+        if (args == null) {
+            Timber.e("No arguments provided for fragment");
+            return;
+        }
         DriverId driverId = (DriverId) args.getSerializable(ARG_DRIVER);
         driver = DriversFactory.getDriverModel(driverId);
     }
@@ -89,13 +103,11 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         return rootView;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-
     private void populateViews(View rootView) {
+        if (driver == null) {
+            Timber.e("No driver model provided to display");
+            return;
+        }
         TextView titleTextView = rootView.findViewById(R.id.driver_number_text);
         titleTextView.setText(driver.getProperty(AdditionalProperty.TAG));
 
