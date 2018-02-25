@@ -17,6 +17,7 @@ import com.github.fo2rist.mclaren.ui.presenters.ImagePreviewPresenter;
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
     private static final String ARG_FEED_ITEM = "feed_item";
+
     private ImagePreviewContract.Presenter presenter;
     private ViewPager imagesPager;
 
@@ -32,17 +33,29 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        presenter = new ImagePreviewPresenter();
         View rootView = inflater.inflate(R.layout.fragment_image_preview, container, false);
-        Bundle arguments = getArguments();
-        if (arguments == null) {
-            return rootView;
-        }
-        FeedItem feedItem = (FeedItem) arguments.getSerializable(ARG_FEED_ITEM);
         imagesPager = rootView.findViewById(R.id.images_pager);
-
-        presenter.onStartWith(this, feedItem);
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FeedItem feedItem = fetchBundleParameters();
+        if (feedItem != null) {
+            presenter = new ImagePreviewPresenter();
+            presenter.onStartWith(this, feedItem);
+        }
+    }
+
+    private FeedItem fetchBundleParameters() {
+        Bundle args = getArguments();
+        if (args == null) {
+            return null;
+        }
+
+        return (FeedItem) args.getSerializable(ARG_FEED_ITEM);
     }
 
     @Override

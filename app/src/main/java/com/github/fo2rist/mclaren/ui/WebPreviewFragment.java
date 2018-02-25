@@ -23,6 +23,8 @@ public class WebPreviewFragment extends Fragment {
     private static final String ARG_URL = "url";
     private static final String ARG_MCLAREN_HTML = "mclaren_html";
 
+    private WebView webView;
+
     public static WebPreviewFragment newInstanceForUrl(String url) {
         return createInstanceWithArgs(ARG_URL, url);
     }
@@ -45,21 +47,24 @@ public class WebPreviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_web_preview, container, false);
+        webView = rootView.findViewById(R.id.web_view);
+        setupWebView(webView);
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         Bundle arguments = getArguments();
         if (arguments == null) {
-            return rootView;
+            return;
         }
-
-        WebView webView = rootView.findViewById(R.id.web_view);
-        setupWebView(webView);
-
         if (arguments.containsKey(ARG_URL)) {
             loadUrl(webView, arguments.getString(ARG_URL));
         } else if (arguments.containsKey(ARG_MCLAREN_HTML)) {
             loadHtml(webView, arguments.getString(ARG_MCLAREN_HTML));
         }
-
-        return rootView;
     }
 
     @SuppressLint("SetJavaScriptEnabled")

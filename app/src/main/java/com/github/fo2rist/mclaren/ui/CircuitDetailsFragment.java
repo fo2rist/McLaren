@@ -15,6 +15,7 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
 import com.github.fo2rist.mclaren.utils.IntentUtils;
+import timber.log.Timber;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDetailedImageUriById;
 
@@ -23,6 +24,7 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
 
     private static final String ARG_EVENT = "event";
 
+    @Nullable
     private CalendarEvent event;
 
     @NonNull
@@ -41,19 +43,18 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fetchParameters(getArguments());
+        fetchBundleParameters();
     }
 
-    private void fetchParameters(Bundle bundle) {
-        if (bundle == null) {
-            throw new IllegalArgumentException("No arguments provided");
+    private void fetchBundleParameters() {
+        Bundle args = getArguments();
+        if (args == null) {
+            Timber.e("No arguments provided for fragment");
+            //TODO forward error-level logging to Crashlytics. 2018-02-25
+            return;
         }
 
-        event = (CalendarEvent) bundle.getSerializable(ARG_EVENT);
-
-        if (event == null) {
-            throw new IllegalArgumentException("No circuit provided to display");
-        }
+        event = (CalendarEvent) args.getSerializable(ARG_EVENT);
     }
 
     @Nullable
@@ -67,6 +68,11 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
     }
 
     private void populateView(View rootView) {
+        if (event == null) {
+            Timber.e("No circuit model provided to display");
+            return;
+        }
+
         ImageView circuitImageView = rootView.findViewById(R.id.circuit_image);
         circuitImageView.setImageURI(getCircuitDetailedImageUriById(event.circuitId));
 
