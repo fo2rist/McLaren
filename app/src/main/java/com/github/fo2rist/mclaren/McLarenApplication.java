@@ -25,7 +25,7 @@ public class McLarenApplication extends Application implements HasActivityInject
 
     @Override
     public void onCreate() {
-        DaggerAppComponent.create().inject(this);
+        DaggerAppComponent.builder().create(this).inject(this);
         super.onCreate();
 
         //Setup logger and crashlytics

@@ -1,13 +1,16 @@
 package com.github.fo2rist.mclaren.web;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
 import com.github.fo2rist.mclaren.BuildConfig;
+import com.github.fo2rist.mclaren.utils.CacheUtils;
 import java.io.IOException;
 import java.net.URL;
 import javax.inject.Inject;
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -55,16 +58,21 @@ public class McLarenFeedWebservice implements FeedWebsevice {
             "Authorization",    BuildConfig.MCLAREN_CDN_AUTH
     );
 
+
+    private static final int CACHE_SIZE = 5 * 1024 * 1024; // 5 Mb
     private static final String GET = "GET";
     private static final String HEAD = "HEAD";
 
-
-    //TODO use cache here like described in https://github.com/square/okhttp/wiki/Recipes
-    private OkHttpClient client = new OkHttpClient();
+    //WARN caching OkHTTP clients should not use the same directory or at lest should never call the same endpoint
+    private OkHttpClient client;
 
     @Inject
-    McLarenFeedWebservice() {
-        //empty constructor for injection
+    McLarenFeedWebservice(Context context) {
+        Cache cache = CacheUtils.createCache(context, "web", CACHE_SIZE);
+
+        client = new OkHttpClient.Builder()
+                .cache(cache)
+                .build();
     }
 
     @Override

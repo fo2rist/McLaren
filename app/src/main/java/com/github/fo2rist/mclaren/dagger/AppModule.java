@@ -1,5 +1,8 @@
 package com.github.fo2rist.mclaren.dagger;
 
+import android.content.Context;
+
+import com.github.fo2rist.mclaren.McLarenApplication;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
@@ -9,6 +12,7 @@ import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.FeedWebsevice;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebservice;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
@@ -20,6 +24,9 @@ public abstract class AppModule {
     @Scopes.PerActivity
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity mainActivityInjector();
+
+    @Binds
+    abstract Context application(McLarenApplication application);
 
     @Provides
     @Singleton

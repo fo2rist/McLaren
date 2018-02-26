@@ -2,9 +2,11 @@ package com.github.fo2rist.mclaren.web;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.BuildConfig;
+import com.github.fo2rist.mclaren.utils.CacheUtils;
 import com.github.fo2rist.mclaren.utils.McLarenImageUtils;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
@@ -18,25 +20,10 @@ public class McLarenImageDownloader {
     //TODO tab-api doesn't not support images larger than original size. Let's handle it on client. 2017-02-09
     private static final int DEFAULT_WIDTH = 800;
     private static final int DEFAULT_HEIGHT = 600;
+    private static final int CACHE_SIZE = 25 * 1024 * 1024; //25 Mb
 
     private static McLarenImageDownloader instance;
 
-    private OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    //set auth header to requests for tab-api
-                    if (chain.request().url().encodedPath().contains("tab-api/")) {
-                        Request newRequest = chain.request().newBuilder()
-                                .addHeader("Authorization", BuildConfig.MCLAREN_TAB_API_AUTH)
-                                .build();
-                        return chain.proceed(newRequest);
-                    } else { // or just proceed request as is
-                        return chain.proceed(chain.request());
-                    }
-                }
-            })
-            .build();
     private Picasso picasso;
 
     private static synchronized McLarenImageDownloader getInstance(Context context) {
@@ -63,8 +50,38 @@ public class McLarenImageDownloader {
 
     private McLarenImageDownloader(Context context) {
         picasso = new Picasso.Builder(context)
-                .downloader(new OkHttp3Downloader(client))
+                .downloader(createCachingDownloader(context))
+                .indicatorsEnabled(BuildConfig.DEBUG)
+                .loggingEnabled(BuildConfig.DEBUG)
                 .build();
+    }
+
+    @NonNull
+    private OkHttp3Downloader createCachingDownloader(Context context) {
+        //WARN caching OkHTTP clients should not use the same directory or at lest should never call the same endpoint
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(createMcLarenAuthInterceptor())
+                .cache(CacheUtils.createCache(context,"images", CACHE_SIZE))
+                .build();
+        return new OkHttp3Downloader(client);
+    }
+
+    @NonNull
+    private Interceptor createMcLarenAuthInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                //set auth header to requests for tab-api
+                if (chain.request().url().encodedPath().contains("tab-api/")) {
+                    Request newRequest = chain.request().newBuilder()
+                            .addHeader("Authorization", BuildConfig.MCLAREN_TAB_API_AUTH)
+                            .build();
+                    return chain.proceed(newRequest);
+                } else { // or just proceed request as is
+                    return chain.proceed(chain.request());
+                }
+            }
+        };
     }
 
     private void load(String imageUri, ImageView imageView, int width, int height) {
