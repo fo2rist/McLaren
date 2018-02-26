@@ -23,8 +23,9 @@ android {
         minSdkVersion project.MIN_SDK_VERSION
         versionCode 6
         versionName "1.0.2"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [crashlyticsKey: readProperty('CRASHLYTICS_KEY', properties)]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
