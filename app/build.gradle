@@ -25,8 +25,8 @@ android {
         applicationId "com.github.fo2rist.mclaren"
         targetSdkVersion project.TARGET_SDK_VERSION
         minSdkVersion project.MIN_SDK_VERSION
-        versionCode 6
-        versionName "1.0.2"
+        versionCode 7
+        versionName "1.1.0"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [crashlyticsKey: readProperty('CRASHLYTICS_KEY', properties)]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
