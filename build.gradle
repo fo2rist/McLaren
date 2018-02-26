@@ -27,10 +27,6 @@ project.ext {
     MIN_SDK_VERSION = 21
     COMPILE_SDK_VERSION = 26
     TARGET_SDK_VERSION = 26
-    BUILD_TOOLS_VERSION = '26.0.1'
-    supportVersion = '26.0.1'
-    // dependency injection
-    daggerAndroidSupport = 'com.google.dagger:dagger-android-support:2.11'
-    daggerAnnotationProcessor = 'com.google.dagger:dagger-android-processor:2.11'
-    daggerCompiler = 'com.google.dagger:dagger-compiler:2.11'
+    BUILD_TOOLS_VERSION = '27.0.2'
+    supportVersion = '27.0.2'
 }
