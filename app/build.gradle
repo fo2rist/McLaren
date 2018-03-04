@@ -28,7 +28,7 @@ android {
         versionCode 7
         versionName "1.1.0"
         vectorDrawables.useSupportLibrary = true
-        manifestPlaceholders = [crashlyticsKey: readProperty('CRASHLYTICS_KEY', properties)]
+        manifestPlaceholders = [crashlyticsKey: readProperty(properties, 'CRASHLYTICS_KEY')]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -52,11 +52,13 @@ android {
     }
 
     applicationVariants.all { variant ->
-        setConfigProperty('MCLAREN_FEED_URL', properties, variant)
-        setConfigProperty('MCLAREN_RACE_INFO_URL', properties, variant)
-        setConfigProperty('MCLAREN_RACE_LIFE_DATA_URL', properties, variant)
-        setConfigProperty('MCLAREN_CDN_AUTH', properties, variant)
-        setConfigProperty('MCLAREN_TAB_API_AUTH', properties, variant)
+        setConfigProperty(variant, properties, 'MCLAREN_FEED_URL')
+        setConfigProperty(variant, properties, 'MCLAREN_RACE_INFO_URL')
+        setConfigProperty(variant, properties, 'MCLAREN_RACE_LIFE_DATA_URL')
+        setConfigProperty(variant, properties, 'MCLAREN_CDN_AUTH')
+        setConfigProperty(variant, properties, 'MCLAREN_TAB_API_AUTH')
+        setConfigProperty(variant, properties, 'STORYSTREAM_FEED_URL')
+        setConfigProperty(variant, properties, 'STORYSTREAM_TOKEN')
     }
 }
 
@@ -134,14 +136,14 @@ def readProperties(configFileName) {
  * Set build config variable by name.
  * Check properties file first, then ENV, set "null" if not found.
  */
-static def setConfigProperty(String propertyName, Properties properties, variant) {
-    def propertyValue = readProperty(propertyName, properties)
+static def setConfigProperty(variant, Properties properties, String propertyName) {
+    def propertyValue = readProperty(properties, propertyName)
     variant.buildConfigField "String", propertyName, wrapString(propertyValue)
     if (propertyValue == null)
         System.err.println "Property ${propertyName} not found and set to null for variant ${variant.name}"
 }
 
-private static String readProperty(String propertyName, Properties properties) {
+private static String readProperty(final Properties properties, String propertyName) {
     return properties.getProperty(propertyName) ?: System.getenv(propertyName)
 }
 

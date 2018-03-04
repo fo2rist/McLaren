@@ -11,13 +11,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class NewsfeedPresenter implements NewsfeedContract.Presenter {
     private NewsfeedContract.View view;
-    @Inject
-    FeedRepository feedRepository;
-    @Inject
-    FeedRepositoryPubSub repositoryPubSub;
+    private FeedRepository feedRepository;
+    private FeedRepositoryPubSub repositoryPubSub;
 
     @Inject
-    NewsfeedPresenter() {
+    public NewsfeedPresenter(FeedRepository feedRepository, FeedRepositoryPubSub repositoryPubSub) {
+        this.feedRepository = feedRepository;
+        this.repositoryPubSub = repositoryPubSub;
     }
 
     @Override

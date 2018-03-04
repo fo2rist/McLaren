@@ -36,12 +36,12 @@ public class NewsfeedFragment
     @Inject
     NewsfeedContract.Presenter presenter;
 
-    public NewsfeedFragment() {
-        // Required empty public constructor
-    }
-
     public static NewsfeedFragment newInstance() {
         return new NewsfeedFragment();
+    }
+
+    public NewsfeedFragment() {
+        // Required empty public constructor
     }
 
     @Override

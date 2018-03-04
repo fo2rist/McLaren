@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_newsfeed) {
             navigateNewsfeed();
+        } else if (id == R.id.nav_stories) {
+            navigateStories();
         } else if (id == R.id.nav_circuits) {
             navigateCircuits();
         } else if (id == R.id.nav_drivers) {
@@ -159,6 +161,11 @@ public class MainActivity extends AppCompatActivity
     private void navigateNewsfeed() {
         navigateToNewFragment(
                 NewsfeedFragment.newInstance());
+    }
+
+    private void navigateStories() {
+        navigateToNewFragment(
+                StoriesFragment.newInstance());
     }
 
     private void navigateCircuits() {

@@ -6,18 +6,25 @@ import com.github.fo2rist.mclaren.McLarenApplication;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
-import com.github.fo2rist.mclaren.repository.McLarenFeedRepository;
+import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
+import com.github.fo2rist.mclaren.repository.StoryStreamRepository;
+import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
+import com.github.fo2rist.mclaren.web.DefaultOkHttpClientFactory;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
-import com.github.fo2rist.mclaren.web.FeedWebsevice;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
-import com.github.fo2rist.mclaren.web.McLarenFeedWebservice;
+import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
+import com.github.fo2rist.mclaren.web.McLarenFeedWebServiceImpl;
+import com.github.fo2rist.mclaren.web.StoryStreamWebService;
+import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
+import javax.inject.Named;
 import javax.inject.Singleton;
+import okhttp3.OkHttpClient;
 
 @Module(includes = AndroidSupportInjectionModule.class)
 public abstract class AppModule {
@@ -30,14 +37,27 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static FeedRepository provideRepository(McLarenFeedRepository repository) {
+    static FeedRepository provideMcLarenRepository(McLarenFeedRepositoryImpl repository) {
         return repository;
     }
 
     @Provides
     @Singleton
-    static FeedWebsevice provideFeedWebservice(McLarenFeedWebservice webservice) {
-        return webservice;
+    static McLarenFeedWebService provideMcLarenFeedWebservice(McLarenFeedWebServiceImpl webService) {
+        return webService;
+    }
+
+
+    @Provides
+    @Singleton
+    static StoryStreamRepository provideStoryStreamRepository(StoryStreamRepositoryImpl repository) {
+        return repository;
+    }
+
+    @Provides
+    @Singleton
+    static StoryStreamWebService provideStoryStreamWebservice(StoryStreamWebServiceImpl webService) {
+        return webService;
     }
 
     @Provides
@@ -50,5 +70,12 @@ public abstract class AppModule {
     @Singleton
     static FeedHistoryPredictor provideHistoryPredictor(McLarenFeedHistoryPredictor historyPredictor) {
         return historyPredictor;
+    }
+
+    @Provides
+    @Named("web-okhttp")
+    @Singleton
+    static OkHttpClient provideWebOkHttpClient(Context context) {
+        return DefaultOkHttpClientFactory.getInstance(context);
     }
 }

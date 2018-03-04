@@ -6,8 +6,8 @@ import org.greenrobot.eventbus.EventBus;
 public class FeedRepositoryPubSubImpl implements FeedRepositoryPubSub {
 
     @Inject
-    public FeedRepositoryPubSubImpl() {
-        //public constructor for injection
+    FeedRepositoryPubSubImpl() {
+        //constructor for injection
     }
 
     public void subscribe(Object subscriber) {
