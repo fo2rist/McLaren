@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.repository;
 
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
-import com.github.fo2rist.mclaren.web.FeedWebsevice;
-import com.github.fo2rist.mclaren.web.WebCallback;
+import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
+import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,26 +13,26 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class McLarenFeedRepositoryTest {
+public class McLarenFeedRepositoryImplTest {
 
-    private McLarenFeedRepository feedRepository;
-    private FeedWebsevice mockWebservice;
+    private McLarenFeedRepositoryImpl feedRepository;
+    private McLarenFeedWebService mockWebservice;
     private FeedHistoryPredictor mockHistoryPredictor;
 
     @Before
     public void setUp() throws Exception {
-        mockWebservice = mock(FeedWebsevice.class);
+        mockWebservice = mock(McLarenFeedWebService.class);
         mockHistoryPredictor = mock(FeedHistoryPredictor.class);
         FeedRepositoryPubSub mockPubSub = mock(FeedRepositoryPubSub.class);
 
-        feedRepository = new McLarenFeedRepository(mockWebservice, mockPubSub, mockHistoryPredictor);
+        feedRepository = new McLarenFeedRepositoryImpl(mockWebservice, mockPubSub, mockHistoryPredictor);
     }
 
     @Test
     public void testLoadingCallsWebApi() throws Exception {
         feedRepository.loadLatest();
 
-        verify(mockWebservice).requestLatestFeed(any(WebCallback.class));
+        verify(mockWebservice).requestLatestFeed(any(FeedWebServiceCallback.class));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class McLarenFeedRepositoryTest {
         feedRepository.loadPrevious();
 
         verify(mockHistoryPredictor).startPrediction();
-        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
     }
 
     @Test
@@ -55,6 +55,6 @@ public class McLarenFeedRepositoryTest {
 
         verify(mockHistoryPredictor, never()).startPrediction();
         verify(mockHistoryPredictor).getFirstHistoryPage();
-        verify(mockWebservice).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
     }
 }

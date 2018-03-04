@@ -17,7 +17,7 @@ import java.util.Date;
  *  - content: plain string for Message, and Gallery from Twitter, html for Article and Gallery from null
  *  - body: null of html for some Gallery posts
  */
-public class McLarenFeedItem implements Serializable{
+public class McLarenFeedItem implements Serializable {
     enum Type {
         @SerializedName("image")
         IMAGE,

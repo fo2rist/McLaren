@@ -29,11 +29,11 @@ import static org.mockito.Mockito.verify;
 public class McLarenFeedHistoryPredictorTest {
 
     private McLarenFeedHistoryPredictor predictor;
-    private FeedWebsevice mockWebservice;
+    private McLarenFeedWebService mockWebservice;
 
     @Before
     public void setUp() throws Exception {
-        mockWebservice = mock(FeedWebsevice.class);
+        mockWebservice = mock(McLarenFeedWebService.class);
 
         predictor = new McLarenFeedHistoryPredictor(mockWebservice);
     }
@@ -46,12 +46,12 @@ public class McLarenFeedHistoryPredictorTest {
     @Test
     public void testDoubleStartIsNotAllowed() throws Exception {
         predictor.startPrediction();
-        verify(mockWebservice, only()).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, only()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
 
         reset(mockWebservice);
 
         predictor.startPrediction();
-        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class McLarenFeedHistoryPredictorTest {
 
         predictor.startPrediction();
 
-        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
         assertEquals(lastExistingPage - 1, predictor.getFirstHistoryPage());
         assertFalse(predictor.isActive());
     }
@@ -83,7 +83,7 @@ public class McLarenFeedHistoryPredictorTest {
 
         predictor.startPrediction();
 
-        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(WebCallback.class));
+        verify(mockWebservice, atLeastOnce()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
         assertFalse(predictor.isActive());
     }
 
@@ -92,24 +92,24 @@ public class McLarenFeedHistoryPredictorTest {
     }
 
     private void setupMockServerToReturnExistingPage(final int lastExistingPage) {
-        doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, WebCallback>() {
+        doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, FeedWebServiceCallback>() {
             @Override
-            public void answer(Integer pageNumber, WebCallback callback) throws Throwable {
+            public void answer(Integer pageNumber, FeedWebServiceCallback callback) throws Throwable {
                 if (pageNumber > lastExistingPage) {
                     callback.onFailure(createUrlForPage(pageNumber), pageNumber, 404, null);
                 } else {
                     callback.onSuccess(createUrlForPage(pageNumber), pageNumber, 200, "");
                 }
             }
-        })).when(mockWebservice).requestFeedPage(anyInt(), any(WebCallback.class));
+        })).when(mockWebservice).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
     }
 
     private void setupMockServerToAlwaysFail() {
-        doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, WebCallback>() {
+        doAnswer(AdditionalAnswers.answerVoid(new VoidAnswer2<Integer, FeedWebServiceCallback>() {
             @Override
-            public void answer(Integer pageNumber, WebCallback callback) throws Throwable {
+            public void answer(Integer pageNumber, FeedWebServiceCallback callback) throws Throwable {
                 callback.onFailure(createUrlForPage(pageNumber), pageNumber, 500, null);
             }
-        })).when(mockWebservice).requestFeedPage(anyInt(), any(WebCallback.class));
+        })).when(mockWebservice).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
     }
 }

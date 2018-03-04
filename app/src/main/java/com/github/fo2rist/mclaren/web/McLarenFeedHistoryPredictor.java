@@ -13,7 +13,7 @@ import org.joda.time.LocalDate;
  * Predictor for page number which should be next after the latest posts.
  * Hack for McLaren web service. App have to guess the page number
  */
-public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCallback {
+public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, FeedWebServiceCallback {
     private static class PageStatus {
         final int pageNumber;
         final boolean exists;
@@ -34,7 +34,7 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
 
     static final int UNKNOWN_PAGE = -1;
 
-    private final FeedWebsevice websevice   ;
+    private final FeedWebService webService;
 
     /** Newest checked page. */
     private PageStatus currentTop = new PageStatus(LATEST_KNOWN_PAGE * 100, false); //initially page way in the future
@@ -45,8 +45,8 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
     private boolean isActiveNow = false;
 
     @Inject
-    public McLarenFeedHistoryPredictor(FeedWebsevice websevice) {
-        this.websevice = websevice;
+    public McLarenFeedHistoryPredictor(McLarenFeedWebService webService) {
+        this.webService = webService;
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -99,7 +99,7 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, WebCal
     }
 
     private void requestPage(int nextPageToAsk) {
-        websevice.requestFeedPage(nextPageToAsk, this);
+        webService.requestFeedPage(nextPageToAsk, this);
     }
 
     @Override

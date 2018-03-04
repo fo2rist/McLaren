@@ -43,19 +43,19 @@ public class CircuitsFragment extends Fragment {
     private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public CircuitsFragment() {
-    }
-
     public static CircuitsFragment newInstanceForColumns(int columnCount) {
         CircuitsFragment fragment = new CircuitsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public CircuitsFragment() {
     }
 
     @Override

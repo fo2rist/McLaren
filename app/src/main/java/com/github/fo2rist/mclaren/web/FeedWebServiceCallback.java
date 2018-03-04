@@ -5,11 +5,15 @@ import android.support.annotation.Nullable;
 import java.io.IOException;
 import java.net.URL;
 
-public interface WebCallback {
+/**
+ * Callback for requests to {@link FeedWebService} methods.
+ */
+public interface FeedWebServiceCallback {
+
     /**
      * Called when response received.
      * @param url original request Url
-     * @param requestedPage number of page if specific page was requested, or -1
+     * @param requestedPage number of page if specific page was requested, or {@value FeedWebService#DEFAULT_PAGE}
      * @param responseCode Http response code
      * @param data Http response body as string.
      */
@@ -18,7 +22,7 @@ public interface WebCallback {
     /**
      * Called on any failure, networking or serverside.
      * @param url original request Url
-     * @param requestedPage number of page if specific page was requested, or -1
+     * @param requestedPage number of page if specific page was requested, or {@value FeedWebService#DEFAULT_PAGE}
      * @param responseCode Http response code, non zero if server returned the code
      * @param connectionError Error in case of any exception, null of server returned the code
      */
