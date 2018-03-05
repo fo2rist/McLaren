@@ -18,7 +18,7 @@ import java.util.Date;
  *  - body: null of html for some Gallery posts
  */
 public class McLarenFeedItem implements Serializable {
-    enum Type {
+    public enum Type {
         @SerializedName("image")
         IMAGE,
         @SerializedName("gallery")
@@ -31,7 +31,7 @@ public class McLarenFeedItem implements Serializable {
         ARTICLE,
     }
 
-    enum Source {
+    public enum Source {
         @SerializedName("Twitter")
         TWITTER,
         @SerializedName("Instagram")
@@ -52,5 +52,5 @@ public class McLarenFeedItem implements Serializable {
     public String content;
     public String body;
     public String tweetText;
-    ArrayList<McLarenMediaItem> media;
+    public ArrayList<McLarenMediaItem> media;
 }

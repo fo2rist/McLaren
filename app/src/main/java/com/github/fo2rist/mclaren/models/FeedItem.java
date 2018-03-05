@@ -40,12 +40,12 @@ public class FeedItem implements Serializable {
     public final String sourceName;
     /** Non displayable link that may be found in source data. */
     @NonNull
-    public final String embeddedLink;
+    public final String videoLink;
     @NonNull
     public final String[] imageUris;
 
     public FeedItem(int id, @NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
-            @NonNull SourceType sourceType, @NonNull String sourceName, String embeddedLink, String... imageUris) {
+            @NonNull SourceType sourceType, @NonNull String sourceName, String videoLink, String... imageUris) {
         this.id = id;
         this.type = type;
         this.text = text;
@@ -53,7 +53,7 @@ public class FeedItem implements Serializable {
         this.dateTime = dateTime;
         this.sourceType = sourceType;
         this.sourceName = sourceName;
-        this.embeddedLink = embeddedLink;
+        this.videoLink = videoLink;
         this.imageUris = imageUris;
     }
 
@@ -100,7 +100,7 @@ public class FeedItem implements Serializable {
         if (!sourceName.equals(feedItem.sourceName)) {
             return false;
         }
-        if (!embeddedLink.equals(feedItem.embeddedLink)) {
+        if (!videoLink.equals(feedItem.videoLink)) {
             return false;
         }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
@@ -115,7 +115,7 @@ public class FeedItem implements Serializable {
         result = 31 * result + dateTime.hashCode();
         result = 31 * result + sourceType.hashCode();
         result = 31 * result + sourceName.hashCode();
-        result = 31 * result + embeddedLink.hashCode();
+        result = 31 * result + videoLink.hashCode();
         result = 31 * result + Arrays.hashCode(imageUris);
         return result;
     }

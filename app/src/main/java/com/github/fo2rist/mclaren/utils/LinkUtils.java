@@ -19,13 +19,13 @@ public class LinkUtils {
     private static final String TWITTER_BASE_PATH = HTTPS + TWITTER_COM + "/";
     private static final String TWITTER_HASHTAG_BASE_PATH = HTTPS + TWITTER_COM + "/hashtag/";
 
-    /** Return embedded link if possible, otherwise return fallback link to media source. */
+    /** Return embedded media link if possible, otherwise return fallback link to media source. */
     @Nullable
     public static String getMediaLink(FeedItem feedItem) {
-        if (feedItem.embeddedLink == null || feedItem.embeddedLink.isEmpty()) {
+        if (feedItem.videoLink == null || feedItem.videoLink.isEmpty()) {
             return getFeedMentionLink(feedItem, feedItem.sourceName);
         } else {
-            return feedItem.embeddedLink;
+            return feedItem.videoLink;
         }
     }
 

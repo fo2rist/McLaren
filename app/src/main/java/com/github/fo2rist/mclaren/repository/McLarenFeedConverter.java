@@ -1,9 +1,11 @@
-package com.github.fo2rist.mclaren.web.models;
+package com.github.fo2rist.mclaren.repository;
 
 import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.web.models.McLarenFeed;
+import com.github.fo2rist.mclaren.web.models.McLarenFeedItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +37,8 @@ public class McLarenFeedConverter {
                 fetchDate(mcLarenFeedItem),
                 fetchSourceType(mcLarenFeedItem),
                 fetchSourceName(mcLarenFeedItem),
-                fetchHiddenLink(mcLarenFeedItem),
-                fetchMediaUris(mcLarenFeedItem));
+                fetchHiddenVideoLink(mcLarenFeedItem),
+                fetchImageUris(mcLarenFeedItem));
     }
 
     private static int fetchId(McLarenFeedItem mcLarenFeedItem) {
@@ -102,7 +104,7 @@ public class McLarenFeedConverter {
         }
     }
 
-    private static String fetchHiddenLink(McLarenFeedItem mcLarenFeedItem) {
+    private static String fetchHiddenVideoLink(McLarenFeedItem mcLarenFeedItem) {
         if (!TextUtils.isEmpty(mcLarenFeedItem.tweetText)) {
             Matcher linkMatcher = Patterns.WEB_URL.matcher(mcLarenFeedItem.tweetText);
             if (linkMatcher.find()) {
@@ -113,7 +115,7 @@ public class McLarenFeedConverter {
         return "";
     }
 
-    private static String[] fetchMediaUris(McLarenFeedItem mcLarenFeedItem) {
+    private static String[] fetchImageUris(McLarenFeedItem mcLarenFeedItem) {
         if (mcLarenFeedItem.media == null) {
             return new String[0];
         } else {

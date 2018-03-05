@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.web.models;
 
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
-import java.util.Date;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -13,31 +13,12 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(JUnit4.class)
-public class FeedParserTest {
-    @Test
-    public void testEmptyResponseHandledWithoutErrors() throws Exception {
-        McLarenFeed mcLarenFeedItems = McLarenFeedResponseParser.parseFeed("");
-
-        assertTrue(mcLarenFeedItems.isEmpty());
-    }
-
-    @Test
-    public void testEmptyJsonHandledWithoutErrors() throws Exception {
-        McLarenFeed mcLarenFeedItems = McLarenFeedResponseParser.parseFeed("[]");
-
-        assertTrue(mcLarenFeedItems.isEmpty());
-    }
-
-    @Test
-    public void testIncorrectJsonHandledWithoutErrors() throws Exception {
-        McLarenFeed mcLarenFeedItems = McLarenFeedResponseParser.parseFeed("{}"); //should be array
-
-        assertTrue(mcLarenFeedItems.isEmpty());
-    }
+public class McLarenFeedParserTest {
+    private McLarenFeedResponseParser parser = new McLarenFeedResponseParser();
 
     @Test
     public void testReadDataParsedWithoutErrors() throws Exception {
-        McLarenFeed mcLarenFeedItems = McLarenFeedResponseParser.parseFeed(McLarenFeedResponse.REAL_FEED_RESPONSE);
+        McLarenFeed mcLarenFeedItems = parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE);
 
         McLarenFeedItem item = mcLarenFeedItems.get(0);
         assertEquals(McLarenFeedResponse.REAL_FEED_SIZE, mcLarenFeedItems.size());
@@ -49,7 +30,6 @@ public class FeedParserTest {
         assertFalse(item.hidden);
         assertNotNull(item.tweetText);
         assertEquals(1, item.media.size());
-        assertEquals(new Date(Date.UTC(2017-1900, 8-1, 12, 10, 34, 06)),
-                item.publicationDate);
+        assertEquals(DateTime.parse("2017-08-12T10:34:06Z").toDate(), item.publicationDate);
     }
 }
