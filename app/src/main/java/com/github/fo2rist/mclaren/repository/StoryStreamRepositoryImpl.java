@@ -4,14 +4,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.github.fo2rist.mclaren.web.FeedWebService;
-import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
+import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
 import com.github.fo2rist.mclaren.web.models.StoryStream;
+import com.github.fo2rist.mclaren.web.models.StoryStreamResponseParser;
 import java.io.IOException;
 import java.net.URL;
 import javax.inject.Inject;
-
-import static com.github.fo2rist.mclaren.web.models.StoryStreamResponseParser.parse;
 
 /**
  * Provider of the "Stories" feed supplied by storystream.it service.
@@ -19,6 +18,7 @@ import static com.github.fo2rist.mclaren.web.models.StoryStreamResponseParser.pa
  */
 public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     final FeedWebService webService;
+    final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
     private int lastLoadedPage = 0;
 
     @Inject
@@ -56,7 +56,7 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
                 lastLoadedPage = requestedPage;
             }
 
-            StoryStream storyStreamItems = parse(data);
+            StoryStream storyStreamItems = responseParser.parse(data);
             Log.d("Response Size", "" + storyStreamItems.items.size());
         }
     };

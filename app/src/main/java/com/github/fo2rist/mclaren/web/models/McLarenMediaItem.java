@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Represent sub-item in feed of any multimedia type.
  */
 public class McLarenMediaItem {
-    enum Source {
+    public enum Source {
         @SerializedName("twitter")
         TWITTER,
         @SerializedName("instagram")
@@ -16,18 +16,18 @@ public class McLarenMediaItem {
         @SerializedName("mclaren")
         MCLAREN,
     }
-    enum Type {
+    public enum Type {
         @SerializedName("image")
         IMAGE,
     }
 
-    int id;
+    public int id;
     /** Media type. May be null for twitter source. */
     @Nullable
-    Type type;
+    public Type type;
     @Nullable
-    Source source;
-    String url;
-    int width;
-    int height;
+    public Source source;
+    public String url;
+    public int width;
+    public int height;
 }

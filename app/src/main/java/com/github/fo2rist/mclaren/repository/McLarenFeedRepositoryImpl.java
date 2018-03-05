@@ -8,8 +8,7 @@ import com.github.fo2rist.mclaren.web.FeedWebService;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
-import com.github.fo2rist.mclaren.web.models.McLarenFeedConverter;
-import com.github.fo2rist.mclaren.web.models.ResponseParser;
+import com.github.fo2rist.mclaren.web.models.McLarenFeedResponseParser;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +28,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     final FeedWebService webService;
     final FeedRepositoryPubSub repositoryPubSub;
     final FeedHistoryPredictor historyPredictor;
+    final McLarenFeedResponseParser responseParser = new McLarenFeedResponseParser();
 
     private TreeMap<Integer, FeedItem> feedMapById = new TreeMap<>();
     private int lastLoadedPage = UNKNOWN_PAGE;
@@ -95,7 +95,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     };
 
     private List<FeedItem> parse(String response) {
-        McLarenFeed mcLarenFeed = ResponseParser.parseFeed(response);
+        McLarenFeed mcLarenFeed = responseParser.parse(response);
         return McLarenFeedConverter.convertFeed(mcLarenFeed);
     }
 
