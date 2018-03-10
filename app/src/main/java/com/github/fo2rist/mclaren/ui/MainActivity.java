@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         //Populate main content area on the first launch
         if (savedInstanceState == null) {
             navigationViewMain.setCheckedItem(R.id.nav_newsfeed);
-            navigateNewsfeed();
+            navigateNewsFeed();
         }
     }
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_newsfeed) {
-            navigateNewsfeed();
+            navigateNewsFeed();
         } else if (id == R.id.nav_stories) {
             navigateStories();
         } else if (id == R.id.nav_circuits) {
@@ -158,14 +158,14 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void navigateNewsfeed() {
+    private void navigateNewsFeed() {
         navigateToNewFragment(
-                NewsfeedFragment.newInstance());
+                McLarenFeedFragment.newInstance());
     }
 
     private void navigateStories() {
         navigateToNewFragment(
-                StoriesFragment.newInstance());
+                StoriesFeedFragment.newInstance());
     }
 
     private void navigateCircuits() {

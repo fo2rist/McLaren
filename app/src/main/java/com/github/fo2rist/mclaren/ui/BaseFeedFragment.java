@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
+import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
@@ -20,12 +20,13 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
- * Shows social feed.
+ * Displays feed of {@link FeedItem}s.
+ * Handle refresh, loading and links clicking.
  * Parent activity must implement {@link FeedAdapter.OnFeedInteractionListener}
  */
-public class NewsfeedFragment
+public class BaseFeedFragment
         extends Fragment
-        implements NewsfeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedScrollingListener {
+        implements FeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedScrollingListener {
 
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
@@ -34,15 +35,7 @@ public class NewsfeedFragment
 
     private FeedAdapter.OnFeedInteractionListener listener;
     @Inject
-    NewsfeedContract.Presenter presenter;
-
-    public static NewsfeedFragment newInstance() {
-        return new NewsfeedFragment();
-    }
-
-    public NewsfeedFragment() {
-        // Required empty public constructor
-    }
+    FeedContract.Presenter presenter;
 
     @Override
     public void onAttach(Context context) {
@@ -62,7 +55,7 @@ public class NewsfeedFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         listFeed = rootView.findViewById(R.id.list_feed);
         listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);

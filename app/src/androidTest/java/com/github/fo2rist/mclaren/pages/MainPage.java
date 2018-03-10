@@ -32,8 +32,12 @@ public class MainPage {
         return onView(withId(R.id.nav_view_footer));
     }
 
-    public ViewInteraction onMenuNewsfeed() {
+    public ViewInteraction onMenuNewsFeed() {
         return onView(withText("Newsfeed"));
+    }
+
+    public ViewInteraction onMenuStories() {
+        return onView(withText("Stories"));
     }
 
     public ViewInteraction onMenuCircuits() {

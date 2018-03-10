@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.ui.presenters;
 
-import com.github.fo2rist.mclaren.mvp.NewsfeedContract;
+import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
 import com.github.fo2rist.mclaren.repository.PubSubEvents;
@@ -9,19 +9,19 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class NewsfeedPresenter implements NewsfeedContract.Presenter {
-    private NewsfeedContract.View view;
+public class FeedPresenter implements FeedContract.Presenter {
+    private FeedContract.View view;
     private FeedRepository feedRepository;
     private FeedRepositoryPubSub repositoryPubSub;
 
     @Inject
-    public NewsfeedPresenter(FeedRepository feedRepository, FeedRepositoryPubSub repositoryPubSub) {
+    public FeedPresenter(FeedRepository feedRepository, FeedRepositoryPubSub repositoryPubSub) {
         this.feedRepository = feedRepository;
         this.repositoryPubSub = repositoryPubSub;
     }
 
     @Override
-    public void onStart(NewsfeedContract.View view) {
+    public void onStart(FeedContract.View view) {
         this.view = view;
         this.repositoryPubSub.subscribe(this);
 
