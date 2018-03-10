@@ -37,7 +37,7 @@ public class McLarenFeedConverter {
                 fetchDate(mcLarenFeedItem),
                 fetchSourceType(mcLarenFeedItem),
                 fetchSourceName(mcLarenFeedItem),
-                fetchHiddenVideoLink(mcLarenFeedItem),
+                fetchHiddenMediaLink(mcLarenFeedItem),
                 fetchImageUris(mcLarenFeedItem));
     }
 
@@ -104,7 +104,7 @@ public class McLarenFeedConverter {
         }
     }
 
-    private static String fetchHiddenVideoLink(McLarenFeedItem mcLarenFeedItem) {
+    private static String fetchHiddenMediaLink(McLarenFeedItem mcLarenFeedItem) {
         if (!TextUtils.isEmpty(mcLarenFeedItem.tweetText)) {
             Matcher linkMatcher = Patterns.WEB_URL.matcher(mcLarenFeedItem.tweetText);
             if (linkMatcher.find()) {

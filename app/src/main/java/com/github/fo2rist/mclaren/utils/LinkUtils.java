@@ -22,10 +22,10 @@ public class LinkUtils {
     /** Return embedded media link if possible, otherwise return fallback link to media source. */
     @Nullable
     public static String getMediaLink(FeedItem feedItem) {
-        if (feedItem.videoLink == null || feedItem.videoLink.isEmpty()) {
+        if (feedItem.embeddedMediaLink == null || feedItem.embeddedMediaLink.isEmpty()) {
             return getFeedMentionLink(feedItem, feedItem.sourceName);
         } else {
-            return feedItem.videoLink;
+            return feedItem.embeddedMediaLink;
         }
     }
 
