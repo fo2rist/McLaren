@@ -26,6 +26,6 @@ public class ImagePreviewPresenter implements ImagePreviewContract.Presenter {
     }
 
     private void showItemContent() {
-        view.showImages(item.imageUris);
+        view.showImages(item.imageUrls);
     }
 }

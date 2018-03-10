@@ -11,6 +11,12 @@ import java.util.Date;
  * Represent single item in the feed.
  */
 public class FeedItem implements Serializable {
+    /**
+     * Suggested limit for text length.
+     * Not enforced by constructor itself.
+     */
+    public static final int TEXT_LENGTH_LIMIT = 280;
+
     public enum Type {
         Image,
         Gallery,
@@ -40,12 +46,12 @@ public class FeedItem implements Serializable {
     public final String sourceName;
     /** Non displayable link that may be found in source data. */
     @NonNull
-    public final String videoLink;
+    public final String embeddedMediaLink;
     @NonNull
-    public final String[] imageUris;
+    public final String[] imageUrls;
 
     public FeedItem(int id, @NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
-            @NonNull SourceType sourceType, @NonNull String sourceName, String videoLink, String... imageUris) {
+            @NonNull SourceType sourceType, @NonNull String sourceName, String embeddedMediaLink, String... imageUrls) {
         this.id = id;
         this.type = type;
         this.text = text;
@@ -53,8 +59,8 @@ public class FeedItem implements Serializable {
         this.dateTime = dateTime;
         this.sourceType = sourceType;
         this.sourceName = sourceName;
-        this.videoLink = videoLink;
-        this.imageUris = imageUris;
+        this.embeddedMediaLink = embeddedMediaLink;
+        this.imageUrls = imageUrls;
     }
 
     /**
@@ -63,10 +69,10 @@ public class FeedItem implements Serializable {
      */
     @Nullable
     public String getImageUri() {
-        if (imageUris.length == 0) {
+        if (imageUrls.length == 0) {
             return null;
         } else {
-            return imageUris[0];
+            return imageUrls[0];
         }
     }
 
@@ -100,11 +106,11 @@ public class FeedItem implements Serializable {
         if (!sourceName.equals(feedItem.sourceName)) {
             return false;
         }
-        if (!videoLink.equals(feedItem.videoLink)) {
+        if (!embeddedMediaLink.equals(feedItem.embeddedMediaLink)) {
             return false;
         }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(imageUris, feedItem.imageUris);
+        return Arrays.equals(imageUrls, feedItem.imageUrls);
     }
 
     @Override
@@ -115,8 +121,8 @@ public class FeedItem implements Serializable {
         result = 31 * result + dateTime.hashCode();
         result = 31 * result + sourceType.hashCode();
         result = 31 * result + sourceName.hashCode();
-        result = 31 * result + videoLink.hashCode();
-        result = 31 * result + Arrays.hashCode(imageUris);
+        result = 31 * result + embeddedMediaLink.hashCode();
+        result = 31 * result + Arrays.hashCode(imageUrls);
         return result;
     }
 }

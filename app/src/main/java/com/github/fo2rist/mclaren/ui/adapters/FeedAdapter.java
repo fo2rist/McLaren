@@ -219,10 +219,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         @Nullable
         private String getCurrentImageUri() {
-            if (currentItem == null || currentItem.imageUris.length == 0) {
+            if (currentItem == null || currentItem.imageUrls.length == 0) {
                 return null;
             }
-            return currentItem.imageUris[currentGalleryIndex];
+            return currentItem.imageUrls[currentGalleryIndex];
         }
     }
 

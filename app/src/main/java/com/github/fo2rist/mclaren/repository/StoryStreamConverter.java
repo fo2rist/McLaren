@@ -2,6 +2,8 @@ package com.github.fo2rist.mclaren.repository;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.TextUtils;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
@@ -13,7 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.*;
+import static com.github.fo2rist.mclaren.models.FeedItem.TEXT_LENGTH_LIMIT;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.FeedType;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.ImageData;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.VideoData;
 
 class StoryStreamConverter {
     public static List<FeedItem> convertFeed(StoryStream storyStreamFeed) {
@@ -69,7 +74,26 @@ class StoryStreamConverter {
 
     @NonNull
     private static String fetchText(StoryStreamItem storyStreamItem) {
-        return fetchContentItem(storyStreamItem).body;
+        StoryStreamContentItem data = fetchContentItem(storyStreamItem);
+        if (data.feedType == FeedType.Custom) {
+            String text = data.body;
+            text = Html.fromHtml(text).toString();
+
+            text = text.replaceAll("\\n+", " ");
+
+            if (!TextUtils.isEmpty(data.title)) {
+                text = data.title.toUpperCase() + "\n" + text;
+            }
+
+            if (text.length() > TEXT_LENGTH_LIMIT) {
+                text = text.substring(0, TEXT_LENGTH_LIMIT);
+            }
+
+            return text;
+        } else {
+            //TODO We are loosing links that way. HTML should be preserved and then handled on the UI side. 2018.03.09
+            return Html.fromHtml(data.body).toString();
+        }
     }
 
     private static StoryStreamContentItem fetchContentItem(StoryStreamItem storyStreamItem) {
