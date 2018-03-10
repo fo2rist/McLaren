@@ -26,7 +26,7 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
 
     private TreeMap<Integer, FeedItem> feedMapById = new TreeMap<>();
-    private int lastLoadedPage = 0;
+    private int lastLoadedPage = 1; //latest page st StoryStream is the same as Page=1
 
     @Inject
     public StoryStreamRepositoryImpl(StoryStreamWebServiceImpl webService, FeedRepositoryPubSub repositoryPubSub) {
