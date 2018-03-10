@@ -1,17 +1,17 @@
 package com.github.fo2rist.mclaren.dagger;
 
-import com.github.fo2rist.mclaren.ui.NewsfeedFragment;
-import com.github.fo2rist.mclaren.ui.StoriesFragment;
+import com.github.fo2rist.mclaren.ui.McLarenFeedFragment;
+import com.github.fo2rist.mclaren.ui.StoriesFeedFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class MainActivityModule {
     @Scopes.PerFragment
-    @ContributesAndroidInjector(modules = NewsfeedFragmentModule.class)
-    abstract NewsfeedFragment newsfeedFragmentInjector();
+    @ContributesAndroidInjector(modules = McLarenFeedFragmentModule.class)
+    abstract McLarenFeedFragment newsfeedFragmentInjector();
 
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = StoriesFragmentModule.class)
-    abstract StoriesFragment storiesFragmentInjector();
+    abstract StoriesFeedFragment storiesFragmentInjector();
 }

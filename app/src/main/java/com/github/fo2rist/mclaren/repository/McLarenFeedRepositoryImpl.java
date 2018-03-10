@@ -84,9 +84,9 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
                 lastLoadedPage = requestedPage;
             }
 
-            List<FeedItem> newFeedItems = parse(data);
-            if (!newFeedItems.isEmpty()) {
-                List<FeedItem> resultingList = updateFeedItems(newFeedItems);
+            List<FeedItem> feedItems = parse(data);
+            if (!feedItems.isEmpty()) {
+                List<FeedItem> resultingList = updateFeedItems(feedItems);
 
                 repositoryPubSub.publish(new PubSubEvents.FeedUpdateReady(resultingList));
             }

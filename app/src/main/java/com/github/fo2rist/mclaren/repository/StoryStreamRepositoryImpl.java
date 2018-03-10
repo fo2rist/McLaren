@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.repository;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.web.FeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
 import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
@@ -10,6 +11,9 @@ import com.github.fo2rist.mclaren.web.models.StoryStream;
 import com.github.fo2rist.mclaren.web.models.StoryStreamResponseParser;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 import javax.inject.Inject;
 
 /**
@@ -18,12 +22,16 @@ import javax.inject.Inject;
  */
 public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     final FeedWebService webService;
+    final FeedRepositoryPubSub repositoryPubSub;
     final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
+
+    private TreeMap<Integer, FeedItem> feedMapById = new TreeMap<>();
     private int lastLoadedPage = 0;
 
     @Inject
-    public StoryStreamRepositoryImpl(StoryStreamWebServiceImpl webService) {
+    public StoryStreamRepositoryImpl(StoryStreamWebServiceImpl webService, FeedRepositoryPubSub repositoryPubSub) {
         this.webService = webService;
+        this.repositoryPubSub = repositoryPubSub;
     }
 
     @Override
@@ -45,19 +53,37 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     private FeedWebServiceCallback webResponseHandler = new FeedWebServiceCallback() {
 
         public void onFailure(URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
-            //TODO
+            repositoryPubSub.publish(new PubSubEvents.LoadingError());
+            repositoryPubSub.publish(new PubSubEvents.LoadingFinished());//TODO remove duplication
             Log.d("Error", "" + responseCode);
         }
 
         public void onSuccess(URL url, int requestedPage, int responseCode, @Nullable String data) {
-            //TODO
-            Log.d("Response", data);
             if (requestedPage >= 0) {
                 lastLoadedPage = requestedPage;
             }
 
-            StoryStream storyStreamItems = responseParser.parse(data);
-            Log.d("Response Size", "" + storyStreamItems.items.size());
+            List<FeedItem> feedItems = parse(data);
+            if (!feedItems.isEmpty()) {
+                List<FeedItem> resultingList = updateFeedItems(feedItems); //TODO remove duplication
+
+                repositoryPubSub.publish(new PubSubEvents.FeedUpdateReady(resultingList));
+            }
+            repositoryPubSub.publish(new PubSubEvents.LoadingFinished());
         }
     };
+
+    private List<FeedItem> parse(@Nullable String data) {
+        StoryStream storyStreamItems = responseParser.parse(data);
+        return StoryStreamConverter.convertFeed(storyStreamItems);
+    }
+
+    private List<FeedItem> updateFeedItems(List<FeedItem> itemsPortion) {
+        for (FeedItem item : itemsPortion) {
+            feedMapById.put(item.id, item);
+        }
+        ArrayList<FeedItem> resultingList = new ArrayList<>();
+        resultingList.addAll(feedMapById.descendingMap().values());
+        return resultingList;
+    }
 }

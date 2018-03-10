@@ -7,7 +7,7 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.pages.NewsfeedPage;
+import com.github.fo2rist.mclaren.pages.FeedPage;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,12 +39,14 @@ public class MainActivityTest extends BaseMainActivityTest {
 
     @Test
     public void testSideMenu() throws Exception {
-        mainPage.onMenuNewsfeed()
+        mainPage.onMenuNewsFeed()
                 .check(matches(not(isDisplayed())));
 
         mainPage.openNavigationDrawer();
 
-        mainPage.onMenuNewsfeed()
+        mainPage.onMenuNewsFeed()
+                .check(displayed());
+        mainPage.onMenuStories()
                 .check(displayed());
         mainPage.onMenuCircuits()
                 .check(displayed());
@@ -70,12 +72,12 @@ public class MainActivityTest extends BaseMainActivityTest {
 
     @Test
     public void testNavigationToSamePage() throws Exception {
-        NewsfeedPage newsfeedPage = new NewsfeedPage();
+        FeedPage feedPage = new FeedPage();
 
-        newsfeedPage.onNewsList()
+        feedPage.onNewsList()
                 .check(displayed());
         mainPage.navigateToMenuItem(R.id.nav_newsfeed);
-        newsfeedPage.onNewsList()
+        feedPage.onNewsList()
                 .check(displayed());
     }
 

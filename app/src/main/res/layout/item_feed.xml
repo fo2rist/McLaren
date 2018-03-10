@@ -66,7 +66,7 @@
                 android:layout_height="@dimen/preview_height"
                 android:scaleType="centerCrop"
                 android:contentDescription="@null"
-                tools:src="@drawable/background_splash"
+                tools:src="@tools:sample/avatars"
                 />
         </ImageSwitcher>
         <com.luseen.autolinklibrary.AutoLinkTextView
