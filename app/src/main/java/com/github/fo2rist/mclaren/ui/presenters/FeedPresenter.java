@@ -44,12 +44,12 @@ public class FeedPresenter implements FeedContract.Presenter {
 
     @Override
     public void onScrolledToSecondThird() {
-        this.feedRepository.prepareForLoading();
+        this.feedRepository.prepareForHistoryLoading();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        this.feedRepository.loadPrevious();
+        this.feedRepository.loadNextHistory();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

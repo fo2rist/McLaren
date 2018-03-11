@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import com.github.fo2rist.mclaren.BuildConfig;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+@Singleton
 public class McLarenFeedWebServiceImpl implements McLarenFeedWebService {
 
     private static final String FEED_URL = BuildConfig.MCLAREN_FEED_URL;

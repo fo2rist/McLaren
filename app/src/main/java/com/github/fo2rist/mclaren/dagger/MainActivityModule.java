@@ -9,7 +9,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = McLarenFeedFragmentModule.class)
-    abstract McLarenFeedFragment newsfeedFragmentInjector();
+    abstract McLarenFeedFragment mcLarenFeedFragmentInjector();
 
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = StoriesFragmentModule.class)

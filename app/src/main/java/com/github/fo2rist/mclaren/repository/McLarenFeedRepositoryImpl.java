@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Provider of the Feed supplied by McLaren own API.
@@ -22,6 +23,7 @@ import javax.inject.Inject;
  * Paging parameter have to be the absolute number of the page vs. typical reverse page numbering where N means N pages
  * from now.
  */
+@Singleton
 public class McLarenFeedRepositoryImpl implements FeedRepository {
     private static final int UNKNOWN_PAGE = -1;
 
@@ -48,7 +50,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     }
 
     @Override
-    public void prepareForLoading() {
+    public void prepareForHistoryLoading() {
         if (!historyPredictor.isFirstHistoryPageKnown()) {
             historyPredictor.startPrediction();
         }
@@ -56,7 +58,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     }
 
     @Override
-    public void loadPrevious() {
+    public void loadNextHistory() {
         if (!historyPredictor.isFirstHistoryPageKnown()) {
             historyPredictor.startPrediction();
             return;

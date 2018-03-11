@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.repository;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.web.FeedWebService;
@@ -15,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Provider of the "Stories" feed supplied by storystream.it service.
  * StoryStream supports caching headers and standard pagination.
  */
+@Singleton
 public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     final FeedWebService webService;
     final FeedRepositoryPubSub repositoryPubSub;
@@ -40,12 +41,12 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     }
 
     @Override
-    public void prepareForLoading() {
+    public void prepareForHistoryLoading() {
         //no preparation needed for Story Stream service
     }
 
     @Override
-    public void loadPrevious() {
+    public void loadNextHistory() {
         int pageToLoad = lastLoadedPage + 1;
         webService.requestFeedPage(pageToLoad, webResponseHandler);
     }
@@ -54,8 +55,7 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
 
         public void onFailure(URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
             repositoryPubSub.publish(new PubSubEvents.LoadingError());
-            repositoryPubSub.publish(new PubSubEvents.LoadingFinished());//TODO remove duplication
-            Log.d("Error", "" + responseCode);
+            repositoryPubSub.publish(new PubSubEvents.LoadingFinished()); //TODO remove duplication with MCL feed
         }
 
         public void onSuccess(URL url, int requestedPage, int responseCode, @Nullable String data) {
@@ -65,7 +65,7 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
 
             List<FeedItem> feedItems = parse(data);
             if (!feedItems.isEmpty()) {
-                List<FeedItem> resultingList = updateFeedItems(feedItems); //TODO remove duplication
+                List<FeedItem> resultingList = updateFeedItems(feedItems); //TODO remove duplication with MCL feed
 
                 repositoryPubSub.publish(new PubSubEvents.FeedUpdateReady(resultingList));
             }
