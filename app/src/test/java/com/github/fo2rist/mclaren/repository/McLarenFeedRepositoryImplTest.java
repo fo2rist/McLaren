@@ -40,7 +40,7 @@ public class McLarenFeedRepositoryImplTest {
         when(mockHistoryPredictor.isFirstHistoryPageKnown()).thenReturn(false);
         when(mockHistoryPredictor.getFirstHistoryPage()).thenReturn(-1);
 
-        feedRepository.loadPrevious();
+        feedRepository.loadNextHistory();
 
         verify(mockHistoryPredictor).startPrediction();
         verify(mockWebservice, never()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
@@ -51,7 +51,7 @@ public class McLarenFeedRepositoryImplTest {
         when(mockHistoryPredictor.isFirstHistoryPageKnown()).thenReturn(true);
         when(mockHistoryPredictor.getFirstHistoryPage()).thenReturn(1000);
 
-        feedRepository.loadPrevious();
+        feedRepository.loadNextHistory();
 
         verify(mockHistoryPredictor, never()).startPrediction();
         verify(mockHistoryPredictor).getFirstHistoryPage();

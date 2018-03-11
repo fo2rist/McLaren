@@ -3,11 +3,13 @@ package com.github.fo2rist.mclaren.web;
 import com.github.fo2rist.mclaren.BuildConfig;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+@Singleton
 public class StoryStreamWebServiceImpl implements StoryStreamWebService {
 
     private static final String FEED_URL = BuildConfig.STORYSTREAM_FEED_URL;
