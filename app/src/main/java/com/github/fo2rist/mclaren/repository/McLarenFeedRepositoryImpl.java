@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.repository;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
@@ -45,8 +46,15 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
 
     @Override
     public void loadLatest() {
+        publishCachedFeed(); // publish cached data to respond immediately and then load
         repositoryPubSub.publish(new PubSubEvents.LoadingStarted());
         webService.requestLatestFeed(webResponseHandler);
+    }
+
+    private void publishCachedFeed() {
+        if (!feedMapById.isEmpty()) {
+            repositoryPubSub.publish(new PubSubEvents.FeedUpdateReady(getFeedItemsAsList()));
+        }
     }
 
     @Override
@@ -107,9 +115,18 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
      * @return resulting items as a list.
      */
     private List<FeedItem> updateFeedItems(List<FeedItem> itemsPortion) {
+        addNewItems(itemsPortion);
+        return getFeedItemsAsList();
+    }
+
+    private void addNewItems(List<FeedItem> itemsPortion) {
         for (FeedItem item : itemsPortion) {
             feedMapById.put(item.id, item);
         }
+    }
+
+    @NonNull
+    private List<FeedItem> getFeedItemsAsList() {
         ArrayList<FeedItem> resultingList = new ArrayList<>();
         resultingList.addAll(feedMapById.descendingMap().values());
         return resultingList;
