@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.BuildConfig;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
 import java.net.URL;
@@ -55,7 +54,7 @@ public class StoryStreamRepositoryImplTest {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
                 FeedWebServiceCallback callback = invocationOnMock.getArgument(0);
-                callback.onSuccess(new URL(BuildConfig.STORYSTREAM_FEED_URL), 0, 200, REAL_FEED_RESPONSE);
+                callback.onSuccess(new URL("http://empty.url"), 0, 200, REAL_FEED_RESPONSE);
                 return null;
             }
         }).when(mockWebService).requestLatestFeed(any(FeedWebServiceCallback.class));
