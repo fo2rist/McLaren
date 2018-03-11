@@ -38,13 +38,13 @@ class StoryStreamConverter {
             fetchDate(storyStreamItem),
             fetchSourceType(storyStreamItem),
             fetchSourceName(storyStreamItem),
-            fetchVideoLink(storyStreamItem),
+            fetchHiddenMediaLink(storyStreamItem),
             fetchMediaUrls(storyStreamItem));
     }
 
-    private static int fetchId(StoryStreamItem storyStreamItem) {
+    private static long fetchId(StoryStreamItem storyStreamItem) {
         //StoryStream don't offer sequential IDs so use timestamp instead as a hack
-        return storyStreamItem.publishDate.getSeconds();
+        return storyStreamItem.publishDate.getTime();
     }
 
     @NonNull
@@ -129,7 +129,7 @@ class StoryStreamConverter {
     }
 
     @NonNull
-    private static String fetchVideoLink(StoryStreamItem storyStreamItem) {
+    private static String fetchHiddenMediaLink(StoryStreamItem storyStreamItem) {
         List<VideoData> videos = fetchContentItem(storyStreamItem).videos;
         return (!videos.isEmpty() && videos.get(0) != null)
                 ? videos.get(0).url
