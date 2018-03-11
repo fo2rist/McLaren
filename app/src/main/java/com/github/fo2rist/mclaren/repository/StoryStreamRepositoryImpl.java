@@ -1,11 +1,12 @@
 package com.github.fo2rist.mclaren.repository;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.web.FeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
-import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
+import com.github.fo2rist.mclaren.web.StoryStreamWebService;
 import com.github.fo2rist.mclaren.web.models.StoryStream;
 import com.github.fo2rist.mclaren.web.models.StoryStreamResponseParser;
 import java.io.IOException;
@@ -30,14 +31,22 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     private int lastLoadedPage = 1; //latest page st StoryStream is the same as Page=1
 
     @Inject
-    public StoryStreamRepositoryImpl(StoryStreamWebServiceImpl webService, FeedRepositoryPubSub repositoryPubSub) {
+    public StoryStreamRepositoryImpl(StoryStreamWebService webService, FeedRepositoryPubSub repositoryPubSub) {
         this.webService = webService;
         this.repositoryPubSub = repositoryPubSub;
     }
 
     @Override
     public void loadLatest() {
+        publishCachedFeed(); // publish cached data to respond immediately and then load
+        repositoryPubSub.publish(new PubSubEvents.LoadingStarted());
         webService.requestLatestFeed(webResponseHandler);
+    }
+
+    private void publishCachedFeed() {
+        if (!feedMapById.isEmpty()) {
+            repositoryPubSub.publish(new PubSubEvents.FeedUpdateReady(getFeedItemsAsList()));
+        }
     }
 
     @Override
@@ -48,6 +57,7 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     @Override
     public void loadNextHistory() {
         int pageToLoad = lastLoadedPage + 1;
+        repositoryPubSub.publish(new PubSubEvents.LoadingStarted());
         webService.requestFeedPage(pageToLoad, webResponseHandler);
     }
 
@@ -79,9 +89,18 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     }
 
     private List<FeedItem> updateFeedItems(List<FeedItem> itemsPortion) {
+        addNewItems(itemsPortion);
+        return getFeedItemsAsList();
+    }
+
+    private void addNewItems(List<FeedItem> itemsPortion) {
         for (FeedItem item : itemsPortion) {
             feedMapById.put(item.id, item);
         }
+    }
+
+    @NonNull
+    private List<FeedItem> getFeedItemsAsList() {
         ArrayList<FeedItem> resultingList = new ArrayList<>();
         resultingList.addAll(feedMapById.descendingMap().values());
         return resultingList;
