@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
@@ -30,6 +31,7 @@ public class BaseFeedFragment
 
     private RecyclerView listFeed;
     private SwipeRefreshLayout listRefreshLayout;
+    private ProgressBar progressBar;
 
     private FeedAdapter feedAdapter;
 
@@ -57,8 +59,9 @@ public class BaseFeedFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        listFeed = rootView.findViewById(R.id.list_feed);
         listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);
+        listFeed = rootView.findViewById(R.id.list_feed);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
         //setup views
         listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -84,8 +87,16 @@ public class BaseFeedFragment
     }
 
     @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void hideProgress() {
+        //refresh layout shows progress by itself we just hide it once request is done
         listRefreshLayout.setRefreshing(false);
+
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.List;
 public interface FeedContract {
     interface View extends BaseView {
         void setFeed(List<FeedItem> feedItems);
+        void showProgress();
         void hideProgress();
     }
 

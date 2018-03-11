@@ -53,8 +53,12 @@ public class FeedPresenter implements FeedContract.Presenter {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoadingStarted(PubSubEvents.LoadingStarted event) {
+        view.showProgress();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFeedUpdateReceived(PubSubEvents.FeedUpdateReady event) {
-        view.hideProgress();
         view.setFeed(event.feed);
     }
 
