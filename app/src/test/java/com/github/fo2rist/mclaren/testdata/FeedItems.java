@@ -6,7 +6,7 @@ import com.github.fo2rist.mclaren.models.FeedItem.Type;
 import java.util.Date;
 
 public class FeedItems {
-    private static final int ID = 1;
+    private static final long ID = 1;
     private static final String TITLE = "test title";
     private static final String CONTENT = "test content";
     private static final String SOURCE_NAME_TEST = "test source";

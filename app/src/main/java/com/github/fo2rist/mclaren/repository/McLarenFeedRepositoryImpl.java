@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.FeedWebService;
-import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
+import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedResponseParser;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     final FeedHistoryPredictor historyPredictor;
     final McLarenFeedResponseParser responseParser = new McLarenFeedResponseParser();
 
-    private TreeMap<Integer, FeedItem> feedMapById = new TreeMap<>();
+    private TreeMap<Long, FeedItem> feedMapById = new TreeMap<>();
     private int lastLoadedPage = UNKNOWN_PAGE;
 
 
@@ -85,6 +85,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
             }
 
             List<FeedItem> feedItems = parse(data);
+
             if (!feedItems.isEmpty()) {
                 List<FeedItem> resultingList = updateFeedItems(feedItems);
 

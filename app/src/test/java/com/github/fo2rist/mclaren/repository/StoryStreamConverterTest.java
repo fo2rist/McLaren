@@ -27,6 +27,14 @@ public class StoryStreamConverterTest {
     }
 
     @Test
+    public void testIdGeneratedAsTimestampEpoch() throws Exception {
+        FeedItem feedItem = feed.get(0);
+        
+        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate(), feedItem.dateTime);
+        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate().getTime(), feedItem.id);
+    }
+
+    @Test
     public void testFeedParsed() throws Exception {
         //check the length
         assertEquals(StoryStreamResponse.REAL_FEED_SIZE, feed.size());
@@ -96,7 +104,6 @@ public class StoryStreamConverterTest {
             SourceType sourceType, String sourceName, String videoLink, String... imageUrls) {
         assertNotNull(item);
 
-        assertEquals(DateTime.parse(dateTime).toDate().getSeconds(), item.id);
         assertEquals(type, item.type);
         assertStartsWith(textPrefix, item.text);
         assertStartsWith(contentPrefix, item.content);

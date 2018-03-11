@@ -31,7 +31,7 @@ public class FeedItem implements Serializable {
         Unknown,
     }
 
-    public int id;
+    public long id;
     @NonNull
     public final Type type;
     @NonNull
@@ -50,8 +50,9 @@ public class FeedItem implements Serializable {
     @NonNull
     public final String[] imageUrls;
 
-    public FeedItem(int id, @NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
-            @NonNull SourceType sourceType, @NonNull String sourceName, String embeddedMediaLink, String... imageUrls) {
+    public FeedItem(long id, @NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
+            @NonNull SourceType sourceType, @NonNull String sourceName, @NonNull String embeddedMediaLink,
+            String... imageUrls) {
         this.id = id;
         this.type = type;
         this.text = text;
