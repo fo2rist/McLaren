@@ -80,11 +80,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.textViewContent.addAutoLinkMode(
                     AutoLinkMode.MODE_HASHTAG,
                     AutoLinkMode.MODE_MENTION,
-                    AutoLinkMode.MODE_URL);
+                    AutoLinkMode.MODE_URL,
+                    AutoLinkMode.MODE_CUSTOM);
+            this.textViewContent.setCustomRegex("\\b(mclrn.co\\S*)\\b");
             this.textViewContent.setAutoLinkOnClickListener(this);
             this.textViewContent.setMentionModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
             this.textViewContent.setHashtagModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
             this.textViewContent.setUrlModeColor(ContextCompat.getColor(context, R.color.colorAccent));
+            this.textViewContent.setCustomModeColor(ContextCompat.getColor(context, R.color.colorAccent));
         }
 
         @Override
@@ -118,6 +121,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     link = getFeedMentionLink(currentItem, autoLink);
                     break;
                 case MODE_URL:
+                case MODE_CUSTOM:
                     link = autoLink;
                     break;
                 default:
