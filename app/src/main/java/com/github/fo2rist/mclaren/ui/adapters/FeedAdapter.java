@@ -277,7 +277,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     }
 
     private boolean hasNewerItems(List<FeedItem> newFeedItems) {
-        if (this.items.isEmpty()) {
+        if (items.isEmpty()) {
             return !newFeedItems.isEmpty();
         }
 
@@ -285,7 +285,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             return false;
         }
 
-        return this.items.get(0).id < newFeedItems.iterator().next().id;
+        return items.get(0).id < newFeedItems.iterator().next().id;
     }
 
     private DiffUtil.Callback createListComparisonCallback(final List<FeedItem> oldItems, final List<FeedItem> newItems) {
