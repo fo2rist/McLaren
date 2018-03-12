@@ -29,7 +29,8 @@ public class BaseFeedFragment
         extends Fragment
         implements FeedContract.View, SwipeRefreshLayout.OnRefreshListener, FeedAdapter.OnFeedScrollingListener {
 
-    private RecyclerView listFeed;
+    private RecyclerView feedRecyclerView;
+    private LinearLayoutManager feedLayoutManger;
     private SwipeRefreshLayout listRefreshLayout;
     private ProgressBar progressBar;
 
@@ -60,13 +61,14 @@ public class BaseFeedFragment
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);
-        listFeed = rootView.findViewById(R.id.list_feed);
+        feedRecyclerView = rootView.findViewById(R.id.feed_list);
         progressBar = rootView.findViewById(R.id.progress_bar);
 
         //setup views
-        listFeed.setLayoutManager(new LinearLayoutManager(getContext()));
+        feedLayoutManger = new LinearLayoutManager(getContext());
+        feedRecyclerView.setLayoutManager(feedLayoutManger);
         feedAdapter = new FeedAdapter(getContext(), listener, this);
-        listFeed.setAdapter(feedAdapter);
+        feedRecyclerView.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
 
         presenter.onStart(this);
@@ -81,9 +83,13 @@ public class BaseFeedFragment
     @Override
     public void setFeed(final List<FeedItem> feedItems) {
         boolean hasNewerItems = feedAdapter.setItems(feedItems);
-        if (hasNewerItems) {
-            listFeed.scrollToPosition(0);
+        if (hasNewerItems && firstItemIsVisible()) {
+            feedRecyclerView.scrollToPosition(0);
         }
+    }
+
+    private boolean firstItemIsVisible() {
+        return feedLayoutManger.findFirstVisibleItemPosition() <= 0;
     }
 
     @Override

@@ -11,6 +11,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class FeedPage {
 
     public ViewInteraction onNewsList() {
-        return onView(withId(R.id.list_feed));
+        return onView(withId(R.id.feed_list));
     }
 }
