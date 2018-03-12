@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/image_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/preview_height"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:contentDescription="@null"
