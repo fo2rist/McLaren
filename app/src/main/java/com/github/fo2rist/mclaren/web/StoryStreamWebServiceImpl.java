@@ -14,7 +14,7 @@ public class StoryStreamWebServiceImpl implements StoryStreamWebService {
 
     private static final String FEED_URL = BuildConfig.STORYSTREAM_FEED_URL;
     private static final String ACCESS_TOKEN = BuildConfig.STORYSTREAM_TOKEN;
-    private static final int STORIES_PER_PAGE = 14;
+    private static final int STORIES_PER_PAGE = 20;
     private static final boolean INCLUDE_ALL_MEDIA = true;
     private static final Headers DEFAULT_HEADERS = Headers.of(
             "Content-Type", "application/json; charset=utf-8"
