@@ -22,6 +22,7 @@ import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 
 public class PreviewActivity extends AppCompatActivity {
 
+    private static final String CONTENT_FRAGMENT_TAG = "content_fragment";
     private static final String KEY_URL = "url";
     private static final String KEY_FEED_ITEM = "feed_item";
 
@@ -57,8 +58,12 @@ public class PreviewActivity extends AppCompatActivity {
 
             switch (feedItem.type){
                 case Article:
-                    setHeaderImage(feedItem.getImageUri());
                     setTitle(feedItem.text);
+                    if (isPortraitMode()) {
+                        setHeaderImage(feedItem.getImageUri());
+                    } else {
+                        setHeaderImage(null);
+                    }
                     previewFragment = WebPreviewFragment.newInstanceForMcLarenHtml(feedItem.content);
                     break;
                 case Image:
@@ -84,7 +89,11 @@ public class PreviewActivity extends AppCompatActivity {
         if (previewFragment == null) {
             finish();
         } else {
-            displayFragment(previewFragment);
+            //we have already created a fragment to show but there is a change we can retain the existing one
+            //in case of rotation or cold activity restart
+            //if fragment retained will use it because it may contain some visual state
+            Fragment retainedFragment = getSupportFragmentManager().findFragmentByTag(CONTENT_FRAGMENT_TAG);
+            displayFragment((retainedFragment != null) ? retainedFragment :previewFragment);
         }
     }
 
@@ -133,7 +142,7 @@ public class PreviewActivity extends AppCompatActivity {
     private void displayFragment(Fragment previewFragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, previewFragment)
+                .replace(R.id.content_frame, previewFragment, CONTENT_FRAGMENT_TAG)
                 .commit();
     }
 }
