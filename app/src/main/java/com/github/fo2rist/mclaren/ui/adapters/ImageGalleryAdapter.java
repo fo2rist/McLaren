@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 
@@ -21,7 +22,7 @@ public class ImageGalleryAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imageView = new ImageView(container.getContext());
+        ImageView imageView = new PhotoView(container.getContext());
         imageView.setId(R.id.image);
         McLarenImageDownloader.loadImage(imageView, imageUris[position]);
         container.addView(imageView);

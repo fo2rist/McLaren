@@ -8,10 +8,6 @@ buildscript {
     }
 }
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
@@ -70,11 +66,11 @@ dependencies {
     implementation "com.android.support:design:$project.supportVersion"
     implementation "com.android.support:recyclerview-v7:$project.supportVersion"
     implementation "com.android.support:support-v4:$project.supportVersion"
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
-        transitive = true;
-    }
 
-    // autolink for textview embedded links
+    // zoom image view
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    // autolink for text view embedded links
     implementation 'com.github.armcha:AutoLinkTextView:0.3.0'
 
     // networking
@@ -83,14 +79,19 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
-    //event bus
+    // event bus
     implementation 'org.greenrobot:eventbus:3.0.0'
 
-    //joda
+    // joda time
     implementation 'joda-time:joda-time:2.9.9'
 
     // logger
     implementation 'com.jakewharton.timber:timber:4.5.1'
+
+    // crashlytics
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+        transitive = true;
+    }
 
     // dependency injection
     implementation 'com.google.dagger:dagger-android-support:2.14.1', {
