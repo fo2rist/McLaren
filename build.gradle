@@ -17,6 +17,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" } // for PhotoView
+        maven { url 'https://maven.fabric.io/public' } // for crashlytics
     }
 }
 

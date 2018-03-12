@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -47,10 +48,10 @@ public class PreviewActivity extends AppCompatActivity {
 
         headerImage = findViewById(R.id.image_header);
 
-        Fragment previewFragment;
+        Fragment previewFragment = null;
         if (getIntent().hasExtra(KEY_URL)) {
-            previewFragment = WebPreviewFragment.newInstanceForUrl(getIntent().getStringExtra(KEY_URL));
             setHeaderImage(null);
+            previewFragment = WebPreviewFragment.newInstanceForUrl(getIntent().getStringExtra(KEY_URL));
         } else if (getIntent().hasExtra(KEY_FEED_ITEM)) {
             FeedItem feedItem = (FeedItem) getIntent().getSerializableExtra(KEY_FEED_ITEM);
 
@@ -63,23 +64,28 @@ public class PreviewActivity extends AppCompatActivity {
                 case Image:
                 case Gallery:
                     setHeaderImage(null);
-                    lockToolBar();
+                    if (isPortraitMode()) {
+                        setToolBarVisible(true);
+                        lockToolBar();
+                    } else {
+                        setToolBarVisible(false);
+                    }
+                    enterFullScreen();
                     previewFragment = ImagePreviewFragment.newInstanceForFeedItem(feedItem);
                     break;
                 case Video:
                 case Message:
                 default:
-                    setHeaderImage(null);
-                    lockToolBar();
-                    previewFragment = new WebPreviewFragment();
-                    break;
+                    //we don't use Preview for Messages and Video so far
+                    previewFragment = null;
             }
-        } else {
-            finish();
-            return;
         }
 
-        displayFragment(previewFragment);
+        if (previewFragment == null) {
+            finish();
+        } else {
+            displayFragment(previewFragment);
+        }
     }
 
     private ActionBar setupToolbar() {
@@ -104,10 +110,24 @@ public class PreviewActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isPortraitMode() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
+
     private void lockToolBar() {
         CollapsingToolbarLayout collapsingToolBar = findViewById(R.id.collapsing_toolbar_layout);
         AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) collapsingToolBar.getLayoutParams();
         params.setScrollFlags(0);  // clear all scroll flags
+    }
+
+    private void setToolBarVisible(boolean visible) {
+        CollapsingToolbarLayout collapsingToolBar = findViewById(R.id.collapsing_toolbar_layout);
+        collapsingToolBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private void enterFullScreen() {
+        getWindow().getDecorView()
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
 
     private void displayFragment(Fragment previewFragment) {
