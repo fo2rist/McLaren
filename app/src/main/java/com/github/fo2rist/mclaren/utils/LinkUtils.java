@@ -15,7 +15,8 @@ public class LinkUtils {
     private static final String INSTAGRAM_BASE_PATH = HTTPS + INSTAGRAM_COM + "/";
     private static final String INSTAGRAM_HASHTAG_BASE_PATH = HTTPS + INSTAGRAM_COM + "/explore/tags/";
     private static final String MCLAREN_BASE_PATH = HTTP + MCLAREN_COM;
-    private static final String MCLAREN_F1_BASE_PATH = MCLAREN_BASE_PATH + "/formula1/";
+    private static final String MCLAREN_F1_BASE_PATH = MCLAREN_BASE_PATH + "/formula1";
+    private static final String MCLAREN_F1_CAR_PATH = MCLAREN_F1_BASE_PATH+ "/car/The-F1-Effect/";
     private static final String TWITTER_BASE_PATH = HTTPS + TWITTER_COM + "/";
     private static final String TWITTER_HASHTAG_BASE_PATH = HTTPS + TWITTER_COM + "/hashtag/";
 
@@ -81,7 +82,7 @@ public class LinkUtils {
     }
 
     public static String getMcLarenCarLink() {
-        return MCLAREN_F1_BASE_PATH + "car/";
+        return MCLAREN_F1_CAR_PATH;
     }
 
     /**

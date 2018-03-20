@@ -10,6 +10,8 @@
     android:layout_marginLeft="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_half"
     android:orientation="vertical"
+    tools:context=".ui.CircuitDetailsActivity"
+    tools:background="@drawable/background_main"
     >
     <ImageView
         android:id="@+id/image_map"
@@ -21,7 +23,7 @@
         app:layout_constraintDimensionRatio="H,1:1"
         android:scaleType="centerInside"
         android:contentDescription="@null"
-        tools:src="@drawable/circuit_monaco_thumb"
+        tools:src="@drawable/circuit_monaco"
         />
     <TextView
         android:id="@+id/text_gp_name"
