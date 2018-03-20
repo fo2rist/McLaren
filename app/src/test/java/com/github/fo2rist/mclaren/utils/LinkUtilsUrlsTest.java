@@ -16,7 +16,7 @@ public class LinkUtilsUrlsTest {
         String link = LinkUtils.getFeedMentionLink(FeedItems.MCLAREN_ARTICLE_ITEM,
                 "any");
 
-        assertEquals("http://www.mclaren.com/formula1/", link);
+        assertEquals("http://www.mclaren.com/formula1", link);
     }
 
     @Test

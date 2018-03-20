@@ -28,6 +28,39 @@
                 tools:src="@drawable/circuit_monaco"
                 tools:ignore="ContentDescription"
                 />
+            <ImageView
+                android:id="@+id/circuit_drs_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:src="@drawable/circuit_monaco_drs"
+                tools:ignore="ContentDescription"
+                />
+            <ImageView
+                android:id="@+id/circuit_sectors_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:src="@drawable/circuit_monaco_sectors"
+                tools:ignore="ContentDescription"
+                />
+            <ImageView
+                android:id="@+id/circuit_turns_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:src="@drawable/circuit_monaco_turns"
+                tools:ignore="ContentDescription"
+                />
             <TextView
                 android:id="@+id/circuit_title"
                 android:layout_width="wrap_content"

@@ -8,15 +8,27 @@ import java.util.Locale;
 
 public class ResourcesUtils {
     public static Uri getCircuitImageUriById(String id) {
-        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_%s_thumb", id)));
+        return getDrawableUri(String.format(Locale.US, "circuit_%s", id));
     }
 
     public static Uri getCircuitDetailedImageUriById(String id) {
-        return Uri.parse(getDrawableUri(String.format(Locale.US, "circuit_%s", id)));
+        return getDrawableUri(String.format(Locale.US, "circuit_%s", id));
+    }
+
+    public static Uri getCircuitDrsImageUriById(String id) {
+        return getDrawableUri(String.format(Locale.US, "circuit_%s_drs", id));
+    }
+
+    public static Uri getCircuitSectorsImageUriById(String id) {
+        return getDrawableUri(String.format(Locale.US, "circuit_%s_sectors", id));
+    }
+
+    public static Uri getCircuitTurnsImageUriById(String id) {
+        return getDrawableUri(String.format(Locale.US, "circuit_%s_turns", id));
     }
 
     @NonNull
-    private static String getDrawableUri(String drawableName) {
-        return "android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/" + drawableName;
+    private static Uri getDrawableUri(String drawableName) {
+        return Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/" + drawableName);
     }
 }

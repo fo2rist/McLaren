@@ -89,7 +89,7 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        List<CalendarEvent> eventsCalendar = new CalendarEventsLoader(getContext(), 2017).getCalendar();
+        List<CalendarEvent> eventsCalendar = new CalendarEventsLoader(getContext(), 2018).getCalendar();
         recyclerView.setAdapter(
                 new CircuitsAdapter(getContext(), eventsCalendar, listener));
         return view;

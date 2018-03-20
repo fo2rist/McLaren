@@ -18,6 +18,9 @@ import com.github.fo2rist.mclaren.utils.IntentUtils;
 import timber.log.Timber;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDetailedImageUriById;
+import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDrsImageUriById;
+import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitSectorsImageUriById;
+import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitTurnsImageUriById;
 
 
 public class CircuitDetailsFragment extends Fragment implements View.OnClickListener {
@@ -77,8 +80,14 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
             return;
         }
 
-        ImageView circuitImageView = rootView.findViewById(R.id.circuit_image);
-        circuitImageView.setImageURI(getCircuitDetailedImageUriById(event.circuitId));
+        ((ImageView) rootView.findViewById(R.id.circuit_image))
+                .setImageURI(getCircuitDetailedImageUriById(event.circuitId));
+        ((ImageView) rootView.findViewById(R.id.circuit_drs_image))
+                .setImageURI(getCircuitDrsImageUriById(event.circuitId));
+        ((ImageView) rootView.findViewById(R.id.circuit_sectors_image))
+                .setImageURI(getCircuitSectorsImageUriById(event.circuitId));
+        ((ImageView) rootView.findViewById(R.id.circuit_turns_image))
+                .setImageURI(getCircuitTurnsImageUriById(event.circuitId));
 
         TextView circuitTitleView = rootView.findViewById(R.id.circuit_title);
         circuitTitleView.setText(event.grandPrixName);

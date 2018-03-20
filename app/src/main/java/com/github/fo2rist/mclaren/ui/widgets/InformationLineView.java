@@ -40,7 +40,7 @@ public class InformationLineView extends LinearLayout implements AutoLinkOnClick
     }
 
     private void init() {
-        inflate(getContext(), R.layout.view_driver_details_line, this);
+        inflate(getContext(), R.layout.view_details_line, this);
         titleView = findViewById(R.id.title);
         valueView = findViewById(R.id.value);
 
