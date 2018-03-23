@@ -40,6 +40,9 @@ public class StoryStreamContentItem implements Serializable {
     }
 
     public static class ImageData implements Serializable {
+        @SerializedName("name")
+        public String name;
+
         @SerializedName("original")
         public String originalSizeUrl;
 

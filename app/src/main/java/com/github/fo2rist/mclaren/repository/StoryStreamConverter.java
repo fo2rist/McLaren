@@ -21,6 +21,9 @@ import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.Image
 import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.VideoData;
 
 class StoryStreamConverter {
+
+    private static final String HTTP = "http";
+
     public static List<FeedItem> convertFeed(StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {
@@ -141,8 +144,20 @@ class StoryStreamConverter {
         List<ImageData> images = fetchContentItem(storyStreamItem).images;
         String[] result = new String[images.size()];
         for (int i = 0; i < images.size(); i++) {
-            result[i] = images.get(i).originalSizeUrl;
+            result[i] = fetchUrlFromImageData(images.get(i));
         }
         return result;
+    }
+
+    private static String fetchUrlFromImageData(ImageData imageData) {
+        if (imageData.originalSizeUrl.startsWith(HTTP)) {
+            return imageData.originalSizeUrl;
+        } else if (imageData.name.startsWith(HTTP)) {
+            return imageData.name;
+        } else if (imageData.originalSizeUrl.contains(HTTP)) {
+            return imageData.originalSizeUrl.replaceFirst("^.*\\/http[s]?", "http");
+        } else {
+            return "";
+        }
     }
 }
