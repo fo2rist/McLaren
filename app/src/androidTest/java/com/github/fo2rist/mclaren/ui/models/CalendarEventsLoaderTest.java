@@ -65,9 +65,43 @@ public class CalendarEventsLoaderTest {
                 55,
                 5.554,
                 305.355,
-                "2009–2016",
-                8,
+                "2009–2017",
+                9,
                 calendarEvents.get(19));
+    }
+
+    @Test
+    public void testCalendar2018() throws Exception {
+        List<CalendarEvent> calendarEvents = new CalendarEventsLoader(context, 2018).getCalendar();
+        assertEquals(21, calendarEvents.size());
+
+        assertDataCorrect(
+                "Melbourne Grand Prix Circuit",
+                "Australian Grand Prix",
+                "Melbourne",
+                2018,
+                3,
+                23,
+                58,
+                5.303,
+                307.574,
+                "1996–2017",
+                22,
+                calendarEvents.get(0));
+
+        assertDataCorrect(
+                "Circuit Paul Ricard",
+                "French Grand Prix",
+                "Le Castellet",
+                2018,
+                6,
+                22,
+                52,
+                5.842,
+                303.784,
+                "1971, 1973, 1975–1976, 1978, 1980, 1982–1983, 1985–1990",
+                14,
+                calendarEvents.get(7));
     }
 
     private void assertDataCorrect(String trackName,
