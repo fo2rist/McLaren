@@ -25,17 +25,17 @@ public class CircuitsPageTest extends BaseMainActivityTest {
     }
 
     @Test
-    public void testFirstItemPresent() throws Exception {
+    public void testTopItemPresent() throws Exception {
         circuitsPage.onCircuitsList()
                 .perform(actionOnItemAtPosition(0, click()));
 
     }
 
     @Test
-    public void testLastItemPresent() throws Exception {
+    public void testBottomItemPresent() throws Exception {
         circuitsPage.onCircuitsList()
-                .perform(actionOnItemAtPosition(19, scrollTo()))
-                .perform(actionOnItemAtPosition(19, click()));
+                .perform(actionOnItemAtPosition(20, scrollTo()))
+                .perform(actionOnItemAtPosition(20, click()));
     }
 
 }
