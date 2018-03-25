@@ -39,6 +39,17 @@ public class StoryStreamContentItem implements Serializable {
         public int height;
     }
 
+    public static class Sizes {
+        @SerializedName("original")
+        public ImageSize originalSize;
+
+        @SerializedName("two_up")
+        public ImageSize twoUpSize;
+
+        @SerializedName("three_up")
+        public ImageSize threeUpSize;
+    }
+
     public static class ImageData implements Serializable {
         @SerializedName("name")
         public String name;
@@ -55,7 +66,7 @@ public class StoryStreamContentItem implements Serializable {
         @SerializedName("is_external")
         public boolean isExternal;
 
-        public Map<String, ImageSize> sizes;
+        public Sizes sizes;
     }
 
     public static class VideoData implements Serializable {

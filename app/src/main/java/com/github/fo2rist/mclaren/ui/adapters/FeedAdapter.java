@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
@@ -168,7 +169,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             currentGalleryIndex = 0;
         }
 
-        private void displayImage(String imageUri) {
+        private void displayImage(ImageUrl imageUri) {
             if (imageUri == null) {
                 hideImage();
             } else {
@@ -222,11 +223,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
 
         @Nullable
-        private String getCurrentImageUri() {
-            if (currentItem == null || currentItem.imageUrls.length == 0) {
+        private ImageUrl getCurrentImageUri() {
+            if (currentItem == null || currentItem.imageUrls.isEmpty()) {
                 return null;
             }
-            return currentItem.imageUrls[currentGalleryIndex];
+            return currentItem.imageUrls.get(currentGalleryIndex);
         }
     }
 

@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.ui.models;
 import android.support.annotation.VisibleForTesting;
 
 import com.github.fo2rist.mclaren.models.Circuit;
-import com.github.fo2rist.mclaren.models.GrandPrix;
+import com.github.fo2rist.mclaren.models.Event;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,8 +43,8 @@ public class CalendarEvent implements Serializable {
         this.endDate = calculateEndDate(startDate);;
     }
 
-    public CalendarEvent(Circuit circuit, GrandPrix gp) {
-        assert circuit.track.equals(gp.track);
+    public CalendarEvent(Circuit circuit, Event grandPrixEvent) {
+        assert circuit.track.equals(grandPrixEvent.track);
 
         this.circuitId = circuit.id;
         this.countryCode = circuit.country;
@@ -58,7 +58,7 @@ public class CalendarEvent implements Serializable {
         this.gpHeld = circuit.gpHeld;
         this.wikiLink = circuit.wikiLink;
 
-        this.startDate = gp.date;
+        this.startDate = grandPrixEvent.date;
         this.endDate = calculateEndDate(startDate);
     }
 

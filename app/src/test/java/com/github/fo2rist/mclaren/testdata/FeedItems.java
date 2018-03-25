@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.testdata;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
 import com.github.fo2rist.mclaren.models.FeedItem.Type;
+import com.github.fo2rist.mclaren.models.ImageUrl;
 import java.util.Date;
 
 public class FeedItems {
@@ -12,7 +13,7 @@ public class FeedItems {
     private static final String SOURCE_NAME_TEST = "test source";
     private static final String SOURCE_NAME_MCLAREN = "mclaren.com";
     private static final String MEDIA_LINK = "http://mclaren.com/formula1";
-    private static final String[] IMAGES = new String[]{""};
+    private static final ImageUrl[] IMAGES = new ImageUrl[]{ImageUrl.empty()};
 
     public static final FeedItem TWITTER_GALLERY_ITEM = new FeedItem(
             ID,
