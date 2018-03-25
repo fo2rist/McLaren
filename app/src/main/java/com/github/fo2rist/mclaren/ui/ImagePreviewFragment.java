@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract;
 import com.github.fo2rist.mclaren.ui.adapters.ImageGalleryAdapter;
 import com.github.fo2rist.mclaren.ui.presenters.ImagePreviewPresenter;
+import java.util.List;
 
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
@@ -59,7 +61,7 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     }
 
     @Override
-    public void showImages(String[] imageUris) {
+    public void showImages(List<ImageUrl> imageUris) {
         ImageGalleryAdapter galleryAdapter = new ImageGalleryAdapter(getContext(), imageUris);
         imagesPager.setAdapter(galleryAdapter);
     }

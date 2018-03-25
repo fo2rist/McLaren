@@ -2,6 +2,8 @@ package com.github.fo2rist.mclaren.repository;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
+import com.github.fo2rist.mclaren.models.ImageUrl;
+import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedResponseParser;
 import java.util.List;
@@ -46,7 +48,9 @@ public class McLarenFeedConverterTest {
                 SourceType.Instagram,
                 "@mclaren",
                 "https://www.instagram.com/p/BXsMf3HlcB4",
-                "https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=WIDTH_PLACEHOLDER&height=HEIGHT_PLACEHOLDER");
+                ImageUrl.createUrl("https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=%WIDTH%&height=%HEIGHT%",
+                        Size.valueOf(640, 640))
+        );
 
         checkItemFields(feed.get(3),
                 22541,
@@ -57,11 +61,13 @@ public class McLarenFeedConverterTest {
                 SourceType.Unknown,
                 "mclaren.com",
                 "",
-                "http://www.mclaren.com/formula1/tab-api/1.0/image/{width}/{height}/images/articles/hero/_R3I3889_vlGjOGj.jpg");
+                ImageUrl.createUrl("http://www.mclaren.com/formula1/tab-api/1.0/image/%WIDTH%/%HEIGHT%/images/articles/hero/_R3I3889_vlGjOGj.jpg",
+                        Size.valueOf(1600, 620))
+        );
     }
 
     private void checkItemFields(FeedItem item, int id, FeedItem.Type type, String textPrefix, String contentPrefix,
-            String dateTime, SourceType sourceType, String sourceName, String embeddedMediaLink, String... imageUrls) {
+            String dateTime, SourceType sourceType, String sourceName, String embeddedMediaLink, ImageUrl... imageUrls) {
         assertNotNull(item.content);
         assertEquals(id, item.id);
         assertEquals(type, item.type);
@@ -72,9 +78,9 @@ public class McLarenFeedConverterTest {
         assertEquals(sourceName, item.sourceName);
         assertEquals(embeddedMediaLink, item.embeddedMediaLink);
 
-        assertEquals(imageUrls.length, item.imageUrls.length);
+        assertEquals(imageUrls.length, item.imageUrls.size());
         for (int i = 0; i < imageUrls.length; i++) {
-            assertEquals(imageUrls[i], item.imageUrls[i]);
+            assertEquals(imageUrls[i], item.imageUrls.get(i));
         }
     }
 }

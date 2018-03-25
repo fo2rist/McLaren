@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represent single item in the feed.
@@ -48,11 +49,11 @@ public class FeedItem implements Serializable {
     @NonNull
     public final String embeddedMediaLink;
     @NonNull
-    public final String[] imageUrls;
+    public final List<ImageUrl> imageUrls;
 
     public FeedItem(long id, @NonNull Type type, @NonNull String text, @Nullable String content, @NonNull Date dateTime,
             @NonNull SourceType sourceType, @NonNull String sourceName, @NonNull String embeddedMediaLink,
-            String... imageUrls) {
+            ImageUrl... imageUrls) {
         this.id = id;
         this.type = type;
         this.text = text;
@@ -61,7 +62,7 @@ public class FeedItem implements Serializable {
         this.sourceType = sourceType;
         this.sourceName = sourceName;
         this.embeddedMediaLink = embeddedMediaLink;
-        this.imageUrls = imageUrls;
+        this.imageUrls = Arrays.asList(imageUrls);
     }
 
     /**
@@ -69,61 +70,65 @@ public class FeedItem implements Serializable {
      * @return the first image if there are many or null
      */
     @Nullable
-    public String getImageUri() {
-        if (imageUrls.length == 0) {
+    public ImageUrl getImageUri() {
+        if (imageUrls.isEmpty()) {
             return null;
         } else {
-            return imageUrls[0];
+            return imageUrls.get(0);
         }
     }
 
     //TODO integrate autovalue instead of this 2017.09.22
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object other) {
+        if (this == other) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
 
-        FeedItem feedItem = (FeedItem) o;
+        FeedItem another = (FeedItem) other;
 
-        if (type != feedItem.type) {
+        if (id != another.id) {
             return false;
         }
-        if (!text.equals(feedItem.text)) {
+        if (type != another.type) {
             return false;
         }
-        if (content != null ? !content.equals(feedItem.content) : feedItem.content != null) {
+        if (!text.equals(another.text)) {
             return false;
         }
-        if (!dateTime.equals(feedItem.dateTime)) {
+        if (content != null ? !content.equals(another.content) : another.content != null) {
             return false;
         }
-        if (sourceType != feedItem.sourceType) {
+        if (!dateTime.equals(another.dateTime)) {
             return false;
         }
-        if (!sourceName.equals(feedItem.sourceName)) {
+        if (sourceType != another.sourceType) {
             return false;
         }
-        if (!embeddedMediaLink.equals(feedItem.embeddedMediaLink)) {
+        if (!sourceName.equals(another.sourceName)) {
             return false;
         }
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(imageUrls, feedItem.imageUrls);
+        if (!embeddedMediaLink.equals(another.embeddedMediaLink)) {
+            return false;
+        }
+
+        return imageUrls.equals(another.imageUrls);
     }
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + type.hashCode();
         result = 31 * result + text.hashCode();
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + dateTime.hashCode();
         result = 31 * result + sourceType.hashCode();
         result = 31 * result + sourceName.hashCode();
         result = 31 * result + embeddedMediaLink.hashCode();
-        result = 31 * result + Arrays.hashCode(imageUrls);
+        result = 31 * result + imageUrls.hashCode();
         return result;
     }
 }

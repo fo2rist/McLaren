@@ -12,12 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 
 public class PreviewActivity extends AppCompatActivity {
@@ -111,11 +111,11 @@ public class PreviewActivity extends AppCompatActivity {
         actionBar.setTitle(text);
     }
 
-    private void setHeaderImage(String imageUri) {
-        if (TextUtils.isEmpty(imageUri)) {
+    private void setHeaderImage(ImageUrl imageUrl) {
+        if (imageUrl == null || imageUrl.isEmpty()) {
             headerImage.setVisibility(View.GONE);
         } else {
-            McLarenImageDownloader.loadImage(headerImage, imageUri);
+            McLarenImageDownloader.loadImage(headerImage, imageUrl);
         }
     }
 

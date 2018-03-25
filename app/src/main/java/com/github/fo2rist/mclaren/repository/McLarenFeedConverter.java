@@ -4,8 +4,12 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.models.ImageUrl;
+import com.github.fo2rist.mclaren.models.Size;
+import com.github.fo2rist.mclaren.utils.ImageUrlParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem;
+import com.github.fo2rist.mclaren.web.models.McLarenMediaItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +41,8 @@ public class McLarenFeedConverter {
                 fetchDate(mcLarenFeedItem),
                 fetchSourceType(mcLarenFeedItem),
                 fetchSourceName(mcLarenFeedItem),
-                fetchHiddenMediaLink(mcLarenFeedItem),
-                fetchImageUris(mcLarenFeedItem));
+                fetchMediaLink(mcLarenFeedItem),
+                fetchImageUrls(mcLarenFeedItem));
     }
 
     private static int fetchId(McLarenFeedItem mcLarenFeedItem) {
@@ -104,7 +108,7 @@ public class McLarenFeedConverter {
         }
     }
 
-    private static String fetchHiddenMediaLink(McLarenFeedItem mcLarenFeedItem) {
+    private static String fetchMediaLink(McLarenFeedItem mcLarenFeedItem) {
         if (!TextUtils.isEmpty(mcLarenFeedItem.tweetText)) {
             Matcher linkMatcher = Patterns.WEB_URL.matcher(mcLarenFeedItem.tweetText);
             if (linkMatcher.find()) {
@@ -115,15 +119,19 @@ public class McLarenFeedConverter {
         return "";
     }
 
-    private static String[] fetchImageUris(McLarenFeedItem mcLarenFeedItem) {
+    private static ImageUrl[] fetchImageUrls(McLarenFeedItem mcLarenFeedItem) {
         if (mcLarenFeedItem.media == null) {
-            return new String[0];
-        } else {
-            String[] result = new String[mcLarenFeedItem.media.size()];
-            for (int i = 0; i < mcLarenFeedItem.media.size(); i++) {
-                result[i] = mcLarenFeedItem.media.get(i).url;
-            }
-            return result;
+            return new ImageUrl[0];
         }
+
+        ImageUrl[] result = new ImageUrl[mcLarenFeedItem.media.size()];
+        for (int i = 0; i < mcLarenFeedItem.media.size(); i++) {
+            McLarenMediaItem mediaItem = mcLarenFeedItem.media.get(i);
+            result[i] = ImageUrl.createUrl(
+                    ImageUrlParser.convertToInternalUrl(mediaItem.url),
+                    Size.valueOf(mediaItem.width, mediaItem.height));
+        }
+        return result;
+
     }
 }

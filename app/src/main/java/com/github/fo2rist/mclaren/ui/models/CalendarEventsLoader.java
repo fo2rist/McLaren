@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.Circuit;
-import com.github.fo2rist.mclaren.models.GrandPrix;
+import com.github.fo2rist.mclaren.models.Event;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CalendarEventsLoader {
 
-    TypeToken<ArrayList<GrandPrix>> grandPrixListType = new TypeToken<ArrayList<GrandPrix>>(){};
+    TypeToken<ArrayList<Event>> grandPrixListType = new TypeToken<ArrayList<Event>>(){};
     TypeToken<ArrayList<Circuit>> circuitListType = new TypeToken<ArrayList<Circuit>>(){};
 
     Context context;
@@ -27,22 +27,22 @@ public class CalendarEventsLoader {
     }
 
     public List<CalendarEvent> getCalendar() {
-        List<GrandPrix> grandPrixes = readJsonFromAssets(context, "calendar_" + year + ".json", grandPrixListType);
+        List<Event> events = readJsonFromAssets(context, "calendar_" + year + ".json", grandPrixListType);
         List<Circuit> circuits = readJsonFromAssets(context, "circuits.json", circuitListType);
 
         List<CalendarEvent> calendarEvents = new ArrayList<>();
-        if (grandPrixes == null || circuits == null) {
+        if (events == null || circuits == null) {
             return calendarEvents;
         }
 
-        for(GrandPrix gp: grandPrixes) {
+        for(Event gp: events) {
             Circuit circuit = findCircuit(circuits, gp);
             calendarEvents.add(new CalendarEvent(circuit, gp));
         }
         return calendarEvents;
     }
 
-    private Circuit findCircuit(List<Circuit> circuits, GrandPrix gp) {
+    private Circuit findCircuit(List<Circuit> circuits, Event gp) {
         for(Circuit circuit: circuits) {
             if (circuit.track.equals(gp.track)) {
                 return circuit;

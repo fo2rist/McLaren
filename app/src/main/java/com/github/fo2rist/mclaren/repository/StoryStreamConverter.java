@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
 import com.github.fo2rist.mclaren.models.FeedItem.Type;
+import com.github.fo2rist.mclaren.models.ImageUrl;
+import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.web.models.StoryStream;
 import com.github.fo2rist.mclaren.web.models.StoryStreamContentItem;
 import com.github.fo2rist.mclaren.web.models.StoryStreamItem;
@@ -41,8 +43,8 @@ class StoryStreamConverter {
             fetchDate(storyStreamItem),
             fetchSourceType(storyStreamItem),
             fetchSourceName(storyStreamItem),
-            fetchHiddenMediaLink(storyStreamItem),
-            fetchMediaUrls(storyStreamItem));
+            fetchMediaLink(storyStreamItem),
+            fetchImageUrls(storyStreamItem));
     }
 
     private static long fetchId(StoryStreamItem storyStreamItem) {
@@ -132,7 +134,7 @@ class StoryStreamConverter {
     }
 
     @NonNull
-    private static String fetchHiddenMediaLink(StoryStreamItem storyStreamItem) {
+    private static String fetchMediaLink(StoryStreamItem storyStreamItem) {
         List<VideoData> videos = fetchContentItem(storyStreamItem).videos;
         return (!videos.isEmpty() && videos.get(0) != null)
                 ? videos.get(0).url
@@ -140,24 +142,66 @@ class StoryStreamConverter {
     }
 
     @NonNull
-    private static String[] fetchMediaUrls(StoryStreamItem storyStreamItem) {
+    private static ImageUrl[] fetchImageUrls(StoryStreamItem storyStreamItem) {
         List<ImageData> images = fetchContentItem(storyStreamItem).images;
-        String[] result = new String[images.size()];
+        ImageUrl[] result = new ImageUrl[images.size()];
         for (int i = 0; i < images.size(); i++) {
             result[i] = fetchUrlFromImageData(images.get(i));
         }
         return result;
     }
 
-    private static String fetchUrlFromImageData(ImageData imageData) {
-        if (imageData.originalSizeUrl.startsWith(HTTP)) {
-            return imageData.originalSizeUrl;
-        } else if (imageData.name.startsWith(HTTP)) {
-            return imageData.name;
-        } else if (imageData.originalSizeUrl.contains(HTTP)) {
-            return imageData.originalSizeUrl.replaceFirst("^.*\\/http[s]?", "http");
+    private static ImageUrl fetchUrlFromImageData(ImageData imageData) {
+        String originalSizeUrl = fixUrl(imageData.originalSizeUrl);
+        String twoUpSizeUrl = fixUrl(imageData.twoUpSizeUrl);
+        String threeUpSizeUrl = fixUrl(imageData.threeUpSizeUrl);
+
+        Size originalSize = toImageSize(imageData.sizes.originalSize);
+
+        if (!originalSizeUrl.isEmpty()) {
+            if (originalSizeUrl.equals(twoUpSizeUrl) && originalSizeUrl.equals(threeUpSizeUrl)) {
+                //Broken links are usually equal, so we should ignore small size links as incorrect
+                return ImageUrl.createUrl(originalSizeUrl, originalSize);
+            } else {
+                //normal case - all three links are different
+                Size twoUpSize = toImageSize(imageData.sizes.twoUpSize);
+                Size threeUpSize = toImageSize(imageData.sizes.threeUpSize);
+                return ImageUrl.createUrl(originalSizeUrl, originalSize,
+                        twoUpSizeUrl, twoUpSize,
+                        threeUpSizeUrl, threeUpSize);
+            }
+        } else if (originalSizeUrl.isEmpty() && imageData.name.startsWith(HTTP)) {
+            //when links are broken name usually contains the link
+            return ImageUrl.createUrl(imageData.name, originalSize);
         } else {
+            //nothing we can do
+            return ImageUrl.empty();
+        }
+    }
+
+    /**
+     * Strip URL from non-http prefix.
+     * Sometimes API return weird prefix before the actual URL, which should be stripped.
+     * @return empty string if input is null or empty, fixed URL otherwise.
+     */
+    @NonNull
+    private static String fixUrl(@Nullable String url) {
+        if (url == null) {
             return "";
         }
+
+        if (!url.startsWith(HTTP) && url.contains(HTTP) ) {
+            return url.replaceFirst("^.*\\/http?", "http");
+        } else {
+            return url;
+        }
+    }
+
+    @NonNull
+    private static Size toImageSize(@Nullable StoryStreamContentItem.ImageSize size) {
+        if (size == null) {
+            return Size.UNKNOWN;
+        }
+        return Size.valueOf(size.width, size.height);
     }
 }

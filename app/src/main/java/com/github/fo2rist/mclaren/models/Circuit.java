@@ -3,6 +3,9 @@ package com.github.fo2rist.mclaren.models;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
+/**
+ * Race Track Info model.
+ */
 public class Circuit implements Serializable {
     public String id; // e.g "austria"
     public String country; // e.g "AUS",

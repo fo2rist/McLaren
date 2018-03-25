@@ -3,20 +3,36 @@ package com.github.fo2rist.mclaren.web;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.BuildConfig;
+import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.utils.CacheUtils;
-import com.github.fo2rist.mclaren.utils.McLarenImageUtils;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
+import java.util.List;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class McLarenImageDownloader {
+    /**
+     * Desired image size depending on the purpose.
+     */
+    public enum ImageSize {
+        /** Maximal allowed size for image. */
+        MAXIMAL,
+        /** Image large enough for fullscreen mode. */
+        FULLSCREEN,
+        /** Image large enough for tiles in feed etc.*/
+        TILE,
+        /** Image suitable for icons and small preview. */
+        THUMB
+    }
+
     //TODO tab-api doesn't not support images larger than original size. Let's handle it on client. 2017-02-09
     private static final int DEFAULT_WIDTH = 800;
     private static final int DEFAULT_HEIGHT = 600;
@@ -33,17 +49,17 @@ public class McLarenImageDownloader {
         return instance;
     }
 
-    public static void loadImage(ImageView imageView, String imageUri) {
+    public static void loadImage(ImageView imageView, ImageUrl imageUri) {
         loadImage(imageView, imageUri, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
-    private static void loadImage(ImageView imageView, String imageUri, int width, int height) {
-        getInstance(imageView.getContext()).load(imageUri, imageView, width, height);
+    private static void loadImage(ImageView imageView, ImageUrl imageUrl, int width, int height) {
+        getInstance(imageView.getContext()).load(imageUrl, imageView, width, height);
     }
 
-    public static void cacheImages(Context context, String[] imageUris) {
+    public static void cacheImages(Context context, List<ImageUrl> imageUrls) {
         McLarenImageDownloader imageDownloader = getInstance(context);
-        for (String uri : imageUris) {
+        for (ImageUrl uri : imageUrls) {
             imageDownloader.cache(uri, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         }
     }
@@ -58,7 +74,8 @@ public class McLarenImageDownloader {
 
     @NonNull
     private OkHttp3Downloader createCachingDownloader(Context context) {
-        //WARN caching OkHTTP clients should not use the same directory or at lest should never call the same endpoint
+        //WARN caching OkHTTP clients should not use the same directory or at least should never call the same endpoint
+        //TODO move to DefaultOkHttpClientFactory
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(createMcLarenAuthInterceptor())
                 .cache(CacheUtils.createCache(context,"images", CACHE_SIZE))
@@ -84,16 +101,25 @@ public class McLarenImageDownloader {
         };
     }
 
-    private void load(String imageUri, ImageView imageView, int width, int height) {
-        Uri loadUri = McLarenImageUtils.buildImageUri(imageUri, width, height);
+    private void load(ImageUrl imageUrl, ImageView imageView, int width, int height) {
+        Uri loadUri = buildImageUri(imageUrl, width, height);
 
         picasso.load(loadUri)
                 .into(imageView);
     }
 
-    private void cache(String imageUri, int width, int height) {
-        Uri loadUri = McLarenImageUtils.buildImageUri(imageUri, width, height);
+    private void cache(ImageUrl imageUrl, int width, int height) {
+        Uri loadUri = buildImageUri(imageUrl, width, height);
         picasso.load(loadUri).
                 fetch();
+    }
+
+    @Nullable
+    private Uri buildImageUri(ImageUrl imageUrl, int width, int height) {
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            return null;
+        }
+
+        return Uri.parse(imageUrl.getUrl(width, height));
     }
 }
