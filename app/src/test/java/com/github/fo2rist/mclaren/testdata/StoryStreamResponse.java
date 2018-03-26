@@ -38,7 +38,7 @@ public class StoryStreamResponse {
     public static ImageUrl createTestUrlFromOriginalSize(String originalSizeUrl, int originalWidth, int originalHeight) {
         //in test data all up two and up three links can be generated from original link
 
-        return ImageUrl.createUrl(
+        return ImageUrl.create(
                 originalSizeUrl, Size.valueOf(originalWidth, originalHeight),
                 originalSizeUrl.replace("/original/", "/Content_Item_Images/Two_Up/"), Size.valueOf(467, 380),
                 originalSizeUrl.replace("/original/", "/Content_Item_Images/Three_Up/"), Size.valueOf(305, 240)

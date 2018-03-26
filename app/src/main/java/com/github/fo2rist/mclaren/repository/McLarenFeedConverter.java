@@ -6,7 +6,7 @@ import android.util.Patterns;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
-import com.github.fo2rist.mclaren.utils.ImageUrlParser;
+import com.github.fo2rist.mclaren.repository.utils.ImageUrlParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem;
 import com.github.fo2rist.mclaren.web.models.McLarenMediaItem;
@@ -127,7 +127,7 @@ public class McLarenFeedConverter {
         ImageUrl[] result = new ImageUrl[mcLarenFeedItem.media.size()];
         for (int i = 0; i < mcLarenFeedItem.media.size(); i++) {
             McLarenMediaItem mediaItem = mcLarenFeedItem.media.get(i);
-            result[i] = ImageUrl.createUrl(
+            result[i] = ImageUrl.create(
                     ImageUrlParser.convertToInternalUrl(mediaItem.url),
                     Size.valueOf(mediaItem.width, mediaItem.height));
         }

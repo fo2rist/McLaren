@@ -21,9 +21,9 @@ public class FeedItemTest {
     private static final FeedItem.SourceType SOURCE_2 = FeedItem.SourceType.Twitter;
     private static final String SOURCE_NAME = "source";
     private static final String MEDIA_LINK = "http://url_m.co";
-    private static final ImageUrl IMAGE_URL_1 = ImageUrl.createUrl("http://url1.co", Size.UNKNOWN);
-    private static final ImageUrl IMAGE_URL_2 = ImageUrl.createUrl("http://url2.co", Size.UNKNOWN);
-    private static final ImageUrl IMAGE_URL_3 = ImageUrl.createUrl("http://url3.co", Size.UNKNOWN);
+    private static final ImageUrl IMAGE_URL_1 = ImageUrl.create("http://url1.co", Size.UNKNOWN);
+    private static final ImageUrl IMAGE_URL_2 = ImageUrl.create("http://url2.co", Size.UNKNOWN);
+    private static final ImageUrl IMAGE_URL_3 = ImageUrl.create("http://url3.co", Size.UNKNOWN);
 
     private FeedItem referenceItem;
 
