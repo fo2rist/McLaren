@@ -42,7 +42,7 @@ public class StoryStreamConverterTest {
 
         assertEquals(1, imageUrls.size());
         assertEquals(
-                ImageUrl.createUrl(INCORRECT_LINK_FIXED_IMAGE_URL, INCORRECT_LINK_ORIGINAL_IMAGE_SIZE),
+                ImageUrl.create(INCORRECT_LINK_FIXED_IMAGE_URL, INCORRECT_LINK_ORIGINAL_IMAGE_SIZE),
                 imageUrls.get(0));
     }
 
@@ -54,7 +54,7 @@ public class StoryStreamConverterTest {
 
         assertEquals(1, imageUrls.size());
         assertEquals(
-                ImageUrl.createUrl(INCORRECT_LINK_FIXED_IMAGE_URL, Size.UNKNOWN),
+                ImageUrl.create(INCORRECT_LINK_FIXED_IMAGE_URL, Size.UNKNOWN),
                 imageUrls.get(0));
     }
 
@@ -65,7 +65,7 @@ public class StoryStreamConverterTest {
 
         assertEquals(1, imageUrls.size());
         assertEquals(
-                ImageUrl.createUrl(
+                ImageUrl.create(
                         CORRECT_LINK_ORIGINAL_IMAGE_URL, CORRECT_LINK_ORIGINAL_IMAGE_SIZE,
                         CORRECT_LINK_TWO_UP_IMAGE_URL, CORRECT_LINK_TWO_UP_IMAGE_SIZE,
                         CORRECT_LINK_THREE_UP_IMAGE_URL, CORRECT_LINK_THREE_UP_IMAGE_SIZE),

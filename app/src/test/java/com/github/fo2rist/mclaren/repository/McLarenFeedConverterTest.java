@@ -48,7 +48,7 @@ public class McLarenFeedConverterTest {
                 SourceType.Instagram,
                 "@mclaren",
                 "https://www.instagram.com/p/BXsMf3HlcB4",
-                ImageUrl.createUrl("https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=%WIDTH%&height=%HEIGHT%",
+                ImageUrl.create("https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=%WIDTH%&height=%HEIGHT%",
                         Size.valueOf(640, 640))
         );
 
@@ -61,7 +61,7 @@ public class McLarenFeedConverterTest {
                 SourceType.Unknown,
                 "mclaren.com",
                 "",
-                ImageUrl.createUrl("http://www.mclaren.com/formula1/tab-api/1.0/image/%WIDTH%/%HEIGHT%/images/articles/hero/_R3I3889_vlGjOGj.jpg",
+                ImageUrl.create("http://www.mclaren.com/formula1/tab-api/1.0/image/%WIDTH%/%HEIGHT%/images/articles/hero/_R3I3889_vlGjOGj.jpg",
                         Size.valueOf(1600, 620))
         );
     }

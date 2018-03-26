@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.models;
 import java.io.Serializable;
 
 public class Size implements Serializable {
+    /** Special value for unknown size of [-1, -1]. */
     public static final Size UNKNOWN = new Size(-1, -1);
 
     final int width;
@@ -23,6 +24,14 @@ public class Size implements Serializable {
 
     public boolean isUnknown() {
         return this.width == UNKNOWN.width || this.height == UNKNOWN.height;
+    }
+
+    /**
+     * Whether this size exceeds given by at least one dimension.
+     * @return comparison result or false if other size is unknown.
+     */
+    public boolean exceeds(Size other) {
+        return !other.isUnknown() && (this.width > other.width || this.height > other.height);
     }
 
     @Override

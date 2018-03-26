@@ -161,18 +161,18 @@ class StoryStreamConverter {
         if (!originalSizeUrl.isEmpty()) {
             if (originalSizeUrl.equals(twoUpSizeUrl) && originalSizeUrl.equals(threeUpSizeUrl)) {
                 //Broken links are usually equal, so we should ignore small size links as incorrect
-                return ImageUrl.createUrl(originalSizeUrl, originalSize);
+                return ImageUrl.create(originalSizeUrl, originalSize);
             } else {
                 //normal case - all three links are different
                 Size twoUpSize = toImageSize(imageData.sizes.twoUpSize);
                 Size threeUpSize = toImageSize(imageData.sizes.threeUpSize);
-                return ImageUrl.createUrl(originalSizeUrl, originalSize,
+                return ImageUrl.create(originalSizeUrl, originalSize,
                         twoUpSizeUrl, twoUpSize,
                         threeUpSizeUrl, threeUpSize);
             }
         } else if (originalSizeUrl.isEmpty() && imageData.name.startsWith(HTTP)) {
             //when links are broken name usually contains the link
-            return ImageUrl.createUrl(imageData.name, originalSize);
+            return ImageUrl.create(imageData.name, originalSize);
         } else {
             //nothing we can do
             return ImageUrl.empty();

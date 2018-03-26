@@ -30,7 +30,7 @@ public abstract class ImageUrl implements Serializable {
 
         @NonNull
         @Override
-        public String getUrl(int width, int height) {
+        public String getUrl(final int width, final int height) {
             return getUrl();
         }
 
@@ -93,8 +93,17 @@ public abstract class ImageUrl implements Serializable {
 
         @NonNull
         @Override
-        public String getUrl(int width, int height) {
-            return originalSizeUrl; //TODO
+        public String getUrl(final int width, final int height) {
+            Size requestedSize = Size.valueOf(width, height);
+            if (originalSize.isUnknown()) {
+                return originalSizeUrl;
+            } else if (requestedSize.exceeds(originalSize) || requestedSize.equals(originalSize)) {
+                return originalSizeUrl;
+            } else if (requestedSize.exceeds(mediumSize) || requestedSize.equals(mediumSize)) {
+                return mediumSizeUrl;
+            } else {
+                return smallSizeUrl;
+            }
         }
 
         @NonNull
@@ -146,6 +155,8 @@ public abstract class ImageUrl implements Serializable {
 
     @VisibleForTesting
     static class DynamicSizeUrl extends ImageUrl {
+        static final private Size DEFAULT_MIN_SIZE = Size.valueOf(128, 128);
+
         @NonNull private final String url;
         @NonNull private final Size size;
 
@@ -157,19 +168,36 @@ public abstract class ImageUrl implements Serializable {
         @NonNull
         @Override
         public String getUrl() {
-            return generateDynamicUrlForSize(size.width, size.height); //TODO support unknown size
+            return generateDynamicUrlForSize(size);
         }
 
         @NonNull
         @Override
-        public String getUrl(int width, int height) {
-            return generateDynamicUrlForSize(width, height);
+        public String getUrl(final int width, final int height) {
+            return generateDynamicUrlForSize(Size.valueOf(width, height));
         }
 
-        private String generateDynamicUrlForSize(int width, int height) {
-            //TODO limit size by original size
-            return url.replace(DYNAMIC_WIDTH_PLACEHOLDER, String.valueOf(width))
-                    .replace(DYNAMIC_HEIGHT_PLACEHOLDER, String.valueOf(height));
+        private String generateDynamicUrlForSize(final Size requestedSize) {
+            Size sizeToLoad = applySizeRestrictions(requestedSize);
+
+            return url.replace(DYNAMIC_WIDTH_PLACEHOLDER, String.valueOf(sizeToLoad.width))
+                    .replace(DYNAMIC_HEIGHT_PLACEHOLDER, String.valueOf(sizeToLoad.height));
+        }
+
+        private Size applySizeRestrictions(final Size requestedSize) {
+            Size result = requestedSize;
+            if (requestedSize.exceeds(size)) {
+                //Original size is know check requested size is correct and does not exceed it
+                // and apply top restriction
+                result = size;
+            }
+
+            //If original size was unknown apply bottom restriction
+            if (result.isUnknown()) {
+                result = DEFAULT_MIN_SIZE;
+            }
+
+            return result;
         }
 
         @NonNull
@@ -207,7 +235,7 @@ public abstract class ImageUrl implements Serializable {
         return new FixedSizeUrl("", Size.UNKNOWN);
     }
 
-    public static ImageUrl createUrl(@NonNull String url, @NonNull Size size) {
+    public static ImageUrl create(@NonNull String url, @NonNull Size size) {
         if (isDynamic(url)) {
             return new DynamicSizeUrl(url, size);
         } else {
@@ -216,7 +244,7 @@ public abstract class ImageUrl implements Serializable {
     }
 
 
-    public static ImageUrl createUrl(@NonNull String originalSizeUrl, @NonNull Size originalSize,
+    public static ImageUrl create(@NonNull String originalSizeUrl, @NonNull Size originalSize,
             @NonNull String mediumSizeUrl, @NonNull Size mediumSize,
             @NonNull String smallSizeUrl, @NonNull Size smallSize) {
         return new MultipleSizeUrl(originalSizeUrl, originalSize,
@@ -241,7 +269,15 @@ public abstract class ImageUrl implements Serializable {
      * Get image address that works better for given size.
      */
     @NonNull
-    public abstract String getUrl(int width, int height);
+    public abstract String getUrl(final int width, final int height);
+
+    /**
+     * Same as {@link #getUrl(int, int)}.
+     */
+    @NonNull
+    public String getUrl(Size size) {
+        return getUrl(size.width, size.height);
+    }
 
     /**
      * Get original image size.
