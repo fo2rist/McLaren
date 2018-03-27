@@ -6,8 +6,8 @@ public class Size implements Serializable {
     /** Special value for unknown size of [-1, -1]. */
     public static final Size UNKNOWN = new Size(-1, -1);
 
-    final int width;
-    final int height;
+    public final int width;
+    public final int height;
 
     public static Size valueOf(int width, int height) {
         if (width <= 0 || height <= 0) {

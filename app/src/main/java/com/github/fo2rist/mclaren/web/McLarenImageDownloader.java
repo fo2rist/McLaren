@@ -110,8 +110,8 @@ public class McLarenImageDownloader {
 
     private void cache(ImageUrl imageUrl, int width, int height) {
         Uri loadUri = buildImageUri(imageUrl, width, height);
-        picasso.load(loadUri).
-                fetch();
+        picasso.load(loadUri)
+                .fetch();
     }
 
     @Nullable
