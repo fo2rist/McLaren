@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
+import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
@@ -34,7 +36,6 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedMentionLink;
  * Adapter for main page feed of news.
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
-
 
     public interface OnFeedInteractionListener {
         void onItemDetailsRequested(FeedItem item);
@@ -159,7 +160,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Image:
                 case Video:
                 case Article:
-                    displayImage(getCurrentImageUri());
+                    displayImage(getCurrentImageUri(), currentItem.text);
                     break;
             }
         }
@@ -169,14 +170,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             currentGalleryIndex = 0;
         }
 
-        private void displayImage(ImageUrl imageUri) {
+        private void displayImage(ImageUrl imageUri, String contentDescription) {
             if (imageUri == null) {
                 hideImage();
-            } else {
-                this.imageSwitcher.setVisibility(View.VISIBLE);
-                McLarenImageDownloader.loadImage(this.image, imageUri);
-                this.image.setContentDescription(currentItem.text);
+                return;
             }
+
+            showImage(imageUri.getSize());
+            setImageContent(imageUri, contentDescription);
         }
 
         private void displayDataTypeIcon(FeedItem feedItem) {
@@ -218,16 +219,39 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             }
         }
 
-        private void hideImage() {
-            this.imageSwitcher.setVisibility(View.GONE);
-        }
-
         @Nullable
         private ImageUrl getCurrentImageUri() {
             if (currentItem == null || currentItem.imageUrls.isEmpty()) {
                 return null;
             }
             return currentItem.imageUrls.get(currentGalleryIndex);
+        }
+
+        private void showImage(Size size) {
+            this.imageSwitcher.setVisibility(View.VISIBLE);
+
+            //prepare image size before the image loaded to prevent jarring scrolling behavior
+            if (getCachedImageWidth() != 0 && !size.isUnknown()) {
+                //scale proportionally
+                int estimatedImageHeight = getCachedImageWidth() * size.height / size.width;
+                this.image.setLayoutParams(new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        estimatedImageHeight));
+            } else {
+                //or reset the min limit
+                this.image.setLayoutParams(new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        defaultImageHeight));
+            }
+        }
+
+        private void hideImage() {
+            this.imageSwitcher.setVisibility(View.GONE);
+        }
+
+        private void setImageContent(ImageUrl imageUri, String contentDescription) {
+            this.image.setContentDescription(contentDescription);
+            McLarenImageDownloader.loadImage(this.image, imageUri);
         }
     }
 
@@ -236,16 +260,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     private final WeakReference<OnFeedScrollingListener> scrollingListenerReference;
     private List<FeedItem> items = new ArrayList<>();
 
+    int defaultImageHeight;
+    /** Stores last known width of image to be used for preliminary image size adjustment. */
+    private int cachedImageWidth = 0;
+
     public FeedAdapter(Context context,
             OnFeedInteractionListener interactionListener,
             OnFeedScrollingListener scrollingListener) {
         this.context = context;
         this.interactionListenerReference = new WeakReference<>(interactionListener);
         this.scrollingListenerReference = new WeakReference<>(scrollingListener);
+        this.defaultImageHeight = context.getResources().getDimensionPixelSize(R.dimen.feed_image_height);
     }
 
     @Override
     public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        cacheImageWidth(parent);
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_feed, parent, false);
         return new FeedViewHolder(view);
@@ -253,12 +283,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
-        notifiAboutScrollEventsIfNecessary(position);
-        FeedItem feedItem = items.get(position);
-        holder.display(context, feedItem);
+        holder.display(context, items.get(position));
+        notifyAboutScrollEventsIfNecessary(position);
     }
 
-    private void notifiAboutScrollEventsIfNecessary(int position) {
+    private void cacheImageWidth(View listRootView) {
+        if (listRootView != null && listRootView.getWidth() != 0) {
+            //This code depends on particular layout but the only thing we have when we inflate the first view
+            //is it's parent so it's faster to guess view size based on parent's size.
+            int sideMargins = 2 * context.getResources().getDimensionPixelSize(R.dimen.margin_one) +
+                              context.getResources().getDimensionPixelSize(R.dimen.margin_half);
+            cachedImageWidth = listRootView.getWidth() - sideMargins;
+        }
+    }
+
+    int getCachedImageWidth() {
+        return cachedImageWidth;
+    }
+
+    private void notifyAboutScrollEventsIfNecessary(int position) {
         if (position == getItemCount() / 3 + 1) {
             notifyItemFromSecondThirdDisplayed();
         }
