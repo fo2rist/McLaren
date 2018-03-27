@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.R;
@@ -68,6 +69,7 @@ public class PreviewActivity extends AppCompatActivity {
                     break;
                 case Image:
                 case Gallery:
+                    enterFullScreen();
                     setHeaderImage(null);
                     if (isPortraitMode()) {
                         setToolBarVisible(true);
@@ -75,7 +77,6 @@ public class PreviewActivity extends AppCompatActivity {
                     } else {
                         setToolBarVisible(false);
                     }
-                    enterFullScreen();
                     previewFragment = ImagePreviewFragment.newInstanceForFeedItem(feedItem);
                     break;
                 case Video:
@@ -97,14 +98,13 @@ public class PreviewActivity extends AppCompatActivity {
         }
     }
 
-    private ActionBar setupToolbar() {
+    private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.app_name);
-        return actionBar;
     }
 
     private void setTitle(String text) {
@@ -135,8 +135,9 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void enterFullScreen() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
 
     private void displayFragment(Fragment previewFragment) {
