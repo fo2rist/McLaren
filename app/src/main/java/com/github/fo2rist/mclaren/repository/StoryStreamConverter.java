@@ -91,7 +91,7 @@ class StoryStreamConverter {
             }
 
             if (text.length() > TEXT_LENGTH_LIMIT) {
-                text = text.substring(0, TEXT_LENGTH_LIMIT);
+                text = text.substring(0, TEXT_LENGTH_LIMIT) + "...";
             }
 
             return text;
