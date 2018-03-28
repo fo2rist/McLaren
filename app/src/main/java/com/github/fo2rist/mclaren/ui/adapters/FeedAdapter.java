@@ -20,6 +20,7 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -251,7 +252,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         private void setImageContent(ImageUrl imageUri, String contentDescription) {
             this.image.setContentDescription(contentDescription);
-            McLarenImageDownloader.loadImage(this.image, imageUri);
+            McLarenImageDownloader.loadImage(this.image, imageUri, ImageSizeType.TILE);
         }
     }
 

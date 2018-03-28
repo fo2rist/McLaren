@@ -1,4 +1,9 @@
 <resources>
     <dimen name="feed_image_height">340dp</dimen>
     <dimen name="preview_header_height">440dp</dimen>
+
+    <dimen name="max_image_size">2600dp</dimen>
+    <dimen name="fullscreen_image_size">800dp</dimen>
+    <dimen name="tile_image_size">480dp</dimen>
+    <dimen name="thumb_image_size">60dp</dimen>
 </resources>

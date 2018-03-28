@@ -20,6 +20,7 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType;
 
 public class PreviewActivity extends AppCompatActivity {
 
@@ -115,7 +116,7 @@ public class PreviewActivity extends AppCompatActivity {
         if (imageUrl == null || imageUrl.isEmpty()) {
             headerImage.setVisibility(View.GONE);
         } else {
-            McLarenImageDownloader.loadImage(headerImage, imageUrl);
+            McLarenImageDownloader.loadImage(headerImage, imageUrl, ImageSizeType.TILE);
         }
     }
 

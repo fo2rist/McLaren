@@ -8,4 +8,9 @@
 
     <dimen name="feed_image_height">200dp</dimen>
     <dimen name="preview_header_height">260dp</dimen>
+
+    <dimen name="max_image_size">2200dp</dimen>
+    <dimen name="fullscreen_image_size">600dp</dimen>
+    <dimen name="tile_image_size">360dp</dimen>
+    <dimen name="thumb_image_size">40dp</dimen>
 </resources>
