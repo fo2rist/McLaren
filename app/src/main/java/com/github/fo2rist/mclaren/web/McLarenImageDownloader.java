@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.github.fo2rist.mclaren.BuildConfig;
+import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.utils.CacheUtils;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -22,7 +23,7 @@ public class McLarenImageDownloader {
     /**
      * Desired image size depending on the purpose.
      */
-    public enum ImageSize {
+    public enum ImageSizeType {
         /** Maximal allowed size for image. */
         MAXIMAL,
         /** Image large enough for fullscreen mode. */
@@ -33,9 +34,6 @@ public class McLarenImageDownloader {
         THUMB
     }
 
-    //TODO tab-api doesn't not support images larger than original size. Let's handle it on client. 2017-02-09
-    private static final int DEFAULT_WIDTH = 800;
-    private static final int DEFAULT_HEIGHT = 600;
     private static final int CACHE_SIZE = 25 * 1024 * 1024; //25 Mb
 
     private static McLarenImageDownloader instance;
@@ -49,22 +47,41 @@ public class McLarenImageDownloader {
         return instance;
     }
 
-    public static void loadImage(ImageView imageView, ImageUrl imageUri) {
-        loadImage(imageView, imageUri, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    /**
+     * Load image with default size.
+     */
+    public static void loadImage(ImageView imageView, ImageUrl imageUrl) {
+        loadImage(imageView, imageUrl, ImageSizeType.TILE);
     }
 
-    private static void loadImage(ImageView imageView, ImageUrl imageUrl, int width, int height) {
-        getInstance(imageView.getContext()).load(imageUrl, imageView, width, height);
+    /**
+     * Load image with specific size.
+     */
+    public static void loadImage(ImageView imageView, ImageUrl imageUrl, ImageSizeType sizeType) {
+        getInstance(imageView.getContext()).load(imageView, imageUrl, sizeType);
     }
 
-    public static void cacheImages(Context context, List<ImageUrl> imageUrls) {
-        McLarenImageDownloader imageDownloader = getInstance(context);
+    /**
+     * Cache image with specific size.
+     */
+    public static void cacheImages(Context context, List<ImageUrl> imageUrls, ImageSizeType sizeType) {
+        McLarenImageDownloader downloader = getInstance(context);
         for (ImageUrl uri : imageUrls) {
-            imageDownloader.cache(uri, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            downloader.cache(uri, sizeType);
         }
     }
 
+    int maxImageSize;
+    int fullscreenImageSize;
+    int tileImageSize;
+    int thumbImageSize;
+
     private McLarenImageDownloader(Context context) {
+        maxImageSize = context.getResources().getDimensionPixelSize(R.dimen.max_image_size);
+        fullscreenImageSize = context.getResources().getDimensionPixelSize(R.dimen.fullscreen_image_size);
+        tileImageSize = context.getResources().getDimensionPixelSize(R.dimen.tile_image_size);
+        thumbImageSize = context.getResources().getDimensionPixelSize(R.dimen.thumb_image_size);
+
         picasso = new Picasso.Builder(context)
                 .downloader(createCachingDownloader(context))
                 .indicatorsEnabled(BuildConfig.DEBUG)
@@ -101,17 +118,34 @@ public class McLarenImageDownloader {
         };
     }
 
-    private void load(ImageUrl imageUrl, ImageView imageView, int width, int height) {
-        Uri loadUri = buildImageUri(imageUrl, width, height);
+    private void load(ImageView imageView, ImageUrl imageUrl, ImageSizeType sizeType) {
+        int sizeInPixels = getSizeInPixelsFor(sizeType);
 
+        Uri loadUri = buildImageUri(imageUrl, sizeInPixels, sizeInPixels);
         picasso.load(loadUri)
                 .into(imageView);
     }
 
-    private void cache(ImageUrl imageUrl, int width, int height) {
-        Uri loadUri = buildImageUri(imageUrl, width, height);
+    private void cache(ImageUrl imageUrl, ImageSizeType sizeType) {
+        int sizeInPixels = getSizeInPixelsFor(sizeType);
+
+        Uri loadUri = buildImageUri(imageUrl, sizeInPixels, sizeInPixels);
         picasso.load(loadUri)
                 .fetch();
+    }
+
+    private int getSizeInPixelsFor(ImageSizeType sizeType) {
+        switch (sizeType) {
+            case MAXIMAL:
+                return maxImageSize;
+            case FULLSCREEN:
+                return fullscreenImageSize;
+            case THUMB:
+                return thumbImageSize;
+            case TILE:
+            default:
+                return tileImageSize;
+        }
     }
 
     @Nullable
