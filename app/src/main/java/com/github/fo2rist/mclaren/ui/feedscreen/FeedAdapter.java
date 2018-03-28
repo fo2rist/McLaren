@@ -50,6 +50,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         ImageView image;
         ImageView imageItemType;
         ImageView imageSource;
+        View playIcon;
         View containerSource;
 
         private FeedItem currentItem;
@@ -68,6 +69,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.image = rootView.findViewById(R.id.image);
             this.imageItemType = rootView.findViewById(R.id.image_type);
             this.imageSource = rootView.findViewById(R.id.image_source);
+            this.playIcon = rootView.findViewById(R.id.play_icon);
 
             this.imageSwitcher.setOnClickListener(this);
             this.containerSource.setOnClickListener(this);
@@ -126,6 +128,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
             displayDateTime(context, feedItem);
             displayImage(feedItem);
+            displayPlayIcon(feedItem);
             displayDataTypeIcon(feedItem);
             displayText(feedItem);
             displaySource(feedItem);
@@ -163,6 +166,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
             showImage(imageUri.getSize());
             setImageContent(imageUri, contentDescription);
+        }
+
+        private void displayPlayIcon(FeedItem feedItem) {
+            if (feedItem.type == FeedItem.Type.Video) {
+                playIcon.setVisibility(View.VISIBLE);
+            } else {
+                playIcon.setVisibility(View.GONE);
+            }
         }
 
         private void displayDataTypeIcon(FeedItem feedItem) {
