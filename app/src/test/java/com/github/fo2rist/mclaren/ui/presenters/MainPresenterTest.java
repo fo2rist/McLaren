@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.presenters;
 
+import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import org.junit.Before;
@@ -9,6 +10,7 @@ import org.junit.runners.JUnit4;
 
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
@@ -17,16 +19,20 @@ import static org.mockito.Mockito.verify;
 public class MainPresenterTest {
 
     private MainPresenter presenter;
-    private MainScreenContract.View mockView = mock(MainScreenContract.View.class);
+    private MainScreenContract.View mockView;
+    private EventsLogger mockEventsLogger;
 
     @Before
     public void setUp() throws Exception {
-        presenter = new MainPresenter(mock(EventsLogger.class));
+        mockView = mock(MainScreenContract.View.class);
+        mockEventsLogger = mock(EventsLogger.class);
+        presenter = new MainPresenter(mockEventsLogger);
     }
 
     private void setUpPresenter() {
         presenter.onStart(mockView);
         reset(mockView);
+        reset(mockEventsLogger);
     }
 
     @Test
@@ -43,6 +49,7 @@ public class MainPresenterTest {
         presenter.onStoriesClicked();
 
         verify(mockView).openStories();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -52,6 +59,7 @@ public class MainPresenterTest {
         presenter.onCircuitsClicked();
 
         verify(mockView).openCircuits();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -61,6 +69,7 @@ public class MainPresenterTest {
         presenter.onDriversClicked();
 
         verify(mockView).openDrivers();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
     @Test
     public void test_onNewsFeedClicked(){
@@ -69,6 +78,7 @@ public class MainPresenterTest {
         presenter.onNewsFeedClicked();
 
         verify(mockView).openNewsFeed();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -78,6 +88,7 @@ public class MainPresenterTest {
         presenter.onAboutClicked();
 
         verify(mockView).openAboutScreen();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -87,6 +98,7 @@ public class MainPresenterTest {
         presenter.onCarClicked();
 
         verify(mockView).navigateTo(getMcLarenCarLink());
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -96,6 +108,7 @@ public class MainPresenterTest {
         presenter.onOfficialSiteClicked();
 
         verify(mockView).navigateTo(getMcLarenFormula1Link());
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -105,5 +118,6 @@ public class MainPresenterTest {
         presenter.onTransmissionCenterClicked();
 
         verify(mockView).openTransmissionCenter();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 }
