@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.github.fo2rist.mclaren.dagger.DaggerAppComponent;
-
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -32,7 +32,9 @@ public class McLarenApplication extends Application implements HasActivityInject
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Fabric.with(this, new Crashlytics());
+            Fabric.with(this,
+                    new Crashlytics(),
+                    new Answers());
         }
     }
 }

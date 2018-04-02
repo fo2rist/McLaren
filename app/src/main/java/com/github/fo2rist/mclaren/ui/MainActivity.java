@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_official_site) {
             presenter.onOfficialSiteClicked();
         } else {
-            Timber.e("Unknown menu item clicked: " + item);
+            Timber.e("Unknown menu item clicked: %s", item);
         }
 
         return true;
