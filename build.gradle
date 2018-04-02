@@ -34,6 +34,6 @@ project.ext {
     BUILD_TOOLS_VERSION = '27.0.3'
     SUPPORT_VERSION = '27.1.0'
 
-    APP_VERSION_CODE = 9
-    APP_VERSION_NAME = '1.2.1'
+    APP_VERSION_CODE = 10
+    APP_VERSION_NAME = '1.2.2'
 }
