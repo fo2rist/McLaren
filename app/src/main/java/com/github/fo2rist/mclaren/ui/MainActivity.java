@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity
 
         //Populate main content area on the first launch
         if (savedInstanceState == null) {
-            navigationViewMain.setCheckedItem(R.id.nav_newsfeed);
-            navigateNewsFeed();
+            navigationViewMain.setCheckedItem(R.id.nav_stories);
+            navigateStories();
         }
     }
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation rootView_ item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_newsfeed) {
+        if (id == R.id.nav_news_feed) {
             navigateNewsFeed();
         } else if (id == R.id.nav_stories) {
             navigateStories();

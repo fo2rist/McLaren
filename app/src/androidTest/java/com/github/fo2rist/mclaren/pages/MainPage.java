@@ -33,7 +33,7 @@ public class MainPage {
     }
 
     public ViewInteraction onMenuNewsFeed() {
-        return onView(withText("Newsfeed"));
+        return onView(withText("Feed"));
     }
 
     public ViewInteraction onMenuStories() {
