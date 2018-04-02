@@ -1,8 +1,6 @@
 package com.github.fo2rist.mclaren.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +14,7 @@ import android.webkit.WebViewClient;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.utils.McLarenHtmlUtils;
 
+import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.MCLAREN_COM;
 
 
@@ -75,8 +74,7 @@ public class WebPreviewFragment extends Fragment {
                 if (url.contains(MCLAREN_COM)) {
                     return false;
                 } else {
-                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(i);
+                    openInBrowser(getContext(), url);
                     return true;
                 }
             }

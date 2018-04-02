@@ -4,7 +4,8 @@
         <item
             android:id="@+id/nav_stories"
             android:icon="@drawable/ic_menu_stories"
-            android:title="@string/navigation_item_stories" />
+            android:title="@string/navigation_item_stories"
+            android:checked="true"/>
         <item
             android:id="@+id/nav_circuits"
             android:icon="@drawable/ic_menu_circuit"

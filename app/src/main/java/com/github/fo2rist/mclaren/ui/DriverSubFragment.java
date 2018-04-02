@@ -27,10 +27,10 @@ import static android.text.TextUtils.isEmpty;
 public class DriverSubFragment extends Fragment implements View.OnClickListener {
 
     public interface OnDriverSubFragmentInteractionListener {
-        void onDriverSubFragmentIneraction(Uri uri);
+        void onDriverSubFragmentInteraction(Uri uri);
     }
 
-    public static final String ARG_DRIVER = "ARG_DRIVER";
+    private static final String ARG_DRIVER = "ARG_DRIVER";
 
     private static final Driver.Property[] propertiesToDisplayInList = {
             MandatoryProperty.NAME,
@@ -93,7 +93,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_driver_item,
                 container,
@@ -173,7 +173,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
 
     private void openLink(String uriString) {
         if (listener != null) {
-            listener.onDriverSubFragmentIneraction(Uri.parse(uriString));
+            listener.onDriverSubFragmentInteraction(Uri.parse(uriString));
         }
     }
 }
