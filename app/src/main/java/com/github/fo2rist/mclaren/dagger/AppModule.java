@@ -3,6 +3,8 @@ package com.github.fo2rist.mclaren.dagger;
 import android.content.Context;
 
 import com.github.fo2rist.mclaren.McLarenApplication;
+import com.github.fo2rist.mclaren.analytics.EventsLogger;
+import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
@@ -70,6 +72,12 @@ public abstract class AppModule {
     @Singleton
     static FeedHistoryPredictor provideHistoryPredictor(McLarenFeedHistoryPredictor historyPredictor) {
         return historyPredictor;
+    }
+
+    @Provides
+    @Singleton
+    static EventsLogger provideEventsLogger(EventsLoggerImpl logger) {
+        return logger;
     }
 
     @Provides

@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.webkit.URLUtil;
 
 public class IntentUtils {
@@ -15,8 +16,20 @@ public class IntentUtils {
     private IntentUtils() {
     }
 
+    @NonNull
     public static Intent createBrowserIntent(String url) {
-        return new Intent(Intent.ACTION_VIEW, Uri.parse(URLUtil.guessUrl(url.trim())));
+        Uri uri = Uri.parse(URLUtil.guessUrl(url.trim()));
+        return createBrowserIntent(uri);
+    }
+
+    @NonNull
+    private static Intent createBrowserIntent(Uri uri) {
+        return new Intent(Intent.ACTION_VIEW, uri);
+    }
+
+    public static boolean openInBrowser(Context context, Uri uri) {
+        Intent intent = createBrowserIntent(uri);
+        return launchSafely(context, intent);
     }
 
     public static boolean openInBrowser(Context context, String url) {

@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.ui;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,14 +18,15 @@ import android.view.View;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import com.github.fo2rist.mclaren.utils.LinkUtils;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 import static com.github.fo2rist.mclaren.utils.IntentUtils.createMcLarenAppIntent;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.launchSafely;
@@ -35,14 +36,21 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMediaLink;
 
 public class MainActivity extends AppCompatActivity
         implements HasSupportFragmentInjector,
+        MainScreenContract.View,
         NavigationView.OnNavigationItemSelectedListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
         DriversFragment.OnDriversFragmentInteractionListener,
         DriverSubFragment.OnDriverSubFragmentInteractionListener,
-        FeedAdapter.OnFeedInteractionListener
+        FeedAdapter.OnFeedInteractionListener,
+        View.OnClickListener
 {
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
+    @Inject
+    MainScreenContract.Presenter presenter;
+
+    private NavigationView navigationViewMain;
+    private DrawerLayout menuDrawer;
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
@@ -54,43 +62,46 @@ public class MainActivity extends AppCompatActivity
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO navigate to transmission center once the race is live.
+        setupViews();
 
-                launchSafely(MainActivity.this,
-                        createMcLarenAppIntent(MainActivity.this));
-            }
-        });
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationViewMain = findViewById(R.id.nav_view_main);
-        navigationViewMain.setNavigationItemSelectedListener(this);
-        NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
-        navigationViewFooter.setNavigationItemSelectedListener(this);
-
-        //Populate main content area on the first launch
         if (savedInstanceState == null) {
-            navigationViewMain.setCheckedItem(R.id.nav_stories);
-            navigateStories();
+            //Populate main content area only on the first launch
+            presenter.onStart(this);
         }
     }
 
     @Override
+    protected void onPause() {
+        if (isFinishing()) {
+            presenter.onStop();
+        }
+        super.onPause();
+    }
+
+    private void setupViews() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        menuDrawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, menuDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        menuDrawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationViewMain = findViewById(R.id.nav_view_main);
+        NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
+        FloatingActionButton floatingButtonTransmission = findViewById(R.id.floatig_button_transmission);
+
+        navigationViewMain.setNavigationItemSelectedListener(this);
+        navigationViewFooter.setNavigationItemSelectedListener(this);
+        floatingButtonTransmission.setOnClickListener(this);
+    }
+
+    @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (menuDrawer.isDrawerOpen(GravityCompat.START)) {
+            menuDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -109,36 +120,42 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            openAboutScreen();
+            presenter.onAboutClicked();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
-
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation rootView_ item clicks here.
-        int id = item.getItemId();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        menuDrawer.closeDrawer(GravityCompat.START);
 
+        int id = item.getItemId();
         if (id == R.id.nav_news_feed) {
-            navigateNewsFeed();
+            presenter.onNewsFeedClicked();
         } else if (id == R.id.nav_stories) {
-            navigateStories();
+            presenter.onStoriesClicked();
         } else if (id == R.id.nav_circuits) {
-            navigateCircuits();
+            presenter.onCircuitsClicked();
         } else if (id == R.id.nav_drivers) {
-            navigateDrivers();
+            presenter.onDriversClicked();
         } else if (id == R.id.nav_car) {
-            openCarPage();
+            presenter.onCarClicked();
         } else if (id == R.id.nav_official_site) {
-            openMcLarenWebsite();
+            presenter.onOfficialSiteClicked();
+        } else {
+            Timber.e("Unknown menu item clicked: " + item);
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View sender) {
+        if (sender.getId() == R.id.floatig_button_transmission) {
+            presenter.onTransmissionCenterClicked();
+        }
     }
 
     @Override
@@ -148,49 +165,55 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDriversFragmentInteraction(Uri uri) {
-
+        //empty
     }
-
 
     @Override
-    public void onDriverSubFragmentIneraction(Uri uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+    public void onDriverSubFragmentInteraction(Uri uri) {
+        openInBrowser(this, uri);
     }
 
-    private void navigateNewsFeed() {
-        navigateToNewFragment(
-                McLarenFeedFragment.newInstance());
-    }
-
-    private void navigateStories() {
-        navigateToNewFragment(
+    @Override
+    public void openStories() {
+        openNewFragment(
                 StoriesFeedFragment.newInstance());
     }
 
-    private void navigateCircuits() {
-        navigateToNewFragment(
+    @Override
+    public void openCircuits() {
+        openNewFragment(
                 CircuitsFragment.newInstanceForColumns(2));
     }
 
-    private void navigateDrivers() {
-        navigateToNewFragment(
+    @Override
+    public void openDrivers() {
+        openNewFragment(
                 DriversFragment.newInstance());
     }
 
-    private void openCarPage() {
-        openInBrowser(this, LinkUtils.getMcLarenCarLink());
+    @Override
+    public void openNewsFeed() {
+        openNewFragment(
+                McLarenFeedFragment.newInstance());
     }
 
-    private void openMcLarenWebsite() {
-        openInBrowser(this, LinkUtils.getMcLarenFormula1Link());
-    }
-
-    private void openAboutScreen() {
+    @Override
+    public void openAboutScreen() {
         startActivity(PreviewActivity.createUrlIntent(this, "file:///android_asset/about.html"));
     }
 
-    private void navigateToNewFragment(Fragment fragment) {
+    @Override
+    public void openTransmissionCenter() {
+        //TODO navigate to transmission center once the race is live.
+        launchSafely(MainActivity.this, createMcLarenAppIntent(MainActivity.this));
+    }
+
+    @Override
+    public void navigateTo(String externalUrl) {
+        openInBrowser(this, externalUrl);
+    }
+
+    private void openNewFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)

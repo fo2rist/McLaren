@@ -21,7 +21,7 @@ public class MainPage {
     }
 
     public ViewInteraction onFloatingButton() {
-        return onView(withId(R.id.fab));
+        return onView(withId(R.id.floatig_button_transmission));
     }
 
     private ViewInteraction onNavigationView() {

@@ -8,7 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class McLarenFeedFragmentModule {
+class McLarenFeedFragmentModule {
     @Provides
     @Scopes.PerFragment
     FeedContract.Presenter providePresenter(McLarenFeedRepositoryImpl repository, FeedRepositoryPubSubImpl pubSub) {
