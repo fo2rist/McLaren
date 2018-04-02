@@ -44,13 +44,13 @@ public class MainActivityTest extends BaseMainActivityTest {
 
         mainPage.openNavigationDrawer();
 
-        mainPage.onMenuNewsFeed()
-                .check(displayed());
         mainPage.onMenuStories()
                 .check(displayed());
         mainPage.onMenuCircuits()
                 .check(displayed());
         mainPage.onMenuDrivers()
+                .check(displayed());
+        mainPage.onMenuNewsFeed()
                 .check(displayed());
         mainPage.onMenuCar()
                 .check(displayed());
@@ -74,10 +74,10 @@ public class MainActivityTest extends BaseMainActivityTest {
     public void testNavigationToSamePage() throws Exception {
         FeedPage feedPage = new FeedPage();
 
-        feedPage.onNewsList()
+        feedPage.onFeedList()
                 .check(displayed());
-        mainPage.navigateToMenuItem(R.id.nav_newsfeed);
-        feedPage.onNewsList()
+        mainPage.navigateToMenuItem(R.id.nav_stories);
+        feedPage.onFeedList()
                 .check(displayed());
     }
 
