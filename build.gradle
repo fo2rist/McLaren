@@ -32,5 +32,8 @@ project.ext {
     COMPILE_SDK_VERSION = 26
     TARGET_SDK_VERSION = 26
     BUILD_TOOLS_VERSION = '27.0.3'
-    supportVersion = '27.1.0'
+    SUPPORT_VERSION = '27.1.0'
+
+    APP_VERSION_CODE = 9
+    APP_VERSION_NAME = '1.2.1'
 }
