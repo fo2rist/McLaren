@@ -30,9 +30,7 @@
         <activity
             android:name=".ui.PreviewActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.MainActivity"
             />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${crashlyticsKey}" />
