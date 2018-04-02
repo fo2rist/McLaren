@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,6 +17,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" } // for PhotoView
         maven { url 'https://maven.fabric.io/public' } // for crashlytics
     }
@@ -30,6 +31,6 @@ project.ext {
     MIN_SDK_VERSION = 21
     COMPILE_SDK_VERSION = 26
     TARGET_SDK_VERSION = 26
-    BUILD_TOOLS_VERSION = '27.0.2'
-    supportVersion = '27.0.2'
+    BUILD_TOOLS_VERSION = '27.0.3'
+    supportVersion = '27.1.0'
 }
