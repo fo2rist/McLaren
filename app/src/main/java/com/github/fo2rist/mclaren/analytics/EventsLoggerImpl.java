@@ -25,16 +25,26 @@ public class EventsLoggerImpl implements EventsLogger {
     }
 
     @Override
-    public void logViewEvent(Events event) {
-        logContentViewEvent(new ContentViewEvent()
-                .putContentName(event.name));
+    public void logViewEvent(@NonNull Events event) {
+        logViewEvent(event, null);
     }
 
     @Override
-    public void logViewEvent(Events event, String contentId) {
-        logContentViewEvent(new ContentViewEvent()
-                .putContentName(event.name)
-                .putContentId(contentId));
+    public void logViewEvent(@NonNull Events event, @Nullable String contentId) {
+        ContentViewEvent viewEvent = new ContentViewEvent().putContentName(event.name);
+        if (contentId != null) {
+            viewEvent.putContentId(truncateContentId(contentId));
+        }
+        logContentViewEvent(viewEvent);
+    }
+
+    private String truncateContentId(@NonNull String contentId) {
+        //Actual fabric limitation is non null <100 symbols string
+        if (contentId.length() > 98) {
+            return contentId.substring(0, 98);
+        } else {
+            return contentId;
+        }
     }
 
     private void logContentViewEvent(@NonNull ContentViewEvent event) {

@@ -22,12 +22,20 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import javax.inject.Inject;
 
-public class PreviewActivity extends AppCompatActivity {
+public class PreviewActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
     private static final String CONTENT_FRAGMENT_TAG = "content_fragment";
     private static final String KEY_URL = "url";
     private static final String KEY_FEED_ITEM = "feed_item";
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     private ActionBar actionBar;
     private ImageView headerImage;
@@ -45,7 +53,14 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentInjector;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         setupToolbar();

@@ -17,9 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.models.FeedItem;
+import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
-import com.github.fo2rist.mclaren.ui.adapters.FeedAdapter;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
@@ -31,7 +30,6 @@ import timber.log.Timber;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.createMcLarenAppIntent;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.launchSafely;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
-import static com.github.fo2rist.mclaren.utils.LinkUtils.getMediaLink;
 
 
 public class MainActivity extends AppCompatActivity
@@ -41,15 +39,15 @@ public class MainActivity extends AppCompatActivity
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
         DriversFragment.OnDriversFragmentInteractionListener,
         DriverSubFragment.OnDriverSubFragmentInteractionListener,
-        FeedAdapter.OnFeedInteractionListener,
         View.OnClickListener
 {
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
     @Inject
     MainScreenContract.Presenter presenter;
+    @Inject
+    EventsLogger eventsLogger;
 
-    private NavigationView navigationViewMain;
     private DrawerLayout menuDrawer;
 
     @Override
@@ -60,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         menuDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationViewMain = findViewById(R.id.nav_view_main);
+        NavigationView navigationViewMain = findViewById(R.id.nav_view_main);
         NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
         FloatingActionButton floatingButtonTransmission = findViewById(R.id.floatig_button_transmission);
 
@@ -218,15 +217,5 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)
                 .commit();
-    }
-
-    @Override
-    public void onItemDetailsRequested(FeedItem item) {
-        if (item.type == FeedItem.Type.Video) {
-            //TODO just play video like all other media types
-            openInBrowser(this, getMediaLink(item));
-        } else {
-            startActivity(PreviewActivity.createFeedItemIntent(this, item));
-        }
     }
 }

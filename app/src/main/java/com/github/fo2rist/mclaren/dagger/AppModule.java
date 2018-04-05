@@ -12,6 +12,7 @@ import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepository;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
+import com.github.fo2rist.mclaren.ui.PreviewActivity;
 import com.github.fo2rist.mclaren.web.DefaultOkHttpClientFactory;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
@@ -33,6 +34,10 @@ public abstract class AppModule {
     @Scopes.PerActivity
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity mainActivityInjector();
+
+    @Scopes.PerActivity
+    @ContributesAndroidInjector(modules = PreviewActivityModule.class)
+    abstract PreviewActivity previewActivityInjector();
 
     @Binds
     abstract Context application(McLarenApplication application);
