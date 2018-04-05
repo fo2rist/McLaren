@@ -12,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
+import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment.OnCircuitsFragmentInteractionListener;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitImageUriById;
@@ -48,12 +48,12 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     private Context context;
     private SimpleDateFormat dateFormatter;
-    private final List<CalendarEvent> calendarEvents;
+    private final RaceCalendar calendarEvents;
     private final OnCircuitsFragmentInteractionListener listener;
 
     private int lastAnimatedItem = -1;
 
-    public CircuitsAdapter(Context context, List<CalendarEvent> calendarEvents, OnCircuitsFragmentInteractionListener listener) {
+    public CircuitsAdapter(Context context, RaceCalendar calendarEvents, OnCircuitsFragmentInteractionListener listener) {
         this.context = context;
         this.dateFormatter = new SimpleDateFormat(context.getString(R.string.calendar_event_date_format), Locale.US);
         this.calendarEvents = calendarEvents;

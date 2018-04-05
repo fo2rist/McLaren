@@ -11,10 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-
+import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoaderImpl;
+import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoader;
-import java.util.List;
 import timber.log.Timber;
 
 /**
@@ -88,7 +87,7 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        List<CalendarEvent> eventsCalendar = new CalendarEventsLoader(getContext(), 2018).getCalendar();
+        RaceCalendar eventsCalendar = new CalendarEventsLoaderImpl(getContext()).loadCurrentCalendar();
         recyclerView.setAdapter(
                 new CircuitsAdapter(getContext(), eventsCalendar, listener));
         return view;
