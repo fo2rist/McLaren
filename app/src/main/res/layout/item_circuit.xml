@@ -10,7 +10,7 @@
     android:layout_marginLeft="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_half"
     android:orientation="vertical"
-    tools:context=".ui.CircuitDetailsActivity"
+    tools:context=".ui.circuitsscreen.CircuitDetailsActivity"
     tools:background="@drawable/background_main"
     >
     <ImageView

@@ -4,7 +4,7 @@ import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSubImpl;
 import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
-import com.github.fo2rist.mclaren.ui.presenters.FeedPresenter;
+import com.github.fo2rist.mclaren.ui.feedscreen.FeedPresenter;
 import dagger.Module;
 import dagger.Provides;
 

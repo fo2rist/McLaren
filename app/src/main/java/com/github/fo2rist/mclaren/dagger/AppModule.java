@@ -12,7 +12,7 @@ import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepository;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
-import com.github.fo2rist.mclaren.ui.PreviewActivity;
+import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.web.DefaultOkHttpClientFactory;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
