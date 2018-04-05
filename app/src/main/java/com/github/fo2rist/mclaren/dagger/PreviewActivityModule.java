@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.dagger;
 
-import com.github.fo2rist.mclaren.ui.ImagePreviewFragment;
+import com.github.fo2rist.mclaren.ui.previewscreen.ImagePreviewFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
