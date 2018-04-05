@@ -75,6 +75,6 @@ public class MainPresenter implements MainScreenContract.Presenter {
     @Override
     public void onTransmissionCenterClicked() {
         view.openTransmissionCenter();
-        eventsLogger.logViewEvent(Events.TRANSMISSION_CENTER);
+        eventsLogger.logViewEvent(Events.MENU_TRANSMISSION_CENTER);
     }
 }

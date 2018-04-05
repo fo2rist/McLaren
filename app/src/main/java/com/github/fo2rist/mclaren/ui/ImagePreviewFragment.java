@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,14 +14,17 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract;
 import com.github.fo2rist.mclaren.ui.adapters.ImageGalleryAdapter;
-import com.github.fo2rist.mclaren.ui.presenters.ImagePreviewPresenter;
+import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
+import javax.inject.Inject;
 
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
     private static final String ARG_FEED_ITEM = "feed_item";
 
-    private ImagePreviewContract.Presenter presenter;
+    @Inject
+    ImagePreviewContract.Presenter presenter;
+
     private ViewPager imagesPager;
 
     public static ImagePreviewFragment newInstanceForFeedItem(FeedItem feedItem) {
@@ -31,9 +35,15 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_image_preview, container, false);
         imagesPager = rootView.findViewById(R.id.images_pager);
@@ -43,14 +53,10 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     @Override
     public void onStart() {
         super.onStart();
-
-        FeedItem feedItem = fetchBundleParameters();
-        if (feedItem != null) {
-            presenter = new ImagePreviewPresenter();
-            presenter.onStartWith(this, feedItem);
-        }
+        presenter.onStartWith(this, fetchBundleParameters());
     }
 
+    @Nullable
     private FeedItem fetchBundleParameters() {
         Bundle args = getArguments();
         if (args == null) {

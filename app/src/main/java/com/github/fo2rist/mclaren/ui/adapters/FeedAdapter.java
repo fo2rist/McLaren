@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.util.DiffUtil;
@@ -19,6 +20,8 @@ import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
+import com.github.fo2rist.mclaren.mvp.FeedContract.OnFeedInteractionListener;
+import com.github.fo2rist.mclaren.mvp.FeedContract.OnFeedScrollingListener;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType;
 import com.luseen.autolinklibrary.AutoLinkMode;
@@ -29,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
-import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedHashtagLink;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedMentionLink;
 
@@ -37,16 +39,6 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getFeedMentionLink;
  * Adapter for main page feed of news.
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
-
-    public interface OnFeedInteractionListener {
-        void onItemDetailsRequested(FeedItem item);
-    }
-
-    public interface OnFeedScrollingListener {
-        void onScrolledToSecondThird();
-
-        void onScrolledToBottom();
-    }
 
     class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AutoLinkOnClickListener {
         View rootView;
@@ -97,20 +89,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.image_switcher:
-                    onFeedImageClicked(currentItem);
+                    notifyItemClicked(currentItem);
                     break;
                 case R.id.container_source:
-                    onFeedSourceClicked(currentItem);
+                    notifyItemSourceClicked(currentItem);
                     break;
             }
-        }
-
-        private void onFeedImageClicked(FeedItem feedItem) {
-            notifyItemRequested(feedItem);
-        }
-
-        private void onFeedSourceClicked(FeedItem feedItem) {
-            openInBrowser(context, getFeedMentionLink(feedItem, feedItem.sourceName));
         }
 
         @Override
@@ -133,7 +117,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     break;
             }
             if (!TextUtils.isEmpty(link)) {
-                openInBrowser(context, link);
+                notifyLinkClicked(currentItem, link);
             }
         }
 
@@ -232,9 +216,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.imageSwitcher.setVisibility(View.VISIBLE);
 
             //prepare image size before the image loaded to prevent jarring scrolling behavior
-            if (getCachedImageWidth() != 0 && !size.isUnknown()) {
+            if (getImageWidth() != 0 && !size.isUnknown()) {
                 //scale proportionally
-                int estimatedImageHeight = getCachedImageWidth() * size.height / size.width;
+                int estimatedImageHeight = getImageWidth() * size.height / size.width;
                 this.image.setLayoutParams(new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.MATCH_PARENT,
                         estimatedImageHeight));
@@ -261,9 +245,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     private final WeakReference<OnFeedScrollingListener> scrollingListenerReference;
     private List<FeedItem> items = new ArrayList<>();
 
-    int defaultImageHeight;
+    private int defaultImageHeight;
     /** Stores last known width of image to be used for preliminary image size adjustment. */
-    private int cachedImageWidth = 0;
+    private int imageWidth = 0;
 
     public FeedAdapter(Context context,
             OnFeedInteractionListener interactionListener,
@@ -274,8 +258,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         this.defaultImageHeight = context.getResources().getDimensionPixelSize(R.dimen.feed_image_height);
     }
 
+    @NonNull
     @Override
-    public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         cacheImageWidth(parent);
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_feed, parent, false);
@@ -283,7 +268,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     }
 
     @Override
-    public void onBindViewHolder(FeedViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         holder.display(context, items.get(position));
         notifyAboutScrollEventsIfNecessary(position);
     }
@@ -294,12 +279,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             //is it's parent so it's faster to guess view size based on parent's size.
             int sideMargins = 2 * context.getResources().getDimensionPixelSize(R.dimen.margin_one) +
                               context.getResources().getDimensionPixelSize(R.dimen.margin_half);
-            cachedImageWidth = listRootView.getWidth() - sideMargins;
+            imageWidth = listRootView.getWidth() - sideMargins;
         }
     }
 
-    int getCachedImageWidth() {
-        return cachedImageWidth;
+    private int getImageWidth() {
+        return imageWidth;
     }
 
     private void notifyAboutScrollEventsIfNecessary(int position) {
@@ -363,12 +348,28 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         };
     }
 
-    private void notifyItemRequested(FeedItem item) {
+    private void notifyItemClicked(FeedItem item) {
         OnFeedInteractionListener listener = interactionListenerReference.get();
         if (listener != null) {
-            listener.onItemDetailsRequested(item);
+            listener.onItemClicked(item);
         }
     }
+
+    private void notifyItemSourceClicked(FeedItem item) {
+        OnFeedInteractionListener listener = interactionListenerReference.get();
+        if (listener != null) {
+            listener.onItemSourceClicked(item);
+        }
+    }
+
+
+    private void notifyLinkClicked(FeedItem item, String link) {
+        OnFeedInteractionListener listener = interactionListenerReference.get();
+        if (listener != null) {
+            listener.onLinkClicked(item, link);
+        }
+    }
+
 
     private void notifyItemFromSecondThirdDisplayed() {
         OnFeedScrollingListener listener = scrollingListenerReference.get();

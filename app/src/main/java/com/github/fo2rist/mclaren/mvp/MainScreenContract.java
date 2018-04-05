@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.mvp;
 
 public interface MainScreenContract {
+
     interface View extends BaseView {
         void openStories();
         void openCircuits();
