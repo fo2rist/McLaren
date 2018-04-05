@@ -11,5 +11,7 @@ public interface ImagePreviewContract {
 
     interface Presenter extends BasePresenter<View> {
         void onStartWith(View view, FeedItem item);
+
+        void onScrolledTo(int position);
     }
 }

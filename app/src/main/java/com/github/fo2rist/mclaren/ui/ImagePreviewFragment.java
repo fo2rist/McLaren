@@ -14,6 +14,7 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract;
 import com.github.fo2rist.mclaren.ui.adapters.ImageGalleryAdapter;
+import com.github.fo2rist.mclaren.ui.utils.SilentPageChangeListener;
 import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
 import javax.inject.Inject;
@@ -47,8 +48,16 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_image_preview, container, false);
         imagesPager = rootView.findViewById(R.id.images_pager);
+        imagesPager.addOnPageChangeListener(pageChangeListener);
         return rootView;
     }
+
+    private ViewPager.OnPageChangeListener pageChangeListener = new SilentPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            presenter.onScrolledTo(position);
+        }
+    };
 
     @Override
     public void onStart() {
