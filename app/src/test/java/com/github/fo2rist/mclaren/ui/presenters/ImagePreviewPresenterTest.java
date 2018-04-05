@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.presenters;
 
+import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract;
 import java.util.List;
@@ -40,5 +41,16 @@ public class ImagePreviewPresenterTest {
         presenter.onStartWith(mockView, null);
 
         verify(mockView, never()).showImages(any(List.class));
+    }
+
+    @Test
+    public void test_onScroll_emitsNextPrevieousEvents() {
+        presenter.onStartWith(mockView, TWITTER_GALLERY_ITEM);
+
+        presenter.onScrolledTo(1);
+        presenter.onScrolledTo(0);
+
+        verify(mockEventsLogger).logViewEvent(Events.GALLERY_NEXT);
+        verify(mockEventsLogger).logViewEvent(Events.GALLERY_PREV);
     }
 }
