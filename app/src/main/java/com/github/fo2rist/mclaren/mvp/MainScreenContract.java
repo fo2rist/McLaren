@@ -8,10 +8,11 @@ public interface MainScreenContract {
         void openDrivers();
         void openNewsFeed();
         void openAboutScreen();
-
         void openTransmissionCenter();
 
         void navigateTo(String externalUrl);
+
+        void showTransmissionButton();
     }
 
     interface Presenter extends BasePresenter<View> {
