@@ -1,4 +1,11 @@
-buildscript {
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+apply from: '../versions.gradle'
+
+buildscript { //for crashlytics
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -7,9 +14,6 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
-
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
@@ -70,6 +74,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation "com.android.support:appcompat-v7:$project.SUPPORT_VERSION"
     implementation "com.android.support:cardview-v7:$project.SUPPORT_VERSION"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -107,8 +112,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.14.1', {
         exclude group: 'com.google.code.findbugs'
     }
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
+    kapt 'com.google.dagger:dagger-compiler:2.14.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.14.1'
 
     // test libraries
     testImplementation 'junit:junit:4.12'
@@ -137,8 +142,8 @@ def readProperties(configFileName) {
     try {
         properties.load(new FileInputStream(rootProject.file(configFileName)))
         println "Load properties from configuration file"
-    } catch (IOException any) {
-        println "Properties file ${configFileName} not found will use ENV variabled."
+    } catch (IOException ignore) {
+        println "Properties file ${configFileName} not found. Will use ENV variables."
     }
     return properties
 }
