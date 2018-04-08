@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.dagger;
 
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
+import com.github.fo2rist.mclaren.ui.MainPresenter;
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
-import com.github.fo2rist.mclaren.ui.MainPresenter;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;

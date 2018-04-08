@@ -6,7 +6,7 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
-import com.github.fo2rist.mclaren.repository.PubSubEvents;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -100,17 +100,17 @@ public class FeedPresenter implements FeedContract.Presenter {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoadingStarted(PubSubEvents.LoadingStarted event) {
+    public void onLoadingStarted(PubSubEvent.LoadingStarted event) {
         view.showProgress();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFeedUpdateReceived(PubSubEvents.FeedUpdateReady event) {
-        view.setFeed(event.feed);
+    public void onFeedUpdateReceived(PubSubEvent.FeedUpdateReady event) {
+        view.displayFeed(event.feed);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoadingFinished(PubSubEvents.LoadingFinished event) {
+    public void onLoadingFinished(PubSubEvent.LoadingFinished event) {
         view.hideProgress();
     }
 }

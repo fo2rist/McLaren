@@ -75,7 +75,7 @@ public class BaseFeedFragment
     }
 
     @Override
-    public void setFeed(final List<FeedItem> feedItems) {
+    public void displayFeed(final List<FeedItem> feedItems) {
         boolean hasNewerItems = feedAdapter.setItems(feedItems);
         if (hasNewerItems && firstItemIsVisible()) {
             feedRecyclerView.scrollToPosition(0);

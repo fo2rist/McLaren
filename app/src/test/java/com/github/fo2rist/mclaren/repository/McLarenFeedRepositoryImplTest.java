@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.repository;
 
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
+import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
-import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class McLarenFeedRepositoryImplTest {
     public void testLoadingCallsWebApi() throws Exception {
         feedRepository.loadLatest();
 
-        verify(mockWebservice).requestLatestFeed(any(FeedWebServiceCallback.class));
+        verify(mockWebservice).requestLatestFeed(any(FeedRequestCallback.class));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class McLarenFeedRepositoryImplTest {
         feedRepository.loadNextHistory();
 
         verify(mockHistoryPredictor).startPrediction();
-        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
+        verify(mockWebservice, never()).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
     }
 
     @Test
@@ -55,6 +55,6 @@ public class McLarenFeedRepositoryImplTest {
 
         verify(mockHistoryPredictor, never()).startPrediction();
         verify(mockHistoryPredictor).getFirstHistoryPage();
-        verify(mockWebservice).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
+        verify(mockWebservice).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
     }
 }

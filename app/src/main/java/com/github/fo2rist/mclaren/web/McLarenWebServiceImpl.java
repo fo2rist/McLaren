@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 @Singleton
-public class McLarenFeedWebServiceImpl implements McLarenFeedWebService {
+public class McLarenWebServiceImpl implements McLarenFeedWebService, TransmissionWebService {
 
     private static final String FEED_URL = BuildConfig.MCLAREN_FEED_URL;
     private static final String MCLAREN_RACE_INFO_URL = BuildConfig.MCLAREN_RACE_INFO_URL;
@@ -26,20 +26,20 @@ public class McLarenFeedWebServiceImpl implements McLarenFeedWebService {
     private OkHttpClient client;
 
     @Inject
-    McLarenFeedWebServiceImpl(@Named("web-okhttp") OkHttpClient webClient) {
+    McLarenWebServiceImpl(@Named("web-okhttp") OkHttpClient webClient) {
         this.client = webClient;
     }
 
     @Override
-    public void requestLatestFeed(FeedWebServiceCallback callback) {
+    public void requestLatestFeed(FeedRequestCallback callback) {
         client.newCall(createLatestFeedRequest())
-                .enqueue(new CallbackWrapper(FeedWebService.DEFAULT_PAGE, callback));
+                .enqueue(new FeedCallbackWrapper(FeedWebService.DEFAULT_PAGE, callback));
     }
 
     @Override
-    public void requestFeedPage(int pageNumber, FeedWebServiceCallback callback) {
+    public void requestFeedPage(int pageNumber, FeedRequestCallback callback) {
         client.newCall(createFeedPageRequest(pageNumber))
-                .enqueue(new CallbackWrapper(pageNumber, callback));
+                .enqueue(new FeedCallbackWrapper(pageNumber, callback));
     }
 
     private Request createLatestFeedRequest() {
@@ -56,6 +56,19 @@ public class McLarenFeedWebServiceImpl implements McLarenFeedWebService {
         //By default it's GET unless .method or .post aren't called
         return new Request.Builder()
                 .url(urlBuilder.build())
+                .headers(DEFAULT_HEADERS)
+                .build();
+    }
+
+    @Override
+    public void requestTransmission(final TransmissionRequestCallback callback) {
+        client.newCall(createTransmissionRequest())
+                .enqueue(new TransmissionCallbackWrapper(callback));
+    }
+
+    private Request createTransmissionRequest() {
+        return new Request.Builder()
+                .url(MCLAREN_RACE_LIFE_DATA_URL)
                 .headers(DEFAULT_HEADERS)
                 .build();
     }

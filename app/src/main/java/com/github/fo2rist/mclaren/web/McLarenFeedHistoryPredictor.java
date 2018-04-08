@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.web;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
+import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import java.io.IOException;
 import java.net.URL;
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import org.joda.time.LocalDate;
  * Predictor for page number which should be next after the latest posts.
  * Hack for McLaren web service. App have to guess the page number
  */
-public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, FeedWebServiceCallback {
+public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, FeedRequestCallback {
     private static class PageStatus {
         final int pageNumber;
         final boolean exists;

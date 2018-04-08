@@ -3,6 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
+import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoader;
+import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
 import javax.inject.Inject;
 
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink;
@@ -16,11 +18,21 @@ public class MainPresenter implements MainScreenContract.Presenter {
     MainPresenter(EventsLogger eventsLogger) {
         this.eventsLogger = eventsLogger;
     }
+    @Inject
+    CalendarEventsLoader calendarEventsLoader;
 
     @Override
     public void onStart(MainScreenContract.View view) {
         this.view = view;
         view.openStories();
+        if (isRaceActive()) {
+            view.showTransmissionButton();
+        }
+    }
+
+    private boolean isRaceActive() {
+        RaceCalendar raceCalendar = calendarEventsLoader.loadCurrentCalendar();
+        return raceCalendar.getActiveEvent() != null;
     }
 
     @Override

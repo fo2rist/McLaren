@@ -40,6 +40,8 @@ public class CircuitsFragment extends Fragment {
 
     private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
+    private CalendarEventsLoaderImpl calendarEventsLoader; // TODO Inject it
+
 
     public static CircuitsFragment newInstanceForColumns(int columnCount) {
         CircuitsFragment fragment = new CircuitsFragment();
@@ -80,6 +82,7 @@ public class CircuitsFragment extends Fragment {
         }
 
         Context context = view.getContext();
+        calendarEventsLoader = new CalendarEventsLoaderImpl(getContext());
         RecyclerView recyclerView = (RecyclerView) view;
         if (columnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -87,7 +90,7 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        RaceCalendar eventsCalendar = new CalendarEventsLoaderImpl(getContext()).loadCurrentCalendar();
+        RaceCalendar eventsCalendar = calendarEventsLoader.loadCurrentCalendar();
         recyclerView.setAdapter(
                 new CircuitsAdapter(getContext(), eventsCalendar, listener));
         return view;
