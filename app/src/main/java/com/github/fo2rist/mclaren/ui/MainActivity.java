@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
+import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -34,8 +36,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-import static com.github.fo2rist.mclaren.utils.IntentUtils.createMcLarenAppIntent;
-import static com.github.fo2rist.mclaren.utils.IntentUtils.launchSafely;
+import static com.github.fo2rist.mclaren.ui.utils.AnimationUtils.startActivityWithRevealAnimation;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     EventsLogger eventsLogger;
 
     private DrawerLayout menuDrawer;
+    private FloatingActionButton floatingButtonTransmission;
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationViewMain = findViewById(R.id.nav_view_main);
         NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
-        FloatingActionButton floatingButtonTransmission = findViewById(R.id.floatig_button_transmission);
+        floatingButtonTransmission = findViewById(R.id.floating_button_transmission);
 
         navigationViewMain.setNavigationItemSelectedListener(this);
         navigationViewFooter.setNavigationItemSelectedListener(this);
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View sender) {
-        if (sender.getId() == R.id.floatig_button_transmission) {
+        if (sender.getId() == R.id.floating_button_transmission) {
             presenter.onTransmissionCenterClicked();
         }
     }
@@ -210,8 +212,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void openTransmissionCenter() {
-        //TODO navigate to transmission center once the race is live.
-        launchSafely(MainActivity.this, createMcLarenAppIntent(MainActivity.this));
+        Intent intent = new Intent(this, TransmissionActivity.class);
+
+        startActivityWithRevealAnimation(this, intent, floatingButtonTransmission);
     }
 
     @Override
@@ -224,5 +227,10 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content_frame, fragment)
                 .commit();
+    }
+
+    @Override
+    public void showTransmissionButton() {
+        floatingButtonTransmission.setVisibility(View.VISIBLE);
     }
 }

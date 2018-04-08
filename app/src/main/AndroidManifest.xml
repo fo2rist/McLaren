@@ -31,6 +31,10 @@
             android:name=".ui.previewscreen.PreviewActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
+        <activity
+            android:name=".ui.transmissionscreen.TransmissionActivity"
+            android:theme="@style/AppTheme.Transparent"
+            />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${crashlyticsKey}" />
