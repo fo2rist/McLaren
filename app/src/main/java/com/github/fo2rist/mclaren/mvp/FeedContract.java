@@ -26,7 +26,7 @@ public interface FeedContract {
     }
 
     interface View extends BaseView {
-        void setFeed(List<FeedItem> feedItems);
+        void displayFeed(List<FeedItem> feedItems);
         void showProgress();
         void hideProgress();
 

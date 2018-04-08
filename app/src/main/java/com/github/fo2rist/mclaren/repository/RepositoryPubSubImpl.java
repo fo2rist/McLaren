@@ -1,12 +1,14 @@
 package com.github.fo2rist.mclaren.repository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.greenrobot.eventbus.EventBus;
 
-public class FeedRepositoryPubSubImpl implements FeedRepositoryPubSub {
+@Singleton
+public class RepositoryPubSubImpl implements FeedRepositoryPubSub, TransmissionRepositoryPubSub {
 
     @Inject
-    FeedRepositoryPubSubImpl() {
+    RepositoryPubSubImpl() {
         //constructor for injection
     }
 
@@ -19,26 +21,26 @@ public class FeedRepositoryPubSubImpl implements FeedRepositoryPubSub {
     }
 
     @Override
-    public void publish(PubSubEvents.FeedUpdateReady event) {
+    public void publish(PubSubEvent.FeedUpdateReady event) {
         publishGeneric(event);
     }
 
     @Override
-    public void publish(PubSubEvents.LoadingStarted event) {
+    public void publish(PubSubEvent.LoadingStarted event) {
         publishGeneric(event);
     }
 
     @Override
-    public void publish(PubSubEvents.LoadingFinished event) {
+    public void publish(PubSubEvent.LoadingFinished event) {
         publishGeneric(event);
     }
 
     @Override
-    public void publish(PubSubEvents.LoadingError event) {
+    public void publish(PubSubEvent.LoadingError event) {
         publishGeneric(event);
     }
 
-    public void publishGeneric(Object message) {
+    private void publishGeneric(Object message) {
         EventBus.getDefault().post(message);
     }
 }

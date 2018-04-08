@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web;
 
+import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,29 +15,36 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class McLarenFeedWebServiceImplTest {
+public class McLarenWebServiceImplTest {
 
-    OkHttpClient mockHttpClient;
-    McLarenFeedWebServiceImpl webservice;
+    private OkHttpClient mockHttpClient;
+    private McLarenWebServiceImpl webservice;
 
     @Before
     public void setUp() throws Exception {
         mockHttpClient = mock(OkHttpClient.class);
         when(mockHttpClient.newCall(any(Request.class))).thenReturn(mock(Call.class));
 
-        webservice = new McLarenFeedWebServiceImpl(mockHttpClient);
+        webservice = new McLarenWebServiceImpl(mockHttpClient);
     }
 
     @Test
     public void test_requestLatestFeed_callsWebClient() {
-        webservice.requestLatestFeed(mock(FeedWebServiceCallback.class));
+        webservice.requestLatestFeed(mock(FeedRequestCallback.class));
 
         verify(mockHttpClient).newCall(any(Request.class));
     }
 
     @Test
     public void test_requestFeedPage_callsWebClient() throws Exception {
-        webservice.requestFeedPage(1, mock(FeedWebServiceCallback.class));
+        webservice.requestFeedPage(1, mock(FeedRequestCallback.class));
+
+        verify(mockHttpClient).newCall(any(Request.class));
+    }
+
+    @Test
+    public void test_requestTransmission_callsWebClient() {
+        webservice.requestTransmission(mock(TransmissionWebService.TransmissionRequestCallback.class));
 
         verify(mockHttpClient).newCall(any(Request.class));
     }

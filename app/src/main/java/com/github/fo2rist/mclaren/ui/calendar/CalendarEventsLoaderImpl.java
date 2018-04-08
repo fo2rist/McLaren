@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import org.joda.time.LocalDate;
 
 public class CalendarEventsLoaderImpl implements CalendarEventsLoader {
@@ -23,6 +24,7 @@ public class CalendarEventsLoaderImpl implements CalendarEventsLoader {
 
     Context context;
 
+    @Inject
     public CalendarEventsLoaderImpl(Context context) {
         this.context = context;
     }

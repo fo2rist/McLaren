@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.web.FeedWebServiceCallback;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
 import java.net.URL;
 import org.junit.Before;
@@ -36,16 +37,16 @@ public class StoryStreamRepositoryImplTest {
     public void test_loadLatest_startLoading_and_firesLoadStartEvent() throws Exception {
         repository.loadLatest();
 
-        verify(mockPubSub).publish(any(PubSubEvents.LoadingStarted.class));
-        verify(mockWebService).requestLatestFeed(any(FeedWebServiceCallback.class));
+        verify(mockPubSub).publish(any(PubSubEvent.LoadingStarted.class));
+        verify(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
     }
 
     @Test
     public void test_loadNextHistory_startLoading_and_firesLoadStartEvent() throws Exception {
         repository.loadNextHistory();
 
-        verify(mockPubSub).publish(any(PubSubEvents.LoadingStarted.class));
-        verify(mockWebService).requestFeedPage(anyInt(), any(FeedWebServiceCallback.class));
+        verify(mockPubSub).publish(any(PubSubEvent.LoadingStarted.class));
+        verify(mockWebService).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
     }
 
     @Test
@@ -53,15 +54,15 @@ public class StoryStreamRepositoryImplTest {
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-                FeedWebServiceCallback callback = invocationOnMock.getArgument(0);
+                FeedRequestCallback callback = invocationOnMock.getArgument(0);
                 callback.onSuccess(new URL("http://empty.url"), 0, 200, REAL_FEED_RESPONSE);
                 return null;
             }
-        }).when(mockWebService).requestLatestFeed(any(FeedWebServiceCallback.class));
+        }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
 
         repository.loadLatest();
 
-        verify(mockPubSub).publish(any(PubSubEvents.LoadingFinished.class));
-        verify(mockPubSub).publish(any(PubSubEvents.FeedUpdateReady.class));
+        verify(mockPubSub).publish(any(PubSubEvent.LoadingFinished.class));
+        verify(mockPubSub).publish(any(PubSubEvent.FeedUpdateReady.class));
     }
 }

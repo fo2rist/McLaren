@@ -6,7 +6,7 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
-import com.github.fo2rist.mclaren.repository.PubSubEvents;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
 import com.github.fo2rist.mclaren.testdata.FeedItems;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,16 +67,16 @@ public class FeedPresenterTest {
     public void test_onFeedUpdateReceived_setFeedToView() throws Exception {
         setUpPresenter();
 
-        presenter.onFeedUpdateReceived(new PubSubEvents.FeedUpdateReady(new ArrayList<FeedItem>()));
+        presenter.onFeedUpdateReceived(new PubSubEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
 
-        verify(mockView).setFeed(any(List.class));
+        verify(mockView).displayFeed(any(List.class));
     }
 
     @Test
     public void test_onLoadingStarted_showProgress() throws Exception {
         setUpPresenter();
 
-        presenter.onLoadingStarted(new PubSubEvents.LoadingStarted());
+        presenter.onLoadingStarted(new PubSubEvent.LoadingStarted());
 
         verify(mockView).showProgress();
     }
@@ -85,7 +85,7 @@ public class FeedPresenterTest {
     public void test_onLoadingFinished_hideProgress() throws Exception {
         setUpPresenter();
 
-        presenter.onLoadingFinished(new PubSubEvents.LoadingFinished());
+        presenter.onLoadingFinished(new PubSubEvent.LoadingFinished());
 
         verify(mockView).hideProgress();
     }
