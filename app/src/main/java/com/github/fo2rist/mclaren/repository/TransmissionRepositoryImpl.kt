@@ -16,11 +16,13 @@ class TransmissionRepositoryImpl
         private val webService: TransmissionWebService,
         private val pubSub: TransmissionRepositoryPubSub
 ) : TransmissionRepository {
+    private var trasmissionData: List<TransmissionItem>? = null
 
     private val webResponseHandler = object : TransmissionWebService.TransmissionRequestCallback {
         override fun onSuccess(url: URL, responseCode: Int, data: String?) {
             val transmission = parse(data).reversed()
 
+            cache(transmission)
             pubSub.publish(PubSubEvent.TransmissionUpdateReady(transmission))
             pubSub.publish(PubSubEvent.LoadingFinished)
         }
@@ -43,7 +45,16 @@ class TransmissionRepositoryImpl
         webService.requestTransmission(webResponseHandler)
     }
 
+
+    private fun cache(transmission: List<TransmissionItem>) {
+        this.trasmissionData = transmission
+    }
+
     private fun publishCachedData() {
-        //TODO
+        val cachedData = trasmissionData
+
+        if (cachedData?.isEmpty() == false) {
+            pubSub.publish(PubSubEvent.TransmissionUpdateReady(cachedData))
+        }
     }
 }

@@ -9,8 +9,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import java.net.URL
@@ -37,11 +39,8 @@ class TransmissionRepositoryImplTest {
     }
 
     @Test
-    fun test_onSuccess_filresLoadFinishEvents() {
-        doAnswer {
-            val callback: TransmissionRequestCallback = it.getArgument(0)
-            callback.onSuccess(URL("http://dummy.url"), 200, REAL_TRANSMISSION_RESPONSE)
-        }.`when`(mockWebService).requestTransmission(anyKotlinObject())
+    fun test_onSuccess_firesLoadFinishEvents() {
+        prepareRealWebResponse()
 
         repository.loadTransmission()
 
@@ -49,5 +48,31 @@ class TransmissionRepositoryImplTest {
         verify(mockPubSub).publish(PubSubEvent.LoadingFinished)
         //The last event is matched by the parent class so we count two previous calls
         verify(mockPubSub, times(3)).publish(anyKotlinObject<PubSubEvent.TransmissionUpdateReady>())
+    }
+
+    @Test
+    fun test_loadRepository_respondWithCachesItems_ifPresent() {
+        //load for the first time
+        prepareRealWebResponse()
+        repository.loadTransmission()
+        reset(mockPubSub)
+        reset(mockWebService)
+
+        //load when cache is non empty
+        repository.loadTransmission()
+
+        verify(mockPubSub).publish(PubSubEvent.LoadingStarted)
+        verify(mockPubSub, times(2)).publish(anyKotlinObject<PubSubEvent.TransmissionUpdateReady>())
+    }
+
+    private fun prepareRealWebResponse() {
+        doAnswer {
+            val callback: TransmissionRequestCallback = it.getArgument(0)
+            callback.onSuccess(URL("http://dummy.url"), 200, REAL_TRANSMISSION_RESPONSE)
+        }.`when`(mockWebService).requestTransmission(anyKotlinObject())
+    }
+
+    private fun resetWebResponse() {
+        `when`(mockWebService.requestTransmission(anyKotlinObject())).thenReturn(Unit)
     }
 }
