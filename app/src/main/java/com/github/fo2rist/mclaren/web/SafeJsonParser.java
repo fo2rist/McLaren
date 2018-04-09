@@ -21,7 +21,7 @@ public class SafeJsonParser<T> {
         try {
             emptyResult = classOfResult.newInstance();
         } catch (InstantiationException | IllegalAccessException exc) {
-            throw new IllegalArgumentException("", exc);
+            throw new IllegalArgumentException("Unable to create the instance of " + classOfResult.getName(), exc);
         }
     }
 

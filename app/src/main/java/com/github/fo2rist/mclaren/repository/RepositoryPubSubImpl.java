@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.repository;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 @Singleton
 public class RepositoryPubSubImpl implements FeedRepositoryPubSub, TransmissionRepositoryPubSub {
@@ -21,22 +22,12 @@ public class RepositoryPubSubImpl implements FeedRepositoryPubSub, TransmissionR
     }
 
     @Override
-    public void publish(PubSubEvent.FeedUpdateReady event) {
+    public void publish(FeedRepositoryPubSub.PubSubEvent event) {
         publishGeneric(event);
     }
 
     @Override
-    public void publish(PubSubEvent.LoadingStarted event) {
-        publishGeneric(event);
-    }
-
-    @Override
-    public void publish(PubSubEvent.LoadingFinished event) {
-        publishGeneric(event);
-    }
-
-    @Override
-    public void publish(PubSubEvent.LoadingError event) {
+    public void publish(@NotNull TransmissionRepositoryPubSub.PubSubEvent event) {
         publishGeneric(event);
     }
 

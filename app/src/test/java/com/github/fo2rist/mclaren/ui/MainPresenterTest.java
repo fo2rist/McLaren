@@ -3,6 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
+import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoader;
+import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
 public class MainPresenterTest {
@@ -21,12 +24,15 @@ public class MainPresenterTest {
     private MainPresenter presenter;
     private MainScreenContract.View mockView;
     private EventsLogger mockEventsLogger;
+    private CalendarEventsLoader mockCalendarLoader;
 
     @Before
     public void setUp() throws Exception {
         mockView = mock(MainScreenContract.View.class);
         mockEventsLogger = mock(EventsLogger.class);
-        presenter = new MainPresenter(mockEventsLogger);
+        mockCalendarLoader = mock(CalendarEventsLoader.class);
+        when(mockCalendarLoader.loadCurrentCalendar()).thenReturn(new RaceCalendar());
+        presenter = new MainPresenter(mockEventsLogger, mockCalendarLoader);
     }
 
     private void setUpPresenter() {

@@ -57,7 +57,7 @@ class OkHttpCallbackWrapperTest {
                     assertEquals(500, code)
                 },
                 doOnSuccess = { _, _, _ ->
-                    fail("Should not be callled")
+                    fail("Should not be called")
                 }
         )
         responseWrapper.onResponse(mockCall, mockResponse)
@@ -69,8 +69,8 @@ class OkHttpCallbackWrapperTest {
                 doOnFailure = { _, _, exception ->
                     assertNotNull(exception)
                 },
-                doOnSuccess = { _, code, _ ->
-                    fail("Should not be callled")
+                doOnSuccess = { _, _, _ ->
+                    fail("Should not be called")
                 }
         )
         responseWrapper.onFailure(mockCall, IOException())

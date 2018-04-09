@@ -5,16 +5,10 @@ import java.util.List;
 
 public interface FeedRepositoryPubSub extends BaseRepositoryPubSub {
 
-    void publish(PubSubEvent.FeedUpdateReady event);
-
-    void publish(PubSubEvent.LoadingStarted event);
-
-    void publish(PubSubEvent.LoadingFinished event);
-
-    void publish(PubSubEvent.LoadingError event);
+    void publish(PubSubEvent event);
 
     interface PubSubEvent {
-        class FeedUpdateReady {
+        class FeedUpdateReady implements PubSubEvent {
             public List<FeedItem> feed;
 
             public FeedUpdateReady(List<FeedItem> feed) {
@@ -23,15 +17,15 @@ public interface FeedRepositoryPubSub extends BaseRepositoryPubSub {
         }
 
         /** Used to notify about networking operation start. */
-        class LoadingStarted {
+        class LoadingStarted implements PubSubEvent {
         }
 
         /** Used to notify about networking operation end with any result success or failure. */
-        class LoadingFinished {
+        class LoadingFinished implements PubSubEvent {
         }
 
         /** Used to notify about networking operation failure. */
-        class LoadingError {
+        class LoadingError implements PubSubEvent {
         }
     }
 }
