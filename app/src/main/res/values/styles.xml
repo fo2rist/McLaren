@@ -76,10 +76,22 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextDarkBody" parent="TextLightBody">
+        <item name="android:textColor">@color/textPrimaryBlack</item>
+    </style>
+
     <style name="TextSecondaryLightBody">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textColor">@color/textSecondaryWhite</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="TextTransmissionTitle">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/papaya</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:spacing">1.2dp</item>
     </style>
 
     <style name="DrawerMenu">
