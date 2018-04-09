@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.models;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.github.fo2rist.mclaren.models.Circuit;
@@ -43,7 +44,7 @@ public class CalendarEvent implements Serializable {
         this.endDate = calculateEndDate(startDate);;
     }
 
-    public CalendarEvent(Circuit circuit, Event grandPrixEvent) {
+    public CalendarEvent(@NonNull Circuit circuit, @NonNull Event grandPrixEvent) {
         assert circuit.track.equals(grandPrixEvent.track);
 
         this.circuitId = circuit.id;

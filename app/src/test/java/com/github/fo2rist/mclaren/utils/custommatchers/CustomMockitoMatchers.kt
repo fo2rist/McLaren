@@ -9,4 +9,6 @@ fun <T> anyKotlinObject(): T {
     Mockito.any<T>()
     return uninitialized()
 }
+
+@SuppressWarnings("unchecked")
 private fun <T> uninitialized(): T = null as T

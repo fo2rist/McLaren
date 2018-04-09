@@ -16,20 +16,19 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 public class StoryStreamRepositoryImplTest {
 
-    private StoryStreamWebService mockWebService = mock(StoryStreamWebService.class);
-    private FeedRepositoryPubSub mockPubSub = mock(FeedRepositoryPubSub.class);
+    private StoryStreamWebService mockWebService;
+    private FeedRepositoryPubSub mockPubSub;
     private StoryStreamRepository repository;
 
     @Before
     public void setUp() throws Exception {
-        reset(mockWebService);
-        reset(mockPubSub);
+        mockWebService = mock(StoryStreamWebService.class);
+        mockPubSub = mock(FeedRepositoryPubSub.class);
         repository = new StoryStreamRepositoryImpl(mockWebService, mockPubSub);
     }
 

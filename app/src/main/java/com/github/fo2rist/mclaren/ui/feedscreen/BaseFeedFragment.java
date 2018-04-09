@@ -48,19 +48,25 @@ public class BaseFeedFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
+        bindViews(rootView);
+        setupViews();
+
+        presenter.onStart(this);
+        return rootView;
+    }
+
+    private void bindViews(View rootView) {
         listRefreshLayout = rootView.findViewById(R.id.list_refresh_layout);
         feedRecyclerView = rootView.findViewById(R.id.feed_list);
         progressBar = rootView.findViewById(R.id.progress_bar);
+    }
 
-        //setup views
+    private void setupViews() {
         feedLayoutManger = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(feedLayoutManger);
         feedAdapter = new FeedAdapter(getContext(), presenter, presenter);
         feedRecyclerView.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
-
-        presenter.onStart(this);
-        return rootView;
     }
 
     @Override

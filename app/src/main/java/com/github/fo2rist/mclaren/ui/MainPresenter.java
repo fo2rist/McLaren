@@ -13,13 +13,13 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
 public class MainPresenter implements MainScreenContract.Presenter {
     private MainScreenContract.View view;
     private EventsLogger eventsLogger;
+    private CalendarEventsLoader calendarEventsLoader;
 
     @Inject
-    MainPresenter(EventsLogger eventsLogger) {
+    MainPresenter(EventsLogger eventsLogger, CalendarEventsLoader calendarEventsLoader) {
         this.eventsLogger = eventsLogger;
+        this.calendarEventsLoader = calendarEventsLoader;
     }
-    @Inject
-    CalendarEventsLoader calendarEventsLoader;
 
     @Override
     public void onStart(MainScreenContract.View view) {

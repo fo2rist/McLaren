@@ -22,7 +22,7 @@ public class CalendarEventsLoaderImpl implements CalendarEventsLoader {
     TypeToken<ArrayList<Event>> grandPrixListType = new TypeToken<ArrayList<Event>>(){};
     TypeToken<ArrayList<Circuit>> circuitListType = new TypeToken<ArrayList<Circuit>>(){};
 
-    Context context;
+    private Context context;
 
     @Inject
     public CalendarEventsLoaderImpl(Context context) {
@@ -54,11 +54,14 @@ public class CalendarEventsLoaderImpl implements CalendarEventsLoader {
 
         for(Event gp: events) {
             Circuit circuit = findCircuit(circuits, gp);
-            calendarEvents.add(new CalendarEvent(circuit, gp));
+            if (circuit != null) {
+                calendarEvents.add(new CalendarEvent(circuit, gp));
+            }
         }
         return calendarEvents;
     }
 
+    @Nullable
     private Circuit findCircuit(List<Circuit> circuits, Event gp) {
         for(Circuit circuit: circuits) {
             if (circuit.track.equals(gp.track)) {
