@@ -37,6 +37,25 @@ class TransmissionPresenterTest {
     }
 
     @Test
+    fun test_onLoadingStarted_showsProgress() {
+        setupPresenter()
+
+        presenter.onLoadingStarted(TransmissionRepositoryPubSub.PubSubEvent.LoadingStarted)
+
+        verify(mockView).showProgress()
+    }
+
+
+    @Test
+    fun test_onLoadingFinished_hidesProgress() {
+        setupPresenter()
+
+        presenter.onLoadingFinished(TransmissionRepositoryPubSub.PubSubEvent.LoadingFinished)
+
+        verify(mockView).hideProgress()
+    }
+
+    @Test
     fun test_onStop_unsubscribeOfEvents() {
         setupPresenter()
 
@@ -49,5 +68,6 @@ class TransmissionPresenterTest {
         presenter.onStart(mockView)
         reset(mockPubSub)
         reset(mockRepository)
+        reset(mockView)
     }
 }

@@ -3,6 +3,8 @@ package com.github.fo2rist.mclaren.ui.transmissionscreen
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
@@ -68,8 +70,10 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     }
 
     override fun showProgress() {
+        progress_bar.visibility = VISIBLE
     }
 
     override fun hideProgress() {
+        progress_bar.visibility = INVISIBLE
     }
 }

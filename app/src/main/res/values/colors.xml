@@ -11,4 +11,6 @@
     <color name="textSecondaryWhite">@android:color/secondary_text_dark</color>
     <color name="textPrimaryBlack">@android:color/primary_text_light</color>
     <color name="textSecondaryBlack">@android:color/tertiary_text_light</color>
+
+    <color name="papaya">#EEAA28</color>
 </resources>
