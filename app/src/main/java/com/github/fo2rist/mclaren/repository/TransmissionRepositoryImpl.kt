@@ -40,11 +40,13 @@ class TransmissionRepositoryImpl
 
     override fun loadTransmission() {
         publishCachedData()
+        refreshTransmission()
+    }
 
+    override fun refreshTransmission() {
         pubSub.publish(PubSubEvent.LoadingStarted)
         webService.requestTransmission(webResponseHandler)
     }
-
 
     private fun cache(transmission: List<TransmissionItem>) {
         this.trasmissionData = transmission
