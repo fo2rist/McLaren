@@ -7,7 +7,11 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub.PubSubEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 import javax.inject.Inject
+import kotlin.concurrent.timer
+
+private const val REFRESH_INTERVAL_MS = 30_000L
 
 class TransmissionPresenter
 @Inject constructor(
@@ -15,14 +19,31 @@ class TransmissionPresenter
         var repositoryPubSub: TransmissionRepositoryPubSub
 ): TransmissionContract.Presenter {
     private lateinit var view: TransmissionContract.View
+    private var pollTimer: Timer? = null
 
     override fun onStart(view: TransmissionContract.View) {
         this.view = view
-        repositoryPubSub.subscribe(this)
-        repository.loadTransmission() // TODO fetch once in 30 sec unless stopped
+        startTransmissionPolling()
     }
 
     override fun onStop() {
+        stopTransmissionPolling()
+    }
+
+    private fun startTransmissionPolling() {
+        repositoryPubSub.subscribe(this)
+        repository.loadTransmission()
+
+        if (pollTimer == null) {
+            pollTimer = timer(name = "", initialDelay = REFRESH_INTERVAL_MS, period = REFRESH_INTERVAL_MS) {
+                repository.refreshTransmission()
+            }
+        }
+    }
+
+    private fun stopTransmissionPolling() {
+        pollTimer?.cancel()
+        pollTimer = null
         repositoryPubSub.unsubscribe(this)
     }
 
