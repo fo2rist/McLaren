@@ -3,8 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
-import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoader;
-import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import javax.inject.Inject;
 
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink;
@@ -13,12 +13,12 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
 public class MainPresenter implements MainScreenContract.Presenter {
     private MainScreenContract.View view;
     private EventsLogger eventsLogger;
-    private CalendarEventsLoader calendarEventsLoader;
+    private RaceCalendar raceCalendar;
 
     @Inject
-    MainPresenter(EventsLogger eventsLogger, CalendarEventsLoader calendarEventsLoader) {
+    MainPresenter(EventsLogger eventsLogger, RaceCalendarRepository raceCalendarRepository) {
         this.eventsLogger = eventsLogger;
-        this.calendarEventsLoader = calendarEventsLoader;
+        this.raceCalendar = raceCalendarRepository.loadCurrentCalendar();
     }
 
     @Override
@@ -31,7 +31,6 @@ public class MainPresenter implements MainScreenContract.Presenter {
     }
 
     private boolean isRaceActive() {
-        RaceCalendar raceCalendar = calendarEventsLoader.loadCurrentCalendar();
         return raceCalendar.getActiveEvent() != null;
     }
 

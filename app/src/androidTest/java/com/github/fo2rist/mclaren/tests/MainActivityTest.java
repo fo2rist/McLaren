@@ -34,8 +34,6 @@ public class MainActivityTest extends BaseMainActivityTest {
                 .check(displayed());
         mainPage.onToolbar()
                 .check(displayed());
-        mainPage.onFloatingButton()
-                .check(matches(not(isDisplayed())));
     }
 
     @Test

@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoaderImpl;
-import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import timber.log.Timber;
 
 /**
@@ -40,7 +41,7 @@ public class CircuitsFragment extends Fragment {
 
     private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
-    private CalendarEventsLoaderImpl calendarEventsLoader; // TODO Inject it
+    private RaceCalendarRepository raceCalendarRepository; // TODO Inject it
 
 
     public static CircuitsFragment newInstanceForColumns(int columnCount) {
@@ -82,7 +83,7 @@ public class CircuitsFragment extends Fragment {
         }
 
         Context context = view.getContext();
-        calendarEventsLoader = new CalendarEventsLoaderImpl(getContext());
+        raceCalendarRepository = new RaceCalendarRepositoryImpl(getContext());
         RecyclerView recyclerView = (RecyclerView) view;
         if (columnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -90,7 +91,7 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        RaceCalendar eventsCalendar = calendarEventsLoader.loadCurrentCalendar();
+        RaceCalendar eventsCalendar = raceCalendarRepository.loadCurrentCalendar();
         recyclerView.setAdapter(
                 new CircuitsAdapter(getContext(), eventsCalendar, listener));
         return view;

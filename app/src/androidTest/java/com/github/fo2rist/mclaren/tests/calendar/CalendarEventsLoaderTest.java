@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoaderImpl;
-import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class CalendarEventsLoaderTest {
 
     @Test
     public void testCalendar2017() throws Exception {
-        RaceCalendar calendarEvents = new CalendarEventsLoaderImpl(context).loadCalendar(2017);
+        RaceCalendar calendarEvents = new RaceCalendarRepositoryImpl(context).loadCalendar(2017);
         assertEquals(20, calendarEvents.size());
 
         assertDataCorrect(
@@ -74,7 +74,7 @@ public class CalendarEventsLoaderTest {
 
     @Test
     public void testCalendar2018() throws Exception {
-        RaceCalendar calendarEvents = new CalendarEventsLoaderImpl(context).loadCalendar(2018);
+        RaceCalendar calendarEvents = new RaceCalendarRepositoryImpl(context).loadCalendar(2018);
         assertEquals(21, calendarEvents.size());
 
         assertDataCorrect(
