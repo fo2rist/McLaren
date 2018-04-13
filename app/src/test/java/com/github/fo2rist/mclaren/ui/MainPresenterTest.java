@@ -3,8 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
-import com.github.fo2rist.mclaren.ui.calendar.CalendarEventsLoader;
-import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,15 +24,15 @@ public class MainPresenterTest {
     private MainPresenter presenter;
     private MainScreenContract.View mockView;
     private EventsLogger mockEventsLogger;
-    private CalendarEventsLoader mockCalendarLoader;
+    private RaceCalendarRepository mockCalendarRepository;
 
     @Before
     public void setUp() throws Exception {
         mockView = mock(MainScreenContract.View.class);
         mockEventsLogger = mock(EventsLogger.class);
-        mockCalendarLoader = mock(CalendarEventsLoader.class);
-        when(mockCalendarLoader.loadCurrentCalendar()).thenReturn(new RaceCalendar());
-        presenter = new MainPresenter(mockEventsLogger, mockCalendarLoader);
+        mockCalendarRepository = mock(RaceCalendarRepository.class);
+        when(mockCalendarRepository.loadCurrentCalendar()).thenReturn(new RaceCalendar());
+        presenter = new MainPresenter(mockEventsLogger, mockCalendarRepository);
     }
 
     private void setUpPresenter() {

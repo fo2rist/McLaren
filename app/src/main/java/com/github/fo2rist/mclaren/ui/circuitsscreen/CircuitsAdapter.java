@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.calendar.RaceCalendar;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment.OnCircuitsFragmentInteractionListener;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import java.text.SimpleDateFormat;
