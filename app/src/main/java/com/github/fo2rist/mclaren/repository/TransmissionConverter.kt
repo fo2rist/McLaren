@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.repository
 
+import com.github.fo2rist.mclaren.models.TransmissionInfo
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.web.models.Transmission
 import com.github.fo2rist.mclaren.web.models.TransmissionMessageType
@@ -10,8 +11,9 @@ import org.joda.time.DateTimeZone
 object TransmissionConverter {
 
     @JvmStatic
-    fun convert(webDataModel: Transmission): List<TransmissionItem> {
-        return webDataModel.commentaries.map {
+    fun convert(webDataModel: Transmission): TransmissionInfo {
+        //commentaries - latest first
+        val commentaries = webDataModel.commentaries.map {
             TransmissionItem(
                     id = it.id,
                     dateTime = DateTime(it.date, DateTimeZone.UTC),
@@ -19,7 +21,8 @@ object TransmissionConverter {
                     message = it.message,
                     session = it.session.toSessionModel(),
                     type = it.type.toMessageTypeModel())
-        }
+        }.reversed()
+        return TransmissionInfo(webDataModel.id, webDataModel.name, commentaries)
     }
 }
 

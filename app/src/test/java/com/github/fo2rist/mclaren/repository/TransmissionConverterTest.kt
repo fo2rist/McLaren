@@ -31,7 +31,9 @@ class TransmissionConverterTest {
     fun testBasicConversion() {
         val transmissionModel = converter.convert(webDataModel)
 
-        assertEquals(REAL_TRANSMISSION_RESPONSE_SIZE, transmissionModel.size)
+        assertEquals(REAL_TRANSMISSION_RESPONSE_SIZE, transmissionModel.messages.size)
+        assertEquals("Bahrain Grand Prix", transmissionModel.raceName)
+        assertEquals(152, transmissionModel.raceId)
         assertEquals(
                 TransmissionItem(
                         26990,
@@ -40,7 +42,7 @@ class TransmissionConverterTest {
                         "We’re live in the garage now here on TEAMStream. It’s 1345 in Bahrain and we’re 15 minutes away from the start of practice. You may not be shocked to hear it’s warm and sunny this afternoon.",
                         TransmissionItem.Session.UNKNOWN,
                         TransmissionItem.Type.MESSAGE_GENERAL),
-                transmissionModel.get(0))
+                transmissionModel.messages.get(69))
 
         assertEquals(
                 TransmissionItem(
@@ -50,7 +52,7 @@ class TransmissionConverterTest {
                         "Green light on, pitlane open, FP1 is underway. Flo-vis being applied to Fernando's sidepod and Stoffel's front wing.",
                         TransmissionItem.Session.PRACTICE,
                         TransmissionItem.Type.MESSAGE_GENERAL),
-                transmissionModel.get(5))
+                transmissionModel.messages.get(64))
 
         assertEquals(
                 TransmissionItem(
@@ -60,6 +62,6 @@ class TransmissionConverterTest {
                         "I need every sector.",
                         TransmissionItem.Session.RACE,
                         TransmissionItem.Type.DRIVER_A_TO_PIT),
-                transmissionModel.get(61))
+                transmissionModel.messages.get(8))
     }
 }

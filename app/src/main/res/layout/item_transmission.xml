@@ -35,8 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/pit_avatar_image"
         app:layout_constraintRight_toLeftOf="@id/driver_avatar_image"
-        android:textAllCaps="true"
-        style="@style/TextTransmissionTitle"
+        style="@style/TextTransmissionSubtitle"
         tools:text="Pitwall"
         />
     <TextView

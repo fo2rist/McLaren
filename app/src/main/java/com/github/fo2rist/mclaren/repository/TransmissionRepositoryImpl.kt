@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository
 
-import com.github.fo2rist.mclaren.models.TransmissionItem
+import com.github.fo2rist.mclaren.models.TransmissionInfo
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub.PubSubEvent
 import com.github.fo2rist.mclaren.web.SafeJsonParser
 import com.github.fo2rist.mclaren.web.TransmissionWebService
@@ -16,11 +16,11 @@ class TransmissionRepositoryImpl
         private val webService: TransmissionWebService,
         private val pubSub: TransmissionRepositoryPubSub
 ) : TransmissionRepository {
-    private var trasmissionData: List<TransmissionItem>? = null
+    private var trasmissionData: TransmissionInfo? = null
 
     private val webResponseHandler = object : TransmissionWebService.TransmissionRequestCallback {
         override fun onSuccess(url: URL, responseCode: Int, data: String?) {
-            val transmission = parse(data).reversed()
+            val transmission = parse(data)
 
             cache(transmission)
             pubSub.publish(PubSubEvent.TransmissionUpdateReady(transmission))
@@ -33,7 +33,7 @@ class TransmissionRepositoryImpl
         }
     }
 
-    private fun parse(data: String?): List<TransmissionItem> {
+    private fun parse(data: String?): TransmissionInfo {
         val parsedWebResponse = SafeJsonParser<Transmission>(Transmission::class.java).parse(data)
         return TransmissionConverter.convert(parsedWebResponse)
     }
@@ -48,14 +48,14 @@ class TransmissionRepositoryImpl
         webService.requestTransmission(webResponseHandler)
     }
 
-    private fun cache(transmission: List<TransmissionItem>) {
+    private fun cache(transmission: TransmissionInfo) {
         this.trasmissionData = transmission
     }
 
     private fun publishCachedData() {
         val cachedData = trasmissionData
 
-        if (cachedData?.isEmpty() == false) {
+        if (cachedData != null) {
             pubSub.publish(PubSubEvent.TransmissionUpdateReady(cachedData))
         }
     }
