@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
-import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
 import com.github.fo2rist.mclaren.repository.TransmissionRepository
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub
@@ -54,7 +53,11 @@ class TransmissionPresenter
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFeedUpdateReceived(event: PubSubEvent.TransmissionUpdateReady) {
-        view.displayTransmission(event.obj as List<TransmissionItem>)
+        val transmissionInfo = event.data
+
+        view.displayTransmission(transmissionInfo.messages)
+        view.setNoTransmissionStubVisible(transmissionInfo.messages.isEmpty())
+        view.displayCurrentSession(transmissionInfo.raceName)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

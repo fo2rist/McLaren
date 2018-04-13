@@ -319,7 +319,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             return false;
         }
 
-        return items.get(0).id < newFeedItems.iterator().next().id;
+        return items.get(0).id < newFeedItems.get(0).id;
     }
 
     private DiffUtil.Callback createListComparisonCallback(final List<FeedItem> oldItems, final List<FeedItem> newItems) {

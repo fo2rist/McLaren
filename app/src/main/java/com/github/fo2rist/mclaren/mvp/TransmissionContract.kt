@@ -4,8 +4,9 @@ import com.github.fo2rist.mclaren.models.TransmissionItem
 
 interface TransmissionContract {
     interface View : BaseView {
-        fun displayTransmission(transmissionItems: List<TransmissionItem>)
-        fun displayCurrentSession(session: TransmissionItem.Session)
+        fun displayTransmission(transmissionMessages: List<TransmissionItem>)
+        fun displayCurrentSession(sessionName: String)
+        fun setNoTransmissionStubVisible(visible: Boolean)
         fun showProgress()
         fun hideProgress()
     }

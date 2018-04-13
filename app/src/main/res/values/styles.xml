@@ -86,12 +86,20 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-
     <style name="TextTransmissionTitle">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/textPrimaryBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:spacing">1.8dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextTransmissionSubtitle">
         <item name="android:fontFamily">sans-serif-smallcaps</item>
         <item name="android:textColor">@color/papaya</item>
         <item name="android:textSize">12sp</item>
         <item name="android:spacing">1.2dp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="DrawerMenu">

@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.ui.transmissionscreen
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import com.github.fo2rist.mclaren.R
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
 
     private lateinit var adapter: TransmissionAdapter
+    private lateinit var transmissionLayoutManager: LinearLayoutManager
 
     @Inject
     lateinit var presenter: TransmissionContract.Presenter
@@ -37,7 +39,8 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
 
     private fun setupViews() {
         adapter = TransmissionAdapter()
-        transmission_list.layoutManager = LinearLayoutManager(this)
+        transmissionLayoutManager = LinearLayoutManager(this)
+        transmission_list.layoutManager = transmissionLayoutManager
         transmission_list.adapter = adapter
 
         root_layout.setOnClickListener {
@@ -62,11 +65,27 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
         super.onPause()
     }
 
-    override fun displayTransmission(transmissionItems: List<TransmissionItem>) {
-        adapter.setItems(transmissionItems)
+    override fun displayTransmission(transmissionMessages: List<TransmissionItem>) {
+        val hasNewerItems = adapter.setItems(transmissionMessages)
+        if (hasNewerItems && firstItemIsVisible()) {
+            transmission_list.scrollToPosition(0)
+        }
     }
 
-    override fun displayCurrentSession(session: TransmissionItem.Session) {
+    override fun setNoTransmissionStubVisible(visible: Boolean) {
+        empty_list_text.visibility = if (visible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    //TODO duplication of [BaseFeedFragment] extract it.
+    private fun firstItemIsVisible() = (transmissionLayoutManager.findFirstVisibleItemPosition() <= 0)
+
+
+    override fun displayCurrentSession(sessionName: String) {
+        title_text.text = sessionName
     }
 
     override fun showProgress() {

@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
 import android.support.annotation.StringRes
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -111,9 +112,41 @@ class TransmissionAdapter(
         holder.displayItem(items.get(position))
     }
 
-    fun setItems(transmissionItems: List<TransmissionItem>) {
+    fun setItems(newItems: List<TransmissionItem>): Boolean {
+        val hasNewerItems = hasNewerItems(newItems)
+        val diff: DiffUtil.DiffResult = DiffUtil.calculateDiff(createComparisonCallback(this.items, newItems), false)
         this.items.clear()
-        this.items.addAll(transmissionItems)
-        notifyDataSetChanged()
+        this.items.addAll(newItems)
+        diff.dispatchUpdatesTo(this)
+        return hasNewerItems
+    }
+
+    private fun hasNewerItems(newItems: List<TransmissionItem>): Boolean {
+        if (items.isEmpty()) {
+            return !newItems.isEmpty()
+        }
+
+        if (newItems.isEmpty()) {
+            return false
+        }
+
+        return items[0].dateTime < newItems[0].dateTime
+    }
+
+    //TODO duplicates [FeedAdapter]. exctract common code.
+    private fun createComparisonCallback(oldItems: List<TransmissionItem>, newItems: List<TransmissionItem>) = object : DiffUtil.Callback() {
+        override fun getOldListSize() = oldItems.size
+
+
+        override fun getNewListSize() = newItems.size
+
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return areContentsTheSame(oldItemPosition, newItemPosition)
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition] == newItems[newItemPosition]
+        }
     }
 }
