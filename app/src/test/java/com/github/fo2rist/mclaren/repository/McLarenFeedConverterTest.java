@@ -47,7 +47,7 @@ public class McLarenFeedConverterTest {
                 "2017-08-12T10:34:06Z",
                 SourceType.Instagram,
                 "@mclaren",
-                "https://www.instagram.com/p/BXsMf3HlcB4",
+                "https://www.instagram.com/p/BXsMf3HlcB4/",
                 ImageUrl.create("https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=%WIDTH%&height=%HEIGHT%",
                         Size.valueOf(640, 640))
         );
