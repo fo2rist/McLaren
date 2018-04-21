@@ -23,6 +23,7 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" } // for PhotoView
         maven { url 'https://maven.fabric.io/public' } // for crashlytics
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" } //for robolectric
     }
 }
 
