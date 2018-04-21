@@ -5,6 +5,7 @@ public class McLarenHtmlUtils {
             "<head>"
             + "  <style>"
             + "    .inline-image { width:100%;}"
+            + "    img {max-width: 100%}"
             + "    @font-face{ font-family:\"ropa_sans\"; src: url('file:///android_asset/fonts/ropa_sans_regular.ttf');}"
             + "    body { font-family: \"ropa_sans\"; }"
             + "    h2 strong, div p strong { color: black;}"
