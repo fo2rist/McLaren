@@ -31,6 +31,7 @@ public interface FeedContract {
         void hideProgress();
 
         void navigateToBrowser(String link);
+        void navigateToPreview(String link);
         void navigateToPreview(FeedItem item);
     }
 

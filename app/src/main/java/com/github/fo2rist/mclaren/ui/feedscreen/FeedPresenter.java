@@ -45,8 +45,7 @@ public class FeedPresenter implements FeedContract.Presenter {
     public void onItemClicked(FeedItem item) {
         switch(item.type) {
             case Video:
-                //TODO just play video like all other media types
-                navigateViewToBrowser(getMediaLink(item));
+                navigateViewToVideoPreviewScreen(getMediaLink(item));
                 break;
             case Image:
             case Gallery:
@@ -73,6 +72,11 @@ public class FeedPresenter implements FeedContract.Presenter {
     private void navigateViewToPreviewScreen(FeedItem item, Events previewEventType) {
         view.navigateToPreview(item);
         eventsLogger.logViewEvent(previewEventType);
+    }
+
+    private void navigateViewToVideoPreviewScreen(String link) {
+        view.navigateToPreview(link);
+        eventsLogger.logViewEvent(Events.VIEW_VIDEO);
     }
 
     private void navigateViewToBrowser(String link) {

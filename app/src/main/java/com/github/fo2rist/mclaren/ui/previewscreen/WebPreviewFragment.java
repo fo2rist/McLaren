@@ -68,22 +68,36 @@ public class WebPreviewFragment extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void setupWebView(WebView webView) {
+        webView.getSettings().setJavaScriptEnabled(true);
+
         WebViewClient webViewClient = new WebViewClient() {
+            private boolean allowExit = false;
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                allowExit = true;
+            }
+
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //keep all mclaren related navigation inside the view
-                if (url.contains(MCLAREN_COM)) {
+                //and don't let redirect out of the view before page loads
+                //so only user interaction can lead outside but not redirect event
+                if (url.contains(MCLAREN_COM) || !allowExit) {
                     return false;
                 } else {
+                    allowExit = false; //don't allow immediate exit on return back
                     openInBrowser(getContext(), url);
                     return true;
                 }
             }
         };
         webView.setWebViewClient(webViewClient);
-        webView.getSettings().setJavaScriptEnabled(true);
     }
 
-    private void loadUrl(WebView webView, String url) {
+    private void loadUrl(@NonNull WebView webView, @Nullable String url) {
+        if (url == null) {
+            return;
+        }
         webView.loadUrl(url);
     }
 
