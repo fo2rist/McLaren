@@ -96,7 +96,7 @@ public class FeedPresenterTest {
 
         presenter.onItemClicked(FeedItems.VIDEO_ITEM);
 
-        verifyNavigateToBrowser();
+        verifyNavigatedToPreview(FeedItems.MEDIA_LINK);
     }
 
     @Test
@@ -135,8 +135,13 @@ public class FeedPresenterTest {
         verifyNavigateToBrowser();
     }
 
-    private void verifyNavigatedToPreview(FeedItem p) {
-        verify(mockView).navigateToPreview(p);
+    private void verifyNavigatedToPreview(String link) {
+        verify(mockView).navigateToPreview(link);
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
+    }
+
+    private void verifyNavigatedToPreview(FeedItem feedItem) {
+        verify(mockView).navigateToPreview(feedItem);
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 

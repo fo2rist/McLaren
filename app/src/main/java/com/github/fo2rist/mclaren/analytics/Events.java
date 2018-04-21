@@ -13,6 +13,7 @@ public enum Events {
 
     VIEW_IMAGES("View Images"),
     VIEW_ARTICLE("View Article"),
+    VIEW_VIDEO("View Video"),
     VIEW_EXTERNAL("View External Resource"),
 
     GALLERY_NEXT("Gallery Next"),

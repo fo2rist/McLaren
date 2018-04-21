@@ -111,6 +111,11 @@ public class BaseFeedFragment
     }
 
     @Override
+    public void navigateToPreview(String link) {
+        startActivity(PreviewActivity.createUrlIntent(getContext(), link));
+    }
+
+    @Override
     public void navigateToPreview(FeedItem item) {
         startActivity(PreviewActivity.createFeedItemIntent(getContext(), item));
     }
