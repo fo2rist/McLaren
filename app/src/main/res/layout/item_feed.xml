@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:srcCompat="@drawable/ic_media_play"
-                android:tint="@android:color/white"
+                android:tint="@color/transparentWhite"
                 android:contentDescription="@string/content_description_play"
                 />
         </RelativeLayout>

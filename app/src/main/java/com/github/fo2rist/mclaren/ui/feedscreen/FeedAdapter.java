@@ -58,6 +58,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         FeedViewHolder(View rootView) {
             super(rootView);
+            bindViews(rootView);
+            setupAutolinkTextView(this.textViewContent);
+            setupViewListeners();
+        }
+
+        private void bindViews(View rootView) {
             this.rootView = rootView;
             this.textViewDate = rootView.findViewById(R.id.text_date);
             this.textViewTime = rootView.findViewById(R.id.text_time);
@@ -70,27 +76,33 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             this.imageItemType = rootView.findViewById(R.id.image_type);
             this.imageSource = rootView.findViewById(R.id.image_source);
             this.playIcon = rootView.findViewById(R.id.play_icon);
+        }
 
-            this.imageSwitcher.setOnClickListener(this);
-            this.containerSource.setOnClickListener(this);
-
-            this.textViewContent.addAutoLinkMode(
+        private void setupAutolinkTextView(AutoLinkTextView textView) {
+            textView.addAutoLinkMode(
                     AutoLinkMode.MODE_HASHTAG,
                     AutoLinkMode.MODE_MENTION,
                     AutoLinkMode.MODE_URL,
                     AutoLinkMode.MODE_CUSTOM);
-            this.textViewContent.setCustomRegex("\\b(mclrn.co\\S*)\\b");
+            textView.setCustomRegex("\\b(mclrn.co\\S*)\\b");
+            textView.setMentionModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
+            textView.setHashtagModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
+            textView.setUrlModeColor(ContextCompat.getColor(context, R.color.colorAccent));
+            textView.setCustomModeColor(ContextCompat.getColor(context, R.color.colorAccent));
+        }
+
+        private void setupViewListeners() {
+            this.imageSwitcher.setOnClickListener(this);
+            this.containerSource.setOnClickListener(this);
             this.textViewContent.setAutoLinkOnClickListener(this);
-            this.textViewContent.setMentionModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
-            this.textViewContent.setHashtagModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
-            this.textViewContent.setUrlModeColor(ContextCompat.getColor(context, R.color.colorAccent));
-            this.textViewContent.setCustomModeColor(ContextCompat.getColor(context, R.color.colorAccent));
+            this.textViewContent.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.image_switcher:
+                case R.id.text_content:
                     notifyItemClicked(currentItem);
                     break;
                 case R.id.container_source:
@@ -260,7 +272,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     /** Stores last known width of image to be used for preliminary image size adjustment. */
     private int imageWidth = 0;
 
-    public FeedAdapter(Context context,
+    FeedAdapter(Context context,
             OnFeedInteractionListener interactionListener,
             OnFeedScrollingListener scrollingListener) {
         this.context = context;
