@@ -10,14 +10,14 @@ class RaceCalendar : ArrayList<CalendarEvent>() {
      * @return race event if it's date of the race weekend, null otherwise.
      */
     fun getActiveEvent(): CalendarEvent? {
-        val today = DateTime.now()
-        return findEventByTime(today)
+        val now = DateTime.now()
+        return findEventByTime(now)
     }
 
     @VisibleForTesting
-    fun findEventByTime(currentTime: DateTime): CalendarEvent? {
+    fun findEventByTime(time: DateTime): CalendarEvent? {
         return this.find {
-            currentTime >= it.startDate && currentTime <= it.endDate.plusHours(23) // +23H to cover all time zones
+            it.isActiveAt(time)
         }
     }
 }

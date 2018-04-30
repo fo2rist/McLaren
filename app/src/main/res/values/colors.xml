@@ -13,5 +13,6 @@
     <color name="textSecondaryBlack">@android:color/tertiary_text_light</color>
 
     <color name="papaya">#EEAA28</color>
+    <color name="papayaLight">#FFDB5C</color>
     <color name="transparentWhite">#A0FFFFFF</color>
 </resources>

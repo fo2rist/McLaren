@@ -62,6 +62,11 @@ public class CalendarEvent implements Serializable {
         this.endDate = calculateEndDate(startDate);
     }
 
+    public boolean isActiveAt(DateTime time) {
+        return time.compareTo(startDate) >= 0 && time.compareTo(endDate.plusHours(23)) <= 0;
+        // +23H to cover all time zones
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     static DateTime calculateEndDate(DateTime startDate) {
         return startDate.plusDays(2);

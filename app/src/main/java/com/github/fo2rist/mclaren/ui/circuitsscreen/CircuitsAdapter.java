@@ -17,6 +17,7 @@ import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment.OnCircuitsF
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import org.joda.time.DateTime;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitImageUriById;
 
@@ -53,7 +54,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     private int lastAnimatedItem = -1;
 
-    public CircuitsAdapter(Context context, RaceCalendar calendarEvents, OnCircuitsFragmentInteractionListener listener) {
+    CircuitsAdapter(Context context, RaceCalendar calendarEvents, OnCircuitsFragmentInteractionListener listener) {
         this.context = context;
         this.dateFormatter = new SimpleDateFormat(context.getString(R.string.calendar_event_date_format), Locale.US);
         this.calendarEvents = calendarEvents;
@@ -65,18 +66,21 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
         return calendarEvents.size();
     }
 
+    @NonNull
     @Override
-    public CircuitViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CircuitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_circuit, parent, false);
         return new CircuitViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final CircuitViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CircuitViewHolder holder, int position) {
         CalendarEvent event = calendarEvents.get(position);
         holder.item = event;
+        boolean isActiveNow = event.isActiveAt(DateTime.now());
 
+        holder.imageCircuitMap.setSelected(isActiveNow);
         holder.imageCircuitMap.setImageURI(getCircuitImageUriById(event.circuitId));
         holder.imageCircuitMap.setContentDescription(event.trackName);
 

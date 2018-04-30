@@ -103,8 +103,8 @@
     </style>
 
     <style name="DrawerMenu">
-        <item name="itemIconTint">@color/menu_item_color</item>
-        <item name="itemTextColor">@color/menu_item_color</item>
+        <item name="itemIconTint">@color/secondary_white_selectable</item>
+        <item name="itemTextColor">@color/secondary_white_selectable</item>
         <item name="itemTextAppearance">@style/AppTheme.MenuFont</item>
     </style>
 
