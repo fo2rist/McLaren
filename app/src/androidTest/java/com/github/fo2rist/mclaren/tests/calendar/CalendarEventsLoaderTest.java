@@ -127,7 +127,7 @@ public class CalendarEventsLoaderTest {
         assertEquals(seasons, calendarEvent.seasons);
         assertEquals(gpHeld, calendarEvent.gpHeld);
         assertNotNull(calendarEvent.wikiLink);
-        assertEquals(new DateTime(year, month, day, 0, 0,0 ).toDate(), calendarEvent.startDate);
+        assertEquals(new DateTime(year, month, day, 0, 0, 0), calendarEvent.startDate);
     }
 
     private void assertDoubleEquals(double expected, double actual) {

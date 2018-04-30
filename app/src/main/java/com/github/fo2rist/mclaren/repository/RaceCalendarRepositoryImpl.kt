@@ -10,7 +10,6 @@ import com.google.gson.reflect.TypeToken
 import org.joda.time.LocalDate
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
 import javax.inject.Inject
 
 class RaceCalendarRepositoryImpl
