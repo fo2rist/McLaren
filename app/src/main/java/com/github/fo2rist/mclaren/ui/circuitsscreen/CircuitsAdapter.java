@@ -102,8 +102,8 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     @NonNull
     private String formatDetails(CalendarEvent event) {
-        String start = dateFormatter.format(event.startDate);
-        String end = dateFormatter.format(event.endDate);
+        String start = dateFormatter.format(event.startDate.toDate());
+        String end = dateFormatter.format(event.endDate.toDate());
         return context.getString(R.string.calendar_event_details_format, event.city, start, end);
     }
 

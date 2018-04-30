@@ -2,7 +2,6 @@ package com.github.fo2rist.mclaren.ui.models
 
 import android.support.annotation.VisibleForTesting
 import org.joda.time.DateTime
-import java.util.*
 
 class RaceCalendar : ArrayList<CalendarEvent>() {
 
@@ -12,13 +11,13 @@ class RaceCalendar : ArrayList<CalendarEvent>() {
      */
     fun getActiveEvent(): CalendarEvent? {
         val today = DateTime.now()
-        return getEventForDate(today)
+        return findEventByTime(today)
     }
 
     @VisibleForTesting
-    fun getEventForDate(today: DateTime): CalendarEvent? {
+    fun findEventByTime(currentTime: DateTime): CalendarEvent? {
         return this.find {
-            today >= DateTime(it.startDate.time) && today <= DateTime(it.endDate.time)
+            currentTime >= it.startDate && currentTime <= it.endDate.plusHours(23) // +23H to cover all time zones
         }
     }
 }

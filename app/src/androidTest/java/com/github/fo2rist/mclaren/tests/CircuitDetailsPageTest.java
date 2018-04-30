@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.github.fo2rist.mclaren.pages.CircuitDetailsPage;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import java.util.Date;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class CircuitDetailsPageTest {
     private static final String SEASONS = "2001";
     private static final int GP_HELD = 1111;
     private static final String WIKI_LINK = "http://wiki.link";
-    private static final Date START_DATE = new Date(1, 1, 1);
+    private static final DateTime START_DATE = new DateTime(1, 1, 1, 0, 0);
 
     private static final CalendarEvent EVENT = new CalendarEvent(ID,
             COUNTRY_CODE, TRACK_NAME, CITY, GP_NAME, LAPS, LENGTH, DISTANCE, SEASONS, GP_HELD, WIKI_LINK, START_DATE);
