@@ -16,6 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
@@ -46,6 +47,21 @@ public class MainPresenterTest {
         presenter.onStart(mockView);
 
         verify(mockView).openStories();
+    }
+
+    @Test
+    public void test_onRestart_onlySetView() {
+        reset(mockView);
+        reset(mockEventsLogger);
+        reset(mockCalendarRepository);
+
+        presenter.onRestart(mockView);
+
+        verifyNoMoreInteractions(mockView);
+        verifyNoMoreInteractions(mockEventsLogger);
+        verifyNoMoreInteractions(mockCalendarRepository);
+        //and make sure view is set so should not crash
+        presenter.onCarClicked(); // just call any methods that calls view
     }
 
     @Test

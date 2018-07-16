@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui;
 
+import android.support.annotation.NonNull;
+
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
@@ -22,12 +24,17 @@ public class MainPresenter implements MainScreenContract.Presenter {
     }
 
     @Override
-    public void onStart(MainScreenContract.View view) {
+    public void onStart(@NonNull MainScreenContract.View view) {
         this.view = view;
         view.openStories();
         if (isRaceActive()) {
             view.showTransmissionButton();
         }
+    }
+
+    @Override
+    public void onRestart(@NonNull MainScreenContract.View view) {
+        this.view = view;
     }
 
     private boolean isRaceActive() {

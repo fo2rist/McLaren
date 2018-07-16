@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.mvp;
 
+import android.support.annotation.NonNull;
+
 public interface MainScreenContract {
 
     interface View extends BaseView {
@@ -16,6 +18,8 @@ public interface MainScreenContract {
     }
 
     interface Presenter extends BasePresenter<View> {
+        /** Should be called when activity re-created with state restored. */
+        void onRestart(@NonNull View view);
         void onStoriesClicked();
         void onCircuitsClicked();
         void onDriversClicked();
