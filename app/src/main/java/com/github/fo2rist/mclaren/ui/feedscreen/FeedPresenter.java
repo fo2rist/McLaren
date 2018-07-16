@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui.feedscreen;
 
+import android.support.annotation.NonNull;
+
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.models.FeedItem;
@@ -29,7 +31,7 @@ public class FeedPresenter implements FeedContract.Presenter {
     }
 
     @Override
-    public void onStart(FeedContract.View view) {
+    public void onStart(@NonNull FeedContract.View view) {
         this.view = view;
         this.repositoryPubSub.subscribe(this);
 
