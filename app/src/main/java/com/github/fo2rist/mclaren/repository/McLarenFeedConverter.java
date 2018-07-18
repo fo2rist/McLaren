@@ -109,10 +109,18 @@ public class McLarenFeedConverter {
     }
 
     private static String fetchMediaLink(McLarenFeedItem mcLarenFeedItem) {
-        if (!TextUtils.isEmpty(mcLarenFeedItem.tweetText)) {
-            Matcher linkMatcher = Patterns.WEB_URL.matcher(mcLarenFeedItem.tweetText);
+        String sourceTweetText = mcLarenFeedItem.tweetText;
+        if (!TextUtils.isEmpty(sourceTweetText)) {
+            Matcher linkMatcher = Patterns.WEB_URL.matcher(sourceTweetText);
             if (linkMatcher.find()) {
-                return linkMatcher.group();
+                String urlMatch = linkMatcher.group();
+                //URL matcher may skip last "/" which is important for some services like instagram
+                //so check and return it back
+                if (!urlMatch.isEmpty() && !urlMatch.endsWith("/") && sourceTweetText.contains(urlMatch + "/ ")) {
+                    return urlMatch + "/";
+                } else {
+                    return urlMatch;
+                }
             }
         }
 

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PreviewActivity"
+    tools:context=".ui.previewscreen.PreviewActivity"
     >
     <com.github.fo2rist.mclaren.ui.widgets.NestedWebView
         android:id="@+id/web_view"

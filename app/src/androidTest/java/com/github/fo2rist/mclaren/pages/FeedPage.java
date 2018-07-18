@@ -10,7 +10,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 public class FeedPage {
 
-    public ViewInteraction onNewsList() {
+    public ViewInteraction onFeedList() {
         return onView(withId(R.id.feed_list));
     }
 }

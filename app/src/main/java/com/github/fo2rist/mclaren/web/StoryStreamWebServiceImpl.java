@@ -29,15 +29,15 @@ public class StoryStreamWebServiceImpl implements StoryStreamWebService {
     }
 
     @Override
-    public void requestLatestFeed(FeedWebServiceCallback callback) {
+    public void requestLatestFeed(FeedRequestCallback callback) {
         client.newCall(createLatestFeedRequest())
-                .enqueue(new CallbackWrapper(FeedWebService.DEFAULT_PAGE, callback));
+                .enqueue(new FeedCallbackWrapper(FeedWebService.DEFAULT_PAGE, callback));
     }
 
     @Override
-    public void requestFeedPage(int pageNumber, FeedWebServiceCallback callback) {
+    public void requestFeedPage(int pageNumber, FeedRequestCallback callback) {
         client.newCall(createFeedPageRequest(pageNumber))
-                .enqueue(new CallbackWrapper(pageNumber, callback));
+                .enqueue(new FeedCallbackWrapper(pageNumber, callback));
     }
 
     private Request createLatestFeedRequest() {

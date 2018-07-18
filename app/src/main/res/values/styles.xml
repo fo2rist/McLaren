@@ -2,12 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:background">@null</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -15,6 +15,15 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.Transparent" parent="AppTheme.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -67,15 +76,35 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextDarkBody" parent="TextLightBody">
+        <item name="android:textColor">@color/textPrimaryBlack</item>
+    </style>
+
     <style name="TextSecondaryLightBody">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textColor">@color/textSecondaryWhite</item>
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextTransmissionTitle">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/textPrimaryBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:spacing">1.8dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextTransmissionSubtitle">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/papaya</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:spacing">1.2dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="DrawerMenu">
-        <item name="itemIconTint">@color/menu_item_color</item>
-        <item name="itemTextColor">@color/menu_item_color</item>
+        <item name="itemIconTint">@color/secondary_white_selectable</item>
+        <item name="itemTextColor">@color/secondary_white_selectable</item>
         <item name="itemTextAppearance">@style/AppTheme.MenuFont</item>
     </style>
 

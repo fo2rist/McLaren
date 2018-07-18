@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent single item in the feed.
  */
-public class FeedItem implements Serializable {
+public class FeedItem implements Serializable, Comparable<FeedItem> {
     /**
      * Suggested limit for text length.
      * Not enforced by constructor itself.
@@ -130,5 +130,10 @@ public class FeedItem implements Serializable {
         result = 31 * result + embeddedMediaLink.hashCode();
         result = 31 * result + imageUrls.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(@NonNull FeedItem other) {
+        return Long.compare(this.id, other.id);
     }
 }

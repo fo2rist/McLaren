@@ -1,15 +1,31 @@
 package com.github.fo2rist.mclaren.repository;
 
-public interface FeedRepositoryPubSub {
-    void subscribe(Object subscriber);
+import com.github.fo2rist.mclaren.models.FeedItem;
+import java.util.List;
 
-    void unsubscribe(Object subscriber);
+public interface FeedRepositoryPubSub extends BaseRepositoryPubSub {
 
-    void publish(PubSubEvents.FeedUpdateReady event);
+    void publish(PubSubEvent event);
 
-    void publish(PubSubEvents.LoadingStarted event);
+    interface PubSubEvent {
+        class FeedUpdateReady implements PubSubEvent {
+            public List<FeedItem> feed;
 
-    void publish(PubSubEvents.LoadingFinished event);
+            public FeedUpdateReady(List<FeedItem> feed) {
+                this.feed = feed;
+            }
+        }
 
-    void publish(PubSubEvents.LoadingError event);
+        /** Used to notify about networking operation start. */
+        class LoadingStarted implements PubSubEvent {
+        }
+
+        /** Used to notify about networking operation end with any result success or failure. */
+        class LoadingFinished implements PubSubEvent {
+        }
+
+        /** Used to notify about networking operation failure. */
+        class LoadingError implements PubSubEvent {
+        }
+    }
 }

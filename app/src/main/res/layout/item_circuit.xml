@@ -10,7 +10,7 @@
     android:layout_marginLeft="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_half"
     android:orientation="vertical"
-    tools:context=".ui.CircuitDetailsActivity"
+    tools:context=".ui.circuitsscreen.CircuitDetailsActivity"
     tools:background="@drawable/background_main"
     >
     <ImageView
@@ -23,6 +23,7 @@
         app:layout_constraintDimensionRatio="H,1:1"
         android:scaleType="centerInside"
         android:contentDescription="@null"
+        android:tint="@color/primary_white_highlightable"
         tools:src="@drawable/circuit_monaco"
         />
     <TextView
@@ -36,6 +37,7 @@
         android:singleLine="true"
         android:ellipsize="end"
         style="@style/TextLightBody"
+        android:textColor="@color/primary_white_selectable"
         tools:text="Monaco Grand Prix"
         tools:ignore="Deprecated"
         />
@@ -48,6 +50,7 @@
         android:layout_marginLeft="@dimen/margin_one"
         android:layout_marginBottom="@dimen/margin_one"
         style="@style/TextSecondaryLightBody"
+        android:textColor="@color/secondary_white_selectable"
         tools:text="Monte Carlo\n29 Jun – 01 Jul"
         />
 </android.support.constraint.ConstraintLayout>

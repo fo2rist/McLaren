@@ -1,4 +1,11 @@
-buildscript {
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+apply from: '../versions.gradle'
+
+buildscript { //for crashlytics
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -8,10 +15,16 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-
 android {
+    signingConfigs {
+        test_sign_config {
+            keyAlias 'testing'
+            keyPassword 'testing'
+            storeFile rootProject.file('testing_dummy_key')
+            storePassword 'testing'
+        }
+    }
+
     compileSdkVersion project.COMPILE_SDK_VERSION
     buildToolsVersion project.BUILD_TOOLS_VERSION
 
@@ -21,8 +34,8 @@ android {
         applicationId "com.github.fo2rist.mclaren"
         targetSdkVersion project.TARGET_SDK_VERSION
         minSdkVersion project.MIN_SDK_VERSION
-        versionCode 9
-        versionName "1.2.1"
+        versionCode project.APP_VERSION_CODE
+        versionName project.APP_VERSION_NAME
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [crashlyticsKey: readProperty(properties, 'CRASHLYTICS_KEY')]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -32,6 +45,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.test_sign_config
         }
     }
 
@@ -60,35 +74,36 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$project.supportVersion"
-    implementation "com.android.support:cardview-v7:$project.supportVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "com.android.support:appcompat-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:cardview-v7:$project.SUPPORT_VERSION"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation "com.android.support:design:$project.supportVersion"
-    implementation "com.android.support:recyclerview-v7:$project.supportVersion"
-    implementation "com.android.support:support-v4:$project.supportVersion"
+    implementation "com.android.support:design:$project.SUPPORT_VERSION"
+    implementation "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
+    implementation "com.android.support:support-v4:$project.SUPPORT_VERSION"
 
     // zoom image view
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
-    // autolink for text view embedded links
+    // auto link for text view embedded links
     implementation 'com.github.armcha:AutoLinkTextView:0.3.0'
 
     // networking
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
     // event bus
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     // joda time
     implementation 'joda-time:joda-time:2.9.9'
 
     // logger
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
 
-    // crashlytics
+    // crashlytics by fabric
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true;
     }
@@ -97,17 +112,17 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.14.1', {
         exclude group: 'com.google.code.findbugs'
     }
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
+    kapt 'com.google.dagger:dagger-compiler:2.14.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.14.1'
 
     // test libraries
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.13.0'
-    testImplementation 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'org.mockito:mockito-core:2.17.0'
+    testImplementation 'org.robolectric:robolectric:3.5.1' //3.6+ has som conflicts with IDE runner
     testImplementation 'org.robolectric:shadows-support-v4:3.3.2'
 
     // instrumented test libraries
-    androidTestImplementation "com.android.support:support-annotations:$project.supportVersion"
+    androidTestImplementation "com.android.support:support-annotations:$project.SUPPORT_VERSION"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support'
     }
@@ -127,8 +142,8 @@ def readProperties(configFileName) {
     try {
         properties.load(new FileInputStream(rootProject.file(configFileName)))
         println "Load properties from configuration file"
-    } catch (IOException any) {
-        println "Properties file ${configFileName} not found will use ENV variabled."
+    } catch (IOException ignore) {
+        println "Properties file ${configFileName} not found. Will use ENV variables."
     }
     return properties
 }

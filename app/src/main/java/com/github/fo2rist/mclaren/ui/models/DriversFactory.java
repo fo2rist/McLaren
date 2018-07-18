@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui.models;
 
+import android.support.annotation.NonNull;
+
 import java.util.HashMap;
 
 public class DriversFactory {
@@ -14,7 +16,7 @@ public class DriversFactory {
         VANBUREN,
     }
 
-    public static Driver getDriverModel(DriverId driver) {
+    public static Driver getDriverModel(@NonNull DriverId driver) {
         switch (driver) {
             case ALONSO:
                 return getAlonsoModel();

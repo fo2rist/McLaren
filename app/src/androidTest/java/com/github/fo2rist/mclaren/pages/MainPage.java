@@ -21,7 +21,7 @@ public class MainPage {
     }
 
     public ViewInteraction onFloatingButton() {
-        return onView(withId(R.id.fab));
+        return onView(withId(R.id.floating_button_transmission));
     }
 
     private ViewInteraction onNavigationView() {
@@ -33,7 +33,7 @@ public class MainPage {
     }
 
     public ViewInteraction onMenuNewsFeed() {
-        return onView(withText("Newsfeed"));
+        return onView(withText("Feed"));
     }
 
     public ViewInteraction onMenuStories() {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_pitwall">Pitwall</string>
+    <string name="title_pit_to_racer_format" formatted="true">Pit to %s</string>
+    <string name="title_announcement"> — — — </string>
+    <string name="message_no_transmission">No active transmission yet</string>
+</resources>

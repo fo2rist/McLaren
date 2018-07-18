@@ -12,7 +12,7 @@ public class FeedItems {
     private static final String CONTENT = "test content";
     private static final String SOURCE_NAME_TEST = "test source";
     private static final String SOURCE_NAME_MCLAREN = "mclaren.com";
-    private static final String MEDIA_LINK = "http://mclaren.com/formula1";
+    public static final String MEDIA_LINK = "http://mclaren.com/formula1";
     private static final ImageUrl[] IMAGES = new ImageUrl[]{ImageUrl.empty()};
 
     public static final FeedItem TWITTER_GALLERY_ITEM = new FeedItem(

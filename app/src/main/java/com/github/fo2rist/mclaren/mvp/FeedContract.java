@@ -4,15 +4,38 @@ import com.github.fo2rist.mclaren.models.FeedItem;
 import java.util.List;
 
 public interface FeedContract {
-    interface View extends BaseView {
-        void setFeed(List<FeedItem> feedItems);
-        void showProgress();
-        void hideProgress();
+
+    /**
+     * Feed adapter interaction listener contract.
+     */
+    interface OnFeedInteractionListener {
+        void onItemClicked(FeedItem item);
+
+        void onItemSourceClicked(FeedItem item);
+
+        void onLinkClicked(FeedItem item, String link);
     }
 
-    interface Presenter extends BasePresenter<View> {
-        void onRefreshRequested();
+    /**
+     * Feed adapter scrolling listener contract.
+     */
+    interface OnFeedScrollingListener {
         void onScrolledToSecondThird();
-        void onLoadMoreRequested();
+
+        void onScrolledToBottom();
+    }
+
+    interface View extends BaseView {
+        void displayFeed(List<FeedItem> feedItems);
+        void showProgress();
+        void hideProgress();
+
+        void navigateToBrowser(String link);
+        void navigateToPreview(String link);
+        void navigateToPreview(FeedItem item);
+    }
+
+    interface Presenter extends BasePresenter<View>, OnFeedInteractionListener, OnFeedScrollingListener {
+        void onRefreshRequested();
     }
 }

@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 
 import com.github.fo2rist.mclaren.BuildConfig;
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.DriverSubFragment;
+import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty;
 import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty;
 import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".McLarenApplication">
-        <activity android:name=".ui.SplashActivity"
+        <activity android:name=".ui.splashscreen.SplashActivity"
             android:theme="@style/SplashScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,15 +24,17 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ui.CircuitDetailsActivity"
+            android:name=".ui.circuitsscreen.CircuitDetailsActivity"
             android:theme="@style/AppTheme"
             />
         <activity
-            android:name=".ui.PreviewActivity"
+            android:name=".ui.previewscreen.PreviewActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.MainActivity"
             />
-
+        <activity
+            android:name=".ui.transmissionscreen.TransmissionActivity"
+            android:theme="@style/AppTheme.Transparent"
+            />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${crashlyticsKey}" />
