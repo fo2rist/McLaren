@@ -73,8 +73,8 @@ class TransmissionAdapter(
 
         private fun setImagesFor(item: TransmissionItem) {
             driverImage.setImageResource(when (item.type) {
-                DRIVER_A_TO_PIT -> R.drawable.driver_alonso
-                DRIVER_B_TO_PIT -> R.drawable.driver_vandoorne
+                DRIVER_A_TO_PIT -> R.drawable.driver_portrait_alonso
+                DRIVER_B_TO_PIT -> R.drawable.driver_portrait_vandoorne
                 else -> 0
             })
 
