@@ -47,7 +47,7 @@ class TransmissionPresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingStarted(event: PubSubEvent.LoadingStarted) {
+    fun onLoadingStarted(@Suppress("UNUSED_PARAMETER") event: PubSubEvent.LoadingStarted) {
         view.showProgress()
     }
 
@@ -61,7 +61,7 @@ class TransmissionPresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingFinished(event: PubSubEvent.LoadingFinished) {
+    fun onLoadingFinished(@Suppress("UNUSED_PARAMETER") event: PubSubEvent.LoadingFinished) {
         view.hideProgress()
     }
 }
