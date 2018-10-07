@@ -13,6 +13,7 @@ public class DriversFactory {
         MATSUSHITA,
         DEVRIES,
         NORRIS,
+        VANBUREN,
     }
 
     public static Driver getDriverModel(@NonNull DriverId driver) {
@@ -31,6 +32,8 @@ public class DriversFactory {
                 return getDeVriesModel();
             case NORRIS:
                 return getNorrisModel();
+            case VANBUREN:
+                return getVanburenModel();
             default:
                 throw new IllegalArgumentException("Usupported driver: " + driver);
         }
@@ -130,5 +133,15 @@ public class DriversFactory {
         map.put(Driver.MandatoryProperty.TWITTER, "@LandoNorris");
 
         return new Driver("norris", map);
+    }
+
+    private static Driver getVanburenModel() {
+        HashMap<Driver.Property, String> map = new HashMap<>();
+        map.put(Driver.MandatoryProperty.NAME, "Rudy van Buren");
+        map.put(Driver.MandatoryProperty.DATE_OF_BIRTH, "04.04.1992");
+        map.put(Driver.MandatoryProperty.NATIONALITY, "Dutch");
+        map.put(Driver.MandatoryProperty.TWITTER, "@RvBuren");
+
+        return new Driver("vanburen", map);
     }
 }

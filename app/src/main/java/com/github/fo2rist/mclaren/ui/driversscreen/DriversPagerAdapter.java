@@ -8,18 +8,17 @@ import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
 
 import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.ALONSO;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.BUTTON;
 import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.DEVRIES;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.MATSUSHITA;
 import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.NORRIS;
 import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.TURVEY;
+import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.VANBUREN;
 import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.VANDOORNE;
 
 /**
  * Represent "tabs" on drivers page
  */
 public class DriversPagerAdapter extends FragmentStatePagerAdapter {
-    private DriverId[] driverIds = new DriverId[]{ALONSO, VANDOORNE, BUTTON, TURVEY, MATSUSHITA, DEVRIES, NORRIS};
+    private DriverId[] driverIds = new DriverId[]{ALONSO, VANDOORNE, NORRIS, TURVEY, DEVRIES, VANBUREN};
 
     private DriverSubFragment[] pages = new DriverSubFragment[driverIds.length];
 
