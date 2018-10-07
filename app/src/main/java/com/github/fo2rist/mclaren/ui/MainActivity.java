@@ -234,6 +234,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showTransmissionButton() {
-        floatingButtonTransmission.setVisibility(View.VISIBLE);
+        floatingButtonTransmission.show();
     }
 }
