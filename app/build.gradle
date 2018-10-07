@@ -113,16 +113,14 @@ dependencies {
     }
 
     // dependency injection
-    implementation 'com.google.dagger:dagger-android-support:2.14.1', {
-        exclude group: 'com.google.code.findbugs'
-    }
-    kapt 'com.google.dagger:dagger-compiler:2.16'
-    kapt 'com.google.dagger:dagger-android-processor:2.14.1'
+    implementation 'com.google.dagger:dagger-android-support:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
+    kapt 'com.google.dagger:dagger-android-processor:2.17'
 
     // test libraries
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.19.0'
-    testImplementation 'org.robolectric:robolectric:3.5.1' //3.6+ has som conflicts with IDE runner
+    testImplementation 'org.mockito:mockito-core:2.21.0'
+    testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.3.2'
 
     // instrumented test libraries
