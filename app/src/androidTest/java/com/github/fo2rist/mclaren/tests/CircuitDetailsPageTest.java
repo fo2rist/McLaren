@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.tests;
 
+import android.app.Instrumentation.ActivityResult;
 import android.content.Context;
 import android.net.Uri;
 import android.support.test.InstrumentationRegistry;
@@ -15,10 +16,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.app.Activity.RESULT_OK;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.fo2rist.mclaren.utils.CustomViewAssertions.displayed;
@@ -91,6 +94,7 @@ public class CircuitDetailsPageTest {
 
     @Test
     public void testTitleInfoLeadToWebsite() throws Exception {
+        intending(hasData(any(Uri.class))).respondWith(new ActivityResult(RESULT_OK, null));
         page.onCircuitTitle()
                 .perform(click());
 
