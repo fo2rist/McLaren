@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="circuit_details_laps">Laps</string>
+    <string name="circuit_details_length">Length</string>
+    <string name="circuit_details_distance">Total Distance</string>
+    <string name="circuit_details_seasons">Seasons</string>
+    <string name="circuit_details_gp_held">Grand Prix Held</string>
+
     <string name="calendar_event_details_format">%1$s\n%2$s – %3$s</string>
     <string name="calendar_event_date_format">dd MMM</string>
     <string name="circuit_details_format">%1$s >> %2$s</string>

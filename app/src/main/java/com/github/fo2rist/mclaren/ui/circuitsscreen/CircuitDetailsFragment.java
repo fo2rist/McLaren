@@ -98,11 +98,11 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
 
         LinearLayout propertiesList = rootView.findViewById(R.id.properties_linearlayout);
 
-        addInformationLine(propertiesList, "Laps", String.valueOf(event.laps));
-        addInformationLine(propertiesList, "Length", getString(R.string.distance_km_format, event.length));
-        addInformationLine(propertiesList, "Total Distance", getString(R.string.distance_km_format, event.distance));
-        addInformationLine(propertiesList, "Seasons", event.seasons);
-        addInformationLine(propertiesList, "Grand Prix Held", String.valueOf(event.gpHeld));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_laps), String.valueOf(event.laps));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_length), getString(R.string.distance_km_format, event.length));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_distance), getString(R.string.distance_km_format, event.distance));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_seasons), event.seasons);
+        addInformationLine(propertiesList, getString(R.string.circuit_details_gp_held), String.valueOf(event.gpHeld));
     }
 
     private void addInformationLine(LinearLayout propertiesList, String propertyName, String propertyValue) {
