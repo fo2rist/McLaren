@@ -18,8 +18,4 @@
     <issue id="RtlHardcoded" severity="ignore" />
     <issue id="RtlCompat" severity="ignore" />
 	<issue id="RtlEnabled" severity="ignore" />
-    <!-- Anydpi resources produce false lint error-->
-    <issue id="IconLauncherFormat">
-        <ignore path="**/res/mipmap-anydpi*/**"/>
-    </issue>
 </lint>
