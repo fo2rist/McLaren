@@ -133,6 +133,7 @@ dependencies {
     }
     androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'com.agoda.kakao:kakao:1.4.0'
 }
 
 /**
