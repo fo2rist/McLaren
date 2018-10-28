@@ -19,7 +19,7 @@ public class CircuitsPageTest extends BaseMainActivityTest {
 
     @Override
     @Before
-    public void setUp() throws InterruptedException {
+    public void setUp() {
         super.setUp();
         mainPage.navigateToMenuItem(R.id.nav_circuits);
     }

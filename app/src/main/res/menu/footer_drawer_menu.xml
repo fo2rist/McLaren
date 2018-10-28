@@ -8,6 +8,6 @@
         <item
             android:id="@+id/nav_official_site"
             android:icon="@drawable/ic_laurel"
-            android:title="@string/navigation_item_mclaren" />
+            android:title="@string/navigation_item_official_site" />
     </group>
 </menu>

@@ -93,7 +93,7 @@ class CircuitDetailsPageTest {
         intended(hasData(any(Uri::class.java)))
     }
 
-    companion object {
+    companion object TestData {
 
         private val ID = "monaco"
         private val COUNTRY_CODE = "CODE"
