@@ -1,12 +1,8 @@
 package com.github.fo2rist.mclaren.tests
 
-import android.app.Activity
-import android.app.Instrumentation
 import android.net.Uri
 import android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
-import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.Intents.intended
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasAction
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasData
 import android.support.test.runner.AndroidJUnit4
@@ -14,7 +10,6 @@ import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.FeedPage
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
 import org.hamcrest.Matchers.any
-import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -39,7 +34,7 @@ class MainActivityTest : BaseMainActivityTest() {
 
     @Test
     fun testOptionsMenu() {
-        initViewIntents()
+        interceptIntents()
 
         mainPage {
             openActionBarOverflowOrOptionsMenu(context)
@@ -62,7 +57,7 @@ class MainActivityTest : BaseMainActivityTest() {
 
     @Test
     fun testFooterMenuActionCar() {
-        initViewIntents()
+        interceptIntents()
 
         mainPage.navigateToFooterMenuItem(R.id.nav_car)
 
@@ -71,25 +66,10 @@ class MainActivityTest : BaseMainActivityTest() {
 
     @Test
     fun testFooterMenuActionOfficialSite() {
-        initViewIntents()
+        interceptIntents()
 
         mainPage.navigateToFooterMenuItem(R.id.nav_official_site)
 
         intended(hasData(any(Uri::class.java)))
-    }
-
-    private fun initViewIntents() {
-        Intents.init()
-        Intents.intending(hasAction(any(String::class.java)))
-                .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, null))
-    }
-
-    @After
-    fun tearDown() {
-        try {
-            Intents.release()
-        } catch (exc: Exception) {
-            //we don't really care
-        }
     }
 }
