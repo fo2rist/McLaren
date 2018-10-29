@@ -108,8 +108,8 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
             Timber.e("No driver model provided to display");
             return;
         }
-        TextView titleTextView = rootView.findViewById(R.id.driver_number_text);
-        titleTextView.setText(driver.getProperty(AdditionalProperty.TAG));
+        TextView driverNumberTextView = rootView.findViewById(R.id.driver_number_text);
+        driverNumberTextView.setText(driver.getProperty(AdditionalProperty.TAG));
 
         TextView subtitleTextView = rootView.findViewById(R.id.driver_result_text);
         subtitleTextView.setText(
