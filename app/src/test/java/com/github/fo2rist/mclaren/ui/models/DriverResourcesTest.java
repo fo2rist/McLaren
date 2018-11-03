@@ -3,7 +3,6 @@ package com.github.fo2rist.mclaren.ui.models;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.github.fo2rist.mclaren.BuildConfig;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty;
@@ -22,7 +21,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 
 @RunWith(ParameterizedRobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk=21)
+@Config(sdk=21)
 public class DriverResourcesTest {
 
     @ParameterizedRobolectricTestRunner.Parameters(name = "Main Driver Fragment populated for {0}")
