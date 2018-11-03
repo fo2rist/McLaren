@@ -64,17 +64,4 @@ class DriversPageTest : BaseMainActivityTest() {
             driverPageLink.isDisplayed()
         }
     }
-
-    @Test
-    fun testThirdPage() {
-        driversPage {
-            swipeLeftAndWait()
-            swipeLeftAndWait()
-        }
-
-        driversPage {
-            driverNumber.isNotDisplayed()
-            driverPageLink.isNotDisplayed()
-        }
-    }
 }
