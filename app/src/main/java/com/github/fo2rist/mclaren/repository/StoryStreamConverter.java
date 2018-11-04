@@ -153,25 +153,32 @@ class StoryStreamConverter {
 
     private static ImageUrl fetchUrlFromImageData(ImageData imageData) {
         String originalSizeUrl = fixUrl(imageData.originalSizeUrl);
-        String twoUpSizeUrl = fixUrl(imageData.twoUpSizeUrl);
-        String threeUpSizeUrl = fixUrl(imageData.threeUpSizeUrl);
-
         Size originalSize = toImageSize(imageData.sizes.originalSize);
 
         if (!originalSizeUrl.isEmpty()) {
+            //Here the original link is present additional links are optional
+
+            String twoUpSizeUrl = fixUrl(imageData.twoUpSizeUrl);
+            String threeUpSizeUrl = fixUrl(imageData.threeUpSizeUrl);
+
             if (originalSizeUrl.equals(twoUpSizeUrl) && originalSizeUrl.equals(threeUpSizeUrl)) {
                 //Broken links are usually equal, so we should ignore small size links as incorrect
                 return ImageUrl.create(originalSizeUrl, originalSize);
+            } else if (twoUpSizeUrl.isEmpty() && threeUpSizeUrl.isEmpty()){
+                //We only have one link of three, create a single URL
+                return ImageUrl.create(originalSizeUrl, originalSize);
             } else {
-                //normal case - all three links are different
+                //Normal case - all three links are different and not empty
                 Size twoUpSize = toImageSize(imageData.sizes.twoUpSize);
                 Size threeUpSize = toImageSize(imageData.sizes.threeUpSize);
                 return ImageUrl.create(originalSizeUrl, originalSize,
                         twoUpSizeUrl, twoUpSize,
                         threeUpSizeUrl, threeUpSize);
             }
-        } else if (originalSizeUrl.isEmpty() && imageData.name.startsWith(HTTP)) {
-            //when links are broken name usually contains the link
+        } else if (imageData.name.startsWith(HTTP)) {
+            //Here original link is absent
+
+            //when links are broken the name usually contains the link
             return ImageUrl.create(imageData.name, originalSize);
         } else {
             //nothing we can do

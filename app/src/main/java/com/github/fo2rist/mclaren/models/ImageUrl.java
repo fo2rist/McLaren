@@ -77,12 +77,26 @@ public abstract class ImageUrl implements Serializable {
         private MultipleSizeUrl(String originalSizeUrl, Size originalSize,
                 String mediumSizeUrl, Size mediumSize,
                 String smallSizeUrl, Size smallSize) {
+
             this.originalSizeUrl = originalSizeUrl;
             this.originalSize = originalSize;
-            this.mediumSizeUrl = mediumSizeUrl;
-            this.mediumSize = mediumSize;
-            this.smallSizeUrl = smallSizeUrl;
-            this.smallSize = smallSize;
+
+            if (mediumSize == Size.UNKNOWN && mediumSizeUrl.isEmpty()) {
+                //safety check for mallformed URLs, if the size if unknown and URL absent - default to original size
+                this.mediumSizeUrl = originalSizeUrl;
+                this.mediumSize = originalSize;
+            } else {
+                this.mediumSizeUrl = mediumSizeUrl;
+                this.mediumSize = mediumSize;
+            }
+
+            if (smallSize == Size.UNKNOWN && smallSizeUrl.isEmpty()) {
+                this.smallSizeUrl = originalSizeUrl;
+                this.smallSize = originalSize;
+            } else {
+                this.smallSizeUrl = smallSizeUrl;
+                this.smallSize = smallSize;
+            }
         }
 
         @NonNull
