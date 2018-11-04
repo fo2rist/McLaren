@@ -28,7 +28,7 @@ public class ImageUrlTest {
     private ImageUrl imageUrlMultiAddresses;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         imageUrlFromFixedAddress = ImageUrl.create(FIXED_SIZE_URL, ORIGINAL_SIZE);
         imageUrlFromDynamicAddress = ImageUrl.create(DYNAMIC_SIZE_URL, ORIGINAL_SIZE);
         imageUrlMultiAddresses = ImageUrl.create(
@@ -38,13 +38,13 @@ public class ImageUrlTest {
     }
 
     @Test
-    public void testFixedSizeUrlConstruction() throws Exception {
+    public void testFixedSizeUrlConstruction() {
         assertTrue(imageUrlFromFixedAddress instanceof ImageUrl.FixedSizeUrl);
         assertEquals(ORIGINAL_SIZE, imageUrlFromFixedAddress.getSize());
     }
 
     @Test
-    public void testFixedSizeUrlAlwaysSame() throws Exception {
+    public void testFixedSizeUrlAlwaysSame() {
         String originalUrl = imageUrlFromFixedAddress.getUrl();
 
         String smallUrl = imageUrlFromFixedAddress.getUrl(SMALL_SIZE);
@@ -55,19 +55,19 @@ public class ImageUrlTest {
     }
 
     @Test
-    public void testDynamicSizeUrlConstruction() throws Exception {
+    public void testDynamicSizeUrlConstruction() {
         assertTrue(imageUrlFromDynamicAddress instanceof ImageUrl.DynamicSizeUrl);
         assertEquals(ORIGINAL_SIZE, imageUrlFromDynamicAddress.getSize());
     }
 
     @Test
-    public void testDynamicSizeUrlGeneration() throws Exception {
-        testDynamicUrlForSize(imageUrlFromDynamicAddress, ORIGINAL_SIZE, ORIGINAL_SIZE);
-        testDynamicUrlForSize(imageUrlFromDynamicAddress, MEDIUM_SIZE, MEDIUM_SIZE);
-        testDynamicUrlForSize(imageUrlFromDynamicAddress, SMALL_SIZE, SMALL_SIZE);
+    public void testDynamicSizeUrlCotainsRequestedSize() {
+        testDynamicUrlContainsSizeInPath(imageUrlFromDynamicAddress, ORIGINAL_SIZE, ORIGINAL_SIZE);
+        testDynamicUrlContainsSizeInPath(imageUrlFromDynamicAddress, MEDIUM_SIZE, MEDIUM_SIZE);
+        testDynamicUrlContainsSizeInPath(imageUrlFromDynamicAddress, SMALL_SIZE, SMALL_SIZE);
     }
 
-    private void testDynamicUrlForSize(ImageUrl imageUrl, Size requestedSize, Size expectedSize) {
+    private void testDynamicUrlContainsSizeInPath(ImageUrl imageUrl, Size requestedSize, Size expectedSize) {
         String generatedUrl = imageUrl.getUrl(requestedSize);
 
         assertTrue(generatedUrl.contains(String.valueOf(expectedSize.width)));
@@ -75,12 +75,12 @@ public class ImageUrlTest {
     }
 
     @Test
-    public void testDynamicSizeUrlDoesNotExceedOriginalSize() throws Exception {
-        testDynamicUrlForSize(imageUrlFromDynamicAddress, OVERSIZE, ORIGINAL_SIZE);
+    public void testDynamicSizeUrlDoesNotExceedOriginalSize() {
+        testDynamicUrlContainsSizeInPath(imageUrlFromDynamicAddress, OVERSIZE, ORIGINAL_SIZE);
     }
 
     @Test
-    public void testDynamicSizeUrlDoesNotFailWhenImageSizeUnknown() throws Exception {
+    public void testDynamicSizeUrlDoesNotFailWhenImageSizeUnknown() {
         ImageUrl unknownSizeImageUrl = ImageUrl.create(DYNAMIC_SIZE_URL, Size.UNKNOWN);
 
         String generatedDefaultImageUrl = unknownSizeImageUrl.getUrl();
@@ -91,33 +91,45 @@ public class ImageUrlTest {
     }
 
     @Test
-    public void testMultiSizeUrlConstruction() throws Exception {
+    public void testMultiSizeUrlConstruction() {
         assertTrue(imageUrlMultiAddresses instanceof ImageUrl.MultipleSizeUrl);
         assertEquals(ORIGINAL_SIZE, imageUrlMultiAddresses.getSize());
     }
 
     @Test
-    public void testMultiSizeUrlDoesNotGiveTooBigImage() throws Exception {
+    public void testMultiSizeUrlDoesNotGiveTooBigImage() {
         assertEquals(ORIGINAL_SIZE_URL, imageUrlMultiAddresses.getUrl(ORIGINAL_SIZE));
         assertEquals(MEDIUM_SIZE_URL, imageUrlMultiAddresses.getUrl(MEDIUM_SIZE));
         assertEquals(SMALL_SIZE_URL, imageUrlMultiAddresses.getUrl(SMALL_SIZE));
     }
 
     @Test
-    public void testMultiSizeUrlDoesNotExceedSizeLimits() throws Exception {
+    public void testMultiSizeUrlDoesNotExceedSizeLimits() {
         assertEquals(ORIGINAL_SIZE_URL, imageUrlMultiAddresses.getUrl(OVERSIZE));
         assertEquals(SMALL_SIZE_URL, imageUrlMultiAddresses.getUrl(UNDERSIZE));
     }
 
     @Test
-    public void testMultiSizeUrlDefaultsToOriginalUrlWhenSizeUnknonw() throws Exception {
+    public void testMultiSizeUrlDefaultsToOriginalUrlWhenSizeUnknonw() {
         ImageUrl unknownSizeImageUrl = ImageUrl.create(ORIGINAL_SIZE_URL, Size.UNKNOWN,
                 MEDIUM_SIZE_URL, Size.UNKNOWN,
                 SMALL_SIZE_URL, Size.UNKNOWN);
 
         assertEquals(ORIGINAL_SIZE_URL, unknownSizeImageUrl.getUrl(ORIGINAL_SIZE));
-        assertEquals(ORIGINAL_SIZE_URL, unknownSizeImageUrl.getUrl(SMALL_SIZE));
         assertEquals(ORIGINAL_SIZE_URL, unknownSizeImageUrl.getUrl(OVERSIZE));
+        assertEquals(ORIGINAL_SIZE_URL, unknownSizeImageUrl.getUrl(SMALL_SIZE));
         assertEquals(ORIGINAL_SIZE_URL, unknownSizeImageUrl.getUrl(UNDERSIZE));
+    }
+
+    @Test
+    public void testMalfirmedMultisizeUrlDefaultsToOriginalSize() {
+        ImageUrl malformedMultisizeImageUrl = ImageUrl.create(ORIGINAL_SIZE_URL, ORIGINAL_SIZE,
+                "", Size.UNKNOWN,
+                "", Size.UNKNOWN);
+
+        assertEquals(ORIGINAL_SIZE_URL, malformedMultisizeImageUrl.getUrl(ORIGINAL_SIZE));
+        assertEquals(ORIGINAL_SIZE_URL, malformedMultisizeImageUrl.getUrl(OVERSIZE));
+        assertEquals(ORIGINAL_SIZE_URL, malformedMultisizeImageUrl.getUrl(SMALL_SIZE));
+        assertEquals(ORIGINAL_SIZE_URL, malformedMultisizeImageUrl.getUrl(UNDERSIZE));
     }
 }
