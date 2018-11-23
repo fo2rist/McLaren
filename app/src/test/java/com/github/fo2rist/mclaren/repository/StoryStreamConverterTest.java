@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.CORRECT_LINK_ORIGINAL_IMAGE_SIZE;
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.CORRECT_LINK_ORIGINAL_IMAGE_URL;
@@ -31,6 +32,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21)
 public class StoryStreamConverterTest {
     private StoryStreamResponseParser parser = new StoryStreamResponseParser();
 
