@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 apply from: '../versions.gradle'
+apply from: '../jacoco.gradle'
 
 buildscript { //for crashlytics
     repositories {
@@ -50,6 +51,7 @@ android {
         debug {
             // Disable fabric build ID generation for debug builds
             ext.enableCrashlytics = false
+            testCoverageEnabled true
         }
     }
 
