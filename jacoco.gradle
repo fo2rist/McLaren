@@ -8,7 +8,7 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
-task createDebugUnitTestCoverageReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     group = "Code Coverage"
     description = "Generate coverage report for all unit test, analogue of createDebugCoverageReport"
 
