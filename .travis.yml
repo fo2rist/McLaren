@@ -28,7 +28,7 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-$ANDROID_API_LEVEL
 
-    # Emulato system image for tests
+    # Emulator system image for tests
     #- sys-img-armeabi-v7a-google_apis-25
 
 before_script:
@@ -40,9 +40,17 @@ before_script:
     #- emulator -avd test -no-audio -no-window &
     #- android-wait-for-emulator
     #- adb shell input keyevent 82 &
+
+    # Get code climate coverage uploader
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
 script:
     - ./gradlew build check jacocoTestDebugUnitTestReport
 
 after_success:
+  # upload coverage to codecov
   - bash <(curl -s https://codecov.io/bash)
+  # upload coverage to coveralls
   - ./gradlew coveralls
+  # upload coverage to code climate
+  - ./cc-test-reporter after-build
