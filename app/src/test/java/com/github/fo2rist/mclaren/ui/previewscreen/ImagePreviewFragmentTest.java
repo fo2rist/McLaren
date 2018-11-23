@@ -7,12 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM;
 import static org.junit.Assert.assertNotNull;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startVisibleFragment;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21)
 public class ImagePreviewFragmentTest {
 
     private FragmentActivity activity;

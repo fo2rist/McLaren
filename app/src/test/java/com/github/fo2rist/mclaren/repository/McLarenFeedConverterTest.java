@@ -11,12 +11,14 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.testutilities.CustomAssertions.assertStartsWith;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21)
 public class McLarenFeedConverterTest {
     private McLarenFeedResponseParser parser = new McLarenFeedResponseParser();
 

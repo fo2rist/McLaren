@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.stubbing.VoidAnswer2;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor.LATEST_KNOWN_PAGE;
 import static org.junit.Assert.assertEquals;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21)
 public class McLarenFeedHistoryPredictorTest {
 
     private McLarenFeedHistoryPredictor predictor;
