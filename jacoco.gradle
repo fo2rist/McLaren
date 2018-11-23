@@ -8,12 +8,14 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
+final SOURCE_DIRS = "$project.projectDir/src/main/java"
+
 task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     group = "Code Coverage"
     description = "Generate coverage report for all unit test, analogue of createDebugCoverageReport"
 
     def coverageSourceDirs = [
-            "$project.projectDir/src/main/java"
+            SOURCE_DIRS
     ]
 
     def fileFilter = [
@@ -45,4 +47,9 @@ task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUni
         xml.enabled = true
         html.enabled = true
     }
+}
+
+coveralls {
+    jacocoReportPath "$buildDir/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml"
+    sourceDirs = [SOURCE_DIRS]
 }

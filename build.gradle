@@ -16,6 +16,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.github.kt3k.coveralls" version "2.8.2"
+}
+
 allprojects {
     repositories {
         google()
