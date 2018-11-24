@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.repository
 
 import com.github.fo2rist.mclaren.models.TransmissionInfo
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub.PubSubEvent
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.web.SafeJsonParser
 import com.github.fo2rist.mclaren.web.TransmissionWebService
 import com.github.fo2rist.mclaren.web.models.Transmission
@@ -11,25 +11,25 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TransmissionRepositoryImpl
-@Inject constructor(
+class TransmissionRepositoryImpl @Inject constructor(
         private val webService: TransmissionWebService,
-        private val pubSub: TransmissionRepositoryPubSub
+        private val eventBus: TransmissionRepositoryEventBus
 ) : TransmissionRepository {
-    private var trasmissionData: TransmissionInfo? = null
+
+    private var transmissionData: TransmissionInfo? = null
 
     private val webResponseHandler = object : TransmissionWebService.TransmissionRequestCallback {
         override fun onSuccess(url: URL, responseCode: Int, data: String?) {
             val transmission = parse(data)
 
             cache(transmission)
-            pubSub.publish(PubSubEvent.TransmissionUpdateReady(transmission))
-            pubSub.publish(PubSubEvent.LoadingFinished)
+            eventBus.publish(LoadingEvent.TransmissionUpdateReady(transmission))
+            eventBus.publish(LoadingEvent.LoadingFinished)
         }
 
         override fun onFailure(url: URL, responseCode: Int, connectionError: IOException?) {
-            pubSub.publish(PubSubEvent.LoadingError)
-            pubSub.publish(PubSubEvent.LoadingFinished)
+            eventBus.publish(LoadingEvent.LoadingError)
+            eventBus.publish(LoadingEvent.LoadingFinished)
         }
     }
 
@@ -44,19 +44,19 @@ class TransmissionRepositoryImpl
     }
 
     override fun refreshTransmission() {
-        pubSub.publish(PubSubEvent.LoadingStarted)
+        eventBus.publish(LoadingEvent.LoadingStarted)
         webService.requestTransmission(webResponseHandler)
     }
 
     private fun cache(transmission: TransmissionInfo) {
-        this.trasmissionData = transmission
+        this.transmissionData = transmission
     }
 
     private fun publishCachedData() {
-        val cachedData = trasmissionData
+        val cachedData = transmissionData
 
         if (cachedData != null) {
-            pubSub.publish(PubSubEvent.TransmissionUpdateReady(cachedData))
+            eventBus.publish(LoadingEvent.TransmissionUpdateReady(cachedData))
         }
     }
 }

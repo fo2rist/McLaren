@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository
 
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub.PubSubEvent
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.utils.custommatchers.anyKotlinObject
 import com.github.fo2rist.mclaren.web.TransmissionWebService
@@ -21,13 +21,13 @@ import java.net.URL
 class TransmissionRepositoryImplTest {
     private lateinit var repository: TransmissionRepository
     private lateinit var mockWebService: TransmissionWebService
-    private lateinit var mockPubSub: TransmissionRepositoryPubSub
+    private lateinit var mockEventBus: TransmissionRepositoryEventBus
 
     @Before
     fun setUp() {
         mockWebService = mock(TransmissionWebService::class.java)
-        mockPubSub = mock(TransmissionRepositoryPubSub::class.java)
-        repository = TransmissionRepositoryImpl(mockWebService, mockPubSub)
+        mockEventBus = mock(TransmissionRepositoryEventBus::class.java)
+        repository = TransmissionRepositoryImpl(mockWebService, mockEventBus)
     }
 
     @Test
@@ -35,7 +35,7 @@ class TransmissionRepositoryImplTest {
         repository.loadTransmission()
 
         verify(mockWebService).requestTransmission(anyKotlinObject())
-        verify(mockPubSub).publish(PubSubEvent.LoadingStarted)
+        verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
     }
 
     @Test
@@ -44,10 +44,10 @@ class TransmissionRepositoryImplTest {
 
         repository.loadTransmission()
 
-        verify(mockPubSub).publish(PubSubEvent.LoadingStarted)
-        verify(mockPubSub).publish(PubSubEvent.LoadingFinished)
+        verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
+        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
         //The last event is matched by the parent class so we count two previous calls
-        verify(mockPubSub, times(3)).publish(anyKotlinObject<PubSubEvent.TransmissionUpdateReady>())
+        verify(mockEventBus, times(3)).publish(anyKotlinObject<LoadingEvent.TransmissionUpdateReady>())
     }
 
     @Test
@@ -55,14 +55,14 @@ class TransmissionRepositoryImplTest {
         //load for the first time
         prepareRealWebResponse()
         repository.loadTransmission()
-        reset(mockPubSub)
+        reset(mockEventBus)
         reset(mockWebService)
 
         //load when cache is non empty
         repository.loadTransmission()
 
-        verify(mockPubSub).publish(PubSubEvent.LoadingStarted)
-        verify(mockPubSub, times(2)).publish(anyKotlinObject<PubSubEvent.TransmissionUpdateReady>())
+        verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
+        verify(mockEventBus, times(2)).publish(anyKotlinObject<LoadingEvent.TransmissionUpdateReady>())
     }
 
     private fun prepareRealWebResponse() {

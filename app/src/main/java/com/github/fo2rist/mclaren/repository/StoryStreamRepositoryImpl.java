@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.web.FeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
@@ -25,28 +25,28 @@ import javax.inject.Singleton;
 @Singleton
 public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     final FeedWebService webService;
-    final FeedRepositoryPubSub repositoryPubSub;
+    final FeedRepositoryEventBus repositoryEventBus;
     final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
 
     private TreeSet<FeedItem> feedItems = new TreeSet<>();
     private int lastLoadedPage = 1; //latest page st StoryStream is the same as Page=1
 
     @Inject
-    public StoryStreamRepositoryImpl(StoryStreamWebService webService, FeedRepositoryPubSub repositoryPubSub) {
+    public StoryStreamRepositoryImpl(StoryStreamWebService webService, FeedRepositoryEventBus repositoryEventBus) {
         this.webService = webService;
-        this.repositoryPubSub = repositoryPubSub;
+        this.repositoryEventBus = repositoryEventBus;
     }
 
     @Override
     public void loadLatest() {
         publishCachedFeed(); // publish cached data to respond immediately and then load
-        repositoryPubSub.publish(new PubSubEvent.LoadingStarted());
+        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
         webService.requestLatestFeed(webResponseHandler);
     }
 
     private void publishCachedFeed() {
         if (!feedItems.isEmpty()) {
-            repositoryPubSub.publish(new PubSubEvent.FeedUpdateReady(getFeedItemsAsList()));
+            repositoryEventBus.publish(new LoadingEvent.FeedUpdateReady(getFeedItemsAsList()));
         }
     }
 
@@ -58,15 +58,15 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
     @Override
     public void loadNextHistory() {
         int pageToLoad = lastLoadedPage + 1;
-        repositoryPubSub.publish(new PubSubEvent.LoadingStarted());
+        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
         webService.requestFeedPage(pageToLoad, webResponseHandler);
     }
 
     private FeedRequestCallback webResponseHandler = new FeedRequestCallback() {
 
         public void onFailure(URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
-            repositoryPubSub.publish(new PubSubEvent.LoadingError());
-            repositoryPubSub.publish(new PubSubEvent.LoadingFinished()); //TODO remove duplication with MCL feed
+            repositoryEventBus.publish(new LoadingEvent.LoadingError());
+            repositoryEventBus.publish(new LoadingEvent.LoadingFinished()); //TODO remove duplication with MCL feed
         }
 
         public void onSuccess(URL url, int requestedPage, int responseCode, @Nullable String data) {
@@ -78,9 +78,9 @@ public class StoryStreamRepositoryImpl implements StoryStreamRepository {
             if (!feedItems.isEmpty()) {
                 addNewItems(feedItems); //TODO remove duplication with MCL feed
 
-                repositoryPubSub.publish(new PubSubEvent.FeedUpdateReady(getFeedItemsAsList()));
+                repositoryEventBus.publish(new LoadingEvent.FeedUpdateReady(getFeedItemsAsList()));
             }
-            repositoryPubSub.publish(new PubSubEvent.LoadingFinished());
+            repositoryEventBus.publish(new LoadingEvent.LoadingFinished());
         }
     };
 

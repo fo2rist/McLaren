@@ -23,9 +23,9 @@ public class McLarenFeedRepositoryImplTest {
     public void setUp() throws Exception {
         mockWebservice = mock(McLarenFeedWebService.class);
         mockHistoryPredictor = mock(FeedHistoryPredictor.class);
-        FeedRepositoryPubSub mockPubSub = mock(FeedRepositoryPubSub.class);
+        FeedRepositoryEventBus mockEventBus = mock(FeedRepositoryEventBus.class);
 
-        feedRepository = new McLarenFeedRepositoryImpl(mockWebservice, mockPubSub, mockHistoryPredictor);
+        feedRepository = new McLarenFeedRepositoryImpl(mockWebservice, mockEventBus, mockHistoryPredictor);
     }
 
     @Test

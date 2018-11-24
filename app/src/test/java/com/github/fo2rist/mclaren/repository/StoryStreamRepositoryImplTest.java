@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
 import java.net.URL;
@@ -24,34 +24,34 @@ import static org.mockito.Mockito.verify;
 public class StoryStreamRepositoryImplTest {
 
     private StoryStreamWebService mockWebService;
-    private FeedRepositoryPubSub mockPubSub;
+    private FeedRepositoryEventBus mockEventBus;
     private StoryStreamRepository repository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockWebService = mock(StoryStreamWebService.class);
-        mockPubSub = mock(FeedRepositoryPubSub.class);
-        repository = new StoryStreamRepositoryImpl(mockWebService, mockPubSub);
+        mockEventBus = mock(FeedRepositoryEventBus.class);
+        repository = new StoryStreamRepositoryImpl(mockWebService, mockEventBus);
     }
 
     @Test
-    public void test_loadLatest_startLoading_and_firesLoadStartEvent() throws Exception {
+    public void test_loadLatest_startLoading_and_firesLoadStartEvent() {
         repository.loadLatest();
 
-        verify(mockPubSub).publish(any(PubSubEvent.LoadingStarted.class));
+        verify(mockEventBus).publish(any(LoadingEvent.LoadingStarted.class));
         verify(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
     }
 
     @Test
-    public void test_loadNextHistory_startLoading_and_firesLoadStartEvent() throws Exception {
+    public void test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
         repository.loadNextHistory();
 
-        verify(mockPubSub).publish(any(PubSubEvent.LoadingStarted.class));
+        verify(mockEventBus).publish(any(LoadingEvent.LoadingStarted.class));
         verify(mockWebService).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
     }
 
     @Test
-    public void test_onSuccess_firesLoadFinishEvents() throws Exception {
+    public void test_onSuccess_firesLoadFinishEvents() {
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -63,7 +63,7 @@ public class StoryStreamRepositoryImplTest {
 
         repository.loadLatest();
 
-        verify(mockPubSub).publish(any(PubSubEvent.LoadingFinished.class));
-        verify(mockPubSub).publish(any(PubSubEvent.FeedUpdateReady.class));
+        verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
+        verify(mockEventBus).publish(any(LoadingEvent.FeedUpdateReady.class));
     }
 }
