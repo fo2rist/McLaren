@@ -147,12 +147,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
 
         private void displayDateTime(Context context, FeedItem feedItem) {
-            this.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.dateTime));
-            this.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.dateTime));
+            this.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.getDateTime()));
+            this.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.getDateTime()));
         }
 
         private void displayImage(FeedItem feedItem) {
-            switch (feedItem.type) {
+            switch (feedItem.getType()) {
                 case Message:
                     hideImage();
                     break;
@@ -160,7 +160,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Image:
                 case Video:
                 case Article:
-                    displayImage(getCurrentImageUri(), currentItem.text);
+                    displayImage(getCurrentImageUri(), currentItem.getText());
                     break;
             }
         }
@@ -181,7 +181,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
 
         private void displayPlayIcon(FeedItem feedItem) {
-            if (feedItem.type == FeedItem.Type.Video) {
+            if (feedItem.getType() == FeedItem.Type.Video) {
                 playIcon.setVisibility(View.VISIBLE);
             } else {
                 playIcon.setVisibility(View.GONE);
@@ -189,7 +189,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
 
         private void displayDataTypeIcon(FeedItem feedItem) {
-            switch (feedItem.type) {
+            switch (feedItem.getType()) {
                 case Gallery:
                     this.imageItemType.setImageResource(R.drawable.ic_gallery);
                     break;
@@ -209,12 +209,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         }
 
         private void displayText(FeedItem feedItem) {
-            this.textViewContent.setAutoLinkText(feedItem.text);
+            this.textViewContent.setAutoLinkText(feedItem.getText());
         }
 
         private void displaySource(FeedItem feedItem) {
-            this.textViewSource.setText(feedItem.sourceName);
-            switch (feedItem.sourceType) {
+            this.textViewSource.setText(feedItem.getSourceName());
+            switch (feedItem.getSourceType()) {
                 case Instagram:
                     this.imageSource.setImageResource(R.drawable.ic_instagram);
                     break;
@@ -229,10 +229,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         @Nullable
         private ImageUrl getCurrentImageUri() {
-            if (currentItem == null || currentItem.imageUrls.isEmpty()) {
+            if (currentItem == null || currentItem.getImageUrls().isEmpty()) {
                 return null;
             }
-            return currentItem.imageUrls.get(currentGalleryIndex);
+            return currentItem.getImageUrls().get(currentGalleryIndex);
         }
 
         private void showImage(Size size) {
@@ -342,7 +342,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             return false;
         }
 
-        return items.get(0).id < newFeedItems.get(0).id;
+        return items.get(0).getId() < newFeedItems.get(0).getId();
     }
 
     private DiffUtil.Callback createListComparisonCallback(final List<FeedItem> oldItems, final List<FeedItem> newItems) {

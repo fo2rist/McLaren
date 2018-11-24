@@ -24,6 +24,6 @@ public class LinkUtilsUrlsTest {
         String link = LinkUtils.getMediaLink(FeedItems.VIDEO_ITEM);
 
         assertNotNull(link);
-        assertEquals(FeedItems.VIDEO_ITEM.embeddedMediaLink, link);
+        assertEquals(FeedItems.VIDEO_ITEM.getEmbeddedMediaLink(), link);
     }
 }

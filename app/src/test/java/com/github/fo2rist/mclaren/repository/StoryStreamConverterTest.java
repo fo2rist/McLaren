@@ -40,7 +40,7 @@ public class StoryStreamConverterTest {
     public void testBrokenLinkFixed() throws Exception {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE));
-        List<ImageUrl> imageUrls = feed.get(0).imageUrls;
+        List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
         assertEquals(1, imageUrls.size());
         assertEquals(
@@ -52,7 +52,7 @@ public class StoryStreamConverterTest {
     public void testImageWithoutSizeParsed() throws Exception {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_NO_SIZE));
-        List<ImageUrl> imageUrls = feed.get(0).imageUrls;
+        List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
         assertEquals(1, imageUrls.size());
         assertEquals(
@@ -63,7 +63,7 @@ public class StoryStreamConverterTest {
     @Test
     public void testImageWithSizeParsed() throws Exception {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(SINGLE_ITEM_FEED_WITH_CORRECT_LINKS));
-        List<ImageUrl> imageUrls = feed.get(0).imageUrls;
+        List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
         assertEquals(1, imageUrls.size());
         assertEquals(
@@ -79,8 +79,8 @@ public class StoryStreamConverterTest {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(REAL_FEED_RESPONSE));
         FeedItem feedItem = feed.get(0);
         
-        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate(), feedItem.dateTime);
-        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate().getTime(), feedItem.id);
+        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate(), feedItem.getDateTime());
+        assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate().getTime(), feedItem.getId());
     }
 
     @Test
@@ -150,17 +150,17 @@ public class StoryStreamConverterTest {
             SourceType sourceType, String sourceName, String videoLink, ImageUrl... imageUrls) {
         assertNotNull(item);
 
-        assertEquals(type, item.type);
-        assertStartsWith(textPrefix, item.text);
-        assertStartsWith(contentPrefix, item.content);
-        assertEquals(DateTime.parse(dateTime).toDate(), item.dateTime);
-        assertEquals(sourceType, item.sourceType);
-        assertEquals(sourceName, item.sourceName);
-        assertEquals(videoLink, item.embeddedMediaLink);
+        assertEquals(type, item.getType());
+        assertStartsWith(textPrefix, item.getText());
+        assertStartsWith(contentPrefix, item.getContent());
+        assertEquals(DateTime.parse(dateTime).toDate(), item.getDateTime());
+        assertEquals(sourceType, item.getSourceType());
+        assertEquals(sourceName, item.getSourceName());
+        assertEquals(videoLink, item.getEmbeddedMediaLink());
 
-        assertEquals(imageUrls.length, item.imageUrls.size());
+        assertEquals(imageUrls.length, item.getImageUrls().size());
         for (int i = 0; i < imageUrls.length; i++) {
-            assertEquals(imageUrls[i], item.imageUrls.get(i));
+            assertEquals(imageUrls[i], item.getImageUrls().get(i));
         }
     }
 }

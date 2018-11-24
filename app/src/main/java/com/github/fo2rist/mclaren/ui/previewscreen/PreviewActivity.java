@@ -74,15 +74,15 @@ public class PreviewActivity extends AppCompatActivity implements HasSupportFrag
         } else if (getIntent().hasExtra(KEY_FEED_ITEM)) {
             FeedItem feedItem = (FeedItem) getIntent().getSerializableExtra(KEY_FEED_ITEM);
 
-            switch (feedItem.type){
+            switch (feedItem.getType()){
                 case Article:
-                    setTitle(feedItem.text);
+                    setTitle(feedItem.getText());
                     if (isPortraitMode()) {
-                        setHeaderImage(feedItem.getImageUri());
+                        setHeaderImage(feedItem.getImageUrl());
                     } else {
                         setHeaderImage(null);
                     }
-                    previewFragment = WebPreviewFragment.newInstanceForMcLarenHtml(feedItem.content);
+                    previewFragment = WebPreviewFragment.newInstanceForMcLarenHtml(feedItem.getContent());
                     break;
                 case Image:
                 case Gallery:
