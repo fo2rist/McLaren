@@ -45,7 +45,7 @@ public class FeedPresenter implements FeedContract.Presenter {
 
     @Override
     public void onItemClicked(FeedItem item) {
-        switch(item.type) {
+        switch(item.getType()) {
             case Video:
                 navigateViewToVideoPreviewScreen(getMediaLink(item));
                 break;
@@ -63,7 +63,7 @@ public class FeedPresenter implements FeedContract.Presenter {
 
     @Override
     public void onItemSourceClicked(FeedItem item) {
-        navigateViewToBrowser(getFeedMentionLink(item, item.sourceName));
+        navigateViewToBrowser(getFeedMentionLink(item, item.getSourceName()));
     }
 
     @Override

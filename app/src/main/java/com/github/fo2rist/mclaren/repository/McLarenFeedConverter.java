@@ -11,6 +11,7 @@ import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem;
 import com.github.fo2rist.mclaren.web.models.McLarenMediaItem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,11 +19,11 @@ import java.util.regex.Matcher;
 /**
  * Converts web-models to plain app models.
  */
-public class McLarenFeedConverter {
+class McLarenFeedConverter {
     private McLarenFeedConverter() {
     }
 
-    public static List<FeedItem> convertFeed(McLarenFeed mcLarenFeed) {
+    static List<FeedItem> convertFeed(McLarenFeed mcLarenFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(mcLarenFeed.size());
         for (McLarenFeedItem mcLarenFeedItem : mcLarenFeed) {
             if (!mcLarenFeedItem.hidden) {
@@ -127,17 +128,17 @@ public class McLarenFeedConverter {
         return "";
     }
 
-    private static ImageUrl[] fetchImageUrls(McLarenFeedItem mcLarenFeedItem) {
+    private static List<ImageUrl> fetchImageUrls(McLarenFeedItem mcLarenFeedItem) {
         if (mcLarenFeedItem.media == null) {
-            return new ImageUrl[0];
+            return Collections.emptyList();
         }
 
-        ImageUrl[] result = new ImageUrl[mcLarenFeedItem.media.size()];
+        List<ImageUrl> result = new ArrayList<>(mcLarenFeedItem.media.size());
         for (int i = 0; i < mcLarenFeedItem.media.size(); i++) {
             McLarenMediaItem mediaItem = mcLarenFeedItem.media.get(i);
-            result[i] = ImageUrl.create(
+            result.add(ImageUrl.create(
                     ImageUrlParser.convertToInternalUrl(mediaItem.url),
-                    Size.valueOf(mediaItem.width, mediaItem.height));
+                    Size.valueOf(mediaItem.width, mediaItem.height)));
         }
         return result;
 

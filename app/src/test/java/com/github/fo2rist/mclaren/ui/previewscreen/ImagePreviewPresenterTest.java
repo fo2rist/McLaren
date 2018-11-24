@@ -34,7 +34,7 @@ public class ImagePreviewPresenterTest {
     public void test_onStartWith_galleryItem_showsImages() {
         presenter.onStartWith(mockView, TWITTER_GALLERY_ITEM);
 
-        verify(mockView).showImages(TWITTER_GALLERY_ITEM.imageUrls);
+        verify(mockView).showImages(TWITTER_GALLERY_ITEM.getImageUrls());
     }
 
     @Test

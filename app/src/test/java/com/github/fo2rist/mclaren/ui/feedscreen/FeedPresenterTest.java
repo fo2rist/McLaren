@@ -130,7 +130,8 @@ public class FeedPresenterTest {
     public void test_onLinkClicked_openBrowser() {
         setUpPresenter();
 
-        presenter.onLinkClicked(FeedItems.INSTAGRAM_GALLERY_ITEM, FeedItems.INSTAGRAM_GALLERY_ITEM.embeddedMediaLink);
+        presenter.onLinkClicked(FeedItems.INSTAGRAM_GALLERY_ITEM,
+                FeedItems.INSTAGRAM_GALLERY_ITEM.getEmbeddedMediaLink());
 
         verifyNavigateToBrowser();
     }

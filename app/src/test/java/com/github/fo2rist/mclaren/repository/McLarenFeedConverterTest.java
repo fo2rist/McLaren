@@ -34,7 +34,7 @@ public class McLarenFeedConverterTest {
         List<FeedItem> feed = McLarenFeedConverter.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
 
         assertEquals(1, feed.size());
-        assertEquals(McLarenFeedResponse.HIDDEN_LINK, feed.get(0).embeddedMediaLink);
+        assertEquals(McLarenFeedResponse.HIDDEN_LINK, feed.get(0).getEmbeddedMediaLink());
     }
 
     @Test
@@ -70,19 +70,19 @@ public class McLarenFeedConverterTest {
 
     private void checkItemFields(FeedItem item, int id, FeedItem.Type type, String textPrefix, String contentPrefix,
             String dateTime, SourceType sourceType, String sourceName, String embeddedMediaLink, ImageUrl... imageUrls) {
-        assertNotNull(item.content);
-        assertEquals(id, item.id);
-        assertEquals(type, item.type);
-        assertStartsWith(textPrefix, item.text);
-        assertStartsWith(contentPrefix, item.content);
-        assertEquals(DateTime.parse(dateTime).toDate(), item.dateTime);
-        assertEquals(sourceType, item.sourceType);
-        assertEquals(sourceName, item.sourceName);
-        assertEquals(embeddedMediaLink, item.embeddedMediaLink);
+        assertNotNull(item.getContent());
+        assertEquals(id, item.getId());
+        assertEquals(type, item.getType());
+        assertStartsWith(textPrefix, item.getText());
+        assertStartsWith(contentPrefix, item.getContent());
+        assertEquals(DateTime.parse(dateTime).toDate(), item.getDateTime());
+        assertEquals(sourceType, item.getSourceType());
+        assertEquals(sourceName, item.getSourceName());
+        assertEquals(embeddedMediaLink, item.getEmbeddedMediaLink());
 
-        assertEquals(imageUrls.length, item.imageUrls.size());
+        assertEquals(imageUrls.length, item.getImageUrls().size());
         for (int i = 0; i < imageUrls.length; i++) {
-            assertEquals(imageUrls[i], item.imageUrls.get(i));
+            assertEquals(imageUrls[i], item.getImageUrls().get(i));
         }
     }
 }

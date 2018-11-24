@@ -26,7 +26,7 @@ class StoryStreamConverter {
 
     private static final String HTTP = "http";
 
-    public static List<FeedItem> convertFeed(StoryStream storyStreamFeed) {
+    static List<FeedItem> convertFeed(StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {
             result.add(convertFeedItem(storyStreamItem));
@@ -142,11 +142,12 @@ class StoryStreamConverter {
     }
 
     @NonNull
-    private static ImageUrl[] fetchImageUrls(StoryStreamItem storyStreamItem) {
+    private static List<ImageUrl> fetchImageUrls(StoryStreamItem storyStreamItem) {
         List<ImageData> images = fetchContentItem(storyStreamItem).images;
-        ImageUrl[] result = new ImageUrl[images.size()];
+
+        List<ImageUrl> result = new ArrayList<>(images.size());
         for (int i = 0; i < images.size(); i++) {
-            result[i] = fetchUrlFromImageData(images.get(i));
+            result.add(fetchUrlFromImageData(images.get(i)));
         }
         return result;
     }

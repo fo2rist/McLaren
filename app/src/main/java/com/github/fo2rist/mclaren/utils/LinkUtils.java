@@ -23,16 +23,16 @@ public class LinkUtils {
     /** Return embedded media link if possible, otherwise return fallback link to media source. */
     @Nullable
     public static String getMediaLink(FeedItem feedItem) {
-        if (feedItem.embeddedMediaLink == null || feedItem.embeddedMediaLink.isEmpty()) {
-            return getFeedMentionLink(feedItem, feedItem.sourceName);
+        if (feedItem.getEmbeddedMediaLink() == null || feedItem.getEmbeddedMediaLink().isEmpty()) {
+            return getFeedMentionLink(feedItem, feedItem.getSourceName());
         } else {
-            return feedItem.embeddedMediaLink;
+            return feedItem.getEmbeddedMediaLink();
         }
     }
 
     @Nullable
     public static String getFeedMentionLink(FeedItem feedItem, String mentionId) {
-        switch (feedItem.sourceType) {
+        switch (feedItem.getSourceType()) {
             case Twitter:
                 return getTwitterPageLink(mentionId);
             case Instagram:
@@ -56,7 +56,7 @@ public class LinkUtils {
 
     @Nullable
     public static String getFeedHashtagLink(FeedItem feedItem, String hashtag) {
-        switch (feedItem.sourceType) {
+        switch (feedItem.getSourceType()) {
             case Twitter:
                 return getTwitterHashtagLink(hashtag);
             case Instagram:
