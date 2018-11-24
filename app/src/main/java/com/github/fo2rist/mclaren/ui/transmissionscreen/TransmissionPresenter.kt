@@ -2,8 +2,8 @@ package com.github.fo2rist.mclaren.ui.transmissionscreen
 
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
 import com.github.fo2rist.mclaren.repository.TransmissionRepository
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub.PubSubEvent
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
@@ -15,7 +15,7 @@ private const val REFRESH_INTERVAL_MS = 30_000L
 class TransmissionPresenter
 @Inject constructor(
         var repository: TransmissionRepository,
-        var repositoryPubSub: TransmissionRepositoryPubSub
+        var repositoryEventBus: TransmissionRepositoryEventBus
 ): TransmissionContract.Presenter {
     private lateinit var view: TransmissionContract.View
     private var pollTimer: Timer? = null
@@ -30,7 +30,7 @@ class TransmissionPresenter
     }
 
     private fun startTransmissionPolling() {
-        repositoryPubSub.subscribe(this)
+        repositoryEventBus.subscribe(this)
         repository.loadTransmission()
 
         if (pollTimer == null) {
@@ -43,16 +43,16 @@ class TransmissionPresenter
     private fun stopTransmissionPolling() {
         pollTimer?.cancel()
         pollTimer = null
-        repositoryPubSub.unsubscribe(this)
+        repositoryEventBus.unsubscribe(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingStarted(@Suppress("UNUSED_PARAMETER") event: PubSubEvent.LoadingStarted) {
+    fun onLoadingStarted(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingStarted) {
         view.showProgress()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onFeedUpdateReceived(event: PubSubEvent.TransmissionUpdateReady) {
+    fun onFeedUpdateReceived(event: LoadingEvent.TransmissionUpdateReady) {
         val transmissionInfo = event.data
 
         view.displayTransmission(transmissionInfo.messages)
@@ -61,7 +61,7 @@ class TransmissionPresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingFinished(@Suppress("UNUSED_PARAMETER") event: PubSubEvent.LoadingFinished) {
+    fun onLoadingFinished(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingFinished) {
         view.hideProgress()
     }
 }

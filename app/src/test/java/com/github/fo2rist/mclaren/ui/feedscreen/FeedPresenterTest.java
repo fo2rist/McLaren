@@ -5,8 +5,8 @@ import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.testdata.FeedItems;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +26,23 @@ public class FeedPresenterTest {
     private FeedPresenter presenter;
     private FeedContract.View mockView;
     private FeedRepository mockRepository;
-    private FeedRepositoryPubSub mockPubSub;
+    private FeedRepositoryEventBus mockEventBus;
     private EventsLogger mockEventsLogger;
 
     @Before
     public void setUp() throws Exception {
         mockView = mock(FeedContract.View.class);
         mockRepository = mock(FeedRepository.class);
-        mockPubSub = mock(FeedRepositoryPubSub.class);
+        mockEventBus = mock(FeedRepositoryEventBus.class);
         mockEventsLogger = mock(EventsLogger.class);
-        presenter = new FeedPresenter(mockRepository, mockPubSub, mockEventsLogger);
+        presenter = new FeedPresenter(mockRepository, mockEventBus, mockEventsLogger);
     }
 
     @Test
     public void test_onStart_loadFeed_and_subscribeOnEvents() throws Exception {
         presenter.onStart(mockView);
 
-        verify(mockPubSub).subscribe(any());
+        verify(mockEventBus).subscribe(any());
         verify(mockRepository).loadLatest();
     }
 
@@ -52,13 +52,13 @@ public class FeedPresenterTest {
 
         presenter.onStop();
 
-        verify(mockPubSub).unsubscribe(any());
+        verify(mockEventBus).unsubscribe(any());
     }
 
     private void setUpPresenter() {
         presenter.onStart(mockView);
         reset(mockView);
-        reset(mockPubSub);
+        reset(mockEventBus);
         reset(mockRepository);
         reset(mockEventsLogger);
     }
@@ -67,7 +67,7 @@ public class FeedPresenterTest {
     public void test_onFeedUpdateReceived_setFeedToView() throws Exception {
         setUpPresenter();
 
-        presenter.onFeedUpdateReceived(new PubSubEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
+        presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
 
         verify(mockView).displayFeed(any(List.class));
     }
@@ -76,7 +76,7 @@ public class FeedPresenterTest {
     public void test_onLoadingStarted_showProgress() throws Exception {
         setUpPresenter();
 
-        presenter.onLoadingStarted(new PubSubEvent.LoadingStarted());
+        presenter.onLoadingStarted(new LoadingEvent.LoadingStarted());
 
         verify(mockView).showProgress();
     }
@@ -85,7 +85,7 @@ public class FeedPresenterTest {
     public void test_onLoadingFinished_hideProgress() throws Exception {
         setUpPresenter();
 
-        presenter.onLoadingFinished(new PubSubEvent.LoadingFinished());
+        presenter.onLoadingFinished(new LoadingEvent.LoadingFinished());
 
         verify(mockView).hideProgress();
     }

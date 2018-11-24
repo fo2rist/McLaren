@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.FeedWebService;
 import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
@@ -30,7 +30,7 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
     private static final int UNKNOWN_PAGE = -1;
 
     final FeedWebService webService;
-    final FeedRepositoryPubSub repositoryPubSub;
+    final FeedRepositoryEventBus repositoryEventBus;
     final FeedHistoryPredictor historyPredictor;
     final McLarenFeedResponseParser responseParser = new McLarenFeedResponseParser();
 
@@ -39,22 +39,22 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
 
 
     @Inject
-    McLarenFeedRepositoryImpl(McLarenFeedWebService webService, FeedRepositoryPubSub repositoryPubSub, FeedHistoryPredictor historyPredictor) {
+    McLarenFeedRepositoryImpl(McLarenFeedWebService webService, FeedRepositoryEventBus repositoryEventBus, FeedHistoryPredictor historyPredictor) {
         this.webService = webService;
-        this.repositoryPubSub = repositoryPubSub;
+        this.repositoryEventBus = repositoryEventBus;
         this.historyPredictor = historyPredictor;
     }
 
     @Override
     public void loadLatest() {
         publishCachedFeed(); // publish cached data to respond immediately and then load
-        repositoryPubSub.publish(new PubSubEvent.LoadingStarted());
+        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
         webService.requestLatestFeed(webResponseHandler);
     }
 
     private void publishCachedFeed() {
         if (!feedItems.isEmpty()) {
-            repositoryPubSub.publish(new PubSubEvent.FeedUpdateReady(getFeedItemsAsList()));
+            repositoryEventBus.publish(new LoadingEvent.FeedUpdateReady(getFeedItemsAsList()));
         }
     }
 
@@ -79,15 +79,15 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
         } else {
             pageToLoad = lastLoadedPage - 1;
         }
-        repositoryPubSub.publish(new PubSubEvent.LoadingStarted());
+        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
         webService.requestFeedPage(pageToLoad, webResponseHandler);
     }
 
     private FeedRequestCallback webResponseHandler = new FeedRequestCallback() {
 
         public void onFailure(URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
-            repositoryPubSub.publish(new PubSubEvent.LoadingError());
-            repositoryPubSub.publish(new PubSubEvent.LoadingFinished());
+            repositoryEventBus.publish(new LoadingEvent.LoadingError());
+            repositoryEventBus.publish(new LoadingEvent.LoadingFinished());
         }
 
         public void onSuccess(URL url, int requestedPage, int responseCode, @Nullable String data) {
@@ -99,9 +99,9 @@ public class McLarenFeedRepositoryImpl implements FeedRepository {
             if (!feedItems.isEmpty()) {
                 addNewItems(feedItems);
 
-                repositoryPubSub.publish(new PubSubEvent.FeedUpdateReady(getFeedItemsAsList()));
+                repositoryEventBus.publish(new LoadingEvent.FeedUpdateReady(getFeedItemsAsList()));
             }
-            repositoryPubSub.publish(new PubSubEvent.LoadingFinished());
+            repositoryEventBus.publish(new LoadingEvent.LoadingFinished());
         }
     };
 

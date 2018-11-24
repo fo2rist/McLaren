@@ -7,8 +7,8 @@ import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub.PubSubEvent;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -20,27 +20,27 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMediaLink;
 public class FeedPresenter implements FeedContract.Presenter {
     private FeedContract.View view;
     private FeedRepository feedRepository;
-    private FeedRepositoryPubSub repositoryPubSub;
+    private FeedRepositoryEventBus repositoryEventBus;
     private EventsLogger eventsLogger;
 
     @Inject
-    public FeedPresenter(FeedRepository feedRepository, FeedRepositoryPubSub repositoryPubSub, EventsLogger logger) {
+    public FeedPresenter(FeedRepository feedRepository, FeedRepositoryEventBus repositoryEventBus, EventsLogger logger) {
         this.feedRepository = feedRepository;
-        this.repositoryPubSub = repositoryPubSub;
+        this.repositoryEventBus = repositoryEventBus;
         this.eventsLogger = logger;
     }
 
     @Override
     public void onStart(@NonNull FeedContract.View view) {
         this.view = view;
-        this.repositoryPubSub.subscribe(this);
+        this.repositoryEventBus.subscribe(this);
 
         loadFeed();
     }
 
     @Override
     public void onStop() {
-        this.repositoryPubSub.unsubscribe(this);
+        this.repositoryEventBus.unsubscribe(this);
     }
 
     @Override
@@ -108,17 +108,17 @@ public class FeedPresenter implements FeedContract.Presenter {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoadingStarted(PubSubEvent.LoadingStarted event) {
+    public void onLoadingStarted(LoadingEvent.LoadingStarted event) {
         view.showProgress();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFeedUpdateReceived(PubSubEvent.FeedUpdateReady event) {
-        view.displayFeed(event.feed);
+    public void onFeedUpdateReceived(LoadingEvent.FeedUpdateReady event) {
+        view.displayFeed(event.getFeed());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoadingFinished(PubSubEvent.LoadingFinished event) {
+    public void onLoadingFinished(LoadingEvent.LoadingFinished event) {
         view.hideProgress();
     }
 }

@@ -6,16 +6,16 @@ import com.github.fo2rist.mclaren.McLarenApplication;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
-import com.github.fo2rist.mclaren.repository.FeedRepositoryPubSub;
+import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus;
 import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
-import com.github.fo2rist.mclaren.repository.RepositoryPubSubImpl;
+import com.github.fo2rist.mclaren.repository.RepositoryEventBusImpl;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepository;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.TransmissionRepository;
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryPubSub;
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
@@ -83,8 +83,8 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static FeedRepositoryPubSub provideFeedRepositoryPubSub(RepositoryPubSubImpl pubSub) {
-        return pubSub;
+    static FeedRepositoryEventBus provideFeedRepositoryEventBus(RepositoryEventBusImpl eventBus) {
+        return eventBus;
     }
 
     @Provides
@@ -107,8 +107,8 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static TransmissionRepositoryPubSub provideTransmissionRepositoryPubSub(RepositoryPubSubImpl pubSub) {
-        return pubSub;
+    static TransmissionRepositoryEventBus provideTransmissionRepositoryEventBus(RepositoryEventBusImpl eventBus) {
+        return eventBus;
     }
 
     @Provides
