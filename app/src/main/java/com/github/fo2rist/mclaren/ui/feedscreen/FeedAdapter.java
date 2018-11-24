@@ -108,6 +108,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case R.id.container_source:
                     notifyItemSourceClicked(currentItem);
                     break;
+                default:
+                    throw new IllegalArgumentException("Unknown view clicked. Id: " + view.getId());
             }
         }
 
@@ -146,6 +148,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             displaySource(feedItem);
         }
 
+        void setCurrentItem(FeedItem item) {
+            currentItem = item;
+            currentGalleryIndex = 0;
+        }
+
         private void displayDateTime(Context context, FeedItem feedItem) {
             this.textViewDate.setText(DateFormat.getDateFormat(context).format(feedItem.getDateTime()));
             this.textViewTime.setText(DateFormat.getTimeFormat(context).format(feedItem.getDateTime()));
@@ -162,12 +169,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Article:
                     displayImage(getCurrentImageUri(), currentItem.getText());
                     break;
+                default:
+                    throw new IllegalArgumentException("Unsupported item type: " + feedItem.getType());
             }
-        }
-
-        void setCurrentItem(FeedItem item) {
-            currentItem = item;
-            currentGalleryIndex = 0;
         }
 
         private void displayImage(ImageUrl imageUri, String contentDescription) {
@@ -205,6 +209,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Article:
                     this.imageItemType.setImageResource(R.drawable.ic_web);
                     break;
+                default:
+                    throw new IllegalArgumentException("Unsupported item type: " + feedItem.getType());
             }
         }
 
@@ -224,6 +230,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 case Unknown:
                     this.imageSource.setImageResource(R.drawable.ic_transmission);
                     break;
+                default:
+                    throw new IllegalArgumentException("Unsupported source type: " + feedItem.getSourceType());
             }
         }
 
