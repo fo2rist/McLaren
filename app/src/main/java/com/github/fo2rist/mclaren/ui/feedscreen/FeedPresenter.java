@@ -58,6 +58,8 @@ public class FeedPresenter implements FeedContract.Presenter {
                 break;
             case Message:
                 break;
+            default:
+                throw new IllegalArgumentException("Unsupported item type: " + item.getType());
         }
     }
 
