@@ -10,3 +10,4 @@ This app should show team info, news and maybe additional information.
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf5454de49124f2eaf21561f6c7cc4b9)](https://www.codacy.com/app/fo2/McLaren?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fo2rist/McLaren&amp;utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ae91253afcdaad4987ec/maintainability)](https://codeclimate.com/github/fo2rist/McLaren/maintainability)
 [![codecov](https://codecov.io/gh/fo2rist/McLaren/branch/master/graph/badge.svg)](https://codecov.io/gh/fo2rist/McLaren)
+[![Coverage Status](https://coveralls.io/repos/github/fo2rist/McLaren/badge.svg)](https://coveralls.io/github/fo2rist/McLaren)
