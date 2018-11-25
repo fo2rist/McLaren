@@ -55,26 +55,25 @@ class StoryStreamConverter {
     @NonNull
     private static Type fetchType(StoryStreamItem storyStreamItem) {
         StoryStreamContentItem storyStreamContentItem = fetchContentItem(storyStreamItem);
-        Type result;
-        switch (storyStreamContentItem.feedType) {
-            case Custom:
-                return Type.Article;
-            default:
-                switch (storyStreamContentItem.contentType) {
-                    case Text:
-                        return Type.Message;
-                    case Image:
-                        if (storyStreamContentItem.images.size() > 1) {
-                            return Type.Gallery;
-                        } else {
-                            return Type.Image;
-                        }
-                    case Video:
-                        return Type.Video;
-                }
-                break;
+
+        if (storyStreamContentItem.feedType == FeedType.Custom) {
+            return Type.Article;
+        } else {
+            switch (storyStreamContentItem.contentType) {
+                case Text:
+                    return Type.Message;
+                case Image:
+                    if (storyStreamContentItem.images.size() > 1) {
+                        return Type.Gallery;
+                    } else {
+                        return Type.Image;
+                    }
+                case Video:
+                    return Type.Video;
+                default:
+                    return Type.Message;
+            }
         }
-        return Type.Message;
     }
 
     @NonNull

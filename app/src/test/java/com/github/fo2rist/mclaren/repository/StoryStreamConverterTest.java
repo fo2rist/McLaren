@@ -37,7 +37,7 @@ public class StoryStreamConverterTest {
     private StoryStreamResponseParser parser = new StoryStreamResponseParser();
 
     @Test
-    public void testBrokenLinkFixed() throws Exception {
+    public void testBrokenLinkFixed() {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
@@ -49,7 +49,7 @@ public class StoryStreamConverterTest {
     }
 
     @Test
-    public void testImageWithoutSizeParsed() throws Exception {
+    public void testImageWithoutSizeParsed() {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_NO_SIZE));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
@@ -61,7 +61,7 @@ public class StoryStreamConverterTest {
     }
 
     @Test
-    public void testImageWithSizeParsed() throws Exception {
+    public void testImageWithSizeParsed() {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(SINGLE_ITEM_FEED_WITH_CORRECT_LINKS));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
@@ -75,22 +75,30 @@ public class StoryStreamConverterTest {
     }
 
     @Test
-    public void testIdGeneratedAsTimestampEpoch() throws Exception {
+    public void testIdGeneratedAsTimestampEpoch() {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(REAL_FEED_RESPONSE));
-        FeedItem feedItem = feed.get(0);
+        FeedItem feedItem = feed.get(1);
         
         assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate(), feedItem.getDateTime());
         assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate().getTime(), feedItem.getId());
     }
 
     @Test
-    public void testFeedParsed() throws Exception {
+    public void testFeedParsed() {
         List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(REAL_FEED_RESPONSE));
 
         //check the length
         assertEquals(REAL_FEED_SIZE, feed.size());
-
         checkItemFields(feed.get(0),
+                Type.Message,
+                "Love this new app. Built by fans",
+                "Love this new app. Built by fans",
+                "2018-11-22T03:59:10.536Z",
+                SourceType.Twitter,
+                "alo_oficial",
+                ""
+        );
+        checkItemFields(feed.get(1),
                 Type.Article,
                 "TESTING TIMES\nThe Formula 1 test season",
                 "<p>The Formula 1 test season",
