@@ -118,16 +118,16 @@ public class CalendarEventsLoaderTest {
             String seasons,
             int gpHeld,
             CalendarEvent calendarEvent) {
-        assertEquals(trackName, calendarEvent.trackName);
-        assertEquals(gpName, calendarEvent.grandPrixName);
-        assertEquals(city, calendarEvent.city);
-        assertEquals(laps, calendarEvent.laps);
-        assertDoubleEquals(length, calendarEvent.length);
-        assertDoubleEquals(distance, calendarEvent.distance);
-        assertEquals(seasons, calendarEvent.seasons);
-        assertEquals(gpHeld, calendarEvent.gpHeld);
-        assertNotNull(calendarEvent.wikiLink);
-        assertEquals(new DateTime(year, month, day, 0, 0, 0), calendarEvent.startDate);
+        assertEquals(trackName, calendarEvent.getTrackName());
+        assertEquals(gpName, calendarEvent.getGrandPrixName());
+        assertEquals(city, calendarEvent.getCity());
+        assertEquals(laps, calendarEvent.getLaps());
+        assertDoubleEquals(length, calendarEvent.getLength());
+        assertDoubleEquals(distance, calendarEvent.getDistance());
+        assertEquals(seasons, calendarEvent.getSeasons());
+        assertEquals(gpHeld, calendarEvent.getGpHeld());
+        assertNotNull(calendarEvent.getWikiLink());
+        assertEquals(new DateTime(year, month, day, 0, 0, 0), calendarEvent.getStartDate());
     }
 
     private void assertDoubleEquals(double expected, double actual) {

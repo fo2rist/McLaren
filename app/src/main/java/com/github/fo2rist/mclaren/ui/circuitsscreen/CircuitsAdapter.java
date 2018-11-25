@@ -81,10 +81,10 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
         boolean isActiveNow = event.isActiveAt(DateTime.now());
 
         holder.imageCircuitMap.setSelected(isActiveNow);
-        holder.imageCircuitMap.setImageURI(getCircuitImageUriById(event.circuitId));
-        holder.imageCircuitMap.setContentDescription(event.trackName);
+        holder.imageCircuitMap.setImageURI(getCircuitImageUriById(event.getCircuitId()));
+        holder.imageCircuitMap.setContentDescription(event.getTrackName());
 
-        holder.textGrandPrixName.setText(event.grandPrixName);
+        holder.textGrandPrixName.setText(event.getGrandPrixName());
         holder.textDetails.setText(formatDetails(event));
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
@@ -106,9 +106,9 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     @NonNull
     private String formatDetails(CalendarEvent event) {
-        String start = dateFormatter.format(event.startDate.toDate());
-        String end = dateFormatter.format(event.endDate.toDate());
-        return context.getString(R.string.calendar_event_details_format, event.city, start, end);
+        String start = dateFormatter.format(event.getStartDate().toDate());
+        String end = dateFormatter.format(event.getEndDate().toDate());
+        return context.getString(R.string.calendar_event_details_format, event.getCity(), start, end);
     }
 
     private boolean needToAnimateItemAtPosition(int position) {

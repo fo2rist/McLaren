@@ -77,28 +77,31 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
         }
 
         ((ImageView) rootView.findViewById(R.id.circuit_image))
-                .setImageURI(getCircuitDetailedImageUriById(event.circuitId));
+                .setImageURI(getCircuitDetailedImageUriById(event.getCircuitId()));
         ((ImageView) rootView.findViewById(R.id.circuit_drs_image))
-                .setImageURI(getCircuitDrsImageUriById(event.circuitId));
+                .setImageURI(getCircuitDrsImageUriById(event.getCircuitId()));
         ((ImageView) rootView.findViewById(R.id.circuit_sectors_image))
-                .setImageURI(getCircuitSectorsImageUriById(event.circuitId));
+                .setImageURI(getCircuitSectorsImageUriById(event.getCircuitId()));
         ((ImageView) rootView.findViewById(R.id.circuit_turns_image))
-                .setImageURI(getCircuitTurnsImageUriById(event.circuitId));
+                .setImageURI(getCircuitTurnsImageUriById(event.getCircuitId()));
 
         TextView circuitTitleView = rootView.findViewById(R.id.circuit_title);
-        circuitTitleView.setText(event.grandPrixName);
+        circuitTitleView.setText(event.getGrandPrixName());
         circuitTitleView.setOnClickListener(this);
 
         TextView circuitDetailsView = rootView.findViewById(R.id.circuit_details);
-        circuitDetailsView.setText(getString(R.string.circuit_details_format, event.city, event.trackName));
+        circuitDetailsView.setText(getString(R.string.circuit_details_format, event.getCity(), event.getTrackName()));
 
         LinearLayout propertiesList = rootView.findViewById(R.id.properties_linearlayout);
 
-        addInformationLine(propertiesList, getString(R.string.circuit_details_laps), String.valueOf(event.laps));
-        addInformationLine(propertiesList, getString(R.string.circuit_details_length), getString(R.string.distance_km_format, event.length));
-        addInformationLine(propertiesList, getString(R.string.circuit_details_distance), getString(R.string.distance_km_format, event.distance));
-        addInformationLine(propertiesList, getString(R.string.circuit_details_seasons), event.seasons);
-        addInformationLine(propertiesList, getString(R.string.circuit_details_gp_held), String.valueOf(event.gpHeld));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_laps), String.valueOf(event.getLaps()));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_length), getString(R.string.distance_km_format,
+                event.getLength()));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_distance), getString(R.string.distance_km_format,
+                event.getDistance()));
+        addInformationLine(propertiesList, getString(R.string.circuit_details_seasons), event.getSeasons());
+        addInformationLine(propertiesList, getString(R.string.circuit_details_gp_held), String.valueOf(
+                event.getGpHeld()));
     }
 
     private void addInformationLine(LinearLayout propertiesList, String propertyName, String propertyValue) {
@@ -110,7 +113,7 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.circuit_title) {
-            IntentUtils.launchSafely(getContext(), IntentUtils.createBrowserIntent(event.wikiLink));
+            IntentUtils.launchSafely(getContext(), IntentUtils.createBrowserIntent(event.getWikiLink()));
         }
     }
 }
