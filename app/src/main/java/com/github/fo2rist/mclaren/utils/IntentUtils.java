@@ -23,21 +23,21 @@ public class IntentUtils {
     }
 
     @NonNull
-    private static Intent createBrowserIntent(Uri uri) {
+    private static Intent createBrowserIntent(@NonNull Uri uri) {
         return new Intent(Intent.ACTION_VIEW, uri);
     }
 
-    public static boolean openInBrowser(Context context, Uri uri) {
+    public static boolean openInBrowser(@NonNull Context context, @NonNull Uri uri) {
         Intent intent = createBrowserIntent(uri);
         return launchSafely(context, intent);
     }
 
-    public static boolean openInBrowser(Context context, String url) {
+    public static boolean openInBrowser(@NonNull Context context, @NonNull String url) {
         Intent intent = createBrowserIntent(url);
         return launchSafely(context, intent);
     }
 
-    public static boolean launchSafely(Context context, Intent intent) {
+    public static boolean launchSafely(@NonNull Context context, @NonNull Intent intent) {
         if (intent.resolveActivity(context.getPackageManager()) == null) {
             return false;
         }
@@ -45,7 +45,7 @@ public class IntentUtils {
         return true;
     }
 
-    public static Intent createAppIntent(Context context, String packageName) {
+    public static Intent createAppIntent(@NonNull Context context, @NonNull String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
             intent = createBrowserIntent(PLAY_STORE_URL + packageName);
@@ -53,7 +53,7 @@ public class IntentUtils {
         return intent;
     }
 
-    public static Intent createMcLarenAppIntent(Context context) {
+    public static Intent createMcLarenAppIntent(@NonNull Context context) {
         return createAppIntent(context, MCLAREN_APP_PACKAGE);
     }
 }
