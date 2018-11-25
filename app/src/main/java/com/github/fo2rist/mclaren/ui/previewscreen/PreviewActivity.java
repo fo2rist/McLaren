@@ -101,6 +101,7 @@ public class PreviewActivity extends AppCompatActivity implements HasSupportFrag
                 default:
                     //we don't use Preview for Messages and Video so far
                     previewFragment = null;
+                    break;
             }
         }
 
