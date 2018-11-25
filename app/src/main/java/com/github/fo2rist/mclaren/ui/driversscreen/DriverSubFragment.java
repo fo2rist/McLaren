@@ -56,10 +56,6 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         return fragment;
     }
 
-    public DriverSubFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -168,6 +164,8 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
             case R.id.heritage_link_button:
                 openLink(driver.getProperty(AdditionalProperty.HERITAGE_LINK));
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown view clicked. Id: " + sender.getId());
         }
     }
 

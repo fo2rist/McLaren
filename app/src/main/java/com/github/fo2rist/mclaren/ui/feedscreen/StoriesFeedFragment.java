@@ -9,8 +9,4 @@ public class StoriesFeedFragment extends BaseFeedFragment {
     public static StoriesFeedFragment newInstance() {
         return new StoriesFeedFragment();
     }
-
-    public StoriesFeedFragment() {
-        // Required empty public constructor
-    }
 }
