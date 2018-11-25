@@ -40,8 +40,12 @@ public class ImageGalleryAdapter extends PagerAdapter {
         return imageUris.size();
     }
 
+    @SuppressWarnings("CompareObjectsWithEquals")
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        // pager adapter uses objects returned by #instantiateItem() as keys
+        // as soon as the view itself returned it's OK to compare object links b/c we don't have real keys that
+        // can be compared by value. Ssee https://developer.android.com/reference/android/support/v4/view/PagerAdapter
         return view == object;
     }
 
