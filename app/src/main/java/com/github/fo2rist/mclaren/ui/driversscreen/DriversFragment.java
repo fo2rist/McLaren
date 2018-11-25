@@ -30,12 +30,7 @@ public class DriversFragment extends Fragment {
     private OnDriversFragmentInteractionListener listener;
 
     public static DriversFragment newInstance() {
-        DriversFragment fragment = new DriversFragment();
-        return fragment;
-    }
-
-    public DriversFragment() {
-        // Required empty public constructor
+        return new DriversFragment();
     }
 
     @Override

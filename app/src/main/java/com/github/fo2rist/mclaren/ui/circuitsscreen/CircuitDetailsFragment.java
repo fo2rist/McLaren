@@ -43,10 +43,6 @@ public class CircuitDetailsFragment extends Fragment implements View.OnClickList
         return fragment;
     }
 
-    public CircuitDetailsFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

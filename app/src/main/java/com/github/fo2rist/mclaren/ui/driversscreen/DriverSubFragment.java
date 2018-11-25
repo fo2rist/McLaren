@@ -56,10 +56,6 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         return fragment;
     }
 
-    public DriverSubFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
