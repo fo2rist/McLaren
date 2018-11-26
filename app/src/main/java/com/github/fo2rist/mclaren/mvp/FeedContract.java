@@ -11,10 +11,13 @@ public interface FeedContract {
      * Feed adapter interaction listener contract.
      */
     interface OnFeedInteractionListener {
+        /** Called when feed item itself is clicked. */
         void onItemClicked(@NonNull FeedItem item);
 
+        /** Called when item's source social network link clicked. */
         void onItemSourceClicked(@NonNull FeedItem item);
 
+        /** Called when http/mention/hashtag link in the text clicked. */
         void onLinkClicked(@NonNull FeedItem item, @NonNull String link);
     }
 

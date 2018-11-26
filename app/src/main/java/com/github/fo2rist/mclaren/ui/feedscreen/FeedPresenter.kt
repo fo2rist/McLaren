@@ -13,7 +13,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
-
+/**
+ * Presenter for social "Feed" view.
+ */
 class FeedPresenter @Inject constructor(
         private val feedRepository: FeedRepository,
         private val repositoryEventBus: FeedRepositoryEventBus,
