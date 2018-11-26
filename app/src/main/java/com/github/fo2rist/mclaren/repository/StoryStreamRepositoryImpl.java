@@ -23,7 +23,7 @@ import javax.inject.Singleton;
  * StoryStream supports caching headers and standard pagination.
  */
 @Singleton
-public class StoryStreamRepositoryImpl implements StoryStreamRepository {
+public class StoryStreamRepositoryImpl implements FeedRepository {
     private final FeedWebService webService;
     private final FeedRepositoryEventBus repositoryEventBus;
     private final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();

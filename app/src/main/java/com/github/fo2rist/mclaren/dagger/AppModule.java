@@ -11,11 +11,10 @@ import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.RepositoryEventBusImpl;
-import com.github.fo2rist.mclaren.repository.StoryStreamRepository;
 import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.TransmissionRepository;
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus;
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
@@ -54,74 +53,55 @@ public abstract class AppModule {
 
     //region global level providers
     @Binds
-    abstract Context application(McLarenApplication application);
-
-    @Provides
     @Singleton
-    static FeedRepository provideMcLarenRepository(McLarenFeedRepositoryImpl repository) {
-        return repository;
-    }
+    abstract Context applicationContext(McLarenApplication application);
 
-    @Provides
+    @Binds
+    @Named("mclaren-feed")
     @Singleton
-    static McLarenFeedWebService provideMcLarenFeedWebservice(McLarenWebServiceImpl webService) {
-        return webService;
-    }
+    abstract FeedRepository provideMcLarenRepository(McLarenFeedRepositoryImpl repository);
 
-
-    @Provides
+    @Binds
     @Singleton
-    static StoryStreamRepository provideStoryStreamRepository(StoryStreamRepositoryImpl repository) {
-        return repository;
-    }
+    abstract McLarenFeedWebService provideMcLarenFeedWebservice(McLarenWebServiceImpl webService);
 
-    @Provides
-    @Singleton
-    static StoryStreamWebService provideStoryStreamWebservice(StoryStreamWebServiceImpl webService) {
-        return webService;
-    }
 
-    @Provides
+    @Binds
+    @Named("storystream-feed")
     @Singleton
-    static FeedRepositoryEventBus provideFeedRepositoryEventBus(RepositoryEventBusImpl eventBus) {
-        return eventBus;
-    }
+    abstract FeedRepository provideStoryStreamRepository(StoryStreamRepositoryImpl repository);
 
-    @Provides
+    @Binds
     @Singleton
-    static FeedHistoryPredictor provideHistoryPredictor(McLarenFeedHistoryPredictor historyPredictor) {
-        return historyPredictor;
-    }
+    abstract StoryStreamWebService provideStoryStreamWebservice(StoryStreamWebServiceImpl webService);
 
-    @Provides
+    @Binds
     @Singleton
-    static TransmissionRepository provideTransmissionRepository(TransmissionRepositoryImpl repository) {
-        return repository;
-    }
+    abstract FeedRepositoryEventBus provideFeedRepositoryEventBus(RepositoryEventBusImpl eventBus);
 
-    @Provides
+    @Binds
     @Singleton
-    static TransmissionWebService provideTransmissionWebService(McLarenWebServiceImpl webService) {
-        return webService;
-    }
+    abstract FeedHistoryPredictor provideHistoryPredictor(McLarenFeedHistoryPredictor historyPredictor);
 
-    @Provides
+    @Binds
     @Singleton
-    static TransmissionRepositoryEventBus provideTransmissionRepositoryEventBus(RepositoryEventBusImpl eventBus) {
-        return eventBus;
-    }
+    abstract TransmissionRepository provideTransmissionRepository(TransmissionRepositoryImpl repository);
 
-    @Provides
+    @Binds
     @Singleton
-    static EventsLogger provideEventsLogger(EventsLoggerImpl logger) {
-        return logger;
-    }
+    abstract TransmissionWebService provideTransmissionWebService(McLarenWebServiceImpl webService);
 
-    @Provides
+    @Binds
     @Singleton
-    static RaceCalendarRepository provideCalendarEventsLoader(RaceCalendarRepositoryImpl calendarRepository) {
-        return calendarRepository;
-    }
+    abstract TransmissionRepositoryEventBus provideTransmissionRepositoryEventBus(RepositoryEventBusImpl eventBus);
+
+    @Binds
+    @Singleton
+    abstract EventsLogger provideEventsLogger(EventsLoggerImpl logger);
+
+    @Binds
+    @Singleton
+    abstract RaceCalendarRepository provideCalendarEventsLoader(RaceCalendarRepositoryImpl calendarRepository);
 
     @Provides
     @Named("web-okhttp")
