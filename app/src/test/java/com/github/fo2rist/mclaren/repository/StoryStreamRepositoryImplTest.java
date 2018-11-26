@@ -25,7 +25,7 @@ public class StoryStreamRepositoryImplTest {
 
     private StoryStreamWebService mockWebService;
     private FeedRepositoryEventBus mockEventBus;
-    private StoryStreamRepository repository;
+    private FeedRepository repository;
 
     @Before
     public void setUp() {
