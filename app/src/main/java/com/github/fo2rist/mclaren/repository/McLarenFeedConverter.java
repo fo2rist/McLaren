@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.repository;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -109,6 +110,7 @@ class McLarenFeedConverter {
         }
     }
 
+    @NonNull
     private static String fetchMediaLink(McLarenFeedItem mcLarenFeedItem) {
         String sourceTweetText = mcLarenFeedItem.tweetText;
         if (!TextUtils.isEmpty(sourceTweetText)) {

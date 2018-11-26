@@ -6,7 +6,7 @@ import java.util.*
 
 /**
  * Represent single item in the feed.
- * @constructor Creates instance but doesn't create deep copy of the [imageUrls], use [Companion.create] instead.
+ * @constructor Creates instance but doesn't create deep copy of the [imageUrls], use [Companion.invoke] instead.
  */
 data class FeedItem internal constructor(
         var id: Long,

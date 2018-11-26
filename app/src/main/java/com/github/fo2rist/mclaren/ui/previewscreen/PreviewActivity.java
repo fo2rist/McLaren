@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -40,13 +41,15 @@ public class PreviewActivity extends AppCompatActivity implements HasSupportFrag
     private ActionBar actionBar;
     private ImageView headerImage;
 
-    public static Intent createUrlIntent(Context context, String url) {
+    @NonNull
+    public static Intent createUrlIntent(@NonNull Context context, @NonNull String url) {
         Intent intent = new Intent(context, PreviewActivity.class);
         intent.putExtra(KEY_URL, url);
         return intent;
     }
 
-    public static Intent createFeedItemIntent(Context context, FeedItem item) {
+    @NonNull
+    public static Intent createFeedItemIntent(@NonNull Context context, @NonNull FeedItem item) {
         Intent intent = new Intent(context, PreviewActivity.class);
         intent.putExtra(KEY_FEED_ITEM, item);
         return intent;
