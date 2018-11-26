@@ -20,7 +20,6 @@ public class StoryStreamWebServiceImpl implements StoryStreamWebService {
             "Content-Type", "application/json; charset=utf-8"
     );
 
-    //WARN caching OkHTTP clients should not use the same directory or at lest should never call the same endpoint
     private final OkHttpClient client;
 
     @Inject

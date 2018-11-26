@@ -22,7 +22,6 @@ public class McLarenWebServiceImpl implements McLarenFeedWebService, Transmissio
             "Authorization",    BuildConfig.MCLAREN_CDN_AUTH
     );
 
-    //WARN caching OkHTTP clients should not use the same directory or at lest should never call the same endpoint
     private OkHttpClient client;
 
     @Inject
