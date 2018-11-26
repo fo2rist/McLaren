@@ -29,10 +29,10 @@ import javax.inject.Singleton;
 public class McLarenFeedRepositoryImpl implements FeedRepository {
     private static final int UNKNOWN_PAGE = -1;
 
-    final FeedWebService webService;
-    final FeedRepositoryEventBus repositoryEventBus;
-    final FeedHistoryPredictor historyPredictor;
-    final McLarenFeedResponseParser responseParser = new McLarenFeedResponseParser();
+    private final FeedWebService webService;
+    private final FeedRepositoryEventBus repositoryEventBus;
+    private final FeedHistoryPredictor historyPredictor;
+    private final McLarenFeedResponseParser responseParser = new McLarenFeedResponseParser();
 
     private TreeSet<FeedItem> feedItems = new TreeSet<>();
     private int lastLoadedPage = UNKNOWN_PAGE;

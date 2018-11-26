@@ -1,6 +1,8 @@
 package com.github.fo2rist.mclaren.ui.feedscreen;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +47,7 @@ public class BaseFeedFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         bindViews(rootView);
@@ -81,7 +83,7 @@ public class BaseFeedFragment
     }
 
     @Override
-    public void displayFeed(final List<FeedItem> feedItems) {
+    public void displayFeed(@NonNull final List<FeedItem> feedItems) {
         boolean hasNewerItems = feedAdapter.setItems(feedItems);
         if (hasNewerItems && firstItemIsVisible()) {
             feedRecyclerView.scrollToPosition(0);
@@ -106,17 +108,17 @@ public class BaseFeedFragment
     }
 
     @Override
-    public void navigateToBrowser(String link) {
+    public void navigateToBrowser(@NonNull String link) {
         openInBrowser(getContext(), link);
     }
 
     @Override
-    public void navigateToPreview(String link) {
+    public void navigateToPreview(@NonNull String link) {
         startActivity(PreviewActivity.createUrlIntent(getContext(), link));
     }
 
     @Override
-    public void navigateToPreview(FeedItem item) {
+    public void navigateToPreview(@NonNull FeedItem item) {
         startActivity(PreviewActivity.createFeedItemIntent(getContext(), item));
     }
 }

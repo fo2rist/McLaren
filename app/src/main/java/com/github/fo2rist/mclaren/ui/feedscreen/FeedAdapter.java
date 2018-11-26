@@ -394,7 +394,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     }
 
 
-    private void notifyLinkClicked(FeedItem item, String link) {
+    private void notifyLinkClicked(@NonNull FeedItem item, @NonNull String link) {
         OnFeedInteractionListener listener = interactionListenerReference.get();
         if (listener != null) {
             listener.onLinkClicked(item, link);

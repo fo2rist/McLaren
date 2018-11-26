@@ -8,9 +8,9 @@ import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTP;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTPS;
 
 public class LinkUtils {
-    public static final String INSTAGRAM_COM = "www.instagram.com";
     public static final String MCLAREN_COM = "www.mclaren.com";
-    public static final String TWITTER_COM = "twitter.com";
+    private static final String INSTAGRAM_COM = "www.instagram.com";
+    private static final String TWITTER_COM = "twitter.com";
 
     private static final String INSTAGRAM_BASE_PATH = HTTPS + INSTAGRAM_COM + "/";
     private static final String INSTAGRAM_HASHTAG_BASE_PATH = HTTPS + INSTAGRAM_COM + "/explore/tags/";
@@ -23,7 +23,7 @@ public class LinkUtils {
     /** Return embedded media link if possible, otherwise return fallback link to media source. */
     @Nullable
     public static String getMediaLink(FeedItem feedItem) {
-        if (feedItem.getEmbeddedMediaLink() == null || feedItem.getEmbeddedMediaLink().isEmpty()) {
+        if (feedItem.getEmbeddedMediaLink().isEmpty()) {
             return getFeedMentionLink(feedItem, feedItem.getSourceName());
         } else {
             return feedItem.getEmbeddedMediaLink();
