@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
@@ -29,6 +30,7 @@ public class SafeJsonParser<T> {
      * Parse json.
      * @return parsed object or empty instance of {@link T}
      */
+    @NonNull
     public T parse(@Nullable String data) {
         try {
             T result = gson.fromJson(data, classOfResult);

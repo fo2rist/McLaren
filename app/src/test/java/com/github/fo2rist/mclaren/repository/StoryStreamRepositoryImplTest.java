@@ -22,15 +22,17 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 21)
 public class StoryStreamRepositoryImplTest {
+    //TODO remove tests duplications with MCL Repo test. 2018.11.25
 
+    private FeedRepository repository;
     private StoryStreamWebService mockWebService;
     private FeedRepositoryEventBus mockEventBus;
-    private FeedRepository repository;
 
     @Before
     public void setUp() {
         mockWebService = mock(StoryStreamWebService.class);
         mockEventBus = mock(FeedRepositoryEventBus.class);
+
         repository = new StoryStreamRepositoryImpl(mockWebService, mockEventBus);
     }
 
@@ -51,7 +53,7 @@ public class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    public void test_onSuccess_firesLoadFinishEvents() {
+    public void test_onSuccess_firesLoadFinishSuccessfullyEvents() {
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -65,5 +67,22 @@ public class StoryStreamRepositoryImplTest {
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
         verify(mockEventBus).publish(any(LoadingEvent.FeedUpdateReady.class));
+    }
+
+    @Test
+    public void test_onFailure_firesLoadFinishWithErrorEvents() {
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                FeedRequestCallback callback = invocationOnMock.getArgument(0);
+                callback.onFailure(new URL("http://empty.url"), 0, 400, null);
+                return null;
+            }
+        }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
+
+        repository.loadLatest();
+
+        verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
+        verify(mockEventBus).publish(any(LoadingEvent.LoadingError.class));
     }
 }

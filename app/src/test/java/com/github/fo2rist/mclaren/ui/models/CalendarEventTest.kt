@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.ui.models
 
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import org.joda.time.DateTime
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
