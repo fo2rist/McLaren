@@ -10,12 +10,11 @@ import com.github.fo2rist.mclaren.ui.widgets.InformationLineView
 
 class DriversPage : Screen<DriversPage>() {
 
-    fun swipeLeftAndWait() {
-        viewPager.swipeLeft()
-        Thread.sleep(600) // typical swipe duration
-    }
-
     private val viewPager = KViewPager { withId(R.id.drivers_pager) }
+
+    fun swipeLeft() {
+        viewPager.swipeLeft()
+    }
 
     val driverNumber = KTextView {
         withParent { isDisplayed() }
