@@ -26,7 +26,8 @@ class StoryStreamConverter {
 
     private static final String HTTP = "http";
 
-    static List<FeedItem> convertFeed(StoryStream storyStreamFeed) {
+    @NonNull
+    static List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {
             result.add(convertFeedItem(storyStreamItem));

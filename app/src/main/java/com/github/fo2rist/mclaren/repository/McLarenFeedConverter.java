@@ -24,7 +24,8 @@ class McLarenFeedConverter {
     private McLarenFeedConverter() {
     }
 
-    static List<FeedItem> convertFeed(McLarenFeed mcLarenFeed) {
+    @NonNull
+    static List<FeedItem> convertFeed(@NonNull McLarenFeed mcLarenFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(mcLarenFeed.size());
         for (McLarenFeedItem mcLarenFeedItem : mcLarenFeed) {
             if (!mcLarenFeedItem.hidden) {

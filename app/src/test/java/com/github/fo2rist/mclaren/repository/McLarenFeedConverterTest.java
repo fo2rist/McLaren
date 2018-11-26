@@ -5,7 +5,8 @@ import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
-import com.github.fo2rist.mclaren.web.models.McLarenFeedResponseParser;
+import com.github.fo2rist.mclaren.web.SafeJsonParser;
+import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -20,7 +21,7 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 21)
 public class McLarenFeedConverterTest {
-    private McLarenFeedResponseParser parser = new McLarenFeedResponseParser();
+    private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     @Test
     public void testRealDataFilteredByHiddenFlag() throws Exception {

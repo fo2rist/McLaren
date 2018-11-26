@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.web.models;
 
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
+import com.github.fo2rist.mclaren.web.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem.Source;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem.Type;
 import org.joda.time.DateTime;
@@ -14,7 +15,7 @@ import static junit.framework.Assert.assertNull;
 
 @RunWith(JUnit4.class)
 public class McLarenFeedParserTest {
-    private McLarenFeedResponseParser parser = new McLarenFeedResponseParser();
+    private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     @Test
     public void testReadDataParsedWithoutErrors() throws Exception {

@@ -96,10 +96,10 @@ public class FeedPresenterTest {
 
         presenter.onItemClicked(FeedItems.VIDEO_ITEM);
 
-        verifyNavigatedToPreview(FeedItems.VIDEO_ITEM.getEmbeddedMediaLink());
+        verifyNavigatedToLinkPreview(FeedItems.VIDEO_ITEM.getEmbeddedMediaLink());
     }
 
-    private void verifyNavigatedToPreview(String link) {
+    private void verifyNavigatedToLinkPreview(String link) {
         verify(mockView).navigateToPreview(link);
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
@@ -110,7 +110,7 @@ public class FeedPresenterTest {
 
         presenter.onItemClicked(FeedItems.MCLAREN_ARTICLE_ITEM);
 
-        verifyNavigatedToPreview(FeedItems.MCLAREN_ARTICLE_ITEM);
+        verifyNavigatedToItemPreview(FeedItems.MCLAREN_ARTICLE_ITEM);
     }
 
     @Test
@@ -119,10 +119,10 @@ public class FeedPresenterTest {
 
         presenter.onItemClicked(FeedItems.INSTAGRAM_GALLERY_ITEM);
 
-        verifyNavigatedToPreview(FeedItems.INSTAGRAM_GALLERY_ITEM);
+        verifyNavigatedToItemPreview(FeedItems.INSTAGRAM_GALLERY_ITEM);
     }
 
-    private void verifyNavigatedToPreview(FeedItem feedItem) {
+    private void verifyNavigatedToItemPreview(FeedItem feedItem) {
         verify(mockView).navigateToPreview(feedItem);
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
@@ -133,7 +133,7 @@ public class FeedPresenterTest {
 
         presenter.onItemSourceClicked(FeedItems.INSTAGRAM_GALLERY_ITEM);
 
-        verifyNavigateToBrowser();
+        verifyNavigatedToBrowser();
     }
 
     @Test
@@ -143,10 +143,10 @@ public class FeedPresenterTest {
         presenter.onLinkClicked(FeedItems.INSTAGRAM_GALLERY_ITEM,
                 FeedItems.INSTAGRAM_GALLERY_ITEM.getEmbeddedMediaLink());
 
-        verifyNavigateToBrowser();
+        verifyNavigatedToBrowser();
     }
 
-    private void verifyNavigateToBrowser() {
+    private void verifyNavigatedToBrowser() {
         verify(mockView).navigateToBrowser(anyString());
         verify(mockEventsLogger).logViewEvent(any(Events.class), anyString());
     }
