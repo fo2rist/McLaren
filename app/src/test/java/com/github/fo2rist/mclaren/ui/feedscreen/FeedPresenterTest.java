@@ -30,7 +30,7 @@ public class FeedPresenterTest {
     private EventsLogger mockEventsLogger;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockView = mock(FeedContract.View.class);
         mockRepository = mock(FeedRepository.class);
         mockEventBus = mock(FeedRepositoryEventBus.class);
@@ -39,7 +39,7 @@ public class FeedPresenterTest {
     }
 
     @Test
-    public void test_onStart_loadFeed_and_subscribeOnEvents() throws Exception {
+    public void test_onStart_loadFeed_and_subscribeOnEvents() {
         presenter.onStart(mockView);
 
         verify(mockEventBus).subscribe(any());
@@ -47,7 +47,7 @@ public class FeedPresenterTest {
     }
 
     @Test
-    public void test_onStop_unsubscribeFromEvents() throws Exception {
+    public void test_onStop_unsubscribeFromEvents() {
         setUpPresenter();
 
         presenter.onStop();
@@ -64,7 +64,7 @@ public class FeedPresenterTest {
     }
 
     @Test
-    public void test_onFeedUpdateReceived_setFeedToView() throws Exception {
+    public void test_onFeedUpdateReceived_setFeedToView() {
         setUpPresenter();
 
         presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
@@ -73,7 +73,7 @@ public class FeedPresenterTest {
     }
 
     @Test
-    public void test_onLoadingStarted_showProgress() throws Exception {
+    public void test_onLoadingStarted_showProgress() {
         setUpPresenter();
 
         presenter.onLoadingStarted(new LoadingEvent.LoadingStarted());
@@ -82,7 +82,7 @@ public class FeedPresenterTest {
     }
 
     @Test
-    public void test_onLoadingFinished_hideProgress() throws Exception {
+    public void test_onLoadingFinished_hideProgress() {
         setUpPresenter();
 
         presenter.onLoadingFinished(new LoadingEvent.LoadingFinished());
@@ -96,7 +96,12 @@ public class FeedPresenterTest {
 
         presenter.onItemClicked(FeedItems.VIDEO_ITEM);
 
-        verifyNavigatedToPreview(FeedItems.MEDIA_LINK);
+        verifyNavigatedToPreview(FeedItems.VIDEO_ITEM.getEmbeddedMediaLink());
+    }
+
+    private void verifyNavigatedToPreview(String link) {
+        verify(mockView).navigateToPreview(link);
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -115,6 +120,11 @@ public class FeedPresenterTest {
         presenter.onItemClicked(FeedItems.INSTAGRAM_GALLERY_ITEM);
 
         verifyNavigatedToPreview(FeedItems.INSTAGRAM_GALLERY_ITEM);
+    }
+
+    private void verifyNavigatedToPreview(FeedItem feedItem) {
+        verify(mockView).navigateToPreview(feedItem);
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
     @Test
@@ -136,18 +146,35 @@ public class FeedPresenterTest {
         verifyNavigateToBrowser();
     }
 
-    private void verifyNavigatedToPreview(String link) {
-        verify(mockView).navigateToPreview(link);
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
-    }
-
-    private void verifyNavigatedToPreview(FeedItem feedItem) {
-        verify(mockView).navigateToPreview(feedItem);
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
-    }
-
     private void verifyNavigateToBrowser() {
         verify(mockView).navigateToBrowser(anyString());
         verify(mockEventsLogger).logViewEvent(any(Events.class), anyString());
+    }
+
+    @Test
+    public void test_onRefreshRequested_loadsFeed() {
+        setUpPresenter();
+
+        presenter.onRefreshRequested();
+
+        verify(mockRepository).loadLatest();
+    }
+
+    @Test
+    public void test_onScrolledToSecondThird_preFetchesHistory() {
+        setUpPresenter();
+
+        presenter.onScrolledToSecondThird();
+
+        verify(mockRepository).prepareForHistoryLoading();
+    }
+
+    @Test
+    public void test_onScrolledToBottom_loadsHistory() {
+        setUpPresenter();
+
+        presenter.onScrolledToBottom();
+
+        verify(mockRepository).loadNextHistory();
     }
 }
