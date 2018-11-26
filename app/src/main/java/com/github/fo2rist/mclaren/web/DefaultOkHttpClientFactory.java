@@ -17,6 +17,8 @@ public class DefaultOkHttpClientFactory {
      */
     static public synchronized OkHttpClient getInstance(Context context) {
         if (clientInstance == null) {
+            // WARN Two caching OkHTTP clients should not use the same directory
+            // or at lest should never call the same endpoint
             Cache cache = CacheUtils.createCache(context, "web", WEB_CACHE_SIZE);
             clientInstance = new OkHttpClient.Builder().cache(cache).build();
         }

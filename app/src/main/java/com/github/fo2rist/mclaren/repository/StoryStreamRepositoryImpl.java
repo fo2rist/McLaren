@@ -24,9 +24,9 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class StoryStreamRepositoryImpl implements StoryStreamRepository {
-    final FeedWebService webService;
-    final FeedRepositoryEventBus repositoryEventBus;
-    final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
+    private final FeedWebService webService;
+    private final FeedRepositoryEventBus repositoryEventBus;
+    private final StoryStreamResponseParser responseParser = new StoryStreamResponseParser();
 
     private TreeSet<FeedItem> feedItems = new TreeSet<>();
     private int lastLoadedPage = 1; //latest page st StoryStream is the same as Page=1
