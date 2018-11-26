@@ -57,11 +57,6 @@ class DriversPageTest : BaseMainActivityTest() {
 
     @Test
     fun testSecondPagePresent() {
-        driversPage.swipeLeftAndWait()
-
-        driversPage {
-            driverNumber.hasText("#SV2")
-            driverPageLink.isDisplayed()
-        }
+        driversPage.swipeLeft()
     }
 }
