@@ -80,7 +80,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation "com.android.support:appcompat-v7:$project.SUPPORT_VERSION"
     implementation "com.android.support:cardview-v7:$project.SUPPORT_VERSION"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -88,6 +87,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
     implementation "com.android.support:support-v4:$project.SUPPORT_VERSION"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     // zoom image view
     implementation 'com.github.chrisbanes:PhotoView:2.0.0' //2.2 conflicts with old support lib on manifest merge
 
