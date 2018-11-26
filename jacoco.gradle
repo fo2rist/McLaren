@@ -28,7 +28,7 @@ task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUni
     ]
 
     def javaClasses = fileTree(
-            dir: "$buildDir/intermediates/classes/debug",
+            dir: "$buildDir/intermediates/javac/debug",
             excludes: fileFilter
     )
     def kotlinClasses = fileTree(
