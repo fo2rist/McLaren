@@ -38,7 +38,7 @@ public class StoryStreamRepositoryImplTest {
 
     @Test
     public void test_loadLatest_startLoading_and_firesLoadStartEvent() {
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingStarted.class));
         verify(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
@@ -46,7 +46,7 @@ public class StoryStreamRepositoryImplTest {
 
     @Test
     public void test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
-        repository.loadNextHistory();
+        repository.loadNextPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingStarted.class));
         verify(mockWebService).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
@@ -63,7 +63,7 @@ public class StoryStreamRepositoryImplTest {
             }
         }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
 
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
         verify(mockEventBus).publish(any(LoadingEvent.FeedUpdateReady.class));
@@ -80,7 +80,7 @@ public class StoryStreamRepositoryImplTest {
             }
         }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
 
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
         verify(mockEventBus).publish(any(LoadingEvent.LoadingError.class));

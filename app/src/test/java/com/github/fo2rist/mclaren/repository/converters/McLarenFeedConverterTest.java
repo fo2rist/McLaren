@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository;
+package com.github.fo2rist.mclaren.repository.converters;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
@@ -25,14 +25,14 @@ public class McLarenFeedConverterTest {
 
     @Test
     public void testRealDataFilteredByHiddenFlag() throws Exception {
-        List<FeedItem> feed = McLarenFeedConverter.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
+        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         assertEquals(McLarenFeedResponse.VISIBLE_ITEMS_IN_FEED, feed.size());
     }
 
     @Test
     public void testLikExtractedFromTweetText() throws Exception {
-        List<FeedItem> feed = McLarenFeedConverter.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
+        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
 
         assertEquals(1, feed.size());
         assertEquals(McLarenFeedResponse.HIDDEN_LINK, feed.get(0).getEmbeddedMediaLink());
@@ -40,7 +40,7 @@ public class McLarenFeedConverterTest {
 
     @Test
     public void testSomeItemsParsing() throws Exception {
-        List<FeedItem> feed = McLarenFeedConverter.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
+        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         checkItemFields(feed.get(0),
                 22549,

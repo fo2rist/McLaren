@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.repository
 
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent
+import com.github.fo2rist.mclaren.repository.converters.FeedConverter
 import com.github.fo2rist.mclaren.web.FeedWebService
 import com.github.fo2rist.mclaren.web.SafeJsonParser
 import java.io.IOException
@@ -12,39 +13,40 @@ import java.util.*
  * Supplier of the news feed.
  */
 interface FeedRepository {
-    /** Request the latest entries from feed.  */
-    fun loadLatest()
-
     /** Warm up repository to load the next page from history.  */
     fun prepareForHistoryLoading()
 
     /** Requests the next portion of not loaded yet items in feed.  */
-    fun loadNextHistory()
+    fun loadNextPage()
+
+    /** Request the latest entries from feed.  */
+    fun loadLatestPage()
 }
 
 /**
  * Base implementation of news feed repo.
  * Takes care about storing feed, caching it and requesting feed from web-server.
+ * Descendants to implement [prepareForHistoryLoading], [loadNextPage] and [onPageLoaded]
+ * to support paging algorithm specific for particular repo.
  */
 abstract class BaseFeedRepository<T>(
     @JvmField
     protected val webService: FeedWebService,
+    @JvmField
+    protected val feedConverter: FeedConverter<T>,
     @JvmField
     protected val repositoryEventBus: FeedRepositoryEventBus,
     @JvmField
     protected val responseParser: SafeJsonParser<T>
 ): FeedRepository {
 
-    /** Convert raw data into the Feed model. */
-    protected abstract fun parse(data: String?): List<FeedItem>
-
     /** Save number of latest loaded page of the feed. */
-    protected abstract fun setLastLoadedPage(page: Int)
+    protected abstract fun onPageLoaded(page: Int)
 
     @JvmField
     protected var feedItems = TreeSet<FeedItem>()
 
-    override fun loadLatest() {
+    override fun loadLatestPage() {
         publishCachedFeed() // publish cached data to respond immediately and then load
         repositoryEventBus.publish(LoadingEvent.LoadingStarted())
         webService.requestLatestFeed(webResponseHandler)
@@ -69,7 +71,7 @@ abstract class BaseFeedRepository<T>(
 
         override fun onSuccess(url: URL, requestedPage: Int, responseCode: Int, data: String?) {
             if (requestedPage >= 0) {
-                setLastLoadedPage(requestedPage)
+                onPageLoaded(requestedPage)
             }
 
             val feedItems = parse(data)
@@ -82,8 +84,13 @@ abstract class BaseFeedRepository<T>(
         }
     }
 
+    /** Convert raw data into the Feed model. */
+    private fun parse(response: String?): List<FeedItem> {
+        val feedData = responseParser.parse(response)
+        return feedConverter.convertFeed(feedData)
+    }
 
-    protected fun addNewItems(itemsPortion: List<FeedItem>) {
+    private fun addNewItems(itemsPortion: List<FeedItem>) {
         feedItems.addAll(itemsPortion)
     }
 }

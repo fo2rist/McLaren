@@ -1,15 +1,11 @@
 package com.github.fo2rist.mclaren.repository;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
+import com.github.fo2rist.mclaren.repository.converters.McLarenFeedConverter;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
 import com.github.fo2rist.mclaren.web.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
-import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -26,8 +22,11 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
     private final FeedHistoryPredictor historyPredictor;
 
     @Inject
-    McLarenFeedRepositoryImpl(McLarenFeedWebService webService, FeedRepositoryEventBus repositoryEventBus, FeedHistoryPredictor historyPredictor) {
-        super(webService, repositoryEventBus, new SafeJsonParser<>(McLarenFeed.class));
+    McLarenFeedRepositoryImpl(
+            McLarenFeedWebService webService,
+            FeedRepositoryEventBus repositoryEventBus,
+            FeedHistoryPredictor historyPredictor) {
+        super(webService, McLarenFeedConverter.INSTANCE, repositoryEventBus, new SafeJsonParser<>(McLarenFeed.class));
         this.historyPredictor = historyPredictor;
     }
 
@@ -40,7 +39,7 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
     }
 
     @Override
-    public final void loadNextHistory() {
+    public final void loadNextPage() {
         if (!historyPredictor.isFirstHistoryPageKnown()) {
             historyPredictor.startPrediction();
             return;
@@ -56,15 +55,8 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
         webService.requestFeedPage(pageToLoad, getWebResponseHandler());
     }
 
-    @NonNull
     @Override
-    protected List<FeedItem> parse(@Nullable String response) {
-        McLarenFeed mcLarenFeed = responseParser.parse(response);
-        return McLarenFeedConverter.convertFeed(mcLarenFeed);
-    }
-
-    @Override
-    protected void setLastLoadedPage(int page) {
+    protected void onPageLoaded(int page) {
         lastLoadedPage = page;
     }
 }

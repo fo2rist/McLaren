@@ -43,7 +43,7 @@ public class McLarenFeedRepositoryImplTest {
 
     @Test
     public void test_loadLatest_startLoading_and_firesLoadStartEvent() {
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingStarted.class));
         verify(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
@@ -54,7 +54,7 @@ public class McLarenFeedRepositoryImplTest {
         when(mockHistoryPredictor.isFirstHistoryPageKnown()).thenReturn(false);
         when(mockHistoryPredictor.getFirstHistoryPage()).thenReturn(-1);
 
-        repository.loadNextHistory();
+        repository.loadNextPage();
 
         verify(mockHistoryPredictor).startPrediction();
         verify(mockWebService, never()).requestFeedPage(anyInt(), any(FeedRequestCallback.class));
@@ -65,7 +65,7 @@ public class McLarenFeedRepositoryImplTest {
         when(mockHistoryPredictor.isFirstHistoryPageKnown()).thenReturn(true);
         when(mockHistoryPredictor.getFirstHistoryPage()).thenReturn(1000);
 
-        repository.loadNextHistory();
+        repository.loadNextPage();
 
         verify(mockHistoryPredictor, never()).startPrediction();
         verify(mockHistoryPredictor).getFirstHistoryPage();
@@ -101,7 +101,7 @@ public class McLarenFeedRepositoryImplTest {
             }
         }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
 
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
         verify(mockEventBus).publish(any(LoadingEvent.FeedUpdateReady.class));
@@ -118,7 +118,7 @@ public class McLarenFeedRepositoryImplTest {
             }
         }).when(mockWebService).requestLatestFeed(any(FeedRequestCallback.class));
 
-        repository.loadLatest();
+        repository.loadLatestPage();
 
         verify(mockEventBus).publish(any(LoadingEvent.LoadingFinished.class));
         verify(mockEventBus).publish(any(LoadingEvent.LoadingError.class));

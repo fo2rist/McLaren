@@ -78,7 +78,7 @@ class FeedPresenter @Inject constructor(
     }
 
     private fun loadFeed() {
-        this.feedRepository.loadLatest()
+        this.feedRepository.loadLatestPage()
     }
 
     override fun onScrolledToSecondThird() {
@@ -86,7 +86,7 @@ class FeedPresenter @Inject constructor(
     }
 
     override fun onScrolledToBottom() {
-        this.feedRepository.loadNextHistory()
+        this.feedRepository.loadNextPage()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
