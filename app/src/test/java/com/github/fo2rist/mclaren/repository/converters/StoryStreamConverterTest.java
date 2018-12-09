@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository;
+package com.github.fo2rist.mclaren.repository.converters;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
@@ -39,7 +39,7 @@ public class StoryStreamConverterTest {
 
     @Test
     public void testBrokenLinkFixed() {
-        List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
@@ -51,7 +51,7 @@ public class StoryStreamConverterTest {
 
     @Test
     public void testImageWithoutSizeParsed() {
-        List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_NO_SIZE));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
@@ -63,7 +63,7 @@ public class StoryStreamConverterTest {
 
     @Test
     public void testImageWithSizeParsed() {
-        List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(SINGLE_ITEM_FEED_WITH_CORRECT_LINKS));
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(SINGLE_ITEM_FEED_WITH_CORRECT_LINKS));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
         assertEquals(1, imageUrls.size());
@@ -77,7 +77,7 @@ public class StoryStreamConverterTest {
 
     @Test
     public void testIdGeneratedAsTimestampEpoch() {
-        List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(REAL_FEED_RESPONSE));
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(REAL_FEED_RESPONSE));
         FeedItem feedItem = feed.get(1);
         
         assertEquals(DateTime.parse("2018-03-02T17:23:38Z").toDate(), feedItem.getDateTime());
@@ -86,7 +86,7 @@ public class StoryStreamConverterTest {
 
     @Test
     public void testFeedParsed() {
-        List<FeedItem> feed = StoryStreamConverter.convertFeed(parser.parse(REAL_FEED_RESPONSE));
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(REAL_FEED_RESPONSE));
 
         //check the length
         assertEquals(REAL_FEED_SIZE, feed.size());

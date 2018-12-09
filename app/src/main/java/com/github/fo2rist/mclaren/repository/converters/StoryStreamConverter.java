@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository;
+package com.github.fo2rist.mclaren.repository.converters;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,12 +22,19 @@ import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.FeedT
 import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.ImageData;
 import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.VideoData;
 
-class StoryStreamConverter {
+/**
+ * Converts StoryStream API feed web-model to app models.
+ */
+public final class StoryStreamConverter implements FeedConverter<StoryStream> {
+    private StoryStreamConverter() {
+    }
+
+    public static final StoryStreamConverter INSTANCE = new StoryStreamConverter();
 
     private static final String HTTP = "http";
 
     @NonNull
-    static List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
+    public List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {
             result.add(convertFeedItem(storyStreamItem));

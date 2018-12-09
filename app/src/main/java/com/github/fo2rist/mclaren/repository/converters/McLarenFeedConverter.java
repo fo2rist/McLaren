@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository;
+package com.github.fo2rist.mclaren.repository.converters;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -18,14 +18,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 /**
- * Converts web-models to plain app models.
+ * Converts McLaren Feed API web-models to app models.
  */
-class McLarenFeedConverter {
+public final class McLarenFeedConverter implements FeedConverter<McLarenFeed> {
     private McLarenFeedConverter() {
     }
 
+    public static final McLarenFeedConverter INSTANCE = new McLarenFeedConverter();
+
     @NonNull
-    static List<FeedItem> convertFeed(@NonNull McLarenFeed mcLarenFeed) {
+    public List<FeedItem> convertFeed(@NonNull McLarenFeed mcLarenFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(mcLarenFeed.size());
         for (McLarenFeedItem mcLarenFeedItem : mcLarenFeed) {
             if (!mcLarenFeedItem.hidden) {

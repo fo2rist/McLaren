@@ -43,7 +43,7 @@ public class FeedPresenterTest {
         presenter.onStart(mockView);
 
         verify(mockEventBus).subscribe(any());
-        verify(mockRepository).loadLatest();
+        verify(mockRepository).loadLatestPage();
     }
 
     @Test
@@ -157,7 +157,7 @@ public class FeedPresenterTest {
 
         presenter.onRefreshRequested();
 
-        verify(mockRepository).loadLatest();
+        verify(mockRepository).loadLatestPage();
     }
 
     @Test
@@ -175,6 +175,6 @@ public class FeedPresenterTest {
 
         presenter.onScrolledToBottom();
 
-        verify(mockRepository).loadNextHistory();
+        verify(mockRepository).loadNextPage();
     }
 }
