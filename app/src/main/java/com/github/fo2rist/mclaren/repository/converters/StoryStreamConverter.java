@@ -26,14 +26,16 @@ import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.Video
  * Converts StoryStream API feed web-model to app models.
  */
 public final class StoryStreamConverter implements FeedConverter<StoryStream> {
-    private StoryStreamConverter() {
-    }
 
     public static final StoryStreamConverter INSTANCE = new StoryStreamConverter();
 
     private static final String HTTP = "http";
 
+    private StoryStreamConverter() {
+    }
+
     @NonNull
+    @Override
     public List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {

@@ -74,9 +74,9 @@ abstract class BaseFeedRepository<T>(
                 onPageLoaded(requestedPage)
             }
 
-            val feedItems = parse(data)
-            if (!feedItems.isEmpty()) {
-                addNewItems(feedItems)
+            val pageItems = parse(data)
+            if (!pageItems.isEmpty()) {
+                feedItems.addAll(pageItems)
 
                 repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(getFeedItemsAsList()))
             }
@@ -84,13 +84,9 @@ abstract class BaseFeedRepository<T>(
         }
     }
 
-    /** Convert raw data into the Feed model. */
     private fun parse(response: String?): List<FeedItem> {
         val feedData = responseParser.parse(response)
         return feedConverter.convertFeed(feedData)
     }
 
-    private fun addNewItems(itemsPortion: List<FeedItem>) {
-        feedItems.addAll(itemsPortion)
-    }
 }

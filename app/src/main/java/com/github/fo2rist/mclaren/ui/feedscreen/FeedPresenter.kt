@@ -26,13 +26,13 @@ class FeedPresenter @Inject constructor(
 
     override fun onStart(view: FeedContract.View) {
         this.view = view
-        this.repositoryEventBus.subscribe(this)
+        repositoryEventBus.subscribe(this)
 
-        loadFeed()
+        feedRepository.loadLatestPage()
     }
 
     override fun onStop() {
-        this.repositoryEventBus.unsubscribe(this)
+        repositoryEventBus.unsubscribe(this)
     }
 
     override fun onItemClicked(item: FeedItem) {
@@ -74,31 +74,30 @@ class FeedPresenter @Inject constructor(
     }
 
     override fun onRefreshRequested() {
-        loadFeed()
-    }
-
-    private fun loadFeed() {
-        this.feedRepository.loadLatestPage()
+        feedRepository.loadLatestPage()
     }
 
     override fun onScrolledToSecondThird() {
-        this.feedRepository.prepareForHistoryLoading()
+        feedRepository.prepareForHistoryLoading()
     }
 
     override fun onScrolledToBottom() {
-        this.feedRepository.loadNextPage()
+        feedRepository.loadNextPage()
     }
 
+    /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadingStarted(event: LoadingEvent.LoadingStarted) {
         view.showProgress()
     }
 
+    /** EventBus message receiver for data update event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFeedUpdateReceived(event: LoadingEvent.FeedUpdateReady) {
         view.displayFeed(event.feed)
     }
 
+    /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadingFinished(event: LoadingEvent.LoadingFinished) {
         view.hideProgress()
