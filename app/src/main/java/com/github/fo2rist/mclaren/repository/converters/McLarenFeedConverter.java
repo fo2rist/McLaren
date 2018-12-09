@@ -21,12 +21,14 @@ import java.util.regex.Matcher;
  * Converts McLaren Feed API web-models to app models.
  */
 public final class McLarenFeedConverter implements FeedConverter<McLarenFeed> {
-    private McLarenFeedConverter() {
-    }
 
     public static final McLarenFeedConverter INSTANCE = new McLarenFeedConverter();
 
+    private McLarenFeedConverter() {
+    }
+
     @NonNull
+    @Override
     public List<FeedItem> convertFeed(@NonNull McLarenFeed mcLarenFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(mcLarenFeed.size());
         for (McLarenFeedItem mcLarenFeedItem : mcLarenFeed) {
