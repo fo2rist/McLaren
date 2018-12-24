@@ -5,8 +5,9 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.Load
 import com.github.fo2rist.mclaren.web.SafeJsonParser
 import com.github.fo2rist.mclaren.web.TransmissionWebService
 import com.github.fo2rist.mclaren.web.models.Transmission
-import java.io.IOException
-import java.net.URL
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,28 +16,9 @@ class TransmissionRepositoryImpl @Inject constructor(
         private val webService: TransmissionWebService,
         private val eventBus: TransmissionRepositoryEventBus
 ) : TransmissionRepository {
+    private val mainScope = CoroutineScope(Main)
 
     private var transmissionData: TransmissionInfo? = null
-
-    private val webResponseHandler = object : TransmissionWebService.TransmissionRequestCallback {
-        override fun onSuccess(url: URL, responseCode: Int, data: String?) {
-            val transmission = parse(data)
-
-            cache(transmission)
-            eventBus.publish(LoadingEvent.TransmissionUpdateReady(transmission))
-            eventBus.publish(LoadingEvent.LoadingFinished)
-        }
-
-        override fun onFailure(url: URL, responseCode: Int, connectionError: IOException?) {
-            eventBus.publish(LoadingEvent.LoadingError)
-            eventBus.publish(LoadingEvent.LoadingFinished)
-        }
-    }
-
-    private fun parse(data: String?): TransmissionInfo {
-        val parsedWebResponse = SafeJsonParser<Transmission>(Transmission::class.java).parse(data)
-        return TransmissionConverter.convert(parsedWebResponse)
-    }
 
     override fun loadTransmission() {
         publishCachedData()
@@ -44,8 +26,18 @@ class TransmissionRepositoryImpl @Inject constructor(
     }
 
     override fun refreshTransmission() {
-        eventBus.publish(LoadingEvent.LoadingStarted)
-        webService.requestTransmission(webResponseHandler)
+        mainScope.launch {
+            eventBus.publish(LoadingEvent.LoadingStarted)
+            try {
+                val transmission = webService.requestTransmission().parse()
+
+                cache(transmission)
+                eventBus.publish(LoadingEvent.TransmissionUpdateReady(transmission))
+            } catch (exc: Exception) {
+                eventBus.publish(LoadingEvent.LoadingError)
+            }
+            eventBus.publish(LoadingEvent.LoadingFinished)
+        }
     }
 
     private fun cache(transmission: TransmissionInfo) {
@@ -59,4 +51,10 @@ class TransmissionRepositoryImpl @Inject constructor(
             eventBus.publish(LoadingEvent.TransmissionUpdateReady(cachedData))
         }
     }
+}
+
+/* Takes raw transmission response as string and parses it. */
+private fun String?.parse(): TransmissionInfo {
+    val parsedWebResponse = SafeJsonParser<Transmission>(Transmission::class.java).parse(this)
+    return TransmissionConverter.convert(parsedWebResponse)
 }

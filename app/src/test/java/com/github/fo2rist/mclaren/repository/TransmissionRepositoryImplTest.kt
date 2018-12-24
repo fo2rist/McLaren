@@ -2,22 +2,20 @@ package com.github.fo2rist.mclaren.repository
 
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
-import com.github.fo2rist.mclaren.utils.custommatchers.anyKotlinObject
 import com.github.fo2rist.mclaren.web.TransmissionWebService
-import com.github.fo2rist.mclaren.web.TransmissionWebService.TransmissionRequestCallback
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import java.net.URL
+import org.robolectric.RobolectricTestRunner
 
-@RunWith(JUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 class TransmissionRepositoryImplTest {
     private lateinit var repository: TransmissionRepository
     private lateinit var mockWebService: TransmissionWebService
@@ -31,10 +29,10 @@ class TransmissionRepositoryImplTest {
     }
 
     @Test
-    fun test_loadRepository_callsWebService_and_firesLoadStartedEvent() {
+    fun test_loadRepository_callsWebService_and_firesLoadStartedEvent() = runBlocking {
         repository.loadTransmission()
 
-        verify(mockWebService).requestTransmission(anyKotlinObject())
+        verify(mockWebService).requestTransmission()
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
     }
 
@@ -47,7 +45,7 @@ class TransmissionRepositoryImplTest {
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
         verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
         //The last event is matched by the parent class so we count two previous calls
-        verify(mockEventBus, times(3)).publish(anyKotlinObject<LoadingEvent.TransmissionUpdateReady>())
+        verify(mockEventBus).publish(any<LoadingEvent.TransmissionUpdateReady>())
     }
 
     @Test
@@ -62,17 +60,11 @@ class TransmissionRepositoryImplTest {
         repository.loadTransmission()
 
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
-        verify(mockEventBus, times(2)).publish(anyKotlinObject<LoadingEvent.TransmissionUpdateReady>())
+        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
+        verify(mockEventBus, times(2)).publish(any<LoadingEvent.TransmissionUpdateReady>())
     }
 
-    private fun prepareRealWebResponse() {
-        doAnswer {
-            val callback: TransmissionRequestCallback = it.getArgument(0)
-            callback.onSuccess(URL("http://dummy.url"), 200, REAL_TRANSMISSION_RESPONSE)
-        }.`when`(mockWebService).requestTransmission(anyKotlinObject())
-    }
-
-    private fun resetWebResponse() {
-        `when`(mockWebService.requestTransmission(anyKotlinObject())).thenReturn(Unit)
+    private fun prepareRealWebResponse()= runBlocking {
+        whenever(mockWebService.requestTransmission()).thenReturn(REAL_TRANSMISSION_RESPONSE)
     }
 }

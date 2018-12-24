@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.web.utils.OkHttpCallbackWrapper;
@@ -43,9 +44,10 @@ public interface FeedWebService {
      */
     class FeedCallbackWrapper extends OkHttpCallbackWrapper {
         private int pageNumber;
+        @NonNull
         private FeedRequestCallback callback;
 
-        FeedCallbackWrapper(int pageNumber, FeedRequestCallback callback) {
+        FeedCallbackWrapper(int pageNumber, @NonNull FeedRequestCallback callback) {
             this.pageNumber = pageNumber;
             this.callback = callback;
         }
@@ -64,8 +66,8 @@ public interface FeedWebService {
     int DEFAULT_PAGE = -1;
 
     /** Request latest posts. */
-    void requestLatestFeed(FeedRequestCallback callback);
+    void requestLatestFeed(@NonNull FeedRequestCallback callback);
 
     /** Request specific page from history, which may be latest. */
-    void requestFeedPage(int pageNumber, FeedRequestCallback callback);
+    void requestFeedPage(int pageNumber, @NonNull FeedRequestCallback callback);
 }

@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.web;
 
+import android.support.annotation.NonNull;
+
 import com.github.fo2rist.mclaren.BuildConfig;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,7 +14,8 @@ import okhttp3.Request;
 @Singleton
 public class StoryStreamWebServiceImpl implements StoryStreamWebService {
 
-    private static final String FEED_URL = BuildConfig.STORYSTREAM_FEED_URL;
+    @NonNull
+    private static final HttpUrl FEED_URL = HttpUrl.parse(BuildConfig.STORYSTREAM_FEED_URL);
     private static final String ACCESS_TOKEN = BuildConfig.STORYSTREAM_TOKEN;
     private static final int STORIES_PER_PAGE = 20;
     private static final boolean INCLUDE_ALL_MEDIA = true;
@@ -28,13 +31,13 @@ public class StoryStreamWebServiceImpl implements StoryStreamWebService {
     }
 
     @Override
-    public void requestLatestFeed(FeedRequestCallback callback) {
+    public void requestLatestFeed(@NonNull FeedRequestCallback callback) {
         client.newCall(createLatestFeedRequest())
                 .enqueue(new FeedCallbackWrapper(FeedWebService.DEFAULT_PAGE, callback));
     }
 
     @Override
-    public void requestFeedPage(int pageNumber, FeedRequestCallback callback) {
+    public void requestFeedPage(int pageNumber, @NonNull FeedRequestCallback callback) {
         client.newCall(createFeedPageRequest(pageNumber))
                 .enqueue(new FeedCallbackWrapper(pageNumber, callback));
     }
@@ -44,7 +47,7 @@ public class StoryStreamWebServiceImpl implements StoryStreamWebService {
     }
 
     private Request createFeedPageRequest(int pageNumber) {
-        HttpUrl url = HttpUrl.parse(FEED_URL)
+        HttpUrl url = FEED_URL
                 .newBuilder()
                 .addQueryParameter("access_token", ACCESS_TOKEN)
                 .addQueryParameter("page", String.valueOf(pageNumber))
