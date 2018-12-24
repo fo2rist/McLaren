@@ -17,9 +17,8 @@ internal constructor(
     private val client: OkHttpClient
 ) : McLarenFeedWebService, TransmissionWebService {
 
-    override fun requestLatestFeed(callback: FeedWebService.FeedRequestCallback) {
-        client.newCall(createLatestFeedRequest())
-                .enqueue(FeedWebService.FeedCallbackWrapper(FeedWebService.DEFAULT_PAGE, callback))
+    override suspend fun requestLatestFeed(): String? {
+        return client.newCall(createLatestFeedRequest()).executeAsync()
     }
 
     override fun requestFeedPage(pageNumber: Int, callback: FeedWebService.FeedRequestCallback) {

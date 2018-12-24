@@ -13,8 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 class TransmissionRepositoryImpl @Inject constructor(
-        private val webService: TransmissionWebService,
-        private val eventBus: TransmissionRepositoryEventBus
+    private val webService: TransmissionWebService,
+    private val eventBus: TransmissionRepositoryEventBus
 ) : TransmissionRepository {
     private val mainScope = CoroutineScope(Main)
 

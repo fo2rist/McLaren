@@ -48,10 +48,11 @@ class McLarenWebServiceImplTest {
     }
 
     @Test
-    fun test_requestLatestFeed_callsWebClient() {
-        webservice.requestLatestFeed(mock(FeedRequestCallback::class.java))
+    fun test_requestLatestFeed_callsWebClient() = runBlocking {
+        webservice.requestLatestFeed()
 
         verify(httpClientMock).newCall(any())
+        Unit
     }
 
     @Test

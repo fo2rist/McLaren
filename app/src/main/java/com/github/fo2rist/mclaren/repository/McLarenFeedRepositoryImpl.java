@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.repository.converters.McLarenFeedConverter;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
@@ -51,7 +50,7 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
         } else {
             pageToLoad = lastLoadedPage - 1;
         }
-        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
+        publishLoadingStarted();
         webService.requestFeedPage(pageToLoad, getWebResponseHandler());
     }
 

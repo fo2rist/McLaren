@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.repository.converters.StoryStreamConverter;
 import com.github.fo2rist.mclaren.web.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
@@ -31,7 +30,7 @@ public class StoryStreamRepositoryImpl extends BaseFeedRepository<StoryStream> {
     @Override
     public final void loadNextPage() {
         int pageToLoad = lastLoadedPage + 1;
-        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
+        publishLoadingStarted();
         webService.requestFeedPage(pageToLoad, getWebResponseHandler());
     }
 

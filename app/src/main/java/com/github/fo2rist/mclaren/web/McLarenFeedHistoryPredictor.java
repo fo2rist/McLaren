@@ -7,6 +7,7 @@ import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback;
 import java.io.IOException;
 import java.net.URL;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -104,13 +105,13 @@ public class McLarenFeedHistoryPredictor implements FeedHistoryPredictor, FeedRe
     }
 
     @Override
-    public void onSuccess(URL url, int requestedPage, int responseCode, @Nullable String data) {
+    public void onSuccess(@NotNull URL url, int requestedPage, int responseCode, @Nullable String data) {
         recordHit(requestedPage);
         analyzeUpdatedState();
     }
 
     @Override
-    public void onFailure(URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
+    public void onFailure(@NotNull URL url, int requestedPage, int responseCode, @Nullable IOException connectionError) {
         if (connectionError != null || responseCode >= 500) {
             //give up on precessing if server gives not valuable response
             setActive(false);
