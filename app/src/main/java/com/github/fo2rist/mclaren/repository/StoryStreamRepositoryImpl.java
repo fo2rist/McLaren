@@ -13,7 +13,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class StoryStreamRepositoryImpl extends BaseFeedRepository<StoryStream> {
-    private int lastLoadedPage = 1; //latest page's number StoryStream is 1, no prameter request and Page=1 are equals
+    private int lastLoadedPage = 1; //latest page's number StoryStream is 1, no parameter request and Page=1 are equals
 
     @Inject
     StoryStreamRepositoryImpl(
@@ -28,10 +28,8 @@ public class StoryStreamRepositoryImpl extends BaseFeedRepository<StoryStream> {
     }
 
     @Override
-    public final void loadNextPage() {
-        int pageToLoad = lastLoadedPage + 1;
-        publishLoadingStarted();
-        webService.requestFeedPage(pageToLoad, getWebResponseHandler());
+    protected int getNextPageNumber() {
+        return lastLoadedPage + 1;
     }
 
     @Override

@@ -31,7 +31,7 @@ interface FeedRepository {
 /**
  * Base implementation of news feed repo.
  * Takes care about storing feed, caching it and requesting feed from web-server.
- * Descendants to implement [prepareForHistoryLoading], [loadNextPage] and [onPageLoaded]
+ * Descendants to implement [prepareForHistoryLoading], [getNextPageNumber] and [onPageLoaded]
  * to support paging algorithm specific for particular repo.
  */
 abstract class BaseFeedRepository<T>(
@@ -45,10 +45,24 @@ abstract class BaseFeedRepository<T>(
     protected val responseParser: SafeJsonParser<T>
 ): FeedRepository {
 
+    companion object {
+        protected const val UNKNOWN_PAGE = -1
+    }
+
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    /** Save number of latest loaded page of the feed. */
+    /**
+     * Save number of latest loaded page of the feed.
+     * Will be called once loading of given page is done.
+     */
     protected abstract fun onPageLoaded(page: Int)
+
+    /**
+     * Get number of the next page in history.
+     * Will be called before every new page request.
+     * @return next page number or [UNKNOWN_PAGE] if next page is unknown and should not be loaded.
+     */
+    protected abstract fun getNextPageNumber(): Int
 
     @JvmField
     protected var feedItems = TreeSet<FeedItem>()
@@ -68,17 +82,17 @@ abstract class BaseFeedRepository<T>(
         }
     }
 
-    protected fun publishLoadingStarted() {
-        repositoryEventBus.publish(LoadingEvent.LoadingStarted())
-    }
-
-    private fun publishCachedFeed() {
-        if (!feedItems.isEmpty()) {
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
+    override fun loadNextPage() {
+        val pageToLoad = getNextPageNumber()
+        if (pageToLoad == UNKNOWN_PAGE) {
+            return
         }
+
+        publishLoadingStarted()
+        webService.requestFeedPage(pageToLoad, webResponseHandler)
     }
 
-    protected val webResponseHandler: FeedWebService.FeedRequestCallback = object : FeedWebService.FeedRequestCallback {
+    private val webResponseHandler: FeedWebService.FeedRequestCallback = object : FeedWebService.FeedRequestCallback {
 
         override fun onFailure(@NotNull url: URL, requestedPage: Int, responseCode: Int, connectionError: IOException?) {
             publishLoadingFailure()
@@ -88,6 +102,16 @@ abstract class BaseFeedRepository<T>(
         override fun onSuccess(@NotNull url: URL, requestedPage: Int, responseCode: Int, data: String?) {
             updateDataAndPublishLoadingSuccess(requestedPage, data)
             publishLoadingFinished()
+        }
+    }
+
+    private fun publishLoadingStarted() {
+        repositoryEventBus.publish(LoadingEvent.LoadingStarted())
+    }
+
+    private fun publishCachedFeed() {
+        if (!feedItems.isEmpty()) {
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
         }
     }
 

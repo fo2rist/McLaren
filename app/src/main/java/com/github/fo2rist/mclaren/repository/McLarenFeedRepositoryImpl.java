@@ -16,7 +16,6 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
-    private static final int UNKNOWN_PAGE = -1;
     private int lastLoadedPage = UNKNOWN_PAGE;
     private final FeedHistoryPredictor historyPredictor;
 
@@ -38,20 +37,15 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
     }
 
     @Override
-    public final void loadNextPage() {
+    protected int getNextPageNumber() {
         if (!historyPredictor.isFirstHistoryPageKnown()) {
             historyPredictor.startPrediction();
-            return;
-        }
-
-        int pageToLoad;
-        if (lastLoadedPage == UNKNOWN_PAGE) {
-            pageToLoad = historyPredictor.getFirstHistoryPage();
+            return UNKNOWN_PAGE;
+        } else if (lastLoadedPage == UNKNOWN_PAGE) {
+            return historyPredictor.getFirstHistoryPage();
         } else {
-            pageToLoad = lastLoadedPage - 1;
+            return lastLoadedPage - 1;
         }
-        publishLoadingStarted();
-        webService.requestFeedPage(pageToLoad, getWebResponseHandler());
     }
 
     @Override
