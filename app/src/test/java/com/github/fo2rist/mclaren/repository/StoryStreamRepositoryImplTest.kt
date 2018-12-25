@@ -35,14 +35,6 @@ class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
-        repository.loadLatestPage()
-
-        verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
-        verify(mockWebService).requestLatestFeed()
-    }
-
-    @Test
     fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
         repository.loadNextPage()
 
@@ -66,7 +58,6 @@ class StoryStreamRepositoryImplTest {
         whenever(mockWebService.requestLatestFeed()).thenThrow(BadResponse(URL("http://empty.url"), 400))
 
         repository.loadLatestPage()
-
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockEventBus).publish(any<LoadingEvent.LoadingError>())
