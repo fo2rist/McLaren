@@ -12,39 +12,41 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.Mockito.mock
+import org.mockito.Mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.net.URL
 
 //TODO remove tests duplications with StoryStream Repo test. 2018.11.25
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = intArrayOf(21))
+@Config(sdk = [21])
 class McLarenFeedRepositoryImplTest {
 
-    private lateinit var repository: McLarenFeedRepositoryImpl
+    @Mock
     private lateinit var mockWebService: McLarenFeedWebService
+    @Mock
     private lateinit var mockEventBus: FeedRepositoryEventBus
+    @Mock
     private lateinit var mockHistoryPredictor: FeedHistoryPredictor
+
+    private lateinit var repository: McLarenFeedRepositoryImpl
 
     @Before
     fun setUp() {
-        mockWebService = mock(McLarenFeedWebService::class.java)
-        mockEventBus = mock(FeedRepositoryEventBus::class.java)
-        mockHistoryPredictor = mock(FeedHistoryPredictor::class.java)
+        MockitoAnnotations.initMocks(this)
 
         repository = McLarenFeedRepositoryImpl(mockWebService, mockEventBus, mockHistoryPredictor)
     }
 
     @Test
-    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking {
+    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
         repository.loadLatestPage()
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockWebService).requestLatestFeed()
-        Unit
     }
 
     @Test

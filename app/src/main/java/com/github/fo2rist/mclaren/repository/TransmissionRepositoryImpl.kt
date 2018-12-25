@@ -8,6 +8,7 @@ import com.github.fo2rist.mclaren.web.models.Transmission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,7 +34,7 @@ class TransmissionRepositoryImpl @Inject constructor(
 
                 cache(transmission)
                 eventBus.publish(LoadingEvent.TransmissionUpdateReady(transmission))
-            } catch (exc: Exception) {
+            } catch (exc: IOException) {
                 eventBus.publish(LoadingEvent.LoadingError)
             }
             eventBus.publish(LoadingEvent.LoadingFinished)

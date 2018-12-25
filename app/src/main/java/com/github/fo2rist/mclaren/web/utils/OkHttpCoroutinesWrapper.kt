@@ -36,6 +36,7 @@ suspend fun Call.executeAsync(): String? {
             }
         })
 
+        @Suppress("Detekt.TooGenericExceptionCaught")
         continuation.invokeOnCancellation {
             try {
                 cancel()
@@ -47,9 +48,9 @@ suspend fun Call.executeAsync(): String? {
 }
 
 /**
- *
+ * Indicates that 4xx-5xx response is received from the server.
  */
 class BadResponse(
     val url: URL,
     val responseCode: Int
-): Exception()
+) : IOException()

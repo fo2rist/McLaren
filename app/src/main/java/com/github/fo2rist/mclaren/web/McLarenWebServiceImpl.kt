@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.web
 
+import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
 import com.github.fo2rist.mclaren.web.utils.executeAsync
 import okhttp3.Headers
@@ -10,9 +11,12 @@ import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
+/**
+ * Service that provides access to McLaren own APIs.
+ * See [McLarenFeedWebService] & [TransmissionWebService]
+ */
 @Singleton
-class McLarenWebServiceImpl @Inject
-internal constructor(
+internal class McLarenWebServiceImpl @Inject internal constructor(
     @param:Named("web-okhttp")
     private val client: OkHttpClient
 ) : McLarenFeedWebService, TransmissionWebService {
@@ -28,7 +32,8 @@ internal constructor(
 
     private fun createLatestFeedRequest(): Request = createFeedPageRequest(null)
 
-    private fun createFeedPageRequest(pageNumber: Int? = null): Request {
+    @VisibleForTesting
+    fun createFeedPageRequest(pageNumber: Int? = null): Request {
 
         val urlBuilder = FEED_URL.newBuilder()
 
@@ -55,9 +60,9 @@ internal constructor(
 
     companion object {
 
-        private val FEED_URL = HttpUrl.parse(BuildConfig.MCLAREN_FEED_URL)!!
-        private val MCLAREN_RACE_INFO_URL = HttpUrl.parse(BuildConfig.MCLAREN_RACE_INFO_URL)!!
-        private val MCLAREN_RACE_LIFE_DATA_URL = HttpUrl.parse(BuildConfig.MCLAREN_RACE_LIFE_DATA_URL)!!
+        private val FEED_URL = HttpUrl.get(BuildConfig.MCLAREN_FEED_URL)
+        private val MCLAREN_RACE_INFO_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_INFO_URL)
+        private val MCLAREN_RACE_LIFE_DATA_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_LIFE_DATA_URL)
         private val DEFAULT_HEADERS = Headers.of(
                 "Content-Type", "application/json; charset=utf-8",
                 "Authorization", BuildConfig.MCLAREN_CDN_AUTH

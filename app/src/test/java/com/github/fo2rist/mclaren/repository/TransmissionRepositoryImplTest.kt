@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.repository
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.web.TransmissionWebService
+import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
@@ -14,6 +15,7 @@ import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
+import java.net.URL
 
 @RunWith(RobolectricTestRunner::class)
 class TransmissionRepositoryImplTest {
@@ -37,15 +39,14 @@ class TransmissionRepositoryImplTest {
     }
 
     @Test
-    fun test_onSuccess_firesLoadFinishEvents() {
+    fun test_refresh_onSuccess_firesLoadFinishEvents() {
         prepareRealWebResponse()
 
-        repository.loadTransmission()
+        repository.refreshTransmission()
 
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
-        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
-        //The last event is matched by the parent class so we count two previous calls
         verify(mockEventBus).publish(any<LoadingEvent.TransmissionUpdateReady>())
+        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
     }
 
     @Test
@@ -54,17 +55,31 @@ class TransmissionRepositoryImplTest {
         prepareRealWebResponse()
         repository.loadTransmission()
         reset(mockEventBus)
-        reset(mockWebService)
 
         //load when cache is non empty
         repository.loadTransmission()
 
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
-        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
         verify(mockEventBus, times(2)).publish(any<LoadingEvent.TransmissionUpdateReady>())
+        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
     }
 
     private fun prepareRealWebResponse()= runBlocking {
         whenever(mockWebService.requestTransmission()).thenReturn(REAL_TRANSMISSION_RESPONSE)
+    }
+
+    @Test
+    fun test_refresh_onFailure_firesLoadingErrorEvent() {
+        prepareFailureWebResponse()
+
+        repository.refreshTransmission()
+
+        verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
+        verify(mockEventBus).publish(LoadingEvent.LoadingError)
+        verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
+    }
+
+    private fun prepareFailureWebResponse() = runBlocking {
+        whenever(mockWebService.requestTransmission()).thenThrow(BadResponse(URL("http://empty.url"), 400))
     }
 }

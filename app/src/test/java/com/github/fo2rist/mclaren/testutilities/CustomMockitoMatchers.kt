@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.utils.custommatchers
+package com.github.fo2rist.mclaren.testutilities
 
 import org.mockito.Mockito
 

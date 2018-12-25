@@ -14,5 +14,6 @@ interface TransmissionWebService {
      * @throws ConnectException if networking error occurs
      * @throws BadResponse if server responds with 4xx-5xx code
      */
+    @Throws(BadResponse::class, ConnectException::class)
     suspend fun requestTransmission(): String?
 }

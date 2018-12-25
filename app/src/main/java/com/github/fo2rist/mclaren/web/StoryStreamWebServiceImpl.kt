@@ -1,19 +1,21 @@
 package com.github.fo2rist.mclaren.web
 
+import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
 import com.github.fo2rist.mclaren.web.utils.executeAsync
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.util.Objects.requireNonNull
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-class StoryStreamWebServiceImpl @Inject
-internal constructor(@param:Named("web-okhttp") private val client: OkHttpClient) : StoryStreamWebService {
+internal class StoryStreamWebServiceImpl @Inject internal constructor(
+    @param:Named("web-okhttp")
+    private val client: OkHttpClient
+) : StoryStreamWebService {
 
     override suspend fun requestLatestFeed(): String? {
         return client.newCall(createLatestFeedRequest()).executeAsync()
@@ -24,11 +26,11 @@ internal constructor(@param:Named("web-okhttp") private val client: OkHttpClient
                 .enqueue(FeedWebService.FeedCallbackWrapper(pageNumber, callback))
     }
 
-    private fun createLatestFeedRequest(): Request {
-        return createFeedPageRequest(1) //StoryStream reacts on page=1 properly so we can use it for the top page
-    }
+    private fun createLatestFeedRequest(): Request = createFeedPageRequest()
 
-    private fun createFeedPageRequest(pageNumber: Int): Request {
+    @VisibleForTesting
+    fun createFeedPageRequest(pageNumber: Int = 1): Request {
+        // StoryStream reacts on page=1 properly so we can use #1 for the top page.
         val url = FEED_URL
                 .newBuilder()
                 .addQueryParameter("access_token", ACCESS_TOKEN)
@@ -45,7 +47,7 @@ internal constructor(@param:Named("web-okhttp") private val client: OkHttpClient
 
     companion object {
 
-        private val FEED_URL = requireNonNull<HttpUrl>(HttpUrl.parse(BuildConfig.STORYSTREAM_FEED_URL))
+        private val FEED_URL = HttpUrl.get(BuildConfig.STORYSTREAM_FEED_URL)
         private const val ACCESS_TOKEN = BuildConfig.STORYSTREAM_TOKEN
         private const val STORIES_PER_PAGE = 20
         private const val INCLUDE_ALL_MEDIA = true

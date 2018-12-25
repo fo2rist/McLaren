@@ -19,7 +19,7 @@ import java.net.URL
 
 //TODO remove tests duplications with MCL Repo test. 2018.11.25
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = intArrayOf(21))
+@Config(sdk = [21])
 class StoryStreamRepositoryImplTest {
 
     private lateinit var repository: FeedRepository
@@ -35,12 +35,11 @@ class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking {
+    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
         repository.loadLatestPage()
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockWebService).requestLatestFeed()
-        Unit
     }
 
     @Test

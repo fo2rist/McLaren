@@ -61,7 +61,7 @@ abstract class BaseFeedRepository<T>(
             try {
                 val feed= webService.requestLatestFeed()
                 updateDataAndPublishLoadingSuccess(DEFAULT_PAGE, feed)
-            } catch (exc: Exception) {
+            } catch (exc: IOException) {
                 publishLoadingFailure()
             }
             publishLoadingFinished()
