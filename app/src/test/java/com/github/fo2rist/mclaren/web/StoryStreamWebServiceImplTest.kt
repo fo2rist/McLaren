@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.spy
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.junit.Before
@@ -33,6 +34,7 @@ class StoryStreamWebServiceImplTest {
     @Test
     fun `test requestLatestFeed requests page 1`() = runBlocking<Unit> {
         val webserviceSpy = spy(webservice)
+        whenever(webserviceSpy.createFeedPageRequest()).thenReturn(mock())
 
         webserviceSpy.requestLatestFeed()
 
@@ -40,8 +42,8 @@ class StoryStreamWebServiceImplTest {
     }
 
     @Test
-    fun `test requestFeedPage calls http client`() {
-        webservice.requestFeedPage(123, mock())
+    fun `test requestFeedPage calls http client`() = runBlocking<Unit> {
+        webservice.requestFeedPage(123)
 
         verify(httpClientMock).newCall(any())
     }

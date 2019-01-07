@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.web
 
 import com.github.fo2rist.mclaren.testutilities.overrideAnswersToSuccess
-import com.github.fo2rist.mclaren.web.FeedWebService.FeedRequestCallback
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.spy
@@ -10,7 +9,6 @@ import okhttp3.OkHttpClient
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -47,8 +45,8 @@ class McLarenWebServiceImplTest {
     }
 
     @Test
-    fun `test requestFeedPage calls http client`() {
-        webservice.requestFeedPage(1, mock(FeedRequestCallback::class.java))
+    fun `test requestFeedPage calls http client`() = runBlocking<Unit> {
+        webservice.requestFeedPage(1)
 
         verify(httpClientMock).newCall(any())
     }

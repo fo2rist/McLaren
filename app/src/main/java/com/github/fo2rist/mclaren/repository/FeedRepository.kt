@@ -9,9 +9,7 @@ import com.github.fo2rist.mclaren.web.SafeJsonParser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.jetbrains.annotations.NotNull
 import java.io.IOException
-import java.net.URL
 import java.util.*
 
 /**
@@ -88,19 +86,14 @@ abstract class BaseFeedRepository<T>(
             return
         }
 
-        publishLoadingStarted()
-        webService.requestFeedPage(pageToLoad, webResponseHandler)
-    }
-
-    private val webResponseHandler: FeedWebService.FeedRequestCallback = object : FeedWebService.FeedRequestCallback {
-
-        override fun onFailure(@NotNull url: URL, requestedPage: Int, responseCode: Int, connectionError: IOException?) {
-            publishLoadingFailure()
-            publishLoadingFinished()
-        }
-
-        override fun onSuccess(@NotNull url: URL, requestedPage: Int, responseCode: Int, data: String?) {
-            updateDataAndPublishLoadingSuccess(requestedPage, data)
+        mainScope.launch {
+            publishLoadingStarted()
+            try {
+                val feed = webService.requestFeedPage(pageToLoad)
+                updateDataAndPublishLoadingSuccess(pageToLoad, feed)
+            } catch (exc: IOException) {
+                publishLoadingFailure()
+            }
             publishLoadingFinished()
         }
     }

@@ -25,9 +25,8 @@ internal class McLarenWebServiceImpl @Inject internal constructor(
         return client.newCall(createLatestFeedRequest()).executeAsync()
     }
 
-    override fun requestFeedPage(pageNumber: Int, callback: FeedWebService.FeedRequestCallback) {
-        client.newCall(createFeedPageRequest(pageNumber))
-                .enqueue(FeedWebService.FeedCallbackWrapper(pageNumber, callback))
+    override suspend fun requestFeedPage(pageNumber: Int): String? {
+        return client.newCall(createFeedPageRequest(pageNumber)).executeAsync()
     }
 
     private fun createLatestFeedRequest(): Request = createFeedPageRequest(null)

@@ -35,11 +35,11 @@ class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
+    fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
         repository.loadNextPage()
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
-        verify(mockWebService).requestFeedPage(anyInt(), any())
+        verify(mockWebService).requestFeedPage(anyInt())
     }
 
     @Test
