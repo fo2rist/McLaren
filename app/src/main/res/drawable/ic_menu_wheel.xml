@@ -5,7 +5,7 @@
     android:viewportHeight="100.0"
     android:viewportWidth="100.0"
     android:width="24dp"
-    tools:ignore="UnusedAttribute"
+    tools:ignore="VectorPath"
     >
     <path android:fillColor="#000000"
         android:pathData="M50,96C24.64,96 4,75.36 4,50C4,24.64 24.64,4 50,4C75.36,4 96,24.64 96,50C96,75.36 75.36,96 50,96M50,0C22.39,0 0,22.39 0,50C0,77.61 22.39,100 50,100C77.61,100 100,77.61 100,50C100,22.39 77.61,0 50,0"
