@@ -21,7 +21,14 @@ public class SafeJsonParserTest {
     private SafeJsonParser<HashMap> objectParser = new SafeJsonParser<>(HashMap.class);
 
     @Test
-    public void testEmptyStringParsed() throws Exception {
+    public void testNullParsedToCorrectEmptyObject() {
+        HashMap object = objectParser.parse(null);
+
+        assertTrue(object.isEmpty());
+    }
+
+    @Test
+    public void testEmptyStringParsed() {
         ArrayList array = arrayParser.parse(EMPTY_STRING);
         HashMap object = objectParser.parse(EMPTY_STRING);
 
@@ -30,7 +37,7 @@ public class SafeJsonParserTest {
     }
 
     @Test
-    public void testEmptyJsonArrayParsed() throws Exception {
+    public void testEmptyJsonArrayParsed() {
         ArrayList array = arrayParser.parse(EMPTY_JSON_ARRAY);
         HashMap object = objectParser.parse(EMPTY_JSON_OBJECT);
 
@@ -39,7 +46,7 @@ public class SafeJsonParserTest {
     }
 
     @Test
-    public void testIncorrectJsonParsed() throws Exception {
+    public void testIncorrectJsonParsed() {
         ArrayList array = arrayParser.parse(TWO_FIELD_JSON_OBJECT); //should be array
         HashMap object = objectParser.parse(TWO_ITEM_JSON_ARRAY); //should be object
 
@@ -48,7 +55,7 @@ public class SafeJsonParserTest {
     }
 
     @Test
-    public void testCorrectJsonParsed() throws Exception {
+    public void testCorrectJsonParsed() {
         ArrayList array = arrayParser.parse(TWO_ITEM_JSON_ARRAY);
         HashMap object = objectParser.parse(TWO_FIELD_JSON_OBJECT);
 
