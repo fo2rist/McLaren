@@ -3,9 +3,9 @@ package com.github.fo2rist.mclaren.tests
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.github.fo2rist.mclaren.pages.PreviewPage
-import com.github.fo2rist.mclaren.testdata.FeedItems.GALLERY_ITEM
-import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
+import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import com.github.fo2rist.mclaren.testutilities.ActivityTestBase
+import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,7 +18,7 @@ class ImagePreviewActivityTest : ActivityTestBase() {
 
     @Test
     fun testLoadsGallery() {
-        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, GALLERY_ITEM))
+        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, TWITTER_GALLERY_ITEM))
 
 
         page {

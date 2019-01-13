@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.ui.previewscreen
 import android.content.Intent
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import com.github.fo2rist.mclaren.R
-import com.github.fo2rist.mclaren.testdata.FeedItems.MCLAREN_ARTICLE_ITEM
+import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import com.github.fo2rist.mclaren.testdata.FeedItems.VIDEO_ITEM
 import org.junit.Assert.assertEquals
@@ -46,11 +46,11 @@ class PreviewActivityTest : BasePreviewActivityTest() {
     @Test
     fun `test start for Article starts with custom title`() {
         val activity = startForIntent(
-                PreviewActivity.createFeedItemIntent(context, MCLAREN_ARTICLE_ITEM)).get()
+                PreviewActivity.createFeedItemIntent(context, ARTICLE_ITEM_WITH_LINKS)).get()
 
         assertFalse(activity.isFinishing)
         assertEquals(0, activity.window.attributes.flags and FLAG_FULLSCREEN)
-        assertEquals(MCLAREN_ARTICLE_ITEM.text, activity.supportActionBar?.title)
+        assertEquals(ARTICLE_ITEM_WITH_LINKS.text, activity.supportActionBar?.title)
     }
 
     @Test

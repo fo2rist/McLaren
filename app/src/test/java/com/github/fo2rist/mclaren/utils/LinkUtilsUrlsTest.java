@@ -13,7 +13,7 @@ public class LinkUtilsUrlsTest {
 
     @Test
     public void testUnknonwSourceTreatAsMcLarenF1Link() throws Exception {
-        String link = LinkUtils.getFeedMentionLink(FeedItems.MCLAREN_ARTICLE_ITEM,
+        String link = LinkUtils.getFeedMentionLink(FeedItems.ARTICLE_ITEM_WITH_LINKS,
                 "any");
 
         assertEquals("http://www.mclaren.com/formula1", link);

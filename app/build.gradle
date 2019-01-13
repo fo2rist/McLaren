@@ -28,6 +28,10 @@ android {
 
     compileSdkVersion project.COMPILE_SDK_VERSION
     buildToolsVersion project.BUILD_TOOLS_VERSION
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     def properties = readProperties("env/mclaren.properties")
 
@@ -65,6 +69,16 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+        }
+    }
+
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
         }
     }
 
