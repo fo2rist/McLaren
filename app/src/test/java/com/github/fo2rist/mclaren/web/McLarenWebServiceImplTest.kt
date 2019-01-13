@@ -1,11 +1,7 @@
 package com.github.fo2rist.mclaren.web
 
-import com.github.fo2rist.mclaren.testutilities.overrideAnswersToSuccess
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.spy
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,45 +11,20 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [21])
-class McLarenWebServiceImplTest {
+class McLarenWebServiceImplTest : BaseFeedWebServiceTest() {
 
-    private lateinit var httpClientMock: OkHttpClient
-    private lateinit var webservice: McLarenWebServiceImpl
+    override lateinit var webservice: BaseFeedWebService
 
     @Before
-    fun setUp() {
-        httpClientMock = mock()
-        httpClientMock.overrideAnswersToSuccess()
+    override fun setUp() {
+        super.setUp()
 
         webservice = McLarenWebServiceImpl(httpClientMock)
     }
 
     @Test
-    fun `test requestLatestFeed requests null page`() = runBlocking<Unit> {
-        val webserviceSpy = spy(webservice)
-
-        webserviceSpy.requestLatestFeed()
-
-        verify(webserviceSpy).createFeedPageRequest(null)
-    }
-
-    @Test
-    fun `test requestLatestFeed calls http client`() = runBlocking<Unit> {
-        webservice.requestLatestFeed()
-
-        verify(httpClientMock).newCall(any())
-    }
-
-    @Test
-    fun `test requestFeedPage calls http client`() = runBlocking<Unit> {
-        webservice.requestFeedPage(1)
-
-        verify(httpClientMock).newCall(any())
-    }
-
-    @Test
     fun `test requestTransmission calls http client`() = runBlocking<Unit> {
-        webservice.requestTransmission()
+        (webservice as McLarenWebServiceImpl).requestTransmission()
 
         verify(httpClientMock).newCall(any())
     }
