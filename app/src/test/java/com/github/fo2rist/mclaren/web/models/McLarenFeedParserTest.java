@@ -18,7 +18,7 @@ public class McLarenFeedParserTest {
     private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     @Test
-    public void testReadDataParsedWithoutErrors() throws Exception {
+    public void testReadDataParsedWithoutErrors() {
         McLarenFeed mcLarenFeedItems = parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE);
 
         assertEquals(McLarenFeedResponse.REAL_FEED_SIZE, mcLarenFeedItems.size());

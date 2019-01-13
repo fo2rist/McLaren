@@ -3,10 +3,13 @@ package com.github.fo2rist.mclaren.repository
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.repository.converters.FeedConverter
+import com.github.fo2rist.mclaren.web.DEFAULT_PAGE
 import com.github.fo2rist.mclaren.web.FeedWebService
 import com.github.fo2rist.mclaren.web.SafeJsonParser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.IOException
-import java.net.URL
 import java.util.*
 
 /**
@@ -26,7 +29,7 @@ interface FeedRepository {
 /**
  * Base implementation of news feed repo.
  * Takes care about storing feed, caching it and requesting feed from web-server.
- * Descendants to implement [prepareForHistoryLoading], [loadNextPage] and [onPageLoaded]
+ * Descendants to implement [prepareForHistoryLoading], [getNextPageNumber] and [onPageLoaded]
  * to support paging algorithm specific for particular repo.
  */
 abstract class BaseFeedRepository<T>(
@@ -40,47 +43,89 @@ abstract class BaseFeedRepository<T>(
     protected val responseParser: SafeJsonParser<T>
 ): FeedRepository {
 
-    /** Save number of latest loaded page of the feed. */
+    companion object {
+        protected const val UNKNOWN_PAGE = -1
+    }
+
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+
+    /**
+     * Save number of latest loaded page of the feed.
+     * Will be called once loading of given page is done.
+     */
     protected abstract fun onPageLoaded(page: Int)
+
+    /**
+     * Get number of the next page in history.
+     * Will be called before every new page request.
+     * @return next page number or [UNKNOWN_PAGE] if next page is unknown and should not be loaded.
+     */
+    protected abstract fun getNextPageNumber(): Int
 
     @JvmField
     protected var feedItems = TreeSet<FeedItem>()
 
     override fun loadLatestPage() {
         publishCachedFeed() // publish cached data to respond immediately and then load
+
+        mainScope.launch {
+            publishLoadingStarted()
+            try {
+                val feed= webService.requestLatestFeed()
+                updateDataAndPublishLoadingSuccess(DEFAULT_PAGE, feed)
+            } catch (exc: IOException) {
+                publishLoadingFailure()
+            }
+            publishLoadingFinished()
+        }
+    }
+
+    override fun loadNextPage() {
+        val pageToLoad = getNextPageNumber()
+        if (pageToLoad == UNKNOWN_PAGE) {
+            return
+        }
+
+        mainScope.launch {
+            publishLoadingStarted()
+            try {
+                val feed = webService.requestFeedPage(pageToLoad)
+                updateDataAndPublishLoadingSuccess(pageToLoad, feed)
+            } catch (exc: IOException) {
+                publishLoadingFailure()
+            }
+            publishLoadingFinished()
+        }
+    }
+
+    private fun publishLoadingStarted() {
         repositoryEventBus.publish(LoadingEvent.LoadingStarted())
-        webService.requestLatestFeed(webResponseHandler)
     }
 
     private fun publishCachedFeed() {
         if (!feedItems.isEmpty()) {
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(getFeedItemsAsList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
         }
     }
 
-    private fun getFeedItemsAsList(): List<FeedItem> {
-        return ArrayList(feedItems.descendingSet())
+    private fun publishLoadingFinished() {
+        repositoryEventBus.publish(LoadingEvent.LoadingFinished())
     }
 
-    protected val webResponseHandler: FeedWebService.FeedRequestCallback = object : FeedWebService.FeedRequestCallback {
+    private fun publishLoadingFailure() {
+        repositoryEventBus.publish(LoadingEvent.LoadingError())
+    }
 
-        override fun onFailure(url: URL, requestedPage: Int, responseCode: Int, connectionError: IOException?) {
-            repositoryEventBus.publish(LoadingEvent.LoadingError())
-            repositoryEventBus.publish(LoadingEvent.LoadingFinished())
+    private fun updateDataAndPublishLoadingSuccess(requestedPage: Int, data: String?) {
+        if (requestedPage >= 0) {
+            onPageLoaded(requestedPage)
         }
 
-        override fun onSuccess(url: URL, requestedPage: Int, responseCode: Int, data: String?) {
-            if (requestedPage >= 0) {
-                onPageLoaded(requestedPage)
-            }
+        val pageItems = parse(data)
+        if (!pageItems.isEmpty()) {
+            feedItems.addAll(pageItems)
 
-            val pageItems = parse(data)
-            if (!pageItems.isEmpty()) {
-                feedItems.addAll(pageItems)
-
-                repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(getFeedItemsAsList()))
-            }
-            repositoryEventBus.publish(LoadingEvent.LoadingFinished())
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
         }
     }
 
@@ -88,5 +133,8 @@ abstract class BaseFeedRepository<T>(
         val feedData = responseParser.parse(response)
         return feedConverter.convertFeed(feedData)
     }
+}
 
+private fun TreeSet<FeedItem>.toOrderedList(): List<FeedItem> {
+    return ArrayList(this.descendingSet())
 }

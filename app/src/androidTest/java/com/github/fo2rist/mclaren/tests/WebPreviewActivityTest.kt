@@ -9,8 +9,8 @@ import com.agoda.kakao.WebElementBuilder
 import com.github.fo2rist.mclaren.pages.PreviewPage
 import com.github.fo2rist.mclaren.testdata.FeedItems.HTML_ARTICLE_ITEM
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
-import com.github.fo2rist.mclaren.utils.ActivityTestBase
-import com.github.fo2rist.mclaren.utils.WebActivityTestRule
+import com.github.fo2rist.mclaren.testutilities.ActivityTestBase
+import com.github.fo2rist.mclaren.testutilities.WebActivityTestRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.utils;
+package com.github.fo2rist.mclaren.testutilities;
 
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;

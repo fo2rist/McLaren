@@ -53,7 +53,7 @@ open class BaseMainActivityTest {
     }
 
     /** Stop interception intents. */
-    protected fun endIntentsInterception() {
+    private fun endIntentsInterception() {
         if (!intentInterceptionActive) {
             return
         }

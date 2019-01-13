@@ -14,7 +14,7 @@ public class StoryStreamParserTest {
     private SafeJsonParser<StoryStream> parser = new SafeJsonParser<>(StoryStream.class);
 
     @Test
-    public void testReadDataParsedWithoutErrors() throws Exception {
+    public void testReadDataParsedWithoutErrors() {
         StoryStream storyStream = parser.parse(StoryStreamResponse.REAL_FEED_RESPONSE);
 
         assertEquals(StoryStreamResponse.REAL_FEED_SIZE, storyStream.items.size());

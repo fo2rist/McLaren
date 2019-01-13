@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.ui.transmissionscreen
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
 import com.github.fo2rist.mclaren.repository.TransmissionRepository
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
-import com.github.fo2rist.mclaren.utils.custommatchers.anyKotlinObject
+import com.github.fo2rist.mclaren.testutilities.anyKotlinObject
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

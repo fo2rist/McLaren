@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.repository;
 
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.repository.converters.StoryStreamConverter;
 import com.github.fo2rist.mclaren.web.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
@@ -14,7 +13,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class StoryStreamRepositoryImpl extends BaseFeedRepository<StoryStream> {
-    private int lastLoadedPage = 1; //latest page's number StoryStream is 1, no prameter request and Page=1 are equals
+    private int lastLoadedPage = 1; //latest page's number StoryStream is 1, no parameter request and Page=1 are equals
 
     @Inject
     StoryStreamRepositoryImpl(
@@ -29,10 +28,8 @@ public class StoryStreamRepositoryImpl extends BaseFeedRepository<StoryStream> {
     }
 
     @Override
-    public final void loadNextPage() {
-        int pageToLoad = lastLoadedPage + 1;
-        repositoryEventBus.publish(new LoadingEvent.LoadingStarted());
-        webService.requestFeedPage(pageToLoad, getWebResponseHandler());
+    protected int getNextPageNumber() {
+        return lastLoadedPage + 1;
     }
 
     @Override
