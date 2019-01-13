@@ -2,14 +2,20 @@ package com.github.fo2rist.mclaren.models
 
 import org.joda.time.DateTime
 
+/**
+ * Single message of life transmission.
+ */
 data class TransmissionItem(
-        val id: Long,
-        val dateTime: DateTime,
-        val driverName: String?,
-        val message: String,
-        val session: Session,
-        val type: Type
+    val id: Long,
+    val dateTime: DateTime,
+    val driverName: String?,
+    val message: String,
+    val session: Session,
+    val type: Type
 ) {
+    /**
+     * Race weekend session.
+     */
     enum class Session {
         UNKNOWN,
         PRACTICE,
@@ -17,6 +23,9 @@ data class TransmissionItem(
         RACE
     }
 
+    /**
+     * Type (direction) of transmissions message.
+     */
     enum class Type {
         DRIVER_A_TO_PIT,
         DRIVER_B_TO_PIT,

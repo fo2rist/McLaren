@@ -13,8 +13,8 @@ import kotlin.concurrent.timer
 private const val REFRESH_INTERVAL_MS = 30_000L
 
 class TransmissionPresenter @Inject constructor(
-        var repository: TransmissionRepository,
-        var repositoryEventBus: TransmissionRepositoryEventBus
+    var repository: TransmissionRepository,
+    var repositoryEventBus: TransmissionRepositoryEventBus
 ): TransmissionContract.Presenter {
     private lateinit var view: TransmissionContract.View
     private var pollTimer: Timer? = null

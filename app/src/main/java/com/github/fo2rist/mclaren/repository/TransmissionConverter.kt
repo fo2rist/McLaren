@@ -26,10 +26,11 @@ object TransmissionConverter {
     }
 }
 
+@Suppress("Detekt.ComplexMethod")
 private fun TransmissionMessageType?.toMessageTypeModel(): TransmissionItem.Type {
     return when(this) {
         TransmissionMessageType.ATP ->
-                TransmissionItem.Type.DRIVER_A_TO_PIT
+            TransmissionItem.Type.DRIVER_A_TO_PIT
         TransmissionMessageType.BTP ->
             TransmissionItem.Type.DRIVER_B_TO_PIT
         TransmissionMessageType.PTA ->

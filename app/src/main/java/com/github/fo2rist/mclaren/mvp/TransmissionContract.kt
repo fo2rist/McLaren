@@ -2,6 +2,9 @@ package com.github.fo2rist.mclaren.mvp
 
 import com.github.fo2rist.mclaren.models.TransmissionItem
 
+/**
+ * MVP contract for life transmission screen.
+ */
 interface TransmissionContract {
     interface View : BaseView {
         fun displayTransmission(transmissionMessages: List<TransmissionItem>)
