@@ -28,7 +28,7 @@ class TransmissionPresenterTest {
     }
 
     @Test
-    fun test_onStart_loadsTransmission_and_subscribeOnEvents() {
+    fun `test onStart loadsTransmission and subscribeOnEvents`() {
         presenter.onStart(mockView)
 
         verify(mockRepository).loadTransmission()
@@ -36,7 +36,7 @@ class TransmissionPresenterTest {
     }
 
     @Test
-    fun test_onLoadingStarted_showsProgress() {
+    fun `test onLoadingStarted showsProgress`() {
         setupPresenter()
 
         presenter.onLoadingStarted(TransmissionRepositoryEventBus.LoadingEvent.LoadingStarted)
@@ -46,7 +46,7 @@ class TransmissionPresenterTest {
 
 
     @Test
-    fun test_onLoadingFinished_hidesProgress() {
+    fun `test onLoadingFinished hidesProgress`() {
         setupPresenter()
 
         presenter.onLoadingFinished(TransmissionRepositoryEventBus.LoadingEvent.LoadingFinished)
@@ -55,7 +55,7 @@ class TransmissionPresenterTest {
     }
 
     @Test
-    fun test_onStop_unsubscribeOfEvents() {
+    fun `test onStop unsubscribeOfEvents`() {
         setupPresenter()
 
         presenter.onStop()

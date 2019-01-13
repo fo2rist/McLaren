@@ -11,25 +11,21 @@ import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM;
 import static org.junit.Assert.assertNotNull;
-import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startVisibleFragment;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 21)
-public class ImagePreviewFragmentTest {
+public class ImagePreviewFragmentTest extends BasePreviewActivityTest {
 
     private FragmentActivity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ImagePreviewFragment fragment = ImagePreviewFragment.newInstanceForFeedItem(TWITTER_GALLERY_ITEM);
-        startVisibleFragment(fragment, PreviewActivity.class, R.id.content_frame);
-
-        activity = fragment.getActivity();
-        assertNotNull(activity);
+        activity = startWithFragment(fragment);
     }
 
     @Test
-    public void testLayout() throws Exception {
+    public void testLayoutNotEmpty() {
         assertNotNull(activity.findViewById(R.id.images_pager));
     }
 }
