@@ -9,8 +9,8 @@ jobs:
     docker:
       - image: circleci/android:api-28-alpha
     environment:
-      JVM_OPTS: -Xmx1536m
-      _JAVA_OPTIONS: "-Xmx1536m"
+      JVM_OPTS: -Xmx1024m
+      _JAVA_OPTIONS: "-Xmx1024m"
     steps:
       - checkout
       - restore_cache:
