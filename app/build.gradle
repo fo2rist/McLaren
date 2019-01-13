@@ -59,6 +59,7 @@ android {
         warningsAsErrors false
         abortOnError true
         htmlReport true
+        baseline file("lint-baseline.xml")
     }
 
     testOptions {
