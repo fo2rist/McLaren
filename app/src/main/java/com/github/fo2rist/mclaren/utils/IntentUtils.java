@@ -8,8 +8,8 @@ import android.webkit.URLUtil;
 
 public class IntentUtils {
 
-    public static final String HTTP = "http://";
-    public static final String HTTPS = "https://";
+    static final String HTTP = "http://";
+    static final String HTTPS = "https://";
     private static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=";
     private static final String MCLAREN_APP_PACKAGE = "mclaren.mobile";
 
@@ -45,6 +45,7 @@ public class IntentUtils {
         return true;
     }
 
+    @NonNull
     public static Intent createAppIntent(@NonNull Context context, @NonNull String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent == null) {
@@ -53,6 +54,7 @@ public class IntentUtils {
         return intent;
     }
 
+    @NonNull
     public static Intent createMcLarenAppIntent(@NonNull Context context) {
         return createAppIntent(context, MCLAREN_APP_PACKAGE);
     }

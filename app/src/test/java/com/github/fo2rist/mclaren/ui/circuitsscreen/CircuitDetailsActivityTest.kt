@@ -1,10 +1,8 @@
 package com.github.fo2rist.mclaren.ui.circuitsscreen
 
-import android.content.Context
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
 import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -14,12 +12,7 @@ import org.robolectric.RuntimeEnvironment
 @RunWith(RobolectricTestRunner::class)
 class CircuitDetailsActivityTest {
 
-    private lateinit var context: Context
-
-    @Before
-    fun setUp() {
-        context = RuntimeEnvironment.application.applicationContext
-    }
+    private val context by lazy { RuntimeEnvironment.application.applicationContext }
 
     @Test
     fun `test starts with circut details fragment`() {
