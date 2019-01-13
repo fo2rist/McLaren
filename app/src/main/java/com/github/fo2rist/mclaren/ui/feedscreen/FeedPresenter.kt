@@ -87,7 +87,7 @@ class FeedPresenter @Inject constructor(
 
     /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingStarted(event: LoadingEvent.LoadingStarted) {
+    fun onLoadingStarted(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingStarted) {
         view.showProgress()
     }
 
@@ -99,7 +99,7 @@ class FeedPresenter @Inject constructor(
 
     /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingFinished(event: LoadingEvent.LoadingFinished) {
+    fun onLoadingFinished(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingFinished) {
         view.hideProgress()
     }
 }
