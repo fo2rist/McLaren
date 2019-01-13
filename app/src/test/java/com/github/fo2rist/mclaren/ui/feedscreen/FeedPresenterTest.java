@@ -108,9 +108,9 @@ public class FeedPresenterTest {
     public void test_onItemClick_forArticle_openPreview() {
         setUpPresenter();
 
-        presenter.onItemClicked(FeedItems.MCLAREN_ARTICLE_ITEM);
+        presenter.onItemClicked(FeedItems.ARTICLE_ITEM_WITH_LINKS);
 
-        verifyNavigatedToItemPreview(FeedItems.MCLAREN_ARTICLE_ITEM);
+        verifyNavigatedToItemPreview(FeedItems.ARTICLE_ITEM_WITH_LINKS);
     }
 
     @Test

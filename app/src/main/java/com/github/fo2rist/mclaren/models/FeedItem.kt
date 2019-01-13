@@ -9,16 +9,16 @@ import java.util.*
  * @constructor Creates instance but doesn't create deep copy of the [imageUrls], use [Companion.invoke] instead.
  */
 data class FeedItem internal constructor(
-        var id: Long,
-        val type: Type,
-        val text: String,
-        val content: String?,
-        val dateTime: Date,
-        val sourceType: SourceType,
-        val sourceName: String,
-        /** Non displayable link that may be found in source data.  */
-        val embeddedMediaLink: String,
-        val imageUrls: List<ImageUrl>
+    var id: Long,
+    val type: Type,
+    val text: String,
+    val content: String?,
+    val dateTime: Date,
+    val sourceType: SourceType,
+    val sourceName: String,
+    /** Non displayable link that may be found in source data.  */
+    val embeddedMediaLink: String,
+    val imageUrls: List<ImageUrl>
 ) : Serializable, Comparable<FeedItem> {
 
     /**

@@ -7,10 +7,11 @@ import android.support.test.espresso.web.webdriver.Locator
 import android.support.test.runner.AndroidJUnit4
 import com.agoda.kakao.WebElementBuilder
 import com.github.fo2rist.mclaren.pages.PreviewPage
-import com.github.fo2rist.mclaren.testdata.FeedItems.HTML_ARTICLE_ITEM
-import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
+import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
+import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_TABLES
 import com.github.fo2rist.mclaren.testutilities.ActivityTestBase
 import com.github.fo2rist.mclaren.testutilities.WebActivityTestRule
+import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,8 +23,8 @@ class WebPreviewActivityTest : ActivityTestBase() {
     private val page = PreviewPage()
 
     @Test
-    fun testLoadsArticle() {
-        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, HTML_ARTICLE_ITEM))
+    fun testLayout_with_SpecificContent_in_ArticleMode() {
+        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, ARTICLE_ITEM_WITH_TABLES))
 
         page {
             webView {
@@ -37,8 +38,8 @@ class WebPreviewActivityTest : ActivityTestBase() {
     }
 
     @Test
-    fun testLayout() {
-        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, HTML_ARTICLE_ITEM))
+    fun testLayout_with_HeaderImage_and_WebView_in_ArticleMode() {
+        rule.launchActivity(PreviewActivity.createFeedItemIntent(context, ARTICLE_ITEM_WITH_LINKS))
 
         page {
             toolbarImage { isVisible() }
@@ -48,7 +49,7 @@ class WebPreviewActivityTest : ActivityTestBase() {
     }
 
     @Test
-    fun testToolbarImageInvisibleInUrlMode() {
+    fun testLayout_without_HeaderImageI_in_UrlMode() {
         rule.launchActivity(PreviewActivity.createUrlIntent(context, "http://address_that_doesnt_exist"))
 
         page {
@@ -56,6 +57,6 @@ class WebPreviewActivityTest : ActivityTestBase() {
         }
     }
 
-    fun WebElementBuilder.rootItem(interaction: WebElementBuilder.KWebInteraction.() -> Unit) =
+    private fun WebElementBuilder.rootItem(interaction: WebElementBuilder.KWebInteraction.() -> Unit) =
             this.withElement(Locator.XPATH, "/", interaction)
 }

@@ -43,7 +43,7 @@ public class WebPreviewFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_web_preview, container, false);
         webView = rootView.findViewById(R.id.web_view);
