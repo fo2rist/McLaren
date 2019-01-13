@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.models
 
+import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
 import org.joda.time.DateTime
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -14,22 +15,8 @@ private val JAN_3 = DateTime.parse("2100-01-03T00:00Z")
 private val JAN_31 = DateTime.parse("2100-01-31T00:00Z")
 private val FEB_2 = DateTime.parse("2100-02-02T00:00Z")
 
-private val TEST_EVENT_JAN_1 = CalendarEvent(
-        circuitId = "",
-        countryCode = "",
-        trackName = "",
-        city = "",
-        grandPrixName = "",
-        laps = 1,
-        length = 0.0,
-        distance = 0.0,
-        seasons = "",
-        gpHeld = 0,
-        wikiLink = "",
-        startDate = JAN_1
-)
-
-private val TEST_EVENT_JAN_31 = TEST_EVENT_JAN_1.copy(startDate = JAN_31)
+private val TEST_EVENT_JAN_1 = createDummyEvent(JAN_1)
+private val TEST_EVENT_JAN_31 = createDummyEvent(JAN_31)
 
 @RunWith(JUnit4::class)
 class CalendarEventTest {

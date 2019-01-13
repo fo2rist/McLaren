@@ -23,7 +23,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [21])
 class PreviewActivityTest : BasePreviewActivityTest() {
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     @Before
     fun setUp() {
