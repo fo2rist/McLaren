@@ -4,19 +4,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
-public class Scopes {
+public interface Scopes {
     @Scope
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface PerActivity {
+    @interface PerActivity {
     }
 
     @Scope
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface PerFragment {
+    @interface PerFragment {
     }
 
     @Scope
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface PerChildFragment {
+    @interface PerChildFragment {
     }
 }

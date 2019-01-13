@@ -4,8 +4,8 @@ import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.ui.MainPresenter;
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
@@ -18,9 +18,7 @@ abstract class MainActivityModule {
     @ContributesAndroidInjector(modules = StoriesFragmentModule.class)
     abstract StoriesFeedFragment storiesFragmentInjector();
 
-    @Provides
+    @Binds
     @Scopes.PerActivity
-    static MainScreenContract.Presenter providePresenter(MainPresenter presenter) {
-        return presenter;
-    }
+    abstract MainScreenContract.Presenter providePresenter(MainPresenter presenter);
 }
