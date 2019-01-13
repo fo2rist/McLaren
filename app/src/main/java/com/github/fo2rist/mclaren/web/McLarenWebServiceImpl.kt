@@ -2,7 +2,6 @@ package com.github.fo2rist.mclaren.web
 
 import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
-import com.github.fo2rist.mclaren.web.utils.executeAsync
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -17,22 +16,12 @@ import javax.inject.Singleton
  */
 @Singleton
 internal class McLarenWebServiceImpl @Inject internal constructor(
-    @param:Named("web-okhttp")
-    private val client: OkHttpClient
-) : McLarenFeedWebService, TransmissionWebService {
-
-    override suspend fun requestLatestFeed(): String? {
-        return client.newCall(createLatestFeedRequest()).executeAsync()
-    }
-
-    override suspend fun requestFeedPage(pageNumber: Int): String? {
-        return client.newCall(createFeedPageRequest(pageNumber)).executeAsync()
-    }
-
-    private fun createLatestFeedRequest(): Request = createFeedPageRequest(null)
+    @Named("web-okhttp")
+    client: OkHttpClient
+) : BaseFeedWebService(client), McLarenFeedWebService, TransmissionWebService {
 
     @VisibleForTesting
-    fun createFeedPageRequest(pageNumber: Int? = null): Request {
+    override fun createFeedPageRequest(pageNumber: Int?): Request {
 
         val urlBuilder = FEED_URL.newBuilder()
 
@@ -47,7 +36,7 @@ internal class McLarenWebServiceImpl @Inject internal constructor(
     }
 
     override suspend fun requestTransmission(): String? {
-        return client.newCall(createTransmissionRequest()).executeAsync()
+        return executeAsync(createTransmissionRequest())
     }
 
     private fun createTransmissionRequest(): Request {

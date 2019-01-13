@@ -21,5 +21,18 @@ interface FeedWebService {
 
     /** Request specific page from history, which may be latest.  */
     suspend fun requestFeedPage(pageNumber: Int): String?
-
 }
+
+/**
+ * Webservice for McLaren feed API.
+ * Note that this service uses non-standard pagination: each page should be addressed by the absolute number
+ * Where 1 - is the oldest page.
+ * Marker interface for McLaren API feed implementation.
+ */
+interface McLarenFeedWebService : FeedWebService
+
+/**
+ * Webservice for story-stream API.
+ * Marker interface for story-stream feed implementation.
+ */
+interface StoryStreamWebService : FeedWebService

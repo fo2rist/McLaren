@@ -32,13 +32,13 @@ class StoryStreamWebServiceImplTest {
     }
 
     @Test
-    fun `test requestLatestFeed requests page 1`() = runBlocking<Unit> {
+    fun `test requestLatestFeed requests null page`() = runBlocking<Unit> {
         val webserviceSpy = spy(webservice)
         whenever(webserviceSpy.createFeedPageRequest()).thenReturn(mock())
 
         webserviceSpy.requestLatestFeed()
 
-        verify(webserviceSpy).createFeedPageRequest(1)
+        verify(webserviceSpy).createFeedPageRequest(null)
     }
 
     @Test

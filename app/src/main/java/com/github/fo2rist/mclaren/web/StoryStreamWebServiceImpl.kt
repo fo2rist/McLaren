@@ -1,8 +1,6 @@
 package com.github.fo2rist.mclaren.web
 
-import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
-import com.github.fo2rist.mclaren.web.utils.executeAsync
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -13,29 +11,21 @@ import javax.inject.Singleton
 
 @Singleton
 internal class StoryStreamWebServiceImpl @Inject internal constructor(
-    @param:Named("web-okhttp")
-    private val client: OkHttpClient
-) : StoryStreamWebService {
+    @Named("web-okhttp")
+    client: OkHttpClient
+) : BaseFeedWebService(client), StoryStreamWebService {
 
-    override suspend fun requestLatestFeed(): String? {
-        return client.newCall(createLatestFeedRequest()).executeAsync()
-    }
-
-    override suspend fun requestFeedPage(pageNumber: Int): String? {
-        return client.newCall(createFeedPageRequest(pageNumber)).executeAsync()
-    }
-
-    private fun createLatestFeedRequest(): Request = createFeedPageRequest()
-
-    @VisibleForTesting
-    fun createFeedPageRequest(pageNumber: Int = 1): Request {
-        // StoryStream reacts on page=1 properly so we can use #1 for the top page.
+    override fun createFeedPageRequest(pageNumber: Int?): Request {
         val url = FEED_URL
                 .newBuilder()
                 .addQueryParameter("access_token", ACCESS_TOKEN)
-                .addQueryParameter("page", pageNumber.toString())
                 .addQueryParameter("rpp", STORIES_PER_PAGE.toString())
                 .addQueryParameter("all_media", INCLUDE_ALL_MEDIA.toString())
+                .apply {
+                    pageNumber?.let {
+                        addQueryParameter("page", pageNumber.toString())
+                    }
+                }
                 .build()
 
         return Request.Builder()

@@ -23,9 +23,8 @@ suspend fun Call.executeAsync(): String? {
             }
 
             override fun onOkHttpFailure(url: URL, responseCode: Int, connectionError: IOException?) {
-                // Don't bother with resuming the continuation if it is already cancelled.
                 if (continuation.isCancelled) {
-                    return
+                    return // Don't bother with resuming the continuation if it is already cancelled.
                 }
 
                 if (connectionError != null) {
@@ -39,9 +38,9 @@ suspend fun Call.executeAsync(): String? {
         @Suppress("Detekt.TooGenericExceptionCaught")
         continuation.invokeOnCancellation {
             try {
-                cancel()
+                cancel() // cancel OkHttp call
             } catch (exc: Throwable) {
-                //Ignore cancel exception
+                // we don't care about OkHttp exceptions on cancellation
             }
         }
     }

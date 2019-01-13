@@ -30,11 +30,10 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    /** Newest checked page.  */
-    private var currentTop = PageStatus(LATEST_KNOWN_PAGE * 100, false) //initially page way in the future
-    /** Oldest checked page.  */
-    private var currentBottom = PageStatus(LATEST_KNOWN_PAGE, true)
-    /** First page that contains items older than latest feed page.  */
+    // initially sete it to the page way in the future (we assume)
+    private var newestCheckedPage = PageStatus(LATEST_KNOWN_PAGE * 100, false)
+    private var oldestCheckedPage = PageStatus(LATEST_KNOWN_PAGE, true)
+    // First page that contains items older than latest feed page.
     private var firstHistoryPage = UNKNOWN_PAGE
 
     @get:VisibleForTesting
@@ -42,9 +41,9 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
         private set
 
     private val isFirstPageDetected: Boolean
-        get() = ((currentTop.pageNumber - currentBottom.pageNumber) == 1
-                && !currentTop.exists
-                && currentBottom.exists)
+        get() = ((newestCheckedPage.pageNumber - oldestCheckedPage.pageNumber) == 1
+                && !newestCheckedPage.exists
+                && oldestCheckedPage.exists)
 
 
     private val webService: FeedWebService
@@ -120,21 +119,21 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
     }
 
     private fun recordHit(pageNumber: Int) {
-        currentBottom = PageStatus(pageNumber, true)
+        oldestCheckedPage = PageStatus(pageNumber, true)
     }
 
     private fun recordMiss(pageNumber: Int) {
-        currentTop = PageStatus(pageNumber, false)
+        newestCheckedPage = PageStatus(pageNumber, false)
     }
 
     private fun analyzeUpdatedState() {
         if (isFirstPageDetected) {
             //first page in history is 1 page before the latest one
-            firstHistoryPage = currentBottom.pageNumber - 1
+            firstHistoryPage = oldestCheckedPage.pageNumber - 1
             isActive = false
         } else {
             //otherwise, bisect
-            requestPage((currentBottom.pageNumber + currentTop.pageNumber + 1) / 2)
+            requestPage((oldestCheckedPage.pageNumber + newestCheckedPage.pageNumber + 1) / 2)
         }
     }
 
