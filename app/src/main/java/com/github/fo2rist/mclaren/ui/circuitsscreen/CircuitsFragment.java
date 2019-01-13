@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.circuitsscreen;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
@@ -41,7 +41,6 @@ public class CircuitsFragment extends Fragment {
 
     private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
-    private RaceCalendarRepository raceCalendarRepository; // TODO Inject it
 
 
     public static CircuitsFragment newInstanceForColumns(int columnCount) {
@@ -66,9 +65,7 @@ public class CircuitsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_circuits_list, container, false);
 
         if (!(view instanceof RecyclerView)) {
@@ -76,7 +73,6 @@ public class CircuitsFragment extends Fragment {
         }
 
         Context context = view.getContext();
-        raceCalendarRepository = new RaceCalendarRepositoryImpl(getContext());
         RecyclerView recyclerView = (RecyclerView) view;
         if (columnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -84,9 +80,9 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        RaceCalendar eventsCalendar = raceCalendarRepository.loadCurrentCalendar();
+        RaceCalendar eventsCalendar = new RaceCalendarRepositoryImpl(context).loadCurrentCalendar();
         recyclerView.setAdapter(
-                new CircuitsAdapter(getContext(), eventsCalendar, listener));
+                new CircuitsAdapter(context, eventsCalendar, listener));
         return view;
     }
 

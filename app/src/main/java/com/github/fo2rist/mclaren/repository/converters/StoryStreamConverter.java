@@ -16,6 +16,7 @@ import com.github.fo2rist.mclaren.web.models.StoryStreamItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.github.fo2rist.mclaren.models.FeedItem.TEXT_LENGTH_LIMIT;
 import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.FeedType;
@@ -96,7 +97,7 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
             text = text.replaceAll("\\n+", " ");
 
             if (!TextUtils.isEmpty(data.title)) {
-                text = data.title.toUpperCase() + "\n" + text;
+                text = data.title.toUpperCase(Locale.US) + "\n" + text;
             }
 
             if (text.length() > TEXT_LENGTH_LIMIT) {

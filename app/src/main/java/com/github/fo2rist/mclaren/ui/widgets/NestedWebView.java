@@ -15,6 +15,7 @@ package com.github.fo2rist.mclaren.ui.widgets;
  * limitations under the License.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.NestedScrollingChild;
@@ -48,6 +49,7 @@ public class NestedWebView extends WebView implements NestedScrollingChild {
         setNestedScrollingEnabled(true);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         boolean returnValue = false;
