@@ -40,7 +40,8 @@ public interface FeedContract {
         void navigateToPreview(@NonNull FeedItem item);
     }
 
-    interface Presenter extends BasePresenter<View>, OnFeedInteractionListener, OnFeedScrollingListener {
+    interface Presenter extends BasePresenter<View>, Stoppable, OnFeedInteractionListener, OnFeedScrollingListener {
+
         void onRefreshRequested();
     }
 }

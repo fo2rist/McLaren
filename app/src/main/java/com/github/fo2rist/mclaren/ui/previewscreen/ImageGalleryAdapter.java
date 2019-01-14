@@ -40,7 +40,7 @@ public class ImageGalleryAdapter extends PagerAdapter {
         return imageUris.size();
     }
 
-    @SuppressWarnings("CompareObjectsWithEquals")
+    @SuppressWarnings("PMD.CompareObjectsWithEquals")
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         // pager adapter uses objects returned by #instantiateItem() as keys

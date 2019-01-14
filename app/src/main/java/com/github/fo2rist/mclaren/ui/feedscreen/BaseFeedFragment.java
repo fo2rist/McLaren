@@ -26,9 +26,11 @@ import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
  * Displays feed of {@link FeedItem}s.
  * Handle refresh, loading and links clicking.
  */
-public class BaseFeedFragment
-        extends Fragment
+public class BaseFeedFragment extends Fragment
         implements FeedContract.View, SwipeRefreshLayout.OnRefreshListener {
+
+    @Inject
+    FeedContract.Presenter presenter;
 
     private RecyclerView feedRecyclerView;
     private LinearLayoutManager feedLayoutManger;
@@ -36,9 +38,6 @@ public class BaseFeedFragment
     private ProgressBar progressBar;
 
     private FeedAdapter feedAdapter;
-
-    @Inject
-    FeedContract.Presenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

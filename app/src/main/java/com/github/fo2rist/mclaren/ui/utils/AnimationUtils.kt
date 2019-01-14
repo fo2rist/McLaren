@@ -16,12 +16,14 @@ const val EXTRA_CIRCULAR_REVEAL_X = "circular_reveal_x"
 const val EXTRA_CIRCULAR_REVEAL_Y = "circular_reveal_y"
 
 private const val REVEAL_DURATION_MS = 400L
+private const val REVEAL_RADIUS_OFFSET = 1.1f // multiplier for max width/height -> circular radius conversion
 
 /**
  * Start new activity for transition and put reveal parameters to intent.
  */
 fun startActivityWithRevealAnimation(activity: Activity, intent: Intent, revealCenterView: View) {
-    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, revealCenterView, "floatig_button_transmission")
+    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            activity, revealCenterView, "floatig_button_transmission")
     putRevealAnimationCenterToIntent(intent, revealCenterView)
 
     ActivityCompat.startActivity(activity, intent, options.toBundle())
@@ -60,11 +62,12 @@ private fun getRevealAnimationCenterFromIntent(intent: Intent): Pair<Int, Int> {
     return Pair(revealX, revealY)
 }
 
+
 private fun startRevealAnimation(view: View, centerX: Int, centerY: Int) {
     // make the view visible and start the animation
     view.visibility = View.VISIBLE
 
-    val finalRadius = Math.max(view.width, view.height) * 1.1f
+    val finalRadius = Math.max(view.width, view.height) * REVEAL_RADIUS_OFFSET
     ViewAnimationUtils.createCircularReveal(view, centerX, centerY, 0f, finalRadius).apply {
         duration = REVEAL_DURATION_MS
         interpolator = AccelerateInterpolator()
@@ -76,7 +79,7 @@ private fun startRevealAnimation(view: View, centerX: Int, centerY: Int) {
  * @param doAfter action to execute once animation is over.
  */
 fun animateUnreveal(view: View, doAfter: () -> Unit) {
-    val startRadius = Math.max(view.width, view.height) * 1.1f
+    val startRadius = Math.max(view.width, view.height) * REVEAL_RADIUS_OFFSET
     val centerX = view.width
     val centerY = view.height
     ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, 0f).apply {

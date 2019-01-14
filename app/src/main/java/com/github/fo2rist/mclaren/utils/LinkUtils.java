@@ -45,13 +45,11 @@ public class LinkUtils {
     }
 
     public static String getTwitterPageLink(String twitterId) {
-        twitterId = purify(twitterId);
-        return TWITTER_BASE_PATH + twitterId;
+        return TWITTER_BASE_PATH + purify(twitterId);
     }
 
     private static String getInstagramPageLink(String instagramId) {
-        instagramId = purify(instagramId);
-        return INSTAGRAM_BASE_PATH + instagramId;
+        return INSTAGRAM_BASE_PATH + purify(instagramId);
     }
 
     @Nullable
@@ -68,13 +66,11 @@ public class LinkUtils {
     }
 
     private static String getTwitterHashtagLink(String hashtag) {
-        hashtag = purify(hashtag);
-        return TWITTER_HASHTAG_BASE_PATH + hashtag;
+        return TWITTER_HASHTAG_BASE_PATH + purify(hashtag);
     }
 
     private static String getInstagramHashtagLink(String hashtag) {
-        hashtag = purify(hashtag);
-        return INSTAGRAM_HASHTAG_BASE_PATH + hashtag;
+        return INSTAGRAM_HASHTAG_BASE_PATH + purify(hashtag);
     }
 
     public static String getMcLarenFormula1Link() {

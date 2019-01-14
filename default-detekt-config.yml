@@ -9,6 +9,7 @@ test-pattern: # Configure exclusions for test sources
   patterns: # Test file regexps
     - '.*/test/.*'
     - '.*/androidTest/.*'
+    - '.*/sharedTest/.*'
     - '.*Test.kt'
     - '.*Spec.kt'
   exclude-rule-sets:
@@ -62,12 +63,12 @@ comments:
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
-    active: false
+    active: true
   EndOfSentenceFormat:
     active: false
     endOfSentenceFormat: ([.?!][ \t\n\r\f<])|([.?!]$)
   UndocumentedPublicClass:
-    active: false
+    active: true
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true

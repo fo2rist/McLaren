@@ -32,7 +32,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
 
     private static final String ARG_DRIVER = "ARG_DRIVER";
 
-    private static final Driver.Property[] propertiesToDisplayInList = {
+    private static final Driver.Property[] PROPERTIES_TO_DISPLAY_IN_LIST = {
             MandatoryProperty.NAME,
             MandatoryProperty.DATE_OF_BIRTH,
             MandatoryProperty.NATIONALITY,
@@ -127,7 +127,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         }
 
         LinearLayout propertiesList = rootView.findViewById(R.id.properties_linearlayout);
-        for(Driver.Property property: propertiesToDisplayInList) {
+        for(Driver.Property property: PROPERTIES_TO_DISPLAY_IN_LIST) {
             String propertyValue = driver.getProperty(property);
             if (propertyValue == null) {
                 continue;

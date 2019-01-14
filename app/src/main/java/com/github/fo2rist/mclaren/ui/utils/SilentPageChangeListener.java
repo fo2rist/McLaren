@@ -5,7 +5,9 @@ import android.support.v4.view.ViewPager;
 /**
  * Default empty implementation of {@link ViewPager.OnPageChangeListener}
  */
+@SuppressWarnings("PMD.UncommentedEmptyMethod")
 public class SilentPageChangeListener implements ViewPager.OnPageChangeListener {
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }

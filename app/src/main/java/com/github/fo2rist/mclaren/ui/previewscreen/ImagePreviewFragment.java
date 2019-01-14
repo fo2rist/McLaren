@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
+
     private static final String ARG_FEED_ITEM = "feed_item";
 
     @Inject

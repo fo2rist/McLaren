@@ -17,9 +17,9 @@ import javax.inject.Inject
  * Presenter for social "Feed" view.
  */
 class FeedPresenter @Inject constructor(
-        private val feedRepository: FeedRepository,
-        private val repositoryEventBus: FeedRepositoryEventBus,
-        private val eventsLogger: EventsLogger
+    private val feedRepository: FeedRepository,
+    private val repositoryEventBus: FeedRepositoryEventBus,
+    private val eventsLogger: EventsLogger
 ) : FeedContract.Presenter {
 
     private lateinit var view: FeedContract.View

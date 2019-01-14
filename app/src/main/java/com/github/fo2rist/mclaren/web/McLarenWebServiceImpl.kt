@@ -10,6 +10,13 @@ import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
+private val FEED_URL = HttpUrl.get(BuildConfig.MCLAREN_FEED_URL)
+private val MCLAREN_RACE_INFO_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_INFO_URL)
+private val MCLAREN_RACE_LIFE_DATA_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_LIFE_DATA_URL)
+private val DEFAULT_HEADERS = Headers.of(
+        "Content-Type", "application/json; charset=utf-8",
+        "Authorization", BuildConfig.MCLAREN_CDN_AUTH)
+
 /**
  * Service that provides access to McLaren own APIs.
  * See [McLarenFeedWebService] & [TransmissionWebService]
@@ -44,16 +51,5 @@ internal class McLarenWebServiceImpl @Inject internal constructor(
                 .url(MCLAREN_RACE_LIFE_DATA_URL)
                 .headers(DEFAULT_HEADERS)
                 .build()
-    }
-
-    companion object {
-
-        private val FEED_URL = HttpUrl.get(BuildConfig.MCLAREN_FEED_URL)
-        private val MCLAREN_RACE_INFO_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_INFO_URL)
-        private val MCLAREN_RACE_LIFE_DATA_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_LIFE_DATA_URL)
-        private val DEFAULT_HEADERS = Headers.of(
-                "Content-Type", "application/json; charset=utf-8",
-                "Authorization", BuildConfig.MCLAREN_CDN_AUTH
-        )
     }
 }

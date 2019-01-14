@@ -10,10 +10,14 @@ import java.util.Map;
 /** Info about the driver. */
 public class Driver implements Serializable {
 
+    /** Single property with name. */
     public interface Property {
         String getDisplayName();
     };
 
+    /**
+     * Properties that must be declared for all drivers.
+     */
     public enum MandatoryProperty implements Property {
         NAME("Name"),
         DATE_OF_BIRTH("Date of Birth"),
@@ -31,6 +35,9 @@ public class Driver implements Serializable {
         }
     }
 
+    /**
+     * Optional properties that could be skipped for some drivers.
+     */
     public enum AdditionalProperty implements Property {
         TAG("Tag"),
         WORLD_CHAMPIONSHIPS("World Championships"),
@@ -55,8 +62,8 @@ public class Driver implements Serializable {
         }
     }
 
-    private String id_;
-    private HashMap<Property, String> properties_;
+    private String id;
+    private HashMap<Property, String> properties;
 
     public Driver(@NonNull String id, @NonNull Map<Property, String> properties) {
         //check that all mandatory properties present first
@@ -66,13 +73,13 @@ public class Driver implements Serializable {
             }
         }
 
-        id_ = id;
-        properties_ = new HashMap<>(properties);
+        this.id = id;
+        this.properties = new HashMap<>(properties);
     }
 
     /** Id to identify driver model inside the app. */
     public String getId() {
-        return id_;
+        return id;
     }
 
     /**
@@ -81,7 +88,7 @@ public class Driver implements Serializable {
      * @return property value or 'null' if not exists
      */
     public String getProperty(Property property) {
-        return properties_.get(property);
+        return properties.get(property);
     }
 
 }

@@ -21,7 +21,7 @@ import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_B
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_EVERYONE
 
 class TransmissionAdapter(
-        private val items: ArrayList<TransmissionItem> = ArrayList()
+    private val items: ArrayList<TransmissionItem> = ArrayList()
 ) : RecyclerView.Adapter<TransmissionAdapter.TransmissionViewHolder>() {
 
     class TransmissionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
