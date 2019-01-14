@@ -18,7 +18,7 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
-import com.github.fo2rist.mclaren.web.DefaultOkHttpClientFactory;
+import com.github.fo2rist.mclaren.web.OkHttpClientFactory;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
@@ -107,7 +107,7 @@ public abstract class AppModule {
     @Named("web-okhttp")
     @Singleton
     static OkHttpClient provideWebOkHttpClient(Context context) {
-        return DefaultOkHttpClientFactory.getInstance(context);
+        return OkHttpClientFactory.createWebClient(context);
     }
     //endregion
 }

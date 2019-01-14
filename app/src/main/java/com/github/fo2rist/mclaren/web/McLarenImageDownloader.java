@@ -9,15 +9,12 @@ import android.widget.ImageView;
 import com.github.fo2rist.mclaren.BuildConfig;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.ImageUrl;
-import com.github.fo2rist.mclaren.utils.CacheUtils;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-import java.io.IOException;
 import java.util.List;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 public class McLarenImageDownloader {
     /**
@@ -34,11 +31,14 @@ public class McLarenImageDownloader {
         THUMB
     }
 
-    private static final int CACHE_SIZE = 25 * 1024 * 1024; //25 Mb
-
     private static McLarenImageDownloader instance;
 
     private Picasso picasso;
+
+    private int maxImageSize;
+    private int fullscreenImageSize;
+    private int tileImageSize;
+    private int thumbImageSize;
 
     private static synchronized McLarenImageDownloader getInstance(Context context) {
         if (instance == null) {
@@ -71,11 +71,6 @@ public class McLarenImageDownloader {
         }
     }
 
-    int maxImageSize;
-    int fullscreenImageSize;
-    int tileImageSize;
-    int thumbImageSize;
-
     private McLarenImageDownloader(Context context) {
         maxImageSize = context.getResources().getDimensionPixelSize(R.dimen.max_image_size);
         fullscreenImageSize = context.getResources().getDimensionPixelSize(R.dimen.fullscreen_image_size);
@@ -91,29 +86,21 @@ public class McLarenImageDownloader {
 
     @NonNull
     private OkHttp3Downloader createCachingDownloader(Context context) {
-        //WARN caching OkHTTP clients should not use the same directory or at least should never call the same endpoint
-        //TODO move to DefaultOkHttpClientFactory
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(createMcLarenAuthInterceptor())
-                .cache(CacheUtils.createCache(context,"images", CACHE_SIZE))
-                .build();
+        OkHttpClient client = OkHttpClientFactory.createPicassoClient(context, createMcLarenAuthInterceptor());
         return new OkHttp3Downloader(client);
     }
 
     @NonNull
     private Interceptor createMcLarenAuthInterceptor() {
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                //set auth header to requests for tab-api
-                if (chain.request().url().encodedPath().contains("tab-api/")) {
-                    Request newRequest = chain.request().newBuilder()
-                            .addHeader("Authorization", BuildConfig.MCLAREN_TAB_API_AUTH)
-                            .build();
-                    return chain.proceed(newRequest);
-                } else { // or just proceed request as is
-                    return chain.proceed(chain.request());
-                }
+        return chain -> {
+            //set auth header to requests for tab-api
+            if (chain.request().url().encodedPath().contains("tab-api/")) {
+                Request newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", BuildConfig.MCLAREN_TAB_API_AUTH)
+                        .build();
+                return chain.proceed(newRequest);
+            } else { // or just proceed request as is
+                return chain.proceed(chain.request());
             }
         };
     }
