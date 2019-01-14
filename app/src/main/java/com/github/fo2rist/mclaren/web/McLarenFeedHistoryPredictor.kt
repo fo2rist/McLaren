@@ -108,6 +108,7 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
         analyzeUpdatedState()
     }
 
+    @SuppressWarnings("MagicNumber")
     private fun onFailure(requestedPage: Int, responseCode: Int, connectionError: IOException?) {
         if (connectionError != null || responseCode >= 500) {
             //give up on precessing if server gives not valuable response
