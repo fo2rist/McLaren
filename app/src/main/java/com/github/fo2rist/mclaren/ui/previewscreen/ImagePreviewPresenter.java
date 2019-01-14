@@ -48,10 +48,6 @@ public class ImagePreviewPresenter implements ImagePreviewContract.Presenter {
         lastKnownGalleryPosition = position;
     }
 
-    @Override
-    public void onStop() {
-    }
-
     private void showItemContent() {
         if (item == null) {
             return;

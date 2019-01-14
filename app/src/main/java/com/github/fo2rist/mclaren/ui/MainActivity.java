@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         MainScreenContract.View,
         NavigationView.OnNavigationItemSelectedListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
-        DriversFragment.OnDriversFragmentInteractionListener,
         DriverSubFragment.OnDriverSubFragmentInteractionListener,
         View.OnClickListener
 {
@@ -80,14 +79,6 @@ public class MainActivity extends AppCompatActivity
             //otherwise, just re-couple view and presenter.
             presenter.onRestart(this);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        if (isFinishing()) {
-            presenter.onStop();
-        }
-        super.onPause();
     }
 
     private void setupViews() {
@@ -172,11 +163,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onCircuitSelected(CalendarEvent event, int number) {
         startActivity(CircuitDetailsActivity.createIntent(this, event));
-    }
-
-    @Override
-    public void onDriversFragmentInteraction(Uri uri) {
-        //empty
     }
 
     @Override

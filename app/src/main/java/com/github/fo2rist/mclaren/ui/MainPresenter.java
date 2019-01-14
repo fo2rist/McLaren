@@ -42,10 +42,6 @@ public class MainPresenter implements MainScreenContract.Presenter {
     }
 
     @Override
-    public void onStop() {
-    }
-
-    @Override
     public void onStoriesClicked() {
         view.openStories();
         eventsLogger.logViewEvent(Events.MENU_STORIES);
