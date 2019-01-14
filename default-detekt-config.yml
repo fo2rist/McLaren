@@ -9,6 +9,7 @@ test-pattern: # Configure exclusions for test sources
   patterns: # Test file regexps
     - '.*/test/.*'
     - '.*/androidTest/.*'
+    - '.*/sharedTest/.*'
     - '.*Test.kt'
     - '.*Spec.kt'
   exclude-rule-sets:
