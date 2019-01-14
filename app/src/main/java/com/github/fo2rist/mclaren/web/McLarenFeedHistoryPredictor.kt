@@ -30,7 +30,7 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    // initially sete it to the page way in the future (we assume)
+    // initially set it to the page way in the future (we assume)
     private var newestCheckedPage = PageStatus(LATEST_KNOWN_PAGE * 100, false)
     private var oldestCheckedPage = PageStatus(LATEST_KNOWN_PAGE, true)
     // First page that contains items older than latest feed page.
@@ -39,12 +39,6 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
     @get:VisibleForTesting
     internal var isActive = false
         private set
-
-    private val isFirstPageDetected: Boolean
-        get() = ((newestCheckedPage.pageNumber - oldestCheckedPage.pageNumber) == 1
-                && !newestCheckedPage.exists
-                && oldestCheckedPage.exists)
-
 
     private val webService: FeedWebService
 
@@ -85,9 +79,9 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
 
     @VisibleForTesting
     internal fun guessClosestNotExistingPage(): Int {
-        val daysBetween = Days.daysBetween(LATEST_KNOWN_DATE, LocalDate.now())
+        val daysBetween = Days.daysBetween(LATEST_KNOWN_DATE, LocalDate.now()).days
 
-        return LATEST_KNOWN_PAGE + daysBetween.days * APPROXIMATED_DAYS_PER_PAGE + APPROXIMATED_EXTRA_PAGES_BUFFER
+        return LATEST_KNOWN_PAGE + daysBetween / APPROXIMATED_DAYS_PER_PAGE + APPROXIMATED_EXTRA_PAGES_BUFFER
     }
 
     private fun requestPage(nextPageToAsk: Int) {
@@ -127,7 +121,7 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
     }
 
     private fun analyzeUpdatedState() {
-        if (isFirstPageDetected) {
+        if (isFirstPageDetected()) {
             //first page in history is 1 page before the latest one
             firstHistoryPage = oldestCheckedPage.pageNumber - 1
             isActive = false
@@ -137,16 +131,22 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
         }
     }
 
+    private fun isFirstPageDetected(): Boolean = ((newestCheckedPage.pageNumber - oldestCheckedPage.pageNumber) == 1
+            && !newestCheckedPage.exists
+            && oldestCheckedPage.exists)
+
+
     companion object {
 
         // As of 2017.09.24 it was 454
         // As of 2018.02.07 it was 504
+        // As of 2019.01.12 it was 613
         @VisibleForTesting
         const val LATEST_KNOWN_PAGE = 504
         @JvmStatic
         private val LATEST_KNOWN_DATE = LocalDate(2018, 2, 7)
         private const val APPROXIMATED_DAYS_PER_PAGE = 3
-        private const val APPROXIMATED_EXTRA_PAGES_BUFFER = 3
+        private const val APPROXIMATED_EXTRA_PAGES_BUFFER = 10
 
         const val UNKNOWN_PAGE = -1
     }
