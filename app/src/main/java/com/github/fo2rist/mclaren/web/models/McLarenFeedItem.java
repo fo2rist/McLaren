@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Represent one item in feed.
+ * Represent one item in feed as it's received from McLaren API.
  * Fields we don't use at the time:
  *  - layer int
  *  - sourceId string id

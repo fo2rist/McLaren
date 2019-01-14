@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Represent full feed as it returned by Story Stream Service.
+ * Represent full feed as it returned by StoryStream API.
+ * @see StoryStream
+ * @see StoryStreamItemWrapper
  */
 public class StoryStream implements Serializable {
     @Nullable
@@ -18,7 +20,7 @@ public class StoryStream implements Serializable {
 
     @NonNull
     @SerializedName("blocks")
-    public ArrayList<StoryStreamItem> items = new ArrayList<>();
+    public ArrayList<StoryStreamItemWrapper> items = new ArrayList<>();
 
     @SerializedName("total_pages")
     public int totalPages;

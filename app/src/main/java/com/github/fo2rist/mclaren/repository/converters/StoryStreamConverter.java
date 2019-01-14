@@ -11,17 +11,17 @@ import com.github.fo2rist.mclaren.models.FeedItem.Type;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.web.models.StoryStream;
-import com.github.fo2rist.mclaren.web.models.StoryStreamContentItem;
 import com.github.fo2rist.mclaren.web.models.StoryStreamItem;
+import com.github.fo2rist.mclaren.web.models.StoryStreamItemWrapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import static com.github.fo2rist.mclaren.models.FeedItem.TEXT_LENGTH_LIMIT;
-import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.FeedType;
-import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.ImageData;
-import static com.github.fo2rist.mclaren.web.models.StoryStreamContentItem.VideoData;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamItem.FeedType;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamItem.ImageData;
+import static com.github.fo2rist.mclaren.web.models.StoryStreamItem.VideoData;
 
 /**
  * Converts StoryStream API feed web-model to app models.
@@ -39,13 +39,13 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     @Override
     public List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
-        for (StoryStreamItem storyStreamItem: storyStreamFeed.items) {
+        for (StoryStreamItemWrapper storyStreamItem: storyStreamFeed.items) {
             result.add(convertFeedItem(storyStreamItem));
         }
         return result;
     }
 
-    private static FeedItem convertFeedItem(StoryStreamItem storyStreamItem) {
+    private static FeedItem convertFeedItem(StoryStreamItemWrapper storyStreamItem) {
         return new FeedItem(
             fetchId(storyStreamItem),
             fetchType(storyStreamItem),
@@ -58,14 +58,14 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
             fetchImageUrls(storyStreamItem));
     }
 
-    private static long fetchId(StoryStreamItem storyStreamItem) {
+    private static long fetchId(StoryStreamItemWrapper storyStreamItem) {
         //StoryStream don't offer sequential IDs so use timestamp instead as a hack
         return storyStreamItem.publishDate.getTime();
     }
 
     @NonNull
-    private static Type fetchType(StoryStreamItem storyStreamItem) {
-        StoryStreamContentItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+    private static Type fetchType(StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
 
         if (storyStreamContentItem.feedType == FeedType.Custom) {
             return Type.Article;
@@ -88,8 +88,8 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static String fetchText(StoryStreamItem storyStreamItem) {
-        StoryStreamContentItem data = fetchContentItem(storyStreamItem);
+    private static String fetchText(StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem data = fetchContentItem(storyStreamItem);
         if (data.feedType == FeedType.Custom) {
             String text = data.body;
             text = Html.fromHtml(text).toString();
@@ -111,22 +111,22 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
         }
     }
 
-    private static StoryStreamContentItem fetchContentItem(StoryStreamItem storyStreamItem) {
+    private static StoryStreamItem fetchContentItem(StoryStreamItemWrapper storyStreamItem) {
         return storyStreamItem.contentItems.get(0);
     }
 
     @Nullable
-    private static String fetchContent(StoryStreamItem storyStreamItem) {
+    private static String fetchContent(StoryStreamItemWrapper storyStreamItem) {
         return fetchContentItem(storyStreamItem).body;
     }
 
     @NonNull
-    private static Date fetchDate(StoryStreamItem storyStreamItem) {
+    private static Date fetchDate(StoryStreamItemWrapper storyStreamItem) {
         return storyStreamItem.publishDate;
     }
 
     @NonNull
-    private static SourceType fetchSourceType(StoryStreamItem storyStreamItem) {
+    private static SourceType fetchSourceType(StoryStreamItemWrapper storyStreamItem) {
         switch(fetchContentItem(storyStreamItem).feedType) {
             case Twitter:
                 return SourceType.Twitter;
@@ -138,13 +138,13 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static String fetchSourceName(StoryStreamItem storyStreamItem) {
-        StoryStreamContentItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+    private static String fetchSourceName(StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
         return storyStreamContentItem.source; //for pretty name use .author
     }
 
     @NonNull
-    private static String fetchMediaLink(StoryStreamItem storyStreamItem) {
+    private static String fetchMediaLink(StoryStreamItemWrapper storyStreamItem) {
         List<VideoData> videos = fetchContentItem(storyStreamItem).videos;
         return (!videos.isEmpty() && videos.get(0) != null)
                 ? videos.get(0).url
@@ -152,7 +152,7 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static List<ImageUrl> fetchImageUrls(StoryStreamItem storyStreamItem) {
+    private static List<ImageUrl> fetchImageUrls(StoryStreamItemWrapper storyStreamItem) {
         List<ImageData> images = fetchContentItem(storyStreamItem).images;
 
         List<ImageUrl> result = new ArrayList<>(images.size());
@@ -216,7 +216,7 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static Size toImageSize(@Nullable StoryStreamContentItem.ImageSize size) {
+    private static Size toImageSize(@Nullable StoryStreamItem.ImageSize size) {
         if (size == null) {
             return Size.UNKNOWN;
         }
