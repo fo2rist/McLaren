@@ -62,12 +62,12 @@ comments:
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
-    active: false
+    active: true
   EndOfSentenceFormat:
     active: false
     endOfSentenceFormat: ([.?!][ \t\n\r\f<])|([.?!]$)
   UndocumentedPublicClass:
-    active: false
+    active: true
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true
