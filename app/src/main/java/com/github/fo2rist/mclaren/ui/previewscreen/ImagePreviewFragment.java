@@ -52,7 +52,6 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
         return rootView;
     }
 
-    @SuppressWarnings("DeclarationOrder")
     private ViewPager.OnPageChangeListener pageChangeListener = new SilentPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
