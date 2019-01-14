@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
+
     private static final String ARG_FEED_ITEM = "feed_item";
 
     @Inject
@@ -51,6 +52,7 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
         return rootView;
     }
 
+    @SuppressWarnings("DeclarationOrder")
     private ViewPager.OnPageChangeListener pageChangeListener = new SilentPageChangeListener() {
         @Override
         public void onPageSelected(int position) {

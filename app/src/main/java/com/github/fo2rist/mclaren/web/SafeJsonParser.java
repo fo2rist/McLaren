@@ -13,9 +13,11 @@ import timber.log.Timber;
  *          parsing error.
  */
 public class SafeJsonParser<T> {
+
+    private static Gson GSON_INSTANCE = new Gson();
+
     private T emptyResult;
     private Class<? extends T> classOfResult;
-    private static Gson gson = new Gson();
 
     public SafeJsonParser(Class<? extends T> classOfResult) {
         this.classOfResult = classOfResult;
@@ -33,7 +35,7 @@ public class SafeJsonParser<T> {
     @NonNull
     public T parse(@Nullable String data) {
         try {
-            T result = gson.fromJson(data, classOfResult);
+            T result = GSON_INSTANCE.fromJson(data, classOfResult);
             return result != null ? result : emptyResult;
         } catch (JsonSyntaxException exc) {
             Timber.e(exc);

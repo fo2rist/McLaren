@@ -2,7 +2,11 @@ package com.github.fo2rist.mclaren.models;
 
 import java.io.Serializable;
 
+/**
+ * Image size as a pair of width and height in pixels.
+ */
 public class Size implements Serializable {
+
     /** Special value for unknown size of [-1, -1]. */
     public static final Size UNKNOWN = new Size(-1, -1);
 
