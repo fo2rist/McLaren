@@ -9,12 +9,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import static com.github.fo2rist.mclaren.testdata.FeedUrlSamplesKt.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS;
+import static com.github.fo2rist.mclaren.testdata.FeedUrlSamplesKt.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_0;
+import static com.github.fo2rist.mclaren.testdata.FeedUrlSamplesKt.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_1;
+import static com.github.fo2rist.mclaren.testdata.FeedUrlSamplesKt.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_2;
+import static com.github.fo2rist.mclaren.testdata.FeedUrlSamplesKt.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_3;
 import static com.github.fo2rist.mclaren.testutilities.CustomAssertions.assertStartsWith;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 
 @RunWith(JUnit4.class)
 public class McLarenFeedParserTest {
+
     private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     @Test
@@ -34,8 +40,8 @@ public class McLarenFeedParserTest {
                 null,
                 "The swimming pool",
                 "The swimming pool",
-                false,
-                "https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fscontent.cdninstagram.com%2ft51.2885-15%2fs640x640%2fsh0.08%2fe35%2f20759124_860267880794627_525257414920896512_n.jpg&width=WIDTH_PLACEHOLDER&height=HEIGHT_PLACEHOLDER");
+                false, IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_0);
+
         checkItemFields(mcLarenFeedItems.get(6),
                 Type.GALLERY,
                 "@McLarenAuto",
@@ -48,9 +54,9 @@ public class McLarenFeedParserTest {
                 "Here's a slightly different",
                 "Here's a slightly different",
                 false,
-                "https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fpbs.twimg.com%2fmedia%2fDG81vaZXgAASWQX.jpg&width=WIDTH_PLACEHOLDER&height=HEIGHT_PLACEHOLDER",
-                "https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fpbs.twimg.com%2fmedia%2fDG81vacXsAAM3K2.jpg&width=WIDTH_PLACEHOLDER&height=HEIGHT_PLACEHOLDER",
-                "https://cdn.mcl-app-api.com/api/v1/image?url=https%3a%2f%2fpbs.twimg.com%2fmedia%2fDG81vaaXYAAJFHu.jpg&width=WIDTH_PLACEHOLDER&height=HEIGHT_PLACEHOLDER");
+                IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_1,
+                IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_2,
+                IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_3);
         checkItemFields(mcLarenFeedItems.get(8),
                 Type.ARTICLE,
                 null,
@@ -63,7 +69,7 @@ public class McLarenFeedParserTest {
                 "<div>\r\n<p>For F1 folk, the summer",
                 "Enjoying exclusive content",
                 false,
-                "http://www.mclaren.com/formula1/tab-api/1.0/image/{width}/{height}/images/articles/hero/_R3I3889_vlGjOGj.jpg");
+                IMAGE_URL_TAB_API_WITH_PLACEHOLDERS);
     }
 
     private void checkItemFields(McLarenFeedItem item, Type type, String author, int id, Object origin,

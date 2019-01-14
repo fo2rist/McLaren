@@ -7,7 +7,7 @@ import android.util.Patterns;
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
-import com.github.fo2rist.mclaren.repository.utils.ImageUrlParser;
+import com.github.fo2rist.mclaren.repository.converters.utils.ImageUrlParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem;
 import com.github.fo2rist.mclaren.web.models.McLarenMediaItem;

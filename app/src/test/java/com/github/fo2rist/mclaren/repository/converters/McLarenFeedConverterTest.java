@@ -24,14 +24,14 @@ public class McLarenFeedConverterTest {
     private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     @Test
-    public void testRealDataFilteredByHiddenFlag() throws Exception {
+    public void testRealDataFilteredByHiddenFlag() {
         List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         assertEquals(McLarenFeedResponse.VISIBLE_ITEMS_IN_FEED, feed.size());
     }
 
     @Test
-    public void testLikExtractedFromTweetText() throws Exception {
+    public void testLikExtractedFromTweetText() {
         List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
 
         assertEquals(1, feed.size());
@@ -39,7 +39,7 @@ public class McLarenFeedConverterTest {
     }
 
     @Test
-    public void testSomeItemsParsing() throws Exception {
+    public void testSomeItemsParsing() {
         List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         checkItemFields(feed.get(0),

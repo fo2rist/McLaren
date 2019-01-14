@@ -8,8 +8,6 @@ import android.webkit.URLUtil;
 
 public class IntentUtils {
 
-    static final String HTTP = "http://";
-    static final String HTTPS = "https://";
     private static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=";
     private static final String MCLAREN_APP_PACKAGE = "mclaren.mobile";
 
