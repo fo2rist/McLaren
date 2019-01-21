@@ -141,11 +141,11 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
 
         // As of 2017.09.24 it was 454
         // As of 2018.02.07 it was 504
-        // As of 2019.01.12 it was 613
+        // As of 2019.01.21 it was 615
         @VisibleForTesting
-        const val LATEST_KNOWN_PAGE = 504
+        const val LATEST_KNOWN_PAGE = 615
         @JvmStatic
-        private val LATEST_KNOWN_DATE = LocalDate(2018, 2, 7)
+        private val LATEST_KNOWN_DATE = LocalDate(2019, 1, 21)
         private const val APPROXIMATED_DAYS_PER_PAGE = 3
         private const val APPROXIMATED_EXTRA_PAGES_BUFFER = 10
 
