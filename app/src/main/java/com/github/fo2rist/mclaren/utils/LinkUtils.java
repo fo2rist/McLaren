@@ -4,10 +4,10 @@ import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 
-import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTP;
-import static com.github.fo2rist.mclaren.utils.IntentUtils.HTTPS;
-
 public class LinkUtils {
+    public static final String HTTP = "http://";
+    public static final String HTTPS = "https://";
+
     public static final String MCLAREN_COM = "www.mclaren.com";
     private static final String INSTAGRAM_COM = "www.instagram.com";
     private static final String TWITTER_COM = "twitter.com";
