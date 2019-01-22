@@ -5,8 +5,10 @@ import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.web.TransmissionWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.runBlocking
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.stubbing
+import com.nhaarman.mockitokotlin2.verifyBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,10 +33,10 @@ class TransmissionRepositoryImplTest {
     }
 
     @Test
-    fun test_loadRepository_callsWebService_and_firesLoadStartedEvent() = runBlocking {
+    fun test_loadRepository_callsWebService_and_firesLoadStartedEvent() {
         repository.loadTransmission()
 
-        verify(mockWebService).requestTransmission()
+        verifyBlocking(mockWebService) { requestTransmission() }
         verify(mockEventBus).publish(LoadingEvent.LoadingStarted)
     }
 
@@ -64,8 +66,10 @@ class TransmissionRepositoryImplTest {
         verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
     }
 
-    private fun prepareRealWebResponse()= runBlocking {
-        whenever(mockWebService.requestTransmission()).thenReturn(REAL_TRANSMISSION_RESPONSE)
+    private fun prepareRealWebResponse() {
+        stubbing(mockWebService) {
+            onBlocking { requestTransmission() }.doReturn(REAL_TRANSMISSION_RESPONSE)
+        }
     }
 
     @Test
@@ -79,7 +83,9 @@ class TransmissionRepositoryImplTest {
         verify(mockEventBus).publish(LoadingEvent.LoadingFinished)
     }
 
-    private fun prepareFailureWebResponse() = runBlocking {
-        whenever(mockWebService.requestTransmission()).thenThrow(BadResponse(URL("http://empty.url"), 400))
+    private fun prepareFailureWebResponse() {
+        stubbing(mockWebService) {
+            onBlocking { requestTransmission() }.doThrow(BadResponse(URL("http://empty.url"), 400))
+        }
     }
 }
