@@ -3,7 +3,6 @@ package com.github.fo2rist.mclaren.ui.previewscreen;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract;
-import com.github.fo2rist.mclaren.ui.previewscreen.ImagePreviewPresenter;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,7 @@ public class ImagePreviewPresenterTest {
     private ImagePreviewContract.View mockView;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockView = mock(ImagePreviewContract.View.class);
         mockEventsLogger = mock(EventsLogger.class);
         presenter = new ImagePreviewPresenter(mockEventsLogger);

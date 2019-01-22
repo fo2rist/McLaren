@@ -5,8 +5,10 @@ import com.github.fo2rist.mclaren.testdata.StoryStreamResponse.REAL_FEED_RESPONS
 import com.github.fo2rist.mclaren.web.StoryStreamWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.runBlocking
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.stubbing
+import com.nhaarman.mockitokotlin2.verifyBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,16 +37,18 @@ class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
+    fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
         repository.loadNextPage()
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
-        verify(mockWebService).requestFeedPage(anyInt())
+        verifyBlocking(mockWebService) { requestFeedPage(anyInt()) }
     }
 
     @Test
-    fun test_onSuccess_firesLoadFinishSuccessfullyEvents() = runBlocking {
-        whenever(mockWebService.requestLatestFeed()).thenReturn(REAL_FEED_RESPONSE)
+    fun test_onSuccess_firesLoadFinishSuccessfullyEvents() {
+        stubbing(mockWebService) {
+            onBlocking { requestLatestFeed() }.doReturn(REAL_FEED_RESPONSE)
+        }
 
         repository.loadLatestPage()
 
@@ -54,8 +58,10 @@ class StoryStreamRepositoryImplTest {
     }
 
     @Test
-    fun test_onFailure_firesLoadFinishWithErrorEvents() = runBlocking {
-        whenever(mockWebService.requestLatestFeed()).thenThrow(BadResponse(URL("http://empty.url"), 400))
+    fun test_onFailure_firesLoadFinishWithErrorEvents() {
+        stubbing(mockWebService) {
+            onBlocking { requestLatestFeed() }.doThrow(BadResponse(URL("http://empty.url"), 400))
+        }
 
         repository.loadLatestPage()
 

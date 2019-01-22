@@ -6,6 +6,10 @@ import com.github.fo2rist.mclaren.web.FeedHistoryPredictor
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.stubbing
+import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -50,14 +54,14 @@ class McLarenFeedRepositoryImplTest {
     }
 
     @Test
-    fun testHistoryLoadingCallPredictorFirst() = runBlocking<Unit> {
+    fun testHistoryLoadingCallPredictorFirst() {
         whenever(mockHistoryPredictor.isFirstHistoryPageKnown).thenReturn(false)
         whenever(mockHistoryPredictor.firstHistoryPage).thenReturn(-1)
 
         repository.loadNextPage()
 
         verify(mockHistoryPredictor).startPrediction()
-        verify(mockWebService, never()).requestFeedPage(anyInt())
+        verifyBlocking(mockWebService, never()) { requestFeedPage(anyInt()) }
     }
 
     @Test
@@ -91,8 +95,10 @@ class McLarenFeedRepositoryImplTest {
     }
 
     @Test
-    fun test_onSuccess_firesLoadFinishEvents() = runBlocking {
-        whenever(mockWebService.requestLatestFeed()).thenReturn(REAL_FEED_RESPONSE)
+    fun test_onSuccess_firesLoadFinishEvents() {
+        stubbing(mockWebService) {
+            onBlocking { requestLatestFeed() }.doReturn(REAL_FEED_RESPONSE)
+        }
 
         repository.loadLatestPage()
 
@@ -102,9 +108,10 @@ class McLarenFeedRepositoryImplTest {
     }
 
     @Test
-    fun test_onFailure_firesLoadFinishWithErrorEvents() = runBlocking {
-        whenever(mockWebService.requestLatestFeed())
-                .thenThrow(BadResponse(URL("http://empty.url"), 400))
+    fun test_onFailure_firesLoadFinishWithErrorEvents() {
+        stubbing(mockWebService) {
+            onBlocking { requestLatestFeed() }.doThrow(BadResponse(URL("http://empty.url"), 400))
+        }
 
         repository.loadLatestPage()
 
