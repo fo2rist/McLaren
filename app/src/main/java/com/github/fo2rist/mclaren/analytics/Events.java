@@ -5,7 +5,6 @@ public enum Events {
     MENU_STORIES("Stories"),
     MENU_CIRCUITS("Circuits"),
     MENU_DRIVERS("Drivers"),
-    MENU_FEED("Feed"),
     MENU_CAR("Car"),
     MENU_SITE("Official site"),
     MENU_ABOUT("About"),

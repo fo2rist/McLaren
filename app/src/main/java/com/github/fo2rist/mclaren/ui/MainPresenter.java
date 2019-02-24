@@ -60,12 +60,6 @@ public class MainPresenter implements MainScreenContract.Presenter {
     }
 
     @Override
-    public void onNewsFeedClicked() {
-        view.openNewsFeed();
-        eventsLogger.logViewEvent(Events.MENU_FEED);
-    }
-
-    @Override
     public void onCarClicked() {
         view.navigateTo(
                 getMcLarenCarLink());

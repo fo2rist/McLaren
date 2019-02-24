@@ -24,7 +24,6 @@ import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriversFragment;
-import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
@@ -134,9 +133,7 @@ public class MainActivity extends AppCompatActivity
         menuDrawer.closeDrawer(GravityCompat.START);
 
         int id = item.getItemId();
-        if (id == R.id.nav_news_feed) {
-            presenter.onNewsFeedClicked();
-        } else if (id == R.id.nav_stories) {
+        if (id == R.id.nav_stories) {
             presenter.onStoriesClicked();
         } else if (id == R.id.nav_circuits) {
             presenter.onCircuitsClicked();
@@ -186,12 +183,6 @@ public class MainActivity extends AppCompatActivity
     public void openDrivers() {
         openNewFragment(
                 DriversFragment.newInstance());
-    }
-
-    @Override
-    public void openNewsFeed() {
-        openNewFragment(
-                McLarenFeedFragment.newInstance());
     }
 
     @Override

@@ -8,7 +8,6 @@ public interface MainScreenContract {
         void openStories();
         void openCircuits();
         void openDrivers();
-        void openNewsFeed();
         void openAboutScreen();
         void openTransmissionCenter();
 
@@ -23,7 +22,6 @@ public interface MainScreenContract {
         void onStoriesClicked();
         void onCircuitsClicked();
         void onDriversClicked();
-        void onNewsFeedClicked();
         void onCarClicked();
         void onOfficialSiteClicked();
         void onAboutClicked();
