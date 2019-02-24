@@ -28,7 +28,8 @@ public class MainPresenter implements MainScreenContract.Presenter {
         this.view = view;
         view.openStories();
         if (isRaceActive()) {
-            view.showTransmissionButton();
+            // can notify users about the race in progress
+            // do nothing for now (used to launch transmission screen)
         }
     }
 
