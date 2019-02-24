@@ -9,8 +9,6 @@ import com.github.fo2rist.mclaren.R
 
 class MainPage : Screen<MainPage>() {
 
-    val menuNewsFeed: KView = KView { withText(R.string.navigation_item_news_feed) }
-
     val menuStories: KView = KView { withText(R.string.navigation_item_stories) }
 
     val menuCircuits: KView = KView { withText(R.string.navigation_item_circuits) }

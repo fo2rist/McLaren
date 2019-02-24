@@ -93,15 +93,6 @@ public class MainPresenterTest {
         verify(mockView).openDrivers();
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
-    @Test
-    public void test_onNewsFeedClicked(){
-        setUpPresenter();
-
-        presenter.onNewsFeedClicked();
-
-        verify(mockView).openNewsFeed();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
-    }
 
     @Test
     public void test_onAboutClicked(){

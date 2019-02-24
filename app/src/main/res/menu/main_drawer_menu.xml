@@ -14,9 +14,5 @@
             android:id="@+id/nav_drivers"
             android:icon="@drawable/ic_menu_driver"
             android:title="@string/navigation_item_drivers" />
-        <item
-            android:id="@+id/nav_news_feed"
-            android:icon="@drawable/ic_menu_feed"
-            android:title="@string/navigation_item_news_feed" />
     </group>
 </menu>

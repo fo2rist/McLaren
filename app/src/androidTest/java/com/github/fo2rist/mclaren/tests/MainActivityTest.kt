@@ -19,14 +19,13 @@ class MainActivityTest : BaseMainActivityTest() {
     @Test
     fun testSideMenu() {
         mainPage {
-            menuNewsFeed { isNotDisplayed() }
+            menuStories { isNotDisplayed() }
 
             openNavigationDrawer()
 
             menuStories { isDisplayed() }
             menuCircuits { isDisplayed() }
             menuDrivers { isDisplayed() }
-            menuNewsFeed { isDisplayed() }
             menuCar { isDisplayed() }
             menuOfficialSite { isDisplayed() }
         }
