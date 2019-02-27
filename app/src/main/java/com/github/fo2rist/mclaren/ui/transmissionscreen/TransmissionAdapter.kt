@@ -73,8 +73,10 @@ class TransmissionAdapter(
 
         private fun setImagesFor(item: TransmissionItem) {
             driverImage.setImageResource(when (item.type) {
-                DRIVER_A_TO_PIT -> R.drawable.driver_portrait_alonso
-                DRIVER_B_TO_PIT -> R.drawable.driver_portrait_vandoorne
+                //TODO there must be a concept of primary/secondary driver with all resources available for the through
+                // one place. 2019-02-26
+                DRIVER_A_TO_PIT -> R.drawable.driver_portrait_sainz
+                DRIVER_B_TO_PIT -> R.drawable.driver_portrait_norris
                 else -> 0
             })
 
