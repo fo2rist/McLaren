@@ -52,6 +52,7 @@ public class DriversFactory {
         map.put(Driver.MandatoryProperty.NATIONALITY, "Spanish");
         map.put(Driver.MandatoryProperty.TWITTER, "@alo_official");
 
+        map.put(Driver.AdditionalProperty.HERITAGE_LINK, "http://www.mclaren.com/formula1/heritage/driver/fernando-alonso/");
         map.put(Driver.AdditionalProperty.TAG, "#FA14");
         map.put(Driver.AdditionalProperty.WORLD_CHAMPIONSHIPS, "2");
         map.put(Driver.AdditionalProperty.BEST_FINISH, "1st x 32");
@@ -61,8 +62,6 @@ public class DriversFactory {
 
         map.put(Driver.AdditionalProperty.PLACE, null);
         map.put(Driver.AdditionalProperty.POINTS, null);
-        map.put(Driver.AdditionalProperty.TEAM_LINK, "http://www.mclaren.com/formula1/team/fernando-alonso/");
-        map.put(Driver.AdditionalProperty.HERITAGE_LINK, "http://www.mclaren.com/formula1/heritage/driver/fernando-alonso/");
         return new Driver("alonso", map);
     }
 
@@ -74,7 +73,7 @@ public class DriversFactory {
         map.put(Driver.MandatoryProperty.NATIONALITY, "British");
         map.put(Driver.MandatoryProperty.TWITTER, "@JensonButton");
 
-        map.put(Driver.AdditionalProperty.TEAM_LINK, "http://www.mclaren.com/formula1/team/jenson-button/");
+        map.put(Driver.AdditionalProperty.HERITAGE_LINK, "https://www.mclaren.com/formula1/heritage/driver/jenson-button/");
         map.put(Driver.AdditionalProperty.TAG, "#JB");
         map.put(Driver.AdditionalProperty.WORLD_CHAMPIONSHIPS, "1");
         map.put(Driver.AdditionalProperty.BEST_FINISH, "1st x 15");
