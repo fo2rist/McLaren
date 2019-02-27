@@ -20,12 +20,12 @@
                 android:id="@+id/driver_portrait_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                tools:src="@drawable/driver_alonso"
+                tools:src="@drawable/driver_sainz"
                 tools:ignore="ContentDescription"
                 />
             <TextView
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 style="@style/TextLightHeader"
-                tools:text="#FA14"
+                tools:text="#CS5"
                 />
             <TextView
                 android:id="@+id/driver_result_text"
