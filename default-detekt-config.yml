@@ -69,10 +69,10 @@ comments:
     endOfSentenceFormat: ([.?!][ \t\n\r\f<])|([.?!]$)
   UndocumentedPublicClass:
     active: true
-    searchInNestedClass: true
+    searchInNestedClass: false
     searchInInnerClass: true
     searchInInnerObject: true
-    searchInInnerInterface: true
+    searchInInnerInterface: false
   UndocumentedPublicFunction:
     active: false
 

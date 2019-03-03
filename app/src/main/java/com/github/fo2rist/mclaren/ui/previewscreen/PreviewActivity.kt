@@ -27,6 +27,9 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+/**
+ * Displays content of item, web-page, text.
+ */
 class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFragmentInjector {
 
     @Inject
