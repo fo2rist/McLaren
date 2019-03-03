@@ -15,6 +15,9 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_transmission.*
 import javax.inject.Inject
 
+/**
+ * Displays live transmission as the list of messages.
+ */
 class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
 
     private lateinit var adapter: TransmissionAdapter
