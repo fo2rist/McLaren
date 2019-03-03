@@ -24,16 +24,16 @@ public class WebPreviewFragment extends Fragment {
 
     private WebView webView;
 
-    public static WebPreviewFragment newInstanceForUrl(String url) {
+    public static WebPreviewFragment newInstanceForUrl(@NonNull String url) {
         return createInstanceWithArgs(ARG_URL, url);
     }
 
-    public static WebPreviewFragment newInstanceForMcLarenHtml(String html) {
+    public static WebPreviewFragment newInstanceForMcLarenHtml(@NonNull String html) {
         return createInstanceWithArgs(ARG_MCLAREN_HTML, html);
     }
 
     @NonNull
-    private static WebPreviewFragment createInstanceWithArgs(String key, String value) {
+    private static WebPreviewFragment createInstanceWithArgs(@NonNull String key, @NonNull String value) {
         WebPreviewFragment fragment = new WebPreviewFragment();
         Bundle args = new Bundle();
         args.putString(key, value);
@@ -67,7 +67,7 @@ public class WebPreviewFragment extends Fragment {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void setupWebView(WebView webView) {
+    private void setupWebView(@NonNull WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
 
         WebViewClient webViewClient = new WebViewClient() {
@@ -101,7 +101,7 @@ public class WebPreviewFragment extends Fragment {
         webView.loadUrl(url);
     }
 
-    private void loadHtml(WebView webView, String html) {
+    private void loadHtml(@NonNull WebView webView, @Nullable String html) {
         webView.loadDataWithBaseURL(null, McLarenHtmlUtils.pretify(html),"text/html", "UTF-8", null);
     }
 }

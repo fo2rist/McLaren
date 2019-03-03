@@ -1,0 +1,86 @@
+package com.github.fo2rist.mclaren.ui.previewscreen
+
+import com.github.fo2rist.mclaren.models.FeedItem
+import com.github.fo2rist.mclaren.models.FeedItem.Type
+import com.github.fo2rist.mclaren.models.ImageUrl
+import com.github.fo2rist.mclaren.mvp.PreviewContract
+import com.github.fo2rist.mclaren.ui.models.Orientation
+import com.github.fo2rist.mclaren.ui.models.PreviewContent
+import javax.inject.Inject
+
+/**
+ * Presenter for Preview wrapper activity.
+ * Controls activity specific parameters such as toolbar, doesn't affect preview content.
+ */
+class PreviewPresenter @Inject constructor() : PreviewContract.Presenter {
+
+    private lateinit var view: PreviewContract.View
+    private lateinit var content: PreviewContent
+
+    override fun onStart(view: PreviewContract.View) {
+        this.view = view
+    }
+
+    override fun onStartWith(view: PreviewContract.View, url: String) {
+        onStart(view)
+        content = PreviewContent.Url(url)
+
+        view.displayFragment(content)
+    }
+
+    override fun onStartWith(view: PreviewContract.View, orientation: Orientation, feedItem: FeedItem) {
+        onStart(view)
+
+        when (feedItem.type) {
+            Type.Video, Type.Message -> {
+                view.finish()
+            }
+
+            Type.Article -> {
+                if (feedItem.content == null) {
+                    view.finish()
+                    return
+                }
+
+                startWithHtml(view, orientation, feedItem.text, feedItem.imageUrl, feedItem.content)
+            }
+
+            Type.Image, Type.Gallery -> {
+                startWithImageGallery(view, orientation, feedItem)
+            }
+        }
+    }
+
+    private fun startWithHtml(
+        view: PreviewContract.View,
+        orientation: Orientation,
+        title: String,
+        titleImageUrl: ImageUrl?,
+        contentHtml: String
+    ) {
+        if (orientation == Orientation.PORTRAIT) {
+            view.setToolBarImage(titleImageUrl)
+        }
+        //TODO known bug in landscape mode title has no effect. 2019-03-02
+        view.setTitle(title)
+
+        content = PreviewContent.Html(contentHtml)
+        view.displayFragment(content)
+    }
+
+    private fun startWithImageGallery(
+        view: PreviewContract.View,
+        orientation: Orientation,
+        feedItem: FeedItem
+    ) {
+        if (orientation == Orientation.PORTRAIT) {
+            view.lockToolBar()
+        } else {
+            view.hideToolBar()
+        }
+        view.enterFullScreen()
+
+        content = PreviewContent.FeedItem(feedItem)
+        view.displayFragment(content)
+    }
+}

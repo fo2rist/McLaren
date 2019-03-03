@@ -1,5 +1,8 @@
 package com.github.fo2rist.mclaren.utils;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 public class McLarenHtmlUtils {
     private static final String DEFAULT_CSS =
             "<head>"
@@ -21,9 +24,9 @@ public class McLarenHtmlUtils {
 
     /**
      * Add styles to the HTML to make it prettier and strip from incorrect escape sequences.
-     * @return udpated HTML or empty string if source HTML is null
+     * @return updated HTML or empty string if source HTML is null
      */
-    public static String pretify(String rawMcLarenHtml) {
+    public static String pretify(@Nullable String rawMcLarenHtml) {
         if (rawMcLarenHtml == null) {
             return "";
         }
@@ -31,11 +34,11 @@ public class McLarenHtmlUtils {
         return addCSS(replaceEscapeSequences(rawMcLarenHtml));
     }
 
-    private static String addCSS(String html) {
+    private static String addCSS(@NonNull String html) {
         return DEFAULT_CSS + html;
     }
 
-    private static String replaceEscapeSequences(String rawMcLarenHtml) {
+    private static String replaceEscapeSequences(@NonNull String rawMcLarenHtml) {
         return rawMcLarenHtml
                 .replace("\\r", "")
                 .replace("\\n", "\n")
