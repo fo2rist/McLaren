@@ -35,7 +35,7 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
     @Inject
-    lateinit var presenter: PreviewPresenter //TODO replace with interface
+    lateinit var presenter: PreviewContract.Presenter
 
     private lateinit var actionBar: ActionBar
     private lateinit var headerImage: ImageView
