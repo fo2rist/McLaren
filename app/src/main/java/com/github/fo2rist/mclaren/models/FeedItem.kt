@@ -2,7 +2,7 @@ package com.github.fo2rist.mclaren.models
 
 import com.github.fo2rist.mclaren.models.FeedItem.Companion
 import java.io.Serializable
-import java.util.*
+import java.util.Date
 
 /**
  * Represent single item in the feed.
@@ -42,8 +42,9 @@ data class FeedItem internal constructor(
          * Creates instance in a safe way so urls list is not shared with called.
          */
         @SuppressWarnings("SpreadOperator", "LongParameterList")
-        operator fun invoke(id: Long, type: Type, text: String, content: String?, dateTime: Date,
-                sourceType: SourceType, sourceName: String, embeddedMediaLink: String, vararg imageUrls: ImageUrl
+        operator fun invoke(
+            id: Long, type: Type, text: String, content: String?, dateTime: Date,
+            sourceType: SourceType, sourceName: String, embeddedMediaLink: String, vararg imageUrls: ImageUrl
         ) = FeedItem(id, type, text, content, dateTime, sourceType, sourceName, embeddedMediaLink,
                 listOf(*imageUrls))
     }

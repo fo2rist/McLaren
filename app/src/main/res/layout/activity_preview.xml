@@ -28,7 +28,9 @@
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:contentDescription="@null"
+            android:visibility="gone"
             app:layout_collapseMode="parallax"
+            tools:visibility="visible"
             tools:src="@drawable/driver_turvey"
             />
         <android.support.v7.widget.Toolbar

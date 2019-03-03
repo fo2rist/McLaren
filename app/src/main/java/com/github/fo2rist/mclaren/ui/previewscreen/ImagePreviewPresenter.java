@@ -21,7 +21,7 @@ public class ImagePreviewPresenter implements ImagePreviewContract.Presenter {
     private EventsLogger eventsLogger;
 
     @Inject
-    ImagePreviewPresenter(EventsLogger eventsLogger) {
+    ImagePreviewPresenter(@NonNull EventsLogger eventsLogger) {
         this.eventsLogger = eventsLogger;
     }
 
