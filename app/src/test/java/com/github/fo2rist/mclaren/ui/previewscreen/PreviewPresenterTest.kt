@@ -45,7 +45,7 @@ class PreviewPresenterTest{
 
         verify(viewMock).displayFragment(any<PreviewContent.Html>())
         verify(viewMock).setTitle(ARTICLE_ITEM_WITH_LINKS.text)
-        verify(viewMock).setToolBarImage(ARTICLE_ITEM_WITH_LINKS.imageUrl)
+        verify(viewMock).setToolBarImage(ARTICLE_ITEM_WITH_LINKS.imageUrls)
     }
 
     @Test

@@ -16,7 +16,7 @@ interface PreviewContract {
 
         fun setTitle(text: String)
 
-        fun setToolBarImage(imageUrl: ImageUrl?)
+        fun setToolBarImage(imageUrls: List<ImageUrl>)
 
         fun lockToolBar()
 

@@ -20,7 +20,7 @@ public class McLarenImageDownloader {
     /**
      * Desired image size depending on the purpose.
      */
-    public enum ImageSizeType {
+    public enum ImageSizeLimit {
         /** Maximal allowed size for image. */
         MAXIMAL,
         /** Image large enough for fullscreen mode. */
@@ -51,20 +51,20 @@ public class McLarenImageDownloader {
      * Load image with default size.
      */
     public static void loadImage(ImageView imageView, ImageUrl imageUrl) {
-        loadImage(imageView, imageUrl, ImageSizeType.TILE);
+        loadImage(imageView, imageUrl, ImageSizeLimit.TILE);
     }
 
     /**
      * Load image with specific size.
      */
-    public static void loadImage(ImageView imageView, ImageUrl imageUrl, ImageSizeType sizeType) {
+    public static void loadImage(ImageView imageView, ImageUrl imageUrl, ImageSizeLimit sizeType) {
         getInstance(imageView.getContext()).load(imageView, imageUrl, sizeType);
     }
 
     /**
      * Cache image with specific size.
      */
-    public static void cacheImages(Context context, List<ImageUrl> imageUrls, ImageSizeType sizeType) {
+    public static void cacheImages(Context context, List<ImageUrl> imageUrls, ImageSizeLimit sizeType) {
         McLarenImageDownloader downloader = getInstance(context);
         for (ImageUrl uri : imageUrls) {
             downloader.cache(uri, sizeType);
@@ -105,7 +105,7 @@ public class McLarenImageDownloader {
         };
     }
 
-    private void load(ImageView imageView, ImageUrl imageUrl, ImageSizeType sizeType) {
+    private void load(ImageView imageView, ImageUrl imageUrl, ImageSizeLimit sizeType) {
         int sizeInPixels = getSizeInPixelsFor(sizeType);
 
         Uri loadUri = buildImageUri(imageUrl, sizeInPixels);
@@ -114,7 +114,7 @@ public class McLarenImageDownloader {
                 .into(imageView);
     }
 
-    private void cache(ImageUrl imageUrl, ImageSizeType sizeType) {
+    private void cache(ImageUrl imageUrl, ImageSizeLimit sizeType) {
         int sizeInPixels = getSizeInPixelsFor(sizeType);
 
         Uri loadUri = buildImageUri(imageUrl, sizeInPixels);
@@ -122,7 +122,7 @@ public class McLarenImageDownloader {
                 .fetch();
     }
 
-    private int getSizeInPixelsFor(ImageSizeType sizeType) {
+    private int getSizeInPixelsFor(ImageSizeLimit sizeType) {
         switch (sizeType) {
             case MAXIMAL:
                 return maxImageSize;

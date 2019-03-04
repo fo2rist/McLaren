@@ -22,7 +22,7 @@ class ImagePreviewActivityTest : ActivityTestBase() {
 
 
         page {
-            toolbarImage{
+            toolbarImages{
                 isGone()
             }
 
