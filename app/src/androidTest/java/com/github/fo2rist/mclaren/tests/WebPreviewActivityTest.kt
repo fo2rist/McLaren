@@ -38,13 +38,22 @@ class WebPreviewActivityTest : ActivityTestBase() {
     }
 
     @Test
-    fun testLayout_with_HeaderImage_and_WebView_in_ArticleMode() {
+    fun testLayout_with_HeaderImages_and_WebView_in_ArticleMode() {
         rule.launchActivity(PreviewActivity.createFeedItemIntent(context, ARTICLE_ITEM_WITH_LINKS))
 
         page {
-            toolbarImage { isVisible() }
-            webView { isDisplayed() }
-            galleryView { doesNotExist() }
+            toolbarImages {
+                isDisplayed()
+                isAtPage(0)
+                swipeLeft()
+                isAtPage(1)
+            }
+            webView {
+                isDisplayed()
+            }
+            galleryView {
+                doesNotExist()
+            }
         }
     }
 
@@ -53,7 +62,7 @@ class WebPreviewActivityTest : ActivityTestBase() {
         rule.launchActivity(PreviewActivity.createUrlIntent(context, "http://address_that_doesnt_exist"))
 
         page {
-            toolbarImage { isGone() }
+            toolbarImages { isGone() }
         }
     }
 

@@ -7,20 +7,20 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.models.ImageUrl
 import com.github.fo2rist.mclaren.mvp.PreviewContract
 import com.github.fo2rist.mclaren.ui.models.Orientation
 import com.github.fo2rist.mclaren.ui.models.PreviewContent
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType
+import com.github.fo2rist.mclaren.ui.previewscreen.ImageGalleryAdapter.ImageViewType
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -38,7 +38,7 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
     lateinit var presenter: PreviewContract.Presenter
 
     private lateinit var actionBar: ActionBar
-    private lateinit var headerImage: ImageView
+    private lateinit var headerImage: ViewPager
 
     private val deviceOrientation: Orientation
         get() {
@@ -87,12 +87,12 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         actionBar.title = text
     }
 
-    override fun setToolBarImage(imageUrl: ImageUrl?) {
-        if (imageUrl == null || imageUrl.isEmpty) {
+    override fun setToolBarImage(imageUrls: List<ImageUrl>) {
+        if (imageUrls.isEmpty()) {
             headerImage.visibility = View.GONE
         } else {
             headerImage.visibility = View.VISIBLE
-            McLarenImageDownloader.loadImage(headerImage, imageUrl, ImageSizeType.TILE)
+            headerImage.adapter = ImageGalleryAdapter(this, imageUrls, ImageSizeLimit.TILE, ImageViewType.STATIC)
         }
     }
 

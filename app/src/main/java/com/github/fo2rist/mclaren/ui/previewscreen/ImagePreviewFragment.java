@@ -18,6 +18,8 @@ import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
 import javax.inject.Inject;
 
+import static com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit;
+
 
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
 
@@ -76,8 +78,12 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     }
 
     @Override
-    public void showImages(List<ImageUrl> imageUris) {
-        ImageGalleryAdapter galleryAdapter = new ImageGalleryAdapter(getContext(), imageUris);
+    public void showImages(List<ImageUrl> imageUrls) {
+        ImageGalleryAdapter galleryAdapter = new ImageGalleryAdapter(
+                getContext(),
+                imageUrls,
+                ImageSizeLimit.FULLSCREEN,
+                ImageGalleryAdapter.ImageViewType.INTERACTIVE);
         imagesPager.setAdapter(galleryAdapter);
     }
 }

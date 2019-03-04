@@ -42,7 +42,7 @@ class PreviewPresenter @Inject constructor() : PreviewContract.Presenter {
                     return
                 }
 
-                startWithHtml(view, orientation, feedItem.text, feedItem.imageUrl, feedItem.content)
+                startWithHtml(view, orientation, feedItem.text, feedItem.imageUrls, feedItem.content)
             }
 
             Type.Image, Type.Gallery -> {
@@ -55,7 +55,7 @@ class PreviewPresenter @Inject constructor() : PreviewContract.Presenter {
         view: PreviewContract.View,
         orientation: Orientation,
         title: String,
-        titleImageUrl: ImageUrl?,
+        titleImageUrl: List<ImageUrl>,
         contentHtml: String
     ) {
         if (orientation == Orientation.PORTRAIT) {

@@ -11,25 +11,53 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeType;
+import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit;
 import java.util.List;
 
+/**
+ * Page adapter that displays images in ImageViews by URLs.
+ */
 public class ImageGalleryAdapter extends PagerAdapter {
 
-    private final List<ImageUrl> imageUris;
+    /**
+     * Defines the type of images provided by adapter.
+     */
+    public enum ImageViewType {
+        /** Plain image that can display a drawable. */
+        STATIC,
+        /** Interactive image view that supports zoom, pan etc. */
+        INTERACTIVE,
+    }
 
-    public ImageGalleryAdapter(Context context, List<ImageUrl> imageUris) {
+    private final List<ImageUrl> imageUris;
+    private final ImageViewType viewType;
+    private final ImageSizeLimit sizeLimit;
+
+    public ImageGalleryAdapter(
+            Context context, List<ImageUrl> imageUris, ImageSizeLimit sizeLimit, ImageViewType viewType
+    ) {
         this.imageUris = imageUris;
+        this.sizeLimit = sizeLimit;
+        this.viewType = viewType;
         //pre cache all images form network on adapter creation
-        McLarenImageDownloader.cacheImages(context, imageUris, ImageSizeType.FULLSCREEN);
+        McLarenImageDownloader.cacheImages(context, imageUris, sizeLimit);
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        ImageView imageView = new PhotoView(container.getContext());
+        final ImageView imageView;
+        switch (viewType) {
+            case STATIC:
+                imageView = new ImageView(container.getContext());
+                break;
+            case INTERACTIVE:
+            default:
+                imageView = new PhotoView(container.getContext());
+                break;
+        }
         imageView.setId(R.id.image);
-        McLarenImageDownloader.loadImage(imageView, imageUris.get(position), ImageSizeType.FULLSCREEN);
+        McLarenImageDownloader.loadImage(imageView, imageUris.get(position), sizeLimit);
         container.addView(imageView);
 
         return imageView;
