@@ -132,7 +132,7 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish()
+            finish() //TODO this better be delegated to presenter. 2019-03-03
             return true
         } else {
             return super.onOptionsItemSelected(item)

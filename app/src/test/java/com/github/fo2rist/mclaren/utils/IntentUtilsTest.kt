@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.utils
 
 import android.content.Intent
 import com.github.fo2rist.mclaren.BuildConfig
+import com.github.fo2rist.mclaren.testdata.DUMMY_URL
 import org.hamcrest.Matchers.startsWith
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -17,7 +18,6 @@ import org.robolectric.Shadows.shadowOf
 
 private const val EXISTING_PACKAGE = BuildConfig.APPLICATION_ID
 private const val NOT_EXISTING_PACKAGE = "package_that_doesnt_exist"
-private const val DUMMY_URL = "http://dummy.url"
 
 @RunWith(RobolectricTestRunner::class)
 class IntentUtilsTest {
