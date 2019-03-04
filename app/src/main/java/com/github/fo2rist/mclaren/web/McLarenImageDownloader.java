@@ -108,15 +108,16 @@ public class McLarenImageDownloader {
     private void load(ImageView imageView, ImageUrl imageUrl, ImageSizeType sizeType) {
         int sizeInPixels = getSizeInPixelsFor(sizeType);
 
-        Uri loadUri = buildImageUri(imageUrl, sizeInPixels, sizeInPixels);
+        Uri loadUri = buildImageUri(imageUrl, sizeInPixels);
         picasso.load(loadUri)
+                .resize(sizeInPixels, 0) // cap by size in but maintain aspect ratio
                 .into(imageView);
     }
 
     private void cache(ImageUrl imageUrl, ImageSizeType sizeType) {
         int sizeInPixels = getSizeInPixelsFor(sizeType);
 
-        Uri loadUri = buildImageUri(imageUrl, sizeInPixels, sizeInPixels);
+        Uri loadUri = buildImageUri(imageUrl, sizeInPixels);
         picasso.load(loadUri)
                 .fetch();
     }
@@ -136,11 +137,11 @@ public class McLarenImageDownloader {
     }
 
     @Nullable
-    private Uri buildImageUri(ImageUrl imageUrl, int width, int height) {
+    private Uri buildImageUri(ImageUrl imageUrl, int sizeCap) {
         if (imageUrl == null || imageUrl.isEmpty()) {
             return null;
         }
 
-        return Uri.parse(imageUrl.getUrl(width, height));
+        return Uri.parse(imageUrl.getUrl(sizeCap, sizeCap));
     }
 }
