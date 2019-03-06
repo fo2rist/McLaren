@@ -25,6 +25,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import me.relex.circleindicator.CircleIndicator
 import javax.inject.Inject
 
 /**
@@ -38,7 +39,8 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
     lateinit var presenter: PreviewContract.Presenter
 
     private lateinit var actionBar: ActionBar
-    private lateinit var headerImage: ViewPager
+    private lateinit var toolBarImages: ViewPager
+    private lateinit var dotIndicator: CircleIndicator
 
     private val deviceOrientation: Orientation
         get() {
@@ -74,7 +76,8 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         this.setSupportActionBar(findViewById(R.id.toolbar))
         actionBar = this.getSupportActionBar()!!
 
-        headerImage = findViewById(R.id.image_header)
+        toolBarImages = findViewById(R.id.header_image_pager)
+        dotIndicator = findViewById(R.id.dot_indicator)
     }
 
     private fun setupToolBar() {
@@ -89,10 +92,14 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
 
     override fun setToolBarImage(imageUrls: List<ImageUrl>) {
         if (imageUrls.isEmpty()) {
-            headerImage.visibility = View.GONE
+            toolBarImages.visibility = View.GONE
         } else {
-            headerImage.visibility = View.VISIBLE
-            headerImage.adapter = ImageGalleryAdapter(this, imageUrls, ImageSizeLimit.TILE, ImageViewType.STATIC)
+            toolBarImages.visibility = View.VISIBLE
+            toolBarImages.adapter = ImageGalleryAdapter(this, imageUrls, ImageSizeLimit.TILE, ImageViewType.STATIC)
+            //display dots if there is more than one item
+            if (imageUrls.size > 1) {
+                dotIndicator.setViewPager(toolBarImages)
+            }
         }
     }
 
