@@ -7,7 +7,7 @@ import com.github.fo2rist.mclaren.R
 
 class PreviewPage : Screen<PreviewPage>() {
 
-    val toolbarImages = KViewPager { withId(R.id.image_header) }
+    val toolbarImages = KViewPager { withId(R.id.header_image_pager) }
 
     val webView = KWebView { withId(R.id.web_view) }
 
