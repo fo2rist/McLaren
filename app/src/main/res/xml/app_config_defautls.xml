@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>calendar</key>
+        <value>
+            [
+                {
+                "track": "Melbourne Grand Prix Circuit",
+                "date": "2019-03-15"
+                },
+                {
+                "track": "Bahrain International Circuit",
+                "date": "2019-03-29"
+                },
+                {
+                "track": "Shanghai International Circuit",
+                "date": "2019-04-12"
+                },
+                {
+                "track": "Baku City Circuit",
+                "date": "2019-04-26"
+                },
+                {
+                "track": "Circuit de Barcelona-Catalunya",
+                "date": "2019-05-10"
+                },
+                {
+                "track": "Circuit de Monaco",
+                "date": "2019-05-23"
+                },
+                {
+                "track": "Circuit Gilles Villeneuve",
+                "date": "2019-06-07"
+                },
+                {
+                "track": "Circuit Paul Ricard",
+                "date": "2019-06-21"
+                },
+                {
+                "track": "Red Bull Ring",
+                "date": "2019-06-28"
+                },
+                {
+                "track": "Silverstone Circuit",
+                "date": "2019-07-12"
+                },
+                {
+                "track": "Hockenheimring",
+                "date": "2019-07-26"
+                },
+                {
+                "track": "Hungaroring",
+                "date": "2019-08-02"
+                },
+                {
+                "track": "Circuit de Spa-Francorchamps",
+                "date": "2019-08-30"
+                },
+                {
+                "track": "Autodromo Nazionale Monza",
+                "date": "2019-09-13"
+                },
+                {
+                "track": "Marina Bay Street Circuit",
+                "date": "2019-09-20"
+                },
+                {
+                "track": "Sochi Autodrom",
+                "date": "2019-09-27"
+                },
+                {
+                "track": "Suzuka International Racing Course",
+                "date": "2019-10-11"
+                },
+                {
+                "track": "Autódromo Hermanos Rodríguez",
+                "date": "2019-10-25"
+                },
+                {
+                "track": "Circuit of the Americas",
+                "date": "2019-11-01"
+                },
+                {
+                "track": "Autódromo José Carlos Pace",
+                "date": "2019-11-15"
+                },
+                {
+                "track": "Yas Marina Circuit",
+                "date": "2019-11-29"
+                }
+            ]
+        </value>
+    </entry>
+</defaultsMap>

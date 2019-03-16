@@ -5,36 +5,28 @@ import com.github.fo2rist.mclaren.models.Circuit
 import com.github.fo2rist.mclaren.models.Event
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar
+import com.github.fo2rist.mclaren.web.RemoteConfigService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.joda.time.LocalDate
 import java.io.IOException
 import java.io.InputStreamReader
 import javax.inject.Inject
 
 class RaceCalendarRepositoryImpl
 @Inject constructor(
-        private val context: Context
+    private val context: Context,
+    private val remoteConfigService: RemoteConfigService
 ) : RaceCalendarRepository {
 
     private val grandPrixListType = object : TypeToken<ArrayList<Event>>() {}
     private val circuitListType = object : TypeToken<ArrayList<Circuit>>() {}
 
-    override fun loadCurrentCalendar(): RaceCalendar {
-        val date = LocalDate()
-        val currentCalendar = loadCalendar(date.year)
-        return if (!currentCalendar.isEmpty())
-            currentCalendar
-        else
-            loadCalendar(date.year - 1)
-    }
-
     /**
      * Get Grand Prix calendar for given year
      * @return calendar non empty, if year found.
      */
-    override fun loadCalendar(year: Int): RaceCalendar {
-        val events = readJsonFromAssets(context, "calendar_$year.json", grandPrixListType)
+    override fun loadCalendar(): RaceCalendar {
+        val events = parse(remoteConfigService.calendar, grandPrixListType)
         val circuits = readJsonFromAssets(context, "circuits.json", circuitListType)
 
         val calendarEvents = RaceCalendar()
@@ -61,19 +53,32 @@ class RaceCalendarRepositoryImpl
     }
 
     private fun <T> readJsonFromAssets(
-            context: Context,
-            fileName: String,
-            objectTypeToken: TypeToken<T>): T? {
-        try {
-            val stream = context.assets.open(fileName)
-            val reader = InputStreamReader(stream)
-            val result = Gson().fromJson<T>(reader, objectTypeToken.type)
-            stream.close()
-            return result
+        context: Context,
+        fileName: String,
+        objectTypeToken: TypeToken<T>
+    ): T? {
+        return try {
+            context.assets.open(fileName).use { stream ->
+                parse(InputStreamReader(stream), objectTypeToken)
+            }
         } catch (exc: IOException) {
             //that should never happen in prod, or at least it mean apk is broken
-            return null
+            null
         }
 
     }
+
+    /**
+     * @throws com.google.gson.JsonParseException see [Gson.fromJson] for details.
+     */
+    private fun <T> parse(reader: InputStreamReader, objectTypeToken: TypeToken<T>): T? =
+            Gson().fromJson<T>(reader, objectTypeToken.type)
+
+    /**
+     * @throws com.google.gson.JsonParseException see [Gson.fromJson] for details.
+     */
+    private fun <T> parse(json: String, objectTypeToken: TypeToken<T>): T? {
+        return Gson().fromJson<T>(json, objectTypeToken.type)
+    }
+
 }

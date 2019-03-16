@@ -20,7 +20,7 @@ public class MainPresenter implements MainScreenContract.Presenter {
     @Inject
     MainPresenter(EventsLogger eventsLogger, RaceCalendarRepository raceCalendarRepository) {
         this.eventsLogger = eventsLogger;
-        this.raceCalendar = raceCalendarRepository.loadCurrentCalendar();
+        this.raceCalendar = raceCalendarRepository.loadCalendar();
     }
 
     @Override

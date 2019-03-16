@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.previewscreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,10 +39,11 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
         return fragment;
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
-        super.onCreate(savedInstanceState);
+        super.onAttach(context);
     }
 
     @Nullable
