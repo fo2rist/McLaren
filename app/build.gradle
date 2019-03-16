@@ -101,6 +101,8 @@ dependencies {
     implementation "com.android.support:design:$project.SUPPORT_VERSION"
     implementation "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
     implementation "com.android.support:support-v4:$project.SUPPORT_VERSION"
+    // firebase cloud config
+    implementation 'com.google.firebase:firebase-config:16.3.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
@@ -156,6 +158,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     androidTestImplementation 'com.agoda.kakao:kakao:1.4.0'
 }
+
+// Must be the last of all statements in this file
+apply plugin: 'com.google.gms.google-services'
 
 /**
  * Load bunc of properties from file.
