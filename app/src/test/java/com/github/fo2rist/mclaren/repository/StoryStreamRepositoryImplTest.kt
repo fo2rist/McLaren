@@ -16,12 +16,10 @@ import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import java.net.URL
 
 //TODO remove tests duplications with MCL Repo test. 2018.11.25
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [21])
 class StoryStreamRepositoryImplTest {
 
     private lateinit var repository: FeedRepository

@@ -7,10 +7,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [21])
 class McLarenWebServiceImplTest : BaseFeedWebServiceTest() {
 
     override lateinit var webservice: BaseFeedWebService

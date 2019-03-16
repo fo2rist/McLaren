@@ -21,12 +21,10 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import java.net.URL
 
 //TODO remove tests duplications with StoryStream Repo test. 2018.11.25
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [21])
 class McLarenFeedRepositoryImplTest {
 
     @Mock

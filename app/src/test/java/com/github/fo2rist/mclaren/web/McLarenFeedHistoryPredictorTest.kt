@@ -17,11 +17,9 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import java.net.URL
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [21])
 class McLarenFeedHistoryPredictorTest {
 
     private lateinit var predictor: McLarenFeedHistoryPredictor
