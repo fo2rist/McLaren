@@ -14,14 +14,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.ParameterizedRobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static com.github.fo2rist.mclaren.testutilities.LayoutUtils.assertContainsViewWithText;
 import static junit.framework.Assert.assertNotNull;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 
 @RunWith(ParameterizedRobolectricTestRunner.class)
-@Config(sdk=21)
 public class DriverResourcesTest {
 
     @ParameterizedRobolectricTestRunner.Parameters(name = "Main Driver Fragment populated for {0}")

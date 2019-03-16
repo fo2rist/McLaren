@@ -17,10 +17,8 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [21])
 class PreviewActivityTest : BasePreviewActivityTest() {
 
     private val context by lazy { RuntimeEnvironment.application.applicationContext }
