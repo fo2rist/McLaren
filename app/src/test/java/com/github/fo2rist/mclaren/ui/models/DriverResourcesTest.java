@@ -24,7 +24,7 @@ public class DriverResourcesTest {
 
     @ParameterizedRobolectricTestRunner.Parameters(name = "Main Driver Fragment populated for {0}")
     public static List<DriverId[]> data() {
-        return Arrays.asList(new DriverId[][]{{DriverId.ALONSO}, {DriverId.VANDOORNE}});
+        return Arrays.asList(new DriverId[][]{{DriverId.SAINZ}, {DriverId.NORRIS}});
     }
 
     private DriverId driverId;
@@ -38,7 +38,7 @@ public class DriverResourcesTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         driverModel = DriversFactory.getDriverModel(driverId);
 
         DriverSubFragment fragment = DriverSubFragment.newInstance(driverId);
@@ -49,7 +49,7 @@ public class DriverResourcesTest {
     }
 
     @Test
-    public void testLayoutPopulated() throws Exception {
+    public void testLayoutPopulated() {
         //Main fields present (both title and value)
         assertTitleAndValuePresentFor(MandatoryProperty.NAME);
         assertTitleAndValuePresentFor(MandatoryProperty.DATE_OF_BIRTH);
@@ -57,8 +57,8 @@ public class DriverResourcesTest {
         assertTitleAndValuePresentFor(MandatoryProperty.TWITTER);
 
         //options fields present
-        assertTitleAndValuePresentFor(AdditionalProperty.BEST_FINISH);
-        assertTitleAndValuePresentFor(AdditionalProperty.PODIUMS);
+        assertTitleAndValuePresentFor(AdditionalProperty.POLE_POSITIONS);
+        assertTitleAndValuePresentFor(AdditionalProperty.FASTEST_LAPS);
 
         //tag present
         assertContainsViewWithText(rootLayout, driverModel.getProperty(AdditionalProperty.TAG));
