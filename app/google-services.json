@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "422478919578",
+    "firebase_url": "https://mclaren-formula-1-news.firebaseio.com",
+    "project_id": "mclaren-formula-1-news",
+    "storage_bucket": "mclaren-formula-1-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422478919578:android:975c5deac94dba92",
+        "android_client_info": {
+          "package_name": "com.github.fo2rist.mclaren"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422478919578-u7vtdpijlf2hd2ndniuqfln5ijnicaod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAU7z8rB7TwhGF2CoBH6118uGKj_42rE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
