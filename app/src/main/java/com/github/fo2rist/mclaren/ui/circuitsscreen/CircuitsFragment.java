@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl;
+import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
+import dagger.android.support.AndroidSupportInjection;
+import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
@@ -39,9 +41,11 @@ public class CircuitsFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int DEFAULT_COLUMNS_COUNT = 2;
 
+    @Inject
+    RaceCalendarRepository raceCalendarRepository;
+
     private int columnCount = DEFAULT_COLUMNS_COUNT;
     private OnCircuitsFragmentInteractionListener listener;
-
 
     public static CircuitsFragment newInstanceForColumns(int columnCount) {
         CircuitsFragment fragment = new CircuitsFragment();
@@ -49,6 +53,17 @@ public class CircuitsFragment extends Fragment {
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
+        if (context instanceof OnCircuitsFragmentInteractionListener) {
+            listener = (OnCircuitsFragmentInteractionListener) context;
+        } else {
+            Timber.e("%s must implement OnCircuitsFragmentInteractionListener", context.toString());
+        }
     }
 
     @Override
@@ -80,21 +95,10 @@ public class CircuitsFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
         }
 
-        RaceCalendar eventsCalendar = new RaceCalendarRepositoryImpl(context).loadCurrentCalendar();
+        RaceCalendar eventsCalendar = raceCalendarRepository.loadCalendar();
         recyclerView.setAdapter(
                 new CircuitsAdapter(context, eventsCalendar, listener));
         return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnCircuitsFragmentInteractionListener) {
-            listener = (OnCircuitsFragmentInteractionListener) context;
-        } else {
-            Timber.e("%s must implement OnCircuitsFragmentInteractionListener", context.toString());
-        }
     }
 
     @Override

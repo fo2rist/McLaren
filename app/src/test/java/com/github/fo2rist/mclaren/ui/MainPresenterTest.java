@@ -32,7 +32,7 @@ public class MainPresenterTest {
         mockView = mock(MainScreenContract.View.class);
         mockEventsLogger = mock(EventsLogger.class);
         mockCalendarRepository = mock(RaceCalendarRepository.class);
-        when(mockCalendarRepository.loadCurrentCalendar()).thenReturn(new RaceCalendar());
+        when(mockCalendarRepository.loadCalendar()).thenReturn(new RaceCalendar());
         presenter = new MainPresenter(mockEventsLogger, mockCalendarRepository);
     }
 

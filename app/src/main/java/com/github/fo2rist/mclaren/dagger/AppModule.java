@@ -18,11 +18,13 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
+import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService;
 import com.github.fo2rist.mclaren.web.OkHttpClientFactory;
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
 import com.github.fo2rist.mclaren.web.McLarenWebServiceImpl;
+import com.github.fo2rist.mclaren.web.RemoteConfigService;
 import com.github.fo2rist.mclaren.web.StoryStreamWebService;
 import com.github.fo2rist.mclaren.web.StoryStreamWebServiceImpl;
 import com.github.fo2rist.mclaren.web.TransmissionWebService;
@@ -97,11 +99,15 @@ public abstract class AppModule {
 
     @Binds
     @Singleton
-    abstract EventsLogger provideEventsLogger(EventsLoggerImpl logger);
+    abstract RaceCalendarRepository provideCalendarRepository(RaceCalendarRepositoryImpl calendarRepository);
 
     @Binds
     @Singleton
-    abstract RaceCalendarRepository provideCalendarEventsLoader(RaceCalendarRepositoryImpl calendarRepository);
+    abstract RemoteConfigService provideRemoteConfigService(FirebaseRemoteConfigService service);
+
+    @Binds
+    @Singleton
+    abstract EventsLogger provideEventsLogger(EventsLoggerImpl logger);
 
     @Provides
     @Named("web-okhttp")

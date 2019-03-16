@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.dagger;
 
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.ui.MainPresenter;
+import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
 import dagger.Binds;
@@ -17,6 +18,10 @@ abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = StoriesFragmentModule.class)
     abstract StoriesFeedFragment storiesFragmentInjector();
+
+    @Scopes.PerFragment
+    @ContributesAndroidInjector
+    abstract CircuitsFragment circuitsFragmentInjector();
 
     @Binds
     @Scopes.PerActivity
