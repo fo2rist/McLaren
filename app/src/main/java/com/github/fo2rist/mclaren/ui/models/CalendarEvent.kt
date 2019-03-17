@@ -41,7 +41,7 @@ data class CalendarEvent @VisibleForTesting constructor(
         wikiLink = circuit.wikiLink,
         startDate = DateTime(grandPrixEvent.date)
     ) {
-        require(circuit.track == grandPrixEvent.track)
+        require(circuit.id == grandPrixEvent.circuit_id)
     }
 
     /** Is race weekend started or recently over. */

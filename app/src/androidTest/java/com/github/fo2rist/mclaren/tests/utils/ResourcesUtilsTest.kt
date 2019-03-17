@@ -8,7 +8,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.FileNotFoundException
 
-private const val EXISTING_CIRCUIT = "australia"
+private const val EXISTING_CIRCUIT = "monaco_monte_carlo"
 private const val NOT_EXISTING_CIRCUIT = "something that does not exist"
 
 @RunWith(AndroidJUnit4::class)

@@ -1,82 +1,82 @@
 [
   {
-    "track": "Melbourne Grand Prix Circuit",
+    "circuit_id": "australia_melbourne",
     "date": "2017-03-24"
   },
   {
-    "track": "Shanghai International Circuit",
+    "circuit_id": "china_shanghai",
     "date": "2017-04-07"
   },
   {
-    "track": "Bahrain International Circuit",
+    "circuit_id": "bahrain_sakhir",
     "date": "2017-04-14"
   },
   {
-    "track": "Sochi Autodrom",
+    "circuit_id": "russia_sochi",
     "date": "2017-04-28"
   },
   {
-    "track": "Circuit de Barcelona-Catalunya",
+    "circuit_id": "spain_barcelona",
     "date": "2017-05-12"
   },
   {
-    "track": "Circuit de Monaco",
+    "circuit_id": "monaco_monte_carlo",
     "date": "2017-05-25"
   },
   {
-    "track": "Circuit Gilles Villeneuve",
+    "circuit_id": "canada_montreal",
     "date": "2017-06-09"
   },
   {
-    "track": "Baku City Circuit",
+    "circuit_id": "azerbaijan_baku",
     "date": "2017-06-23"
   },
   {
-    "track": "Red Bull Ring",
+    "circuit_id": "austria_spielberg",
     "date": "2017-07-07"
   },
   {
-    "track": "Silverstone Circuit",
+    "circuit_id": "britain_silverstone",
     "date": "2017-07-14"
   },
   {
-    "track": "Hungaroring",
+    "circuit_id": "hungary_budapest",
     "date": "2017-07-28"
   },
   {
-    "track": "Circuit de Spa-Francorchamps",
+    "circuit_id": "belgium_spa",
     "date": "2017-08-25"
   },
   {
-    "track": "Autodromo Nazionale Monza",
+    "circuit_id": "italy_monza",
     "date": "2017-09-01"
   },
   {
-    "track": "Marina Bay Street Circuit",
+    "circuit_id": "singapore",
     "date": "2017-09-15"
   },
   {
-    "track": "Sepang International Circuit",
+    "circuit_id": "malaysia_kuala_lumpur",
     "date": "2017-09-29"
   },
   {
-    "track": "Suzuka International Racing Course",
+    "circuit_id": "japan_suzuka",
     "date": "2017-10-06"
   },
   {
-    "track": "Circuit of the Americas",
+    "circuit_id": "united_states_austin",
     "date": "2017-10-20"
   },
   {
-    "track": "Autódromo Hermanos Rodríguez",
+    "circuit_id": "mexico_mexico_city",
     "date": "2017-10-27"
   },
   {
-    "track": "Autódromo José Carlos Pace",
+    "circuit_id": "brazil_sao_paulo",
     "date": "2017-11-10"
   },
   {
-    "track": "Yas Marina Circuit",
+    "circuit_id": "emirates_abu_dhabi",
     "date": "2017-11-24"
   }
 ]
