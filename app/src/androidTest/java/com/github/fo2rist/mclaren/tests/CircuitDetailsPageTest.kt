@@ -95,17 +95,17 @@ class CircuitDetailsPageTest {
 
     companion object TestData {
 
-        private val ID = "monaco_monte_carlo"
-        private val COUNTRY_CODE = "CODE"
-        private val TRACK_NAME = "track name"
-        private val CITY = "City"
-        private val GP_NAME = "GP name"
-        private val LAPS = 11
-        private val LENGTH = 12.34
-        private val DISTANCE = 56.789
-        private val SEASONS = "2001"
-        private val GP_HELD = 1111
-        private val WIKI_LINK = "http://wiki.link"
+        private const val ID = "monaco_monte_carlo"
+        private const val COUNTRY_CODE = "CODE"
+        private const val TRACK_NAME = "track name"
+        private const val CITY = "City"
+        private const val GP_NAME = "GP name"
+        private const val LAPS = 11
+        private const val LENGTH = 12.34
+        private const val DISTANCE = 56.789
+        private const val SEASONS = "2001"
+        private const val GP_HELD = 1111
+        private const val WIKI_LINK = "http://wiki.link"
         private val START_DATE = DateTime(1, 1, 1, 0, 0)
 
         private val EVENT = CalendarEvent(ID,
