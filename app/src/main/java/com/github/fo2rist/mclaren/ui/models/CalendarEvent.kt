@@ -28,18 +28,18 @@ data class CalendarEvent @VisibleForTesting constructor(
     val endDate: DateTime by lazy { calculateEndDate(startDate) }
 
     constructor(circuit: Circuit, grandPrixEvent: Event) : this(
-        circuitId = circuit.id,
-        countryCode = circuit.country,
-        trackName = circuit.track,
-        city = circuit.city,
-        grandPrixName = circuit.name,
-        laps = circuit.laps,
-        length = circuit.length,
-        distance = circuit.distance,
-        seasons = circuit.seasons,
-        gpHeld = circuit.gpHeld,
-        wikiLink = circuit.wikiLink,
-        startDate = DateTime(grandPrixEvent.date)
+            circuitId = circuit.id,
+            countryCode = circuit.country,
+            trackName = circuit.track,
+            city = circuit.city,
+            grandPrixName = circuit.name,
+            laps = circuit.laps,
+            length = circuit.length,
+            distance = circuit.distance,
+            seasons = circuit.seasons,
+            gpHeld = circuit.gpHeld,
+            wikiLink = circuit.wikiLink,
+            startDate = DateTime(grandPrixEvent.date)
     ) {
         require(circuit.id == grandPrixEvent.circuit_id)
     }
