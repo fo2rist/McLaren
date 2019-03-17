@@ -22,7 +22,7 @@ public class RaceCalendarRepositoryTest {
 
     private static String NULL_JSON = null;//"[]";
     private static String SINGLE_EVENT_CALENDAR_JSON
-            = "[{\"track\": \"Melbourne Grand Prix Circuit\", \"date\": \"2000-01-01\"}]";
+            = "[{\"circuit_id\": \"australia_melbourne\", \"date\": \"2000-01-01\"}]";
 
     private Context context;
 

@@ -45,7 +45,7 @@ class RaceCalendarRepositoryImpl
 
     private fun findCircuit(circuits: List<Circuit>, gp: Event): Circuit? {
         for (circuit in circuits) {
-            if (circuit.track == gp.track) {
+            if (circuit.id == gp.circuit_id) {
                 return circuit
             }
         }

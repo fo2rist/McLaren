@@ -1,86 +1,86 @@
 [
   {
-    "track": "Melbourne Grand Prix Circuit",
+    "circuit_id": "australia_melbourne",
     "date": "2018-03-23"
   },
   {
-    "track": "Bahrain International Circuit",
+    "circuit_id": "bahrain_sakhir",
     "date": "2018-04-06"
   },
   {
-    "track": "Shanghai International Circuit",
+    "circuit_id": "china_shanghai",
     "date": "2018-04-13"
   },
   {
-    "track": "Baku City Circuit",
+    "circuit_id": "azerbaijan_baku",
     "date": "2018-04-27"
   },
   {
-    "track": "Circuit de Barcelona-Catalunya",
+    "circuit_id": "spain_barcelona",
     "date": "2018-05-11"
   },
   {
-    "track": "Circuit de Monaco",
+    "circuit_id": "monaco_monte_carlo",
     "date": "2018-05-24"
   },
   {
-    "track": "Circuit Gilles Villeneuve",
+    "circuit_id": "canada_montreal",
     "date": "2018-06-08"
   },
   {
-    "track": "Circuit Paul Ricard",
+    "circuit_id": "france_le_castellet",
     "date": "2018-06-22"
   },
   {
-    "track": "Red Bull Ring",
+    "circuit_id": "austria_spielberg",
     "date": "2018-06-29"
   },
   {
-    "track": "Silverstone Circuit",
+    "circuit_id": "britain_silverstone",
     "date": "2018-07-06"
   },
   {
-    "track": "Hockenheimring",
+    "circuit_id": "germany_hockenheim",
     "date": "2018-07-20"
   },
   {
-    "track": "Hungaroring",
+    "circuit_id": "hungary_budapest",
     "date": "2018-07-27"
   },
   {
-    "track": "Circuit de Spa-Francorchamps",
+    "circuit_id": "belgium_spa",
     "date": "2018-08-24"
   },
   {
-    "track": "Autodromo Nazionale Monza",
+    "circuit_id": "italy_monza",
     "date": "2018-08-31"
   },
   {
-    "track": "Marina Bay Street Circuit",
+    "circuit_id": "singapore",
     "date": "2018-09-14"
   },
   {
-    "track": "Sochi Autodrom",
+    "circuit_id": "russia_sochi",
     "date": "2018-09-28"
   },
   {
-    "track": "Suzuka International Racing Course",
+    "circuit_id": "japan_suzuka",
     "date": "2018-10-05"
   },
   {
-    "track": "Circuit of the Americas",
+    "circuit_id": "united_states_austin",
     "date": "2018-10-19"
   },
   {
-    "track": "Autódromo Hermanos Rodríguez",
+    "circuit_id": "mexico_mexico_city",
     "date": "2018-10-26"
   },
   {
-    "track": "Autódromo José Carlos Pace",
+    "circuit_id": "brazil_sao_paulo",
     "date": "2018-11-09"
   },
   {
-    "track": "Yas Marina Circuit",
+    "circuit_id": "emirates_abu_dhabi",
     "date": "2018-11-23"
   }
 ]

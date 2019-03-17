@@ -95,7 +95,7 @@ class CircuitDetailsPageTest {
 
     companion object TestData {
 
-        private val ID = "monaco"
+        private val ID = "monaco_monte_carlo"
         private val COUNTRY_CODE = "CODE"
         private val TRACK_NAME = "track name"
         private val CITY = "City"
