@@ -1,6 +1,6 @@
 [
   {
-    "id": "australia",
+    "id": "australia_melbourne",
     "country": "AUS",
     "track": "Melbourne Grand Prix Circuit",
     "city": "Melbourne",
@@ -13,7 +13,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
   },
   {
-    "id": "china",
+    "id": "china_shanghai",
     "country": "CHN",
     "track": "Shanghai International Circuit",
     "city": "Shanghai",
@@ -26,7 +26,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Shanghai_International_Circuit"
   },
   {
-    "id": "bahrain",
+    "id": "bahrain_sakhir",
     "country": "BHR",
     "track": "Bahrain International Circuit",
     "city": "Sakhir",
@@ -39,7 +39,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Bahrain_International_Circuit"
   },
   {
-    "id": "russia",
+    "id": "russia_sochi",
     "country": "RUS",
     "track": "Sochi Autodrom",
     "city": "Sochi",
@@ -52,7 +52,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Sochi_Autodrom"
   },
   {
-    "id": "spain",
+    "id": "spain_barcelona",
     "country": "ESP",
     "track": "Circuit de Barcelona-Catalunya",
     "city": "Barcelona",
@@ -65,7 +65,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya"
   },
   {
-    "id": "monaco",
+    "id": "monaco_monte_carlo",
     "country": "MCO",
     "track": "Circuit de Monaco",
     "city": "Monte Carlo",
@@ -78,7 +78,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Monaco"
   },
   {
-    "id": "canada",
+    "id": "canada_montreal",
     "country": "CAN",
     "track": "Circuit Gilles Villeneuve",
     "city": "Montreal",
@@ -91,7 +91,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Gilles_Villeneuve"
   },
   {
-    "id": "azerbaijan",
+    "id": "azerbaijan_baku",
     "country": "AZE",
     "track": "Baku City Circuit",
     "city": "Baku",
@@ -104,7 +104,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Baku_City_Circuit"
   },
   {
-    "id": "austria",
+    "id": "austria_spielberg",
     "country": "AUT",
     "track": "Red Bull Ring",
     "city": "Spielberg",
@@ -117,7 +117,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Red_Bull_Ring"
   },
   {
-    "id": "britain",
+    "id": "britain_silverstone",
     "country": "GBR",
     "track": "Silverstone Circuit",
     "city": "Silverstone",
@@ -130,7 +130,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Silverstone_Circuit"
   },
   {
-    "id": "hungary",
+    "id": "hungary_budapest",
     "country": "HUN",
     "track": "Hungaroring",
     "city": "Budapest",
@@ -143,7 +143,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Hungaroring"
   },
   {
-    "id": "belgium",
+    "id": "belgium_spa",
     "country": "BEL",
     "track": "Circuit de Spa-Francorchamps",
     "city": "Spa-Francorchamps",
@@ -156,7 +156,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps"
   },
   {
-    "id": "italy",
+    "id": "italy_monza",
     "country": "ITA",
     "track": "Autodromo Nazionale Monza",
     "city": "Monza",
@@ -182,7 +182,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit"
   },
   {
-    "id": "malaysia",
+    "id": "malaysia_kuala_lumpur",
     "country": "MYS",
     "track": "Sepang International Circuit",
     "city": "Kuala Lumpur",
@@ -195,7 +195,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Sepang_International_Circuit"
   },
   {
-    "id": "japan",
+    "id": "japan_suzuka",
     "country": "JPN",
     "track": "Suzuka International Racing Course",
     "city": "Suzuka",
@@ -208,7 +208,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Suzuka_Circuit"
   },
   {
-    "id": "united_states",
+    "id": "united_states_austin",
     "country": "USA",
     "track": "Circuit of the Americas",
     "city": "Austin",
@@ -221,7 +221,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_of_the_Americas"
   },
   {
-    "id": "mexico",
+    "id": "mexico_mexico_city",
     "country": "MEX",
     "track": "Autódromo Hermanos Rodríguez",
     "city": "Mexico City",
@@ -234,7 +234,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez"
   },
   {
-    "id": "brazil",
+    "id": "brazil_sao_paulo",
     "country": "BRA",
     "track": "Autódromo José Carlos Pace",
     "city": "São Paulo",
@@ -247,7 +247,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Jos%C3%A9_Carlos_Pace"
   },
   {
-    "id": "abu_dhabi",
+    "id": "emirates_abu_dhabi",
     "country": "ARE",
     "track": "Yas Marina Circuit",
     "city": "Abu Dhabi",
@@ -260,7 +260,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Yas_Marina_Circuit"
   },
   {
-    "id": "france",
+    "id": "france_le_castellet",
     "country": "FRA",
     "track": "Circuit Paul Ricard",
     "city": "Le Castellet",
@@ -273,7 +273,7 @@
     "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Paul_Ricard"
   },
   {
-    "id": "germany",
+    "id": "germany_hockenheim",
     "country": "DEU",
     "track": "Hockenheimring",
     "city": "Hockenheim",
