@@ -71,7 +71,7 @@ comments:
     active: true
     searchInNestedClass: false
     searchInInnerClass: true
-    searchInInnerObject: true
+    searchInInnerObject: false
     searchInInnerInterface: false
   UndocumentedPublicFunction:
     active: false
