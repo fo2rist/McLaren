@@ -21,6 +21,11 @@ interface RemoteConfigService {
      * Race calendar JSON.
      */
     val calendar: String
+
+    /**
+     * Circuits info JSON.
+     */
+    val circuits: String
 }
 
 /**
@@ -58,7 +63,11 @@ internal class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigS
     override val calendar: String
         get() = firebaseConfig.getString(RACE_CALENDAR)
 
+    override val circuits: String
+        get() = firebaseConfig.getString(CIRCUITS)
+
     private companion object ConfigKeys {
         const val RACE_CALENDAR = "calendar"
+        const val CIRCUITS = "circuits"
     }
 }

@@ -23,7 +23,7 @@ class RaceCalendarTest {
         private const val LAST_HOUR = 23
     }
 
-    lateinit var raceCalendar: RaceCalendar
+    private lateinit var raceCalendar: RaceCalendar
 
     @Before
     fun setUp() {
