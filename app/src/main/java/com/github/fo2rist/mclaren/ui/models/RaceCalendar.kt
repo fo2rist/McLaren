@@ -20,4 +20,8 @@ class RaceCalendar : ArrayList<CalendarEvent>() {
             it.isActiveAt(time)
         }
     }
+
+    companion object {
+        val EMPTY = RaceCalendar()
+    }
 }
