@@ -26,13 +26,18 @@ interface RemoteConfigService {
      * Circuits info JSON.
      */
     val circuits: String
+
+    /**
+     * Drivers info JSON.
+     */
+    val drivers: String
 }
 
 /**
  * [RemoteConfigService] provided by Firebase.
  */
 @Singleton
-internal class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigService {
+class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigService {
 
     private val firebaseConfig: FirebaseRemoteConfig by lazy {
         FirebaseRemoteConfig.getInstance().also { it.init() }
@@ -66,8 +71,12 @@ internal class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigS
     override val circuits: String
         get() = firebaseConfig.getString(CIRCUITS)
 
+    override val drivers: String
+        get() = firebaseConfig.getString(DRIVERS)
+
     private companion object ConfigKeys {
         const val RACE_CALENDAR = "calendar"
         const val CIRCUITS = "circuits"
+        const val DRIVERS = "drivers"
     }
 }

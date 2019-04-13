@@ -28,8 +28,8 @@ import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITE
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE;
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.createTestUrlFromOriginalSize;
 import static com.github.fo2rist.mclaren.testutilities.CustomAssertions.assertStartsWith;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class StoryStreamConverterTest {

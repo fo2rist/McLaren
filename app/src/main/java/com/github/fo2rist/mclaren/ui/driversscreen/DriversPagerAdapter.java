@@ -4,15 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
-import com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId;
+import com.github.fo2rist.mclaren.ui.models.DriverId;
 
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.CAMARA;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.DEVRIES;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.NORRIS;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.SAINZ;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.TURVEY;
-import static com.github.fo2rist.mclaren.ui.models.DriversFactory.DriverId.VANBUREN;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.CAMARA;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.DEVRIES;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.NORRIS;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.SAINZ;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.TURVEY;
+import static com.github.fo2rist.mclaren.ui.models.DriverId.VANBUREN;
 
 /**
  * Represent "tabs" on drivers page

@@ -4,6 +4,7 @@ package com.github.fo2rist.mclaren.ui.widgets;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -49,7 +50,7 @@ public class InformationLineView extends LinearLayout implements AutoLinkOnClick
         valueView.setMentionModeColor(ContextCompat.getColor(getContext(), R.color.textSecondaryWhite));
     }
 
-    public void setContent(CharSequence title, CharSequence value) {
+    public void setContent(@StringRes int title, CharSequence value) {
         titleView.setText(title);
         valueView.setAutoLinkText(value.toString());
     }

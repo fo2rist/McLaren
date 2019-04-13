@@ -384,4 +384,122 @@
             ]
         </value>
     </entry>
+    <entry>
+        <key>drivers</key>
+        <value>
+            {
+                "ALONSO": {
+                    "Name": "Fernando Alonso",
+                    "DateOfBirth": "29.07.1981",
+                    "Nationality": "Spanish",
+                    "Twitter": "@alo_official",
+                    "Tag": "#FA14",
+                    "HeritagePageLink": "http://www.mclaren.com/formula1/heritage/driver/fernando-alonso/",
+                    "WorldChampionships": "2",
+                    "PolePositions": "22",
+                    "FastestLaps": "23",
+                    "BestFinish": "1st x 32",
+                    "Podiums": "97"
+                },
+
+                "BUTTON": {
+                    "Name": "Jenson Button",
+                    "DateOfBirth": "19.01.1980",
+                    "Nationality": "British",
+                    "Twitter": "@JensonButton",
+
+                    "HeritagePageLink": "https://www.mclaren.com/formula1/heritage/driver/jenson-button/",
+                    "Tag": "#JB",
+                    "WorldChampionships": "1",
+                    "BestFinish": "1st x 15",
+                    "PolePositions": "8",
+                    "FastestLaps": "8"
+                },
+
+                "CAMARA": {
+                    "Name": "Sergio Sette Camara",
+                    "DateOfBirth": "23.05.1998",
+                    "Nationality": "Brazilian",
+                    "Twitter": "@sergiosettecama",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/sergio-sette-camara/"
+                },
+
+                "DEVRIES": {
+                    "Name": "Nyck De Vries",
+                    "DateOfBirth": "06.02.1995",
+                    "Nationality": "Dutch",
+                    "Twitter": "@nyckdevries",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/nyck-de-vries/"
+                },
+
+                "MATSUSHITA": {
+                    "Name": "Nobuharu Matsushita",
+                    "DateOfBirth": "13.10.1993",
+                    "Nationality": "Japanese",
+                    "Twitter": "@Nobu_Mat13"
+                },
+
+                "NORRIS": {
+                    "Name": "Lando Norris",
+                    "DateOfBirth": "13.11.1999",
+                    "Nationality": "British",
+                    "Twitter": "@LandoNorris",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/lando-norris/",
+                    "Tag": "#LN4",
+                    "PolePositions": "0",
+                    "FastestLaps": "0"
+                },
+
+                "SAINZ": {
+                    "Name": "Carlos Sainz",
+                    "DateOfBirth": "01.09.1994",
+                    "Nationality": "Spanish",
+                    "Twitter": "@Carlossainz55",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/carlos-sainz/",
+                    "Tag": "#CS55",
+
+                    "BestFinish": "4th",
+                    "PolePositions": "0",
+                    "FastestLaps": "0"
+                },
+
+                "TURVEY": {
+                    "Name": "Oliver Turvey",
+                    "DateOfBirth": "01.03.1987",
+                    "Nationality": "British",
+                    "Twitter": "@OliverTurvey",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/oliver-turvey/"
+                },
+
+                "VANBUREN": {
+                    "Name": "Rudy van Buren",
+                    "DateOfBirth": "04.04.1992",
+                    "Nationality": "Dutch",
+                    "Twitter": "@RvBuren",
+
+                    "TeamPageLink": "https://www.mclaren.com/formula1/team/rudy-van-buren/"
+                },
+
+                "VANDOORNE": {
+                    "Name": "Stoffel Vandoorne",
+                    "DateOfBirth": "26.03.1992",
+                    "Nationality": "Belgian",
+                    "Twitter": "@svandoorne",
+
+                    "TeamPageLink": "http://www.mclaren.com/formula1/team/stoffel-vandoorne/",
+                    "Tag": "#SV2",
+                    "WorldChampionships": "0",
+                    "BestFinish": "7th x 2",
+                    "Podiums": "0",
+                    "PolePositions": "0",
+                    "FastestLaps": "0"
+                }
+            }
+        </value>
+    </entry>
 </defaultsMap>

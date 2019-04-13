@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.repository
 
+import com.github.fo2rist.mclaren.testdata.FakeRemoteConfigService
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
-import com.github.fo2rist.mclaren.web.RemoteConfigService
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
@@ -28,13 +28,6 @@ private const val SINGLE_CIRCUIT_JSON = """[{
 
 @RunWith(RobolectricTestRunner::class)
 class RaceCalendarRepositoryTest {
-
-    private class FakeRemoteConfigService internal constructor(
-        override val calendar: String,
-        override val circuits: String
-    ) : RemoteConfigService {
-        override fun fetchConfig() {}
-    }
 
     @Test
     fun `empty calendar produces empty result`() {

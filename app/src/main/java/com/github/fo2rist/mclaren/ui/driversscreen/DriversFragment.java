@@ -30,7 +30,7 @@ public class DriversFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_drivers, container, false);
 
         DriversPagerAdapter driversAdapter = new DriversPagerAdapter(getFragmentManager());
-        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.drivers_pager);
+        ViewPager viewPager = rootView.findViewById(R.id.drivers_pager);
         viewPager.setAdapter(driversAdapter);
 
         return rootView;
