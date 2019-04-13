@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.circuitsscreen
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +31,13 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
 
     private fun fetchBundleParameters() {
         event = arguments?.getSerializable(ARG_EVENT) as? CalendarEvent
-            ?: throw IllegalArgumentException("Required parameter `$ARG_EVENT` not present or not a CalendarEvent")
+                ?: throw IllegalArgumentException("Required parameter `$ARG_EVENT` not present or not a CalendarEvent")
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_circuit_item, container, false)
     }
@@ -67,25 +68,25 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
 
     private fun populateDetailedInformationLines() {
         properties_linearlayout.addInformationLine(
-                getString(R.string.circuit_details_laps),
+                R.string.circuit_details_laps,
                 event.laps.toString())
         properties_linearlayout.addInformationLine(
-                getString(R.string.circuit_details_length),
+                R.string.circuit_details_length,
                 getString(R.string.distance_km_format, event.length))
         properties_linearlayout.addInformationLine(
-                getString(R.string.circuit_details_distance),
+                R.string.circuit_details_distance,
                 getString(R.string.distance_km_format, event.distance))
         properties_linearlayout.addInformationLine(
-                getString(R.string.circuit_details_seasons),
+                R.string.circuit_details_seasons,
                 event.seasons)
         properties_linearlayout.addInformationLine(
-                getString(R.string.circuit_details_gp_held),
+                R.string.circuit_details_gp_held,
                 event.gpHeld.toString())
     }
 
-    private fun LinearLayout.addInformationLine(propertyName: String, propertyValue: String) {
+    private fun LinearLayout.addInformationLine(@StringRes propertyTitle: Int, propertyValue: String) {
         val propertyView = InformationLineView(context)
-        propertyView.setContent(propertyName, propertyValue)
+        propertyView.setContent(propertyTitle, propertyValue)
         addView(propertyView)
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.github.fo2rist.mclaren.McLarenApplication;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl;
+import com.github.fo2rist.mclaren.repository.DriversRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepository;
 import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus;
 import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl;
@@ -16,6 +17,7 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepository;
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus;
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
+import com.github.fo2rist.mclaren.repository.DriversRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService;
@@ -100,6 +102,10 @@ public abstract class AppModule {
     @Binds
     @Singleton
     abstract RaceCalendarRepository provideCalendarRepository(RaceCalendarRepositoryImpl calendarRepository);
+
+    @Binds
+    @Singleton
+    abstract DriversRepository provideDriversRepository(DriversRepositoryImpl driversRepository);
 
     @Binds
     @Singleton

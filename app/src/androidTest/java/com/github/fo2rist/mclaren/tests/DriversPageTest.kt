@@ -3,13 +3,7 @@ package com.github.fo2rist.mclaren.tests
 import android.support.test.runner.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.DriversPage
-import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty.BEST_FINISH
-import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty.FASTEST_LAPS
-import com.github.fo2rist.mclaren.ui.models.Driver.AdditionalProperty.POLE_POSITIONS
-import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty.DATE_OF_BIRTH
-import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty.NAME
-import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty.NATIONALITY
-import com.github.fo2rist.mclaren.ui.models.Driver.MandatoryProperty.TWITTER
+import com.github.fo2rist.mclaren.ui.models.DriverProperty
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -30,20 +24,20 @@ class DriversPageTest : BaseMainActivityTest() {
             driverNumber.hasText("#CS55")
             driverPageLink.isDisplayed()
 
-            infoItemWithTitle(NAME.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.Name.nameResId))
                     .hasText("Carlos Sainz")
-            infoItemWithTitle(TWITTER.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.Twitter.nameResId))
                     .hasText("@Carlossainz55")
-            infoItemWithTitle(DATE_OF_BIRTH.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.DateOfBirth.nameResId))
                     .hasText("01.09.1994")
-            infoItemWithTitle(NATIONALITY.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.Nationality.nameResId))
                     .hasText("Spanish")
 
-            infoItemWithTitle(BEST_FINISH.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.BestFinish.nameResId))
                     .hasText("4th")
-            infoItemWithTitle(POLE_POSITIONS.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.PolePositions.nameResId))
                     .hasText("0")
-            infoItemWithTitle(FASTEST_LAPS.displayName)
+            infoItemWithTitle(context.getString(DriverProperty.FastestLaps.nameResId))
                     .hasText("0")
         }
     }

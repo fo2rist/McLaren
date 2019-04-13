@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="driver_name">"Name"</string>
+    <string name="driver_date_of_birth">"Date of Birth"</string>
+    <string name="driver_nationality">"Nationality"</string>
+    <string name="driver_twitter">"Twitter"</string>
+    <string name="driver_tag">"Tag"</string>
+    <string name="driver_world_championships">"World Championships"</string>
+    <string name="driver_best_finish">"Best Race Finish"</string>
+    <string name="driver_podiums">"Podiums"</string>
+    <string name="driver_pole_positions">"Pole Positions"</string>
+    <string name="driver_fastest_laps">"Fastest Laps"</string>
+    <string name="driver_place">"Place"</string>
+    <string name="driver_points">"Points"</string>
+    <string name="driver_team_link">"Team Page"</string>
+    <string name="driver_heritage_link">"Heritage Page"</string>
+</resources>
