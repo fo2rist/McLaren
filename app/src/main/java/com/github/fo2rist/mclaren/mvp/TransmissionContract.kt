@@ -14,5 +14,7 @@ interface TransmissionContract {
         fun hideProgress()
     }
 
-    interface Presenter : BasePresenter<View>, Stoppable
+    interface Presenter : BasePresenter2<View>, Stoppable {
+        fun onStart()
+    }
 }

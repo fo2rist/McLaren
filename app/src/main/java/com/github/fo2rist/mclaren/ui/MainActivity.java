@@ -73,10 +73,8 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             //Populate main content area only on the first launch
-            presenter.onStart(this);
-        } else {
-            //otherwise, just re-couple view and presenter.
-            presenter.onRestart(this);
+            //otherwise, the fragment fill be restored by system, no need to do anything
+            presenter.onStart();
         }
     }
 

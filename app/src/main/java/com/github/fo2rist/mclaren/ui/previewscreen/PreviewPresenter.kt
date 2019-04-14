@@ -12,25 +12,19 @@ import javax.inject.Inject
  * Presenter for Preview wrapper activity.
  * Controls activity specific parameters such as toolbar, doesn't affect preview content.
  */
-class PreviewPresenter @Inject constructor() : PreviewContract.Presenter {
+class PreviewPresenter @Inject constructor(
+    override val view: PreviewContract.View
+) : PreviewContract.Presenter {
 
-    private lateinit var view: PreviewContract.View
     private lateinit var content: PreviewContent
 
-    override fun onStart(view: PreviewContract.View) {
-        this.view = view
-    }
-
-    override fun onStartWith(view: PreviewContract.View, url: String) {
-        onStart(view)
+    override fun onStartWith(url: String) {
         content = PreviewContent.Url(url)
 
         view.displayFragment(content)
     }
 
-    override fun onStartWith(view: PreviewContract.View, orientation: Orientation, feedItem: FeedItem) {
-        onStart(view)
-
+    override fun onStartWith(orientation: Orientation, feedItem: FeedItem) {
         when (feedItem.type) {
             Type.Video, Type.Message -> {
                 view.finish()

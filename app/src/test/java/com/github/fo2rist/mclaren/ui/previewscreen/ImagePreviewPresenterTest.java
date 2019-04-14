@@ -26,26 +26,26 @@ public class ImagePreviewPresenterTest {
     public void setUp() {
         mockView = mock(ImagePreviewContract.View.class);
         mockEventsLogger = mock(EventsLogger.class);
-        presenter = new ImagePreviewPresenter(mockEventsLogger);
+        presenter = new ImagePreviewPresenter(mockView, mockEventsLogger);
     }
 
     @Test
     public void test_onStartWith_galleryItem_showsImages() {
-        presenter.onStartWith(mockView, TWITTER_GALLERY_ITEM);
+        presenter.onStartWith(TWITTER_GALLERY_ITEM);
 
         verify(mockView).showImages(TWITTER_GALLERY_ITEM.getImageUrls());
     }
 
     @Test
     public void test_onStartWith_null_showsNoting() {
-        presenter.onStartWith(mockView, null);
+        presenter.onStartWith(null);
 
         verify(mockView, never()).showImages(any(List.class));
     }
 
     @Test
     public void test_onScroll_emitsNextPrevieousEvents() {
-        presenter.onStartWith(mockView, TWITTER_GALLERY_ITEM);
+        presenter.onStartWith(TWITTER_GALLERY_ITEM);
 
         presenter.onScrolledTo(1);
         presenter.onScrolledTo(0);

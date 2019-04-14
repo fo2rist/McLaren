@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.dagger;
 
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
+import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.MainPresenter;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
@@ -27,6 +28,10 @@ abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector
     abstract DriverSubFragment driverSubFragmentInjector();
+
+    @Binds
+    @Scopes.PerActivity
+    abstract MainScreenContract.View provideView(MainActivity view);
 
     @Binds
     @Scopes.PerActivity

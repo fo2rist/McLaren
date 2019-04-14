@@ -18,15 +18,15 @@ import org.junit.Test
 
 class PreviewPresenterTest{
 
-    private val presenter = PreviewPresenter()
-
     private val viewMock: PreviewContract.View = mock()
+
+    private val presenter = PreviewPresenter(viewMock)
 
     @Test
     fun `test onStartWith unsupported types finishes view`() {
         for (item in listOf(VIDEO_ITEM, MESSAGE_ITEM)) {
             reset(viewMock)
-            presenter.onStartWith(viewMock, Orientation.PORTRAIT, item)
+            presenter.onStartWith(Orientation.PORTRAIT, item)
 
             verify(viewMock).finish()
         }
@@ -34,14 +34,14 @@ class PreviewPresenterTest{
 
     @Test
     fun `test onStartWith URL launches url without toolbar image`() {
-        presenter.onStartWith(viewMock, MEDIA_LINK)
+        presenter.onStartWith(MEDIA_LINK)
 
         verify(viewMock).displayFragment(any<PreviewContent.Url>())
     }
 
     @Test
     fun `test onStartWith ArticleItem in Portrait mode launches Html with title and image`() {
-        presenter.onStartWith(viewMock, Orientation.PORTRAIT, ARTICLE_ITEM_WITH_LINKS)
+        presenter.onStartWith(Orientation.PORTRAIT, ARTICLE_ITEM_WITH_LINKS)
 
         verify(viewMock).displayFragment(any<PreviewContent.Html>())
         verify(viewMock).setTitle(ARTICLE_ITEM_WITH_LINKS.text)
@@ -50,7 +50,7 @@ class PreviewPresenterTest{
 
     @Test
     fun `test onStartWith ArticleItem in Landscape mode launches Html with title and image`() {
-        presenter.onStartWith(viewMock, Orientation.LANDSCAPE, ARTICLE_ITEM_WITH_LINKS)
+        presenter.onStartWith(Orientation.LANDSCAPE, ARTICLE_ITEM_WITH_LINKS)
 
         verify(viewMock).displayFragment(any<PreviewContent.Html>())
         verify(viewMock).setTitle(ARTICLE_ITEM_WITH_LINKS.text)
@@ -59,14 +59,14 @@ class PreviewPresenterTest{
 
     @Test
     fun `test onStartWith empty ArticleItem finishes view`() {
-        presenter.onStartWith(viewMock, Orientation.PORTRAIT, ARTICLE_ITEM_WITH_LINKS.copy(content = null))
+        presenter.onStartWith(Orientation.PORTRAIT, ARTICLE_ITEM_WITH_LINKS.copy(content = null))
 
         verify(viewMock).finish()
     }
 
     @Test
     fun `test onStartWith GalleryItem in Portrait mode launches image with locked in fullscreen`() {
-        presenter.onStartWith(viewMock, Orientation.PORTRAIT, TWITTER_GALLERY_ITEM)
+        presenter.onStartWith(Orientation.PORTRAIT, TWITTER_GALLERY_ITEM)
 
         verify(viewMock).displayFragment(any<PreviewContent.FeedItem>())
         verify(viewMock).enterFullScreen()
@@ -76,7 +76,7 @@ class PreviewPresenterTest{
 
     @Test
     fun `test onStartWith GalleryItem in Landscape mode launches image without toolbar in fullscreen`() {
-        presenter.onStartWith(viewMock, Orientation.LANDSCAPE, TWITTER_GALLERY_ITEM)
+        presenter.onStartWith(Orientation.LANDSCAPE, TWITTER_GALLERY_ITEM)
 
         verify(viewMock).displayFragment(any<PreviewContent.FeedItem>())
         verify(viewMock).enterFullScreen()

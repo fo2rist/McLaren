@@ -4,10 +4,8 @@ package com.github.fo2rist.mclaren.mvp
 interface BaseView
 
 /** Common interface for MVP presenters to used keep initialization consistent. */
-interface BasePresenter<T : BaseView> {
-
-    /** Should be called when the view starts and the interaction is possible. */
-    fun onStart(view: T)
+interface BasePresenter2<T : BaseView> {
+    val view: T
 }
 
 /** Extension interface for presenters that need to provide de-initialization entry point. */

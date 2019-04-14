@@ -65,10 +65,10 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
 
         if (intent.hasExtra(KEY_URL)) {
             val url = intent.getStringExtra(KEY_URL)
-            presenter.onStartWith(this, url)
+            presenter.onStartWith(url)
         } else if (intent.hasExtra(KEY_FEED_ITEM)) {
             val feedItem = intent.getSerializableExtra(KEY_FEED_ITEM) as FeedItem
-            presenter.onStartWith(this, deviceOrientation, feedItem)
+            presenter.onStartWith(deviceOrientation, feedItem)
         }
     }
 
