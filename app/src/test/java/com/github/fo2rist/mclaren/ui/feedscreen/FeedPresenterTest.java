@@ -18,7 +18,6 @@ import org.junit.runners.JUnit4;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 @RunWith(JUnit4.class)
@@ -35,12 +34,12 @@ public class FeedPresenterTest {
         mockRepository = mock(FeedRepository.class);
         mockEventBus = mock(FeedRepositoryEventBus.class);
         mockEventsLogger = mock(EventsLogger.class);
-        presenter = new FeedPresenter(mockRepository, mockEventBus, mockEventsLogger);
+        presenter = new FeedPresenter(mockView, mockRepository, mockEventBus, mockEventsLogger);
     }
 
     @Test
     public void test_onStart_loadFeed_and_subscribeOnEvents() {
-        presenter.onStart(mockView);
+        presenter.onStart();
 
         verify(mockEventBus).subscribe(any());
         verify(mockRepository).loadLatestPage();
@@ -48,25 +47,13 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onStop_unsubscribeFromEvents() {
-        setUpPresenter();
-
         presenter.onStop();
 
         verify(mockEventBus).unsubscribe(any());
     }
 
-    private void setUpPresenter() {
-        presenter.onStart(mockView);
-        reset(mockView);
-        reset(mockEventBus);
-        reset(mockRepository);
-        reset(mockEventsLogger);
-    }
-
     @Test
     public void test_onFeedUpdateReceived_setFeedToView() {
-        setUpPresenter();
-
         presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
 
         verify(mockView).displayFeed(any(List.class));
@@ -74,8 +61,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onLoadingStarted_showProgress() {
-        setUpPresenter();
-
         presenter.onLoadingStarted(new LoadingEvent.LoadingStarted());
 
         verify(mockView).showProgress();
@@ -83,8 +68,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onLoadingFinished_hideProgress() {
-        setUpPresenter();
-
         presenter.onLoadingFinished(new LoadingEvent.LoadingFinished());
 
         verify(mockView).hideProgress();
@@ -92,8 +75,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onItemClicked_forVideo_openBrowser() {
-        setUpPresenter();
-
         presenter.onItemClicked(FeedItems.VIDEO_ITEM);
 
         verifyNavigatedToLinkPreview(FeedItems.VIDEO_ITEM.getEmbeddedMediaLink());
@@ -106,8 +87,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onItemClick_forArticle_openPreview() {
-        setUpPresenter();
-
         presenter.onItemClicked(FeedItems.ARTICLE_ITEM_WITH_LINKS);
 
         verifyNavigatedToItemPreview(FeedItems.ARTICLE_ITEM_WITH_LINKS);
@@ -115,8 +94,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onItemClick_forGallery_openPreview() {
-        setUpPresenter();
-
         presenter.onItemClicked(FeedItems.INSTAGRAM_GALLERY_ITEM);
 
         verifyNavigatedToItemPreview(FeedItems.INSTAGRAM_GALLERY_ITEM);
@@ -129,8 +106,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onItemSourceClicked_openBrowser() {
-        setUpPresenter();
-
         presenter.onItemSourceClicked(FeedItems.INSTAGRAM_GALLERY_ITEM);
 
         verifyNavigatedToBrowser();
@@ -138,8 +113,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onLinkClicked_openBrowser() {
-        setUpPresenter();
-
         presenter.onLinkClicked(FeedItems.INSTAGRAM_GALLERY_ITEM,
                 FeedItems.INSTAGRAM_GALLERY_ITEM.getEmbeddedMediaLink());
 
@@ -153,8 +126,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onRefreshRequested_loadsFeed() {
-        setUpPresenter();
-
         presenter.onRefreshRequested();
 
         verify(mockRepository).loadLatestPage();
@@ -162,8 +133,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onScrolledToSecondThird_preFetchesHistory() {
-        setUpPresenter();
-
         presenter.onScrolledToSecondThird();
 
         verify(mockRepository).prepareForHistoryLoading();
@@ -171,8 +140,6 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onScrolledToBottom_loadsHistory() {
-        setUpPresenter();
-
         presenter.onScrolledToBottom();
 
         verify(mockRepository).loadNextPage();

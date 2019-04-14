@@ -66,7 +66,7 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     @Override
     public void onStart() {
         super.onStart();
-        presenter.onStartWith(this, fetchBundleParameters());
+        presenter.onStartWith(fetchBundleParameters());
     }
 
     @Nullable

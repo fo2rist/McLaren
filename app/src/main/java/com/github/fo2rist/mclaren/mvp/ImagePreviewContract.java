@@ -13,8 +13,8 @@ public interface ImagePreviewContract {
         void showImages(List<ImageUrl> imageUris);
     }
 
-    interface Presenter extends BasePresenter<View> {
-        void onStartWith(View view, FeedItem item);
+    interface Presenter extends BasePresenter2<View> {
+        void onStartWith(FeedItem item);
 
         void onScrolledTo(int position);
     }

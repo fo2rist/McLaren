@@ -26,7 +26,8 @@ import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
  * Displays feed of {@link FeedItem}s.
  * Handle refresh, loading and links clicking.
  */
-public class BaseFeedFragment extends Fragment
+public class BaseFeedFragment
+        extends Fragment
         implements FeedContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
@@ -52,7 +53,7 @@ public class BaseFeedFragment extends Fragment
         bindViews(rootView);
         setupViews();
 
-        presenter.onStart(this);
+        presenter.onStart();
         return rootView;
     }
 

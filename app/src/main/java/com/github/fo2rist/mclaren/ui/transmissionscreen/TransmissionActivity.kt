@@ -37,7 +37,7 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
             animateReveal(root_layout, intent)
         }
 
-        presenter.onStart(this)
+        presenter.onStart()
     }
 
     private fun setupViews() {

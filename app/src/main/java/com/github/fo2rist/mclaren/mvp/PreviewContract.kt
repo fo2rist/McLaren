@@ -27,10 +27,10 @@ interface PreviewContract {
         fun finish()
     }
 
-    interface Presenter : BasePresenter<View> {
+    interface Presenter : BasePresenter2<View> {
 
-        fun onStartWith(view: View, url: String)
+        fun onStartWith(url: String)
 
-        fun onStartWith(view: View, orientation: Orientation, feedItem: FeedItem)
+        fun onStartWith(orientation: Orientation, feedItem: FeedItem)
     }
 }

@@ -9,7 +9,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.reset
 import org.mockito.Mockito.verify
 
 @RunWith(JUnit4::class)
@@ -24,12 +23,12 @@ class TransmissionPresenterTest {
         mockView = mock(TransmissionContract.View::class.java)
         mockRepository = mock(TransmissionRepository::class.java)
         mockEventBus = mock(TransmissionRepositoryEventBus::class.java)
-        presenter = TransmissionPresenter(mockRepository, mockEventBus)
+        presenter = TransmissionPresenter(mockView, mockRepository, mockEventBus)
     }
 
     @Test
     fun `test onStart loadsTransmission and subscribeOnEvents`() {
-        presenter.onStart(mockView)
+        presenter.onStart()
 
         verify(mockRepository).loadTransmission()
         verify(mockEventBus).subscribe(anyKotlinObject())
@@ -37,8 +36,6 @@ class TransmissionPresenterTest {
 
     @Test
     fun `test onLoadingStarted showsProgress`() {
-        setupPresenter()
-
         presenter.onLoadingStarted(TransmissionRepositoryEventBus.LoadingEvent.LoadingStarted)
 
         verify(mockView).showProgress()
@@ -47,8 +44,6 @@ class TransmissionPresenterTest {
 
     @Test
     fun `test onLoadingFinished hidesProgress`() {
-        setupPresenter()
-
         presenter.onLoadingFinished(TransmissionRepositoryEventBus.LoadingEvent.LoadingFinished)
 
         verify(mockView).hideProgress()
@@ -56,17 +51,8 @@ class TransmissionPresenterTest {
 
     @Test
     fun `test onStop unsubscribeOfEvents`() {
-        setupPresenter()
-
         presenter.onStop()
 
         verify(mockEventBus).unsubscribe(anyKotlinObject())
-    }
-
-    private fun setupPresenter() {
-        presenter.onStart(mockView)
-        reset(mockEventBus)
-        reset(mockRepository)
-        reset(mockView)
     }
 }

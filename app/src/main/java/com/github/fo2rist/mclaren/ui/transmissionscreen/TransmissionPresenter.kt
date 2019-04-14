@@ -6,21 +6,20 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
+import java.util.Timer
 import javax.inject.Inject
 import kotlin.concurrent.timer
 
 private const val REFRESH_INTERVAL_MS = 30_000L
 
 class TransmissionPresenter @Inject constructor(
+    override val view: TransmissionContract.View,
     var repository: TransmissionRepository,
     var repositoryEventBus: TransmissionRepositoryEventBus
 ): TransmissionContract.Presenter {
-    private lateinit var view: TransmissionContract.View
     private var pollTimer: Timer? = null
 
-    override fun onStart(view: TransmissionContract.View) {
-        this.view = view
+    override fun onStart() {
         startTransmissionPolling()
     }
 

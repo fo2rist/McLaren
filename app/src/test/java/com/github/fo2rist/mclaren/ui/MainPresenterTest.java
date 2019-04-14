@@ -14,9 +14,7 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
@@ -33,41 +31,18 @@ public class MainPresenterTest {
         mockEventsLogger = mock(EventsLogger.class);
         mockCalendarRepository = mock(RaceCalendarRepository.class);
         when(mockCalendarRepository.loadCalendar()).thenReturn(new RaceCalendar());
-        presenter = new MainPresenter(mockEventsLogger, mockCalendarRepository);
-    }
-
-    private void setUpPresenter() {
-        presenter.onStart(mockView);
-        reset(mockView);
-        reset(mockEventsLogger);
+        presenter = new MainPresenter(mockView, mockEventsLogger, mockCalendarRepository);
     }
 
     @Test
     public void test_onStart_loadsStories() {
-        presenter.onStart(mockView);
+        presenter.onStart();
 
         verify(mockView).openStories();
     }
 
     @Test
-    public void test_onRestart_onlySetView() {
-        reset(mockView);
-        reset(mockEventsLogger);
-        reset(mockCalendarRepository);
-
-        presenter.onRestart(mockView);
-
-        verifyNoMoreInteractions(mockView);
-        verifyNoMoreInteractions(mockEventsLogger);
-        verifyNoMoreInteractions(mockCalendarRepository);
-        //and make sure view is set so should not crash
-        presenter.onCarClicked(); // just call any methods that calls view
-    }
-
-    @Test
     public void test_onStoriesClicked() {
-        setUpPresenter();
-
         presenter.onStoriesClicked();
 
         verify(mockView).openStories();
@@ -76,8 +51,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onCircuitsClicked() {
-        setUpPresenter();
-
         presenter.onCircuitsClicked();
 
         verify(mockView).openCircuits();
@@ -86,8 +59,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onDriversClicked(){
-        setUpPresenter();
-
         presenter.onDriversClicked();
 
         verify(mockView).openDrivers();
@@ -96,8 +67,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onAboutClicked(){
-        setUpPresenter();
-
         presenter.onAboutClicked();
 
         verify(mockView).openAboutScreen();
@@ -106,8 +75,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onCarClicked(){
-        setUpPresenter();
-
         presenter.onCarClicked();
 
         verify(mockView).navigateTo(getMcLarenCarLink());
@@ -116,8 +83,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onOfficialSiteClicked(){
-        setUpPresenter();
-
         presenter.onOfficialSiteClicked();
 
         verify(mockView).navigateTo(getMcLarenFormula1Link());
@@ -126,8 +91,6 @@ public class MainPresenterTest {
 
     @Test
     public void test_onTransmissionCenterClicked() {
-        setUpPresenter();
-
         presenter.onTransmissionCenterClicked();
 
         verify(mockView).openTransmissionCenter();
