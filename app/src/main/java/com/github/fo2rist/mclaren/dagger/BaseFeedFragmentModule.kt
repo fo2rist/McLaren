@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface BaseFeedFragmentModule {
+internal interface BaseFeedFragmentModule {
 
     @Binds
     @Scopes.PerFragment

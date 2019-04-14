@@ -7,7 +7,7 @@ import com.github.fo2rist.mclaren.mvp.ImagePreviewContract
 import javax.inject.Inject
 
 
-class ImagePreviewPresenter @Inject constructor(
+internal class ImagePreviewPresenter @Inject constructor(
     override val view: ImagePreviewContract.View,
     private val eventsLogger: EventsLogger
 ) : ImagePreviewContract.Presenter {

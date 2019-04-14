@@ -12,7 +12,7 @@ import kotlin.concurrent.timer
 
 private const val REFRESH_INTERVAL_MS = 30_000L
 
-class TransmissionPresenter @Inject constructor(
+internal class TransmissionPresenter @Inject constructor(
     override val view: TransmissionContract.View,
     var repository: TransmissionRepository,
     var repositoryEventBus: TransmissionRepositoryEventBus

@@ -1,5 +1,8 @@
 package com.github.fo2rist.mclaren.mvp
 
+/**
+ * Contract for Main Screen with navigation.
+ */
 interface MainScreenContract {
 
     interface View : BaseView {
