@@ -14,7 +14,7 @@ interface MainScreenContract {
         fun showTransmissionButton()
     }
 
-    interface Presenter : BasePresenter2<View> {
+    interface Presenter : BasePresenter<View> {
         fun onStart()
 
         fun onStoriesClicked()
