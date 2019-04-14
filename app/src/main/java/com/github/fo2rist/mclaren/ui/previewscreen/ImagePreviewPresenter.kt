@@ -32,10 +32,8 @@ class ImagePreviewPresenter @Inject constructor(
     }
 
     private fun showItemContent() {
-        if (item == null) {
-            return
+        item?.let {
+            view.showImages(it.imageUrls)
         }
-
-        view.showImages(item!!.imageUrls)
     }
 }
