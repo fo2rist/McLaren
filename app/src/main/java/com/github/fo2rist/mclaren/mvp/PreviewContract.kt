@@ -27,7 +27,7 @@ interface PreviewContract {
         fun finish()
     }
 
-    interface Presenter : BasePresenter2<View> {
+    interface Presenter : BasePresenter<View> {
 
         fun onStartWith(url: String)
 
