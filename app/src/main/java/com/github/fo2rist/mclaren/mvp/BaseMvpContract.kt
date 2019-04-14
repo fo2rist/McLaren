@@ -4,7 +4,7 @@ package com.github.fo2rist.mclaren.mvp
 interface BaseView
 
 /** Common interface for MVP presenters to used keep initialization consistent. */
-interface BasePresenter2<T : BaseView> {
+interface BasePresenter<T : BaseView> {
     val view: T
 }
 
