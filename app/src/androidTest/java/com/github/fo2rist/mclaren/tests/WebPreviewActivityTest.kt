@@ -5,7 +5,7 @@ import android.support.test.espresso.web.assertion.WebViewAssertions.webContent
 import android.support.test.espresso.web.matcher.DomMatchers.hasElementWithXpath
 import android.support.test.espresso.web.webdriver.Locator
 import android.support.test.runner.AndroidJUnit4
-import com.agoda.kakao.WebElementBuilder
+import com.agoda.kakao.web.WebElementBuilder
 import com.github.fo2rist.mclaren.pages.PreviewPage
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_TABLES

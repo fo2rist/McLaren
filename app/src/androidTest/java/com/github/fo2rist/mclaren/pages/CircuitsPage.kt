@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.pages
 
 import android.view.View
-import com.agoda.kakao.KRecyclerItem
-import com.agoda.kakao.KRecyclerView
-import com.agoda.kakao.Screen
+import com.agoda.kakao.recycler.KRecyclerItem
+import com.agoda.kakao.recycler.KRecyclerView
+import com.agoda.kakao.screen.Screen
 import com.github.fo2rist.mclaren.R
 import org.hamcrest.Matcher
 

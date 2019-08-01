@@ -1,10 +1,10 @@
 package com.github.fo2rist.mclaren.pages
 
 
-import com.agoda.kakao.KDrawerView
-import com.agoda.kakao.KNavigationView
-import com.agoda.kakao.KView
-import com.agoda.kakao.Screen
+import com.agoda.kakao.common.views.KView
+import com.agoda.kakao.drawer.KDrawerView
+import com.agoda.kakao.navigation.KNavigationView
+import com.agoda.kakao.screen.Screen
 import com.github.fo2rist.mclaren.R
 
 class MainPage : Screen<MainPage>() {

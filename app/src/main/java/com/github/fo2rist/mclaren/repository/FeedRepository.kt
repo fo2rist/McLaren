@@ -10,7 +10,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.util.*
+import java.util.ArrayList
+import java.util.TreeSet
 
 /**
  * Supplier of the news feed.

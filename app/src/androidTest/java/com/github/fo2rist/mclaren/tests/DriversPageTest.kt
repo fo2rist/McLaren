@@ -4,6 +4,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.DriversPage
 import com.github.fo2rist.mclaren.ui.models.DriverProperty
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -13,8 +14,8 @@ class DriversPageTest : BaseMainActivityTest() {
 
     private val driversPage = DriversPage()
 
-    override fun setUp() {
-        super.setUp()
+    @Before
+    fun setUp() {
         mainPage.navigateToMenuItem(R.id.nav_drivers)
     }
 

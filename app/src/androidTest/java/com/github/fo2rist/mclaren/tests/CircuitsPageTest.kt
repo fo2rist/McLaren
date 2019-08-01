@@ -16,8 +16,7 @@ class CircuitsPageTest : BaseMainActivityTest() {
     private val circuitsPage = CircuitsPage()
 
     @Before
-    override fun setUp() {
-        super.setUp()
+    fun setUp() {
         mainPage.navigateToMenuItem(R.id.nav_circuits)
     }
 
