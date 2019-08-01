@@ -40,11 +40,12 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     public List<FeedItem> convertFeed(@NonNull StoryStream storyStreamFeed) {
         ArrayList<FeedItem> result = new ArrayList<>(storyStreamFeed.items.size());
         for (StoryStreamItemWrapper storyStreamItem: storyStreamFeed.items) {
+            // TODO: Parser may fail and produce useless feed item -> Filter out bad items. 2019-07-31
             result.add(convertFeedItem(storyStreamItem));
         }
         return result;
     }
-
+    
     private static FeedItem convertFeedItem(StoryStreamItemWrapper storyStreamItem) {
         return new FeedItem(
             fetchId(storyStreamItem),
@@ -58,18 +59,29 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
             fetchImageUrls(storyStreamItem));
     }
 
-    private static long fetchId(StoryStreamItemWrapper storyStreamItem) {
+    private static long fetchId(@NonNull StoryStreamItemWrapper storyStreamItem) {
         //StoryStream don't offer sequential IDs so use timestamp instead as a hack
-        return storyStreamItem.publishDate.getTime();
+        Date publishDate = storyStreamItem.publishDate;
+        return publishDate != null
+                ? publishDate.getTime()
+                : 0; // TODO default values makes no sense need. Check if this kind of item can be displayed. 2019-07-31
     }
 
     @NonNull
-    private static Type fetchType(StoryStreamItemWrapper storyStreamItem) {
+    private static Type fetchType(@NonNull StoryStreamItemWrapper storyStreamItem) {
         StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+
+        if (storyStreamContentItem == null) {
+            //TODO Default value doesn't reflect the actual intent in case the content item is null. 2019-07-31
+            return Type.Message;
+        }
 
         if (storyStreamContentItem.feedType == FeedType.Custom) {
             return Type.Article;
         } else {
+            if (storyStreamContentItem.contentType == null) {
+                return Type.Message;
+            }
             switch (storyStreamContentItem.contentType) {
                 case Text:
                     return Type.Message;
@@ -88,16 +100,23 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static String fetchText(StoryStreamItemWrapper storyStreamItem) {
-        StoryStreamItem data = fetchContentItem(storyStreamItem);
-        if (data.feedType == FeedType.Custom) {
-            String text = data.body;
+    private static String fetchText(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+        if (storyStreamContentItem == null) {
+            return "";
+        }
+        if (storyStreamContentItem.body == null) {
+            return "";
+        }
+
+        if (storyStreamContentItem.feedType == FeedType.Custom) {
+            String text = storyStreamContentItem.body;
             text = Html.fromHtml(text).toString();
 
             text = text.replaceAll("\\n+", " ");
 
-            if (!TextUtils.isEmpty(data.title)) {
-                text = data.title.toUpperCase(Locale.US) + "\n" + text;
+            if (!TextUtils.isEmpty(storyStreamContentItem.title)) {
+                text = storyStreamContentItem.title.toUpperCase(Locale.US) + "\n" + text;
             }
 
             if (text.length() > TEXT_LENGTH_LIMIT) {
@@ -107,27 +126,40 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
             return text;
         } else {
             //TODO We are loosing links that way. HTML should be preserved and then handled on the UI side. 2018.03.09
-            return Html.fromHtml(data.body).toString();
+            return Html.fromHtml(storyStreamContentItem.body).toString();
         }
     }
 
-    private static StoryStreamItem fetchContentItem(StoryStreamItemWrapper storyStreamItem) {
-        return storyStreamItem.contentItems.get(0);
+    @Nullable
+    private static StoryStreamItem fetchContentItem(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        ArrayList<StoryStreamItem> contentItems = storyStreamItem.contentItems;
+        return contentItems != null
+                ? contentItems.get(0)
+                : null;
     }
 
     @Nullable
-    private static String fetchContent(StoryStreamItemWrapper storyStreamItem) {
-        return fetchContentItem(storyStreamItem).body;
+    private static String fetchContent(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+        return storyStreamContentItem != null
+                ? storyStreamContentItem.body
+                : null;
     }
 
     @NonNull
-    private static Date fetchDate(StoryStreamItemWrapper storyStreamItem) {
-        return storyStreamItem.publishDate;
+    private static Date fetchDate(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        return storyStreamItem.publishDate != null
+                ? storyStreamItem.publishDate
+                : new Date(); //TODO default value makes no sense. Check if it can be used anyhow. 2019-07-31
     }
 
     @NonNull
-    private static SourceType fetchSourceType(StoryStreamItemWrapper storyStreamItem) {
-        switch(fetchContentItem(storyStreamItem).feedType) {
+    private static SourceType fetchSourceType(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        FeedType feedType = fetchContentItem(storyStreamItem).feedType;
+        if (feedType == null) {
+            return SourceType.Unknown;
+        }
+        switch(feedType) {
             case Twitter:
                 return SourceType.Twitter;
             case Instagram:
@@ -138,22 +170,37 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
     }
 
     @NonNull
-    private static String fetchSourceName(StoryStreamItemWrapper storyStreamItem) {
+    private static String fetchSourceName(@NonNull StoryStreamItemWrapper storyStreamItem) {
         StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
-        return storyStreamContentItem.source; //for pretty name use .author
+        //for pretty name use .author not .source
+        return (storyStreamContentItem != null && storyStreamContentItem.source != null)
+                ? storyStreamContentItem.source
+                : "" ;
     }
 
     @NonNull
-    private static String fetchMediaLink(StoryStreamItemWrapper storyStreamItem) {
-        List<VideoData> videos = fetchContentItem(storyStreamItem).videos;
-        return (!videos.isEmpty() && videos.get(0) != null)
+    private static String fetchMediaLink(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+        if (storyStreamContentItem == null) {
+            return "";
+        }
+        List<VideoData> videos = storyStreamContentItem.videos;
+        return (videos != null && !videos.isEmpty() && videos.get(0) != null)
                 ? videos.get(0).url
                 : "";
     }
 
     @NonNull
-    private static List<ImageUrl> fetchImageUrls(StoryStreamItemWrapper storyStreamItem) {
-        List<ImageData> images = fetchContentItem(storyStreamItem).images;
+    private static List<ImageUrl> fetchImageUrls(@NonNull StoryStreamItemWrapper storyStreamItem) {
+        StoryStreamItem storyStreamContentItem = fetchContentItem(storyStreamItem);
+        if (storyStreamContentItem == null) {
+            return new ArrayList<>();
+        }
+
+        List<ImageData> images = storyStreamContentItem.images;
+        if (images == null) {
+            return new ArrayList<>();
+        }
 
         List<ImageUrl> result = new ArrayList<>(images.size());
         for (int i = 0; i < images.size(); i++) {
@@ -162,7 +209,7 @@ public final class StoryStreamConverter implements FeedConverter<StoryStream> {
         return result;
     }
 
-    private static ImageUrl fetchUrlFromImageData(ImageData imageData) {
+    private static ImageUrl fetchUrlFromImageData(@NonNull ImageData imageData) {
         String originalSizeUrl = fixUrl(imageData.originalSizeUrl);
         Size originalSize = toImageSize(imageData.sizes.originalSize);
 

@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.web.models;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,20 +16,21 @@ public class StoryStreamItem implements Serializable {
 
     public enum FeedType {
         Custom,
-        Facebook,
+        Twitter,
         Image,
         Instagram,
+
+        Facebook,
         Link,
         Quote,
-        Twitter,
         Url,
         Youtube,
-        //May have serialized name "app-direct-upload" or "App Direct Upload"
-        @SerializedName("app-direct-upload")
+        @SerializedName("app-direct-upload") // May have serialized name "app-direct-upload" or "App Direct Upload"
         AppDirectUpload,
-        //May have serialized name "asset" or "Asset"
-        @SerializedName("asset")
+        @SerializedName("asset") // May have serialized name "asset" or "Asset"
         Asset,
+        @SerializedName("instagram-hashtag")
+        InstagramHashtag,
     }
 
     public enum ContentType {
@@ -45,61 +48,90 @@ public class StoryStreamItem implements Serializable {
     }
 
     public static class Sizes {
+        @Nullable
         @SerializedName("original")
         public ImageSize originalSize;
 
+        @Nullable
         @SerializedName("two_up")
         public ImageSize twoUpSize;
 
+        @Nullable
         @SerializedName("three_up")
         public ImageSize threeUpSize;
     }
 
     public static class ImageData implements Serializable {
+        @Nullable
         @SerializedName("name")
         public String name;
 
+        @Nullable
         @SerializedName("original")
         public String originalSizeUrl;
 
+        @Nullable
         @SerializedName("two_up")
         public String twoUpSizeUrl;
 
+        @Nullable
         @SerializedName("three_up")
         public String threeUpSizeUrl;
 
+        @Nullable
         @SerializedName("is_external")
         public boolean isExternal;
 
+        @Nullable
         public Sizes sizes;
     }
 
     public static class VideoData implements Serializable {
+        @Nullable
         public String url;
     }
 
+    @Nullable
     public Map<String, String> feed;
+
+    @Nullable
     public String title;
+
+    @Nullable
     public String source;
+
+    @Nullable
     public String body;
+
+    @Nullable
     public String permalink;
+
+    @Nullable
     public String author;
 
+    @Nullable
     @SerializedName("story_name")
     public String storyName;
 
+    @Nullable
     @SerializedName("content_type")
     public ContentType contentType;
 
+    @Nullable
     @SerializedName("publish_date")
     public Date publishDate;
 
+    @Nullable
     @SerializedName("created_date")
     public Date createdDate;
 
+    @Nullable
     @SerializedName("feed_type")
     public FeedType feedType;
 
+    @Nullable
     public List<ImageData> images;
+
+    @Nullable
     public List<VideoData> videos;
 }
