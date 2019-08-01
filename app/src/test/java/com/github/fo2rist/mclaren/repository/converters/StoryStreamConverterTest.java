@@ -26,6 +26,7 @@ import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.REAL_FEED_
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITEM_FEED_WITH_CORRECT_LINKS;
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_NO_SIZE;
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE;
+import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.SINGLE_ITEM_FEED_WITH_MISSING_FIELDS;
 import static com.github.fo2rist.mclaren.testdata.StoryStreamResponse.createTestUrlFromOriginalSize;
 import static com.github.fo2rist.mclaren.testutilities.CustomAssertions.assertStartsWith;
 import static org.junit.Assert.assertEquals;
@@ -34,6 +35,13 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class StoryStreamConverterTest {
     private SafeJsonParser<StoryStream> parser = new SafeJsonParser<>(StoryStream.class);
+
+    @Test
+    public void testCanHandleMissingFields() {
+        List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(
+                SINGLE_ITEM_FEED_WITH_MISSING_FIELDS));
+
+    }
 
     @Test
     public void testBrokenLinkFixed() {

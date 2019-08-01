@@ -267,6 +267,21 @@ object StoryStreamResponse {
     }""")
 
     @JvmField
+    val SINGLE_ITEM_FEED_WITH_MISSING_FIELDS = String.format(FEED_WRAPPER_JSON, """{
+        "content_block_id": null,
+        "content_items": [
+            {
+                "feed": {
+                    "name": "@McLarenauto",
+                    "id": 18043
+                },
+                "id": "5ab6287eb6cf8a3b06844278",
+                "original": {}
+            }
+        ]
+    }""")
+
+    @JvmField
     val INCORRECT_LINK_ORIGINAL_IMAGE_SIZE = Size.valueOf(640, 640)
     const val INCORRECT_LINK_FIXED_IMAGE_URL = "https://scontent.cdninstagram.com/vp/2fd7fc853767933c89a0fce0a3d80997/5B32DE70/t51.2885-15/s640x640/sh0.08/e35/28765983_205210126911902_1243272283481440256_n.jpg"
 
