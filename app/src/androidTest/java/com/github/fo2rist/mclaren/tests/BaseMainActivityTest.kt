@@ -11,23 +11,15 @@ import com.github.fo2rist.mclaren.pages.MainPage
 import com.github.fo2rist.mclaren.ui.MainActivity
 import org.hamcrest.Matchers.any
 import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 
 open class BaseMainActivityTest {
 
-    protected lateinit var context: Context
-    protected lateinit var mainPage: MainPage
-
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    @CallSuper
-    open fun setUp() {
-        context = activityRule.activity
-        mainPage = MainPage()
-    }
+    protected val context: Context by lazy { activityRule.activity }
+    protected val mainPage = MainPage()
 
     @After
     @CallSuper

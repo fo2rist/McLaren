@@ -1,10 +1,10 @@
 package com.github.fo2rist.mclaren.pages
 
 
-import com.agoda.kakao.KTextView
-import com.agoda.kakao.KView
-import com.agoda.kakao.KViewPager
-import com.agoda.kakao.Screen
+import com.agoda.kakao.common.views.KView
+import com.agoda.kakao.pager.KViewPager
+import com.agoda.kakao.screen.Screen
+import com.agoda.kakao.text.KTextView
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView
 

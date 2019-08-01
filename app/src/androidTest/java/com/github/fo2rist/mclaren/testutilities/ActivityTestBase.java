@@ -9,7 +9,7 @@ public class ActivityTestBase {
     protected Context context;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         context = InstrumentationRegistry.getTargetContext();
     }
 }

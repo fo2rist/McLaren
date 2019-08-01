@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.pages
 
 import android.support.annotation.StringRes
-import com.agoda.kakao.KImageView
-import com.agoda.kakao.KTextView
-import com.agoda.kakao.Screen
+import com.agoda.kakao.image.KImageView
+import com.agoda.kakao.screen.Screen
+import com.agoda.kakao.text.KTextView
 import com.github.fo2rist.mclaren.R
 
 class CircuitDetailsPage : Screen<CircuitDetailsPage>() {
