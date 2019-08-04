@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 
 import static com.github.fo2rist.mclaren.ui.models.DriverId.CAMARA;
-import static com.github.fo2rist.mclaren.ui.models.DriverId.DEVRIES;
 import static com.github.fo2rist.mclaren.ui.models.DriverId.NORRIS;
 import static com.github.fo2rist.mclaren.ui.models.DriverId.SAINZ;
 import static com.github.fo2rist.mclaren.ui.models.DriverId.TURVEY;
@@ -17,7 +16,7 @@ import static com.github.fo2rist.mclaren.ui.models.DriverId.VANBUREN;
  * Represent "tabs" on drivers page.
  */
 public class DriversPagerAdapter extends FragmentStatePagerAdapter {
-    private DriverId[] driverIds = new DriverId[]{SAINZ, NORRIS, TURVEY, VANBUREN, DEVRIES, CAMARA};
+    private DriverId[] driverIds = new DriverId[]{SAINZ, NORRIS, TURVEY, CAMARA, VANBUREN};
 
     private DriverSubFragment[] pages = new DriverSubFragment[driverIds.length];
 
