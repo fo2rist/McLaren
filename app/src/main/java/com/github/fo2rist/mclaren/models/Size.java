@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.models;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +36,7 @@ public class Size implements Serializable {
      * Whether this size exceeds given by at least one dimension.
      * @return comparison result or false if other size is unknown.
      */
-    public boolean exceeds(Size other) {
+    boolean exceeds(Size other) {
         return !other.isUnknown() && (this.width > other.width || this.height > other.height);
     }
 
@@ -63,6 +65,7 @@ public class Size implements Serializable {
     }
 
     @Override
+    @NonNull
     public String toString() {
         if (this == UNKNOWN) {
             return "[Unknown Size]";

@@ -21,7 +21,9 @@ import javax.inject.Inject;
 
 import static com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit;
 
-
+/**
+ * Displays list of images or a single one with zoom controls.
+ */
 public class ImagePreviewFragment extends Fragment implements ImagePreviewContract.View {
 
     private static final String ARG_FEED_ITEM = "feed_item";
