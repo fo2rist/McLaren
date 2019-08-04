@@ -1,37 +1,37 @@
 package com.github.fo2rist.mclaren.web.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Date
 
 data class Transmission(
-        val id: Long = 0,
-        val name: String = "", // eg "Australian Grand Prix"
-        val telemetries: Telemetry = Telemetry(),
-        val commentaries: List<TransmissionItem> = emptyList()
+    val id: Long = 0,
+    val name: String = "", // eg "Australian Grand Prix"
+    val telemetries: Telemetry = Telemetry(),
+    val commentaries: List<TransmissionItem> = emptyList()
 )
 
 data class Telemetry(
-        val driverA: Driver = Driver(),
-        val driverB: Driver = Driver()
+    val driverA: Driver = Driver(),
+    val driverB: Driver = Driver()
 )
 
 data class Driver(
-        val driverName: String = "",
-        val lap: String = "", // eg. "58 / 58",
-        val lapTime: String = "",
-        val tyre: String = "" // eg. "s-soft"
+    val driverName: String = "",
+    val lap: String = "", // eg. "58 / 58",
+    val lapTime: String = "",
+    val tyre: String = "" // eg. "s-soft"
 )
 
 data class TransmissionItem(
-        val id: Long,
-        val sourceId: Long,
-        val date: Date, // eg. "2018-03-23T00:47:08+00:00",
-        val driverName: String?,
-        val grandPrixId: Long,
-        val initials: String,
-        val message: String,
-        val session: TransmissionSession?, // null or "Practice", "Qualification", "Race"
-        val type: TransmissionMessageType?
+    val id: Long,
+    val sourceId: Long,
+    val date: Date, // eg. "2018-03-23T00:47:08+00:00",
+    val driverName: String?,
+    val grandPrixId: Long,
+    val initials: String,
+    val message: String,
+    val session: TransmissionSession?, // null or "Practice", "Qualification", "Race"
+    val type: TransmissionMessageType?
 )
 
 enum class TransmissionSession {

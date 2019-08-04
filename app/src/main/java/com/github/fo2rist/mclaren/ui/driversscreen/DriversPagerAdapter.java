@@ -14,7 +14,7 @@ import static com.github.fo2rist.mclaren.ui.models.DriverId.TURVEY;
 import static com.github.fo2rist.mclaren.ui.models.DriverId.VANBUREN;
 
 /**
- * Represent "tabs" on drivers page
+ * Represent "tabs" on drivers page.
  */
 public class DriversPagerAdapter extends FragmentStatePagerAdapter {
     private DriverId[] driverIds = new DriverId[]{SAINZ, NORRIS, TURVEY, VANBUREN, DEVRIES, CAMARA};

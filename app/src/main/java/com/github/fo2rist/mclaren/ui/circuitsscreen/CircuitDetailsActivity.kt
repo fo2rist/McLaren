@@ -9,6 +9,9 @@ import android.view.MenuItem
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 
+/**
+ * Display information about particular circuit including the map.
+ */
 class CircuitDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
