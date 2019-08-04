@@ -69,12 +69,14 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         } else if (intent.hasExtra(KEY_FEED_ITEM)) {
             val feedItem = intent.getSerializableExtra(KEY_FEED_ITEM) as FeedItem
             presenter.onStartWith(deviceOrientation, feedItem)
+        } else {
+            finish()
         }
     }
 
     private fun bindViews() {
         this.setSupportActionBar(findViewById(R.id.toolbar))
-        actionBar = this.getSupportActionBar()!!
+        actionBar = requireNotNull(supportActionBar)
 
         toolBarImages = findViewById(R.id.header_image_pager)
         dotIndicator = findViewById(R.id.dot_indicator)
