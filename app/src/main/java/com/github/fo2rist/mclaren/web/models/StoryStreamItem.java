@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * Represent one atomic item in feed as it's received from StoryStream API.
- * @see StoryStreamItemWrapper
+ * @see StoryStreamWrappingItem
  */
 public class StoryStreamItem implements Serializable {
 
@@ -78,7 +78,6 @@ public class StoryStreamItem implements Serializable {
         @SerializedName("three_up")
         public String threeUpSizeUrl;
 
-        @Nullable
         @SerializedName("is_external")
         public boolean isExternal;
 

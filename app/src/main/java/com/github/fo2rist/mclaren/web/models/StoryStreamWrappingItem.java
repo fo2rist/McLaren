@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Represent on feed item with puclication date as returned by StoryStream API.
- * Potentially contains an array of {@link StoryStreamItem} but seems like only on is usually present.
+ * Represent on feed item with publication date as returned by StoryStream API.
+ * Potentially contains an array of {@link StoryStreamItem} but seems like only one is present.
  * @see StoryStream
  */
-public class StoryStreamItemWrapper implements Serializable {
+public class StoryStreamWrappingItem implements Serializable {
     @Nullable
     @SerializedName("publish_date")
     public Date publishDate;

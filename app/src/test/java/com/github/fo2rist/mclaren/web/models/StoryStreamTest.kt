@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.web.models
 
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -9,10 +8,9 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class StoryStreamTest {
     @Test
-    fun `test empty object contains empty list`() {
+    fun `test empty object can be instantiated to be used with SafeJsonParser`() {
         val empty = StoryStream()
 
-        assertNotNull(empty.items)
-        assertTrue(empty.items.isEmpty())
+        assertEquals(0, empty.totalPages)
     }
 }

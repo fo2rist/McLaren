@@ -9,8 +9,7 @@ import timber.log.Timber;
 
 /**
  * Base parser that can handle any json and return empty object in case of parsing failure.
- * @param <T> class to be parsed. Class should have empty public constructor to be used ass fallback in case of
- *          parsing error.
+ * @param <T> class to be parsed. Class should have empty public constructor which will be used in case of parsing error
  */
 public class SafeJsonParser<T> {
 
@@ -36,7 +35,9 @@ public class SafeJsonParser<T> {
     public T parse(@Nullable String data) {
         try {
             T result = GSON_INSTANCE.fromJson(data, classOfResult);
-            return result != null ? result : emptyResult;
+            return result != null
+                    ? result
+                    : emptyResult;
         } catch (JsonSyntaxException exc) {
             Timber.e(exc);
             return emptyResult;
