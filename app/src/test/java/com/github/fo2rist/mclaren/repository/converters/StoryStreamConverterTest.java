@@ -40,7 +40,6 @@ public class StoryStreamConverterTest {
     public void testCanHandleMissingFields() {
         List<FeedItem> feed = StoryStreamConverter.INSTANCE.convertFeed(parser.parse(
                 SINGLE_ITEM_FEED_WITH_MISSING_FIELDS));
-
     }
 
     @Test
@@ -49,10 +48,13 @@ public class StoryStreamConverterTest {
                 SINGLE_ITEM_FEED_WITH_INCORRECT_LINKS_WITH_SIZE));
         List<ImageUrl> imageUrls = feed.get(0).getImageUrls();
 
-        assertEquals(1, imageUrls.size());
+        assertEquals(2, imageUrls.size());
         assertEquals(
                 ImageUrl.create(INCORRECT_LINK_FIXED_IMAGE_URL, INCORRECT_LINK_ORIGINAL_IMAGE_SIZE),
                 imageUrls.get(0));
+        assertEquals(
+                ImageUrl.empty(),
+                imageUrls.get(1));
     }
 
     @Test

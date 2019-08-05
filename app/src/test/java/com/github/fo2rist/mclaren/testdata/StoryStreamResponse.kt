@@ -156,6 +156,11 @@ object StoryStreamResponse {
                                 "height": 240
                             }
                         }
+                    }, {
+                        "name": "dummy name",
+                        "original": null,
+                        "two_up": null,
+                        "three_up": null
                     }
                 ],
                 "id": "5ab6287eb6cf8a3b06844278",
