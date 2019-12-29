@@ -181,7 +181,7 @@
                 "name": "Canadian Grand Prix",
                 "laps": 70,
                 "length": 4.361,
-                "distance": 305.270,
+                "distance": 305.27,
                 "seasons": "1978–1986, 1988–2008, 2010–2019",
                 "gp_held": 40,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Gilles_Villeneuve"
@@ -207,7 +207,7 @@
                 "name": "Austrian Grand Prix",
                 "laps": 71,
                 "length": 4.326,
-                "distance": 307.020,
+                "distance": 307.02,
                 "seasons": "1970–1987, 1997–2003, 2014–2019",
                 "gp_held": 31,
                 "wiki_link": "https://en.wikipedia.org/wiki/Red_Bull_Ring"
@@ -233,7 +233,7 @@
                 "name": "Hungarian Grand Prix",
                 "laps": 70,
                 "length": 4.381,
-                "distance": 306.630,
+                "distance": 306.63,
                 "seasons": "1986–2019",
                 "gp_held": 34,
                 "wiki_link": "https://en.wikipedia.org/wiki/Hungaroring"
@@ -247,8 +247,8 @@
                 "laps": 44,
                 "length": 7.004,
                 "distance": 308.052,
-                "seasons": "1950–1956, 1958, 1960–1968, 1970, 1983, 1985–2002, 2004–2005, 2007–2018",
-                "gp_held": 51,
+                "seasons": "1950–1956, 1958, 1960–1968, 1970, 1983, 1985–2002, 2004–2005, 2007–2019",
+                "gp_held": 52,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps"
                 },
                 {
@@ -259,9 +259,9 @@
                 "name": "Italian Grand Prix",
                 "laps": 53,
                 "length": 5.793,
-                "distance": 306.720,
-                "seasons": "1950–1979, 1981–2018",
-                "gp_held": 68,
+                "distance": 306.72,
+                "seasons": "1950–1979, 1981–2019",
+                "gp_held": 69,
                 "wiki_link": "https://en.wikipedia.org/wiki/Autodromo_Nazionale_Monza"
                 },
                 {
@@ -273,8 +273,8 @@
                 "laps": 61,
                 "length": 5.065,
                 "distance": 308.828,
-                "seasons": "2008–2018",
-                "gp_held": 11,
+                "seasons": "2008–2019",
+                "gp_held": 12,
                 "wiki_link": "https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit"
                 },
                 {
@@ -299,8 +299,8 @@
                 "laps": 53,
                 "length": 5.807,
                 "distance": 307.471,
-                "seasons": "1987–2006, 2009–2018",
-                "gp_held": 30,
+                "seasons": "1987–2006, 2009–2019",
+                "gp_held": 31,
                 "wiki_link": "https://en.wikipedia.org/wiki/Suzuka_Circuit"
                 },
                 {
@@ -310,10 +310,10 @@
                 "city": "Austin",
                 "name": "United States Grand Prix",
                 "laps": 56,
-                "length": 5.470,
+                "length": 5.47,
                 "distance": 308.405,
-                "seasons": "2012–2018",
-                "gp_held": 7,
+                "seasons": "2012–2019",
+                "gp_held": 8,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_of_the_Americas"
                 },
                 {
@@ -325,8 +325,8 @@
                 "laps": 71,
                 "length": 4.313,
                 "distance": 305.354,
-                "seasons": "1963–1970, 1986–1992, 2015–2018",
-                "gp_held": 19,
+                "seasons": "1963–1970, 1986–1992, 2015–2019",
+                "gp_held": 20,
                 "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez"
                 },
                 {
@@ -338,8 +338,8 @@
                 "laps": 71,
                 "length": 4.309,
                 "distance": 305.909,
-                "seasons": "1973–1977, 1979–1980, 1990–2018",
-                "gp_held": 36,
+                "seasons": "1973–1977, 1979–1980, 1990–2019",
+                "gp_held": 37,
                 "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Jos%C3%A9_Carlos_Pace"
                 },
                 {
@@ -351,8 +351,8 @@
                 "laps": 55,
                 "length": 5.554,
                 "distance": 305.355,
-                "seasons": "2009–2018",
-                "gp_held": 10,
+                "seasons": "2009–2019",
+                "gp_held": 11,
                 "wiki_link": "https://en.wikipedia.org/wiki/Yas_Marina_Circuit"
                 },
                 {
