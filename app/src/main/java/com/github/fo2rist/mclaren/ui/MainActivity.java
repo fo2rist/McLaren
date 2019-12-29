@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void navigateTo(String externalUrl) {
+    public void navigateTo(@NonNull String externalUrl) {
         openInBrowser(this, externalUrl);
     }
 
