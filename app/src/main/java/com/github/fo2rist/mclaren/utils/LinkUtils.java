@@ -93,8 +93,8 @@ public class LinkUtils {
      */
     @NonNull
     private static String purify(@NonNull String tag) {
-        tag = tag.trim();
-        tag = tag.replaceAll("^.?(@|#)", "");
-        return tag;
+        return tag
+                .trim()
+                .replaceAll("^.?(@|#)", "");
     }
 }
