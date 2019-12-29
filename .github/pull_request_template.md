@@ -1,5 +1,4 @@
-Close #
+Close #ticket_number
 
 - [ ] tests added / no feature changes
-- [ ] build check passed
 - [ ] code self reviewed
