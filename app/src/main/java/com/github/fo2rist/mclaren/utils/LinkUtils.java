@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.utils;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
@@ -31,7 +32,7 @@ public class LinkUtils {
     }
 
     @Nullable
-    public static String getFeedMentionLink(FeedItem feedItem, String mentionId) {
+    public static String getFeedMentionLink(FeedItem feedItem, @NonNull String mentionId) {
         switch (feedItem.getSourceType()) {
             case Twitter:
                 return getTwitterPageLink(mentionId);
@@ -44,16 +45,18 @@ public class LinkUtils {
         }
     }
 
-    public static String getTwitterPageLink(String twitterId) {
+    @NonNull
+    public static String getTwitterPageLink(@NonNull String twitterId) {
         return TWITTER_BASE_PATH + purify(twitterId);
     }
 
-    private static String getInstagramPageLink(String instagramId) {
+    @NonNull
+    private static String getInstagramPageLink(@NonNull String instagramId) {
         return INSTAGRAM_BASE_PATH + purify(instagramId);
     }
 
     @Nullable
-    public static String getFeedHashtagLink(FeedItem feedItem, String hashtag) {
+    public static String getFeedHashtagLink(FeedItem feedItem, @NonNull String hashtag) {
         switch (feedItem.getSourceType()) {
             case Twitter:
                 return getTwitterHashtagLink(hashtag);
@@ -65,18 +68,22 @@ public class LinkUtils {
         }
     }
 
-    private static String getTwitterHashtagLink(String hashtag) {
+    @NonNull
+    private static String getTwitterHashtagLink(@NonNull String hashtag) {
         return TWITTER_HASHTAG_BASE_PATH + purify(hashtag);
     }
 
-    private static String getInstagramHashtagLink(String hashtag) {
+    @NonNull
+    private static String getInstagramHashtagLink(@NonNull String hashtag) {
         return INSTAGRAM_HASHTAG_BASE_PATH + purify(hashtag);
     }
 
+    @NonNull
     public static String getMcLarenFormula1Link() {
         return MCLAREN_F1_BASE_PATH;
     }
 
+    @NonNull
     public static String getMcLarenCarLink() {
         return MCLAREN_F1_CAR_PATH;
     }
@@ -84,7 +91,8 @@ public class LinkUtils {
     /**
      * Clean mention or hash tag from unwanted prefixes.
      */
-    private static String purify(String tag) {
+    @NonNull
+    private static String purify(@NonNull String tag) {
         tag = tag.trim();
         tag = tag.replaceAll("^.?(@|#)", "");
         return tag;

@@ -88,6 +88,22 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         actionBar.setTitle(R.string.app_name)
     }
 
+    override fun displayFragment(content: PreviewContent) {
+        //try to retain fragment first to not create a new one when not necessary
+        //in addition to that a retained fragment may have its own state
+        val fragment = supportFragmentManager.findFragmentByTag(CONTENT_FRAGMENT_TAG)
+                ?: createFragmentForContent(content)
+        startFragment(fragment)
+    }
+
+    private fun createFragmentForContent(content: PreviewContent): Fragment {
+        return when (content) {
+            is PreviewContent.Url -> WebPreviewFragment.newInstanceForUrl(content.url)
+            is PreviewContent.Html -> WebPreviewFragment.newInstanceForMcLarenHtml(content.html)
+            is PreviewContent.FeedItem -> ImagePreviewFragment.newInstanceForFeedItem(content.feedItem)
+        }
+    }
+
     override fun setTitle(text: String) {
         actionBar.title = text
     }
@@ -121,17 +137,6 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
     }
 
-    /**
-     * Start given fragment or relaunch existing retained fragment if present.
-     * There is a chance we can retain the existing one
-     * in case of rotation or cold activity restart
-     * if fragment retained will use it because it may contain some visual state
-     */
-    private fun startOrRestoreFragment(previewFragment: Fragment) {
-        val retainedFragment = supportFragmentManager.findFragmentByTag(CONTENT_FRAGMENT_TAG)
-        startFragment(retainedFragment ?: previewFragment)
-    }
-
     private fun startFragment(previewFragment: Fragment) {
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
@@ -146,15 +151,6 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
         } else {
             return super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun displayFragment(content: PreviewContent) {
-        val newFragment = when (content) {
-            is PreviewContent.Url -> WebPreviewFragment.newInstanceForUrl(content.url)
-            is PreviewContent.Html -> WebPreviewFragment.newInstanceForMcLarenHtml(content.html)
-            is PreviewContent.FeedItem -> ImagePreviewFragment.newInstanceForFeedItem(content.feedItem)
-        }
-        startOrRestoreFragment(newFragment)
     }
 
     companion object {
