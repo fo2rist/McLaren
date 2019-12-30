@@ -24,8 +24,8 @@ private const val HTTP = "http"
  */
 object StoryStreamConverter : FeedConverter<StoryStream> {
 
-    override fun convertFeed(storyStreamFeed: StoryStream): List<FeedItem> {
-        return storyStreamFeed.items?.mapNotNull {
+    override fun convertFeed(feedWebModel: StoryStream): List<FeedItem> {
+        return feedWebModel.items?.mapNotNull {
             convertFeedItem(it)
         } ?: emptyList()
     }
