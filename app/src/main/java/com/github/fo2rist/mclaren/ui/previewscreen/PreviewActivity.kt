@@ -24,17 +24,17 @@ import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import me.relex.circleindicator.CircleIndicator
 import javax.inject.Inject
 
 /**
  * Displays content of item, web-page, text.
  */
-class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFragmentInjector {
+class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasAndroidInjector {
 
     @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Any>
     @Inject
     lateinit var presenter: PreviewContract.Presenter
 
@@ -51,7 +51,7 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasSupportFra
             }
         }
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment>? {
+    override fun androidInjector(): AndroidInjector<Any> {
         return fragmentInjector
     }
 
