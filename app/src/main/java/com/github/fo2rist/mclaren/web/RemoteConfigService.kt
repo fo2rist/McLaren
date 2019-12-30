@@ -59,7 +59,7 @@ class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigService {
 
     private fun onRemoteConfigFetched(task: Task<Void>) {
         if (task.isSuccessful) {
-            firebaseConfig.activateFetched()
+            firebaseConfig.activate()
         } else {
             Timber.e(task.exception, "Unable to fetch config from Firebase")
         }

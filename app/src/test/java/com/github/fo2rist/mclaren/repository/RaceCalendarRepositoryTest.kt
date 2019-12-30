@@ -2,9 +2,9 @@ package com.github.fo2rist.mclaren.repository
 
 import com.github.fo2rist.mclaren.testdata.FakeRemoteConfigService
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.joda.time.DateTime
 import org.junit.Test
 import org.junit.runner.RunWith
