@@ -30,7 +30,7 @@ class CircuitDetailsActivity : AppCompatActivity() {
     private fun setupToolBar() {
         val actionBar = requireNotNull(supportActionBar)
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.background_app_bar))
+        actionBar.setBackgroundDrawable(resources.getDrawable(R.drawable.background_app_bar, null))
     }
 
     private fun setContentFragment(fragment: Fragment) {

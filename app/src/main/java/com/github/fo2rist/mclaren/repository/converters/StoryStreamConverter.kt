@@ -79,6 +79,7 @@ object StoryStreamConverter : FeedConverter<StoryStream> {
     private val List<*>?.len: Int
         get() = this?.size ?: 0
 
+    @Suppress("DEPRECATION") //Html.fromHtml is deprecated but new version is only available on SDK 24
     private fun fetchText(storyStreamItem: StoryStreamItem): String {
         val rawBody = storyStreamItem.body
                 ?: return ""
