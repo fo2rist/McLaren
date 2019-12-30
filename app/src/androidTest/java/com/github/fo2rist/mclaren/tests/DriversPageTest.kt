@@ -35,7 +35,7 @@ class DriversPageTest : BaseMainActivityTest() {
                     .hasText("Spanish")
 
             infoItemWithTitle(context.getString(DriverProperty.BestFinish.nameResId))
-                    .hasText("4th")
+                    .hasText("3rd")
             infoItemWithTitle(context.getString(DriverProperty.PolePositions.nameResId))
                     .hasText("0")
             infoItemWithTitle(context.getString(DriverProperty.FastestLaps.nameResId))
