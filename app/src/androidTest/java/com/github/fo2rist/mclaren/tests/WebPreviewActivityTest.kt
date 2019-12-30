@@ -58,7 +58,7 @@ class WebPreviewActivityTest : ActivityTestBase() {
     }
 
     @Test
-    fun testLayout_without_HeaderImageI_in_UrlMode() {
+    fun testLayout_without_HeaderImages_in_UrlMode() {
         rule.launchActivity(PreviewActivity.createUrlIntent(context, "http://address_that_doesnt_exist"))
 
         page {

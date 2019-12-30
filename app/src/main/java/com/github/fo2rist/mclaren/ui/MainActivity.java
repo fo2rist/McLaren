@@ -31,7 +31,7 @@ import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+import dagger.android.HasAndroidInjector;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -40,7 +40,7 @@ import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 
 
 public class MainActivity extends AppCompatActivity
-        implements HasSupportFragmentInjector,
+        implements HasAndroidInjector,
         MainScreenContract.View,
         NavigationView.OnNavigationItemSelectedListener,
         CircuitsFragment.OnCircuitsFragmentInteractionListener,
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         View.OnClickListener
 {
     @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+    DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     MainScreenContract.Presenter presenter;
     @Inject
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton floatingButtonTransmission;
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public AndroidInjector<Object> androidInjector() {
         return fragmentInjector;
     }
 

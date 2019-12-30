@@ -135,9 +135,9 @@ dependencies {
     }
 
     // dependency injection
-    implementation 'com.google.dagger:dagger-android-support:2.22.1'
-    kapt 'com.google.dagger:dagger-compiler:2.22.1'
-    kapt 'com.google.dagger:dagger-android-processor:2.22.1'
+    implementation 'com.google.dagger:dagger-android-support:2.25.3'
+    kapt 'com.google.dagger:dagger-compiler:2.25.3'
+    kapt 'com.google.dagger:dagger-android-processor:2.25.3'
 
     // test libraries
     testImplementation 'junit:junit:4.12'

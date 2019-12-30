@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren;
 
 
-import android.app.Activity;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
@@ -10,21 +9,21 @@ import com.github.fo2rist.mclaren.dagger.DaggerAppComponent;
 import com.github.fo2rist.mclaren.web.RemoteConfigService;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.android.HasAndroidInjector;
 import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-public class McLarenApplication extends Application implements HasActivityInjector {
+public class McLarenApplication extends Application implements HasAndroidInjector {
     @Inject
     protected RemoteConfigService remoteConfigService;
 
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+    DispatchingAndroidInjector<Object> androidInjector;
 
     @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingActivityInjector;
+    public AndroidInjector<Object> androidInjector() {
+        return androidInjector;
     }
 
     /**
