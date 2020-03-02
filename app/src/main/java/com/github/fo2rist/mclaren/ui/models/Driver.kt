@@ -7,13 +7,16 @@ enum class DriverId constructor(var id: String) {
     ALONSO("alonso"),
     BUTTON("button"),
     CAMARA("camara"),
-    DEVRIES("devries"),
-    MATSUSHITA("matsushita"),
     NORRIS("norris"),
     SAINZ("sainz"),
     TURVEY("turvey"),
+    //removed resources
+    //the IDs can not be removed now, before the remote config that mentions these drivers is removed
+    //and the app updated to the new version and the app updated so no user have the app with one of these drivers
+    DEVRIES("devries"),
+    MATSUSHITA("matsushita"),
     VANBUREN("vanburen"),
-    VANDOORNE("vandoorne")
+    VANDOORNE("vandoorne"),
 }
 
 /**
