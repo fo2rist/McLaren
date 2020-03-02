@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.analytics;
 public enum Events {
 
     MENU_STORIES("Stories"),
-    MENU_CIRCUITS("Circuits"),
+    MENU_CALENDAR("Calendar"),
     MENU_DRIVERS("Drivers"),
     MENU_CAR("Car"),
     MENU_SITE("Official site"),

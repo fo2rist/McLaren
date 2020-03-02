@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
- * A fragment representing a list of Circuits.
+ * A fragment showing this year Calendar as the list of Circuits.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnCircuitsFragmentInteractionListener}
  * interface.
