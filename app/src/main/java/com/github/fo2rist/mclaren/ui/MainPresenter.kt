@@ -36,7 +36,7 @@ class MainPresenter @Inject constructor(
 
     override fun onCircuitsClicked() {
         view.openCircuits()
-        eventsLogger.logViewEvent(Events.MENU_CIRCUITS)
+        eventsLogger.logViewEvent(Events.MENU_CALENDAR)
     }
 
     override fun onDriversClicked() {
