@@ -22,6 +22,7 @@ import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
+import com.github.fo2rist.mclaren.utils.ResourcesUtils;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -119,7 +120,7 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         subtitleTextView.setText(makePlaceAndPointsText(driver));
 
         ImageView portraitView = rootView.findViewById(R.id.driver_portrait_image);
-        portraitView.setImageURI(makePortraitImageUri(driver));
+        portraitView.setImageURI(makePortraitResUri(driver));
 
         FloatingActionButton teamLinkButton = rootView.findViewById(R.id.team_link_button);
         if (driver.get(DriverProperty.TeamPageLink) != null) {
@@ -162,13 +163,14 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private Uri makePortraitImageUri(Driver driverModel) {
-        return Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/driver_" + driverModel.getId());
+    @NonNull
+    private Uri makePortraitResUri(Driver driverModel) {
+        return ResourcesUtils.getDriverPortraitResUri(driverModel.getId());
     }
 
     @DrawableRes
     private int makeHelmetImageRes(Driver driverModel) {
-        return getResources().getIdentifier("helmet_" + driverModel.getId(), "drawable", "com.github.fo2rist.mclaren");
+        return ResourcesUtils.getHelmetResId(getResources(), driverModel.getId());
     }
 
     @Override
