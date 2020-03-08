@@ -2,9 +2,12 @@ package com.github.fo2rist.mclaren.ui.driversscreen;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +18,9 @@ import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.repository.DriversRepository;
+import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;
-import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
@@ -113,21 +116,24 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         driverNumberTextView.setText(driver.get(DriverProperty.Tag));
 
         TextView subtitleTextView = rootView.findViewById(R.id.driver_result_text);
-        subtitleTextView.setText(
-                getPlaceAndPointsText());
+        subtitleTextView.setText(makePlaceAndPointsText(driver));
 
         ImageView portraitView = rootView.findViewById(R.id.driver_portrait_image);
-        portraitView.setImageURI(
-                getPortraitImageUri());
+        portraitView.setImageURI(makePortraitImageUri(driver));
 
-        View teamLinkButton = rootView.findViewById(R.id.team_link_button);
+        FloatingActionButton teamLinkButton = rootView.findViewById(R.id.team_link_button);
         if (driver.get(DriverProperty.TeamPageLink) != null) {
-            teamLinkButton.setVisibility(View.VISIBLE);
+            ((View) teamLinkButton).setVisibility(View.VISIBLE);
             teamLinkButton.setOnClickListener(this);
+
+            int helmetImageResId = makeHelmetImageRes(driver);
+            if (helmetImageResId != 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                teamLinkButton.setForeground(getResources().getDrawable(helmetImageResId, null));
+            }
         }
-        View heritageLinkButton = rootView.findViewById(R.id.heritage_link_button);
+        FloatingActionButton heritageLinkButton = rootView.findViewById(R.id.heritage_link_button);
         if (driver.get(DriverProperty.HeritagePageLink) != null) {
-            heritageLinkButton.setVisibility(View.VISIBLE);
+            ((View) heritageLinkButton).setVisibility(View.VISIBLE);
             heritageLinkButton.setOnClickListener(this);
         }
 
@@ -145,9 +151,9 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
     }
 
     @NonNull
-    private String getPlaceAndPointsText() {
-        String place = driver.get(DriverProperty.Place);
-        String points = driver.get(DriverProperty.Points);
+    private String makePlaceAndPointsText(Driver driverModel) {
+        String place = driverModel.get(DriverProperty.Place);
+        String points = driverModel.get(DriverProperty.Points);
 
         if (isEmpty(place) || isEmpty(points)) {
             return "";
@@ -156,8 +162,13 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private Uri getPortraitImageUri() {
-        return Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/driver_" + driver.getId());
+    private Uri makePortraitImageUri(Driver driverModel) {
+        return Uri.parse("android.resource://com.github.fo2rist.mclaren/drawable/driver_" + driverModel.getId());
+    }
+
+    @DrawableRes
+    private int makeHelmetImageRes(Driver driverModel) {
+        return getResources().getIdentifier("helmet_" + driverModel.getId(), "drawable", "com.github.fo2rist.mclaren");
     }
 
     @Override
