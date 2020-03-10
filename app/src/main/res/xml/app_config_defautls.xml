@@ -534,4 +534,14 @@
             }
         </value>
     </entry>
+    <entry>
+        <key>drivers_order_list</key>
+        <value>
+            [
+                "SAINZ",
+                "NORRIS",
+                "TURVEY"
+            ]
+        </value>
+    </entry>
 </defaultsMap>

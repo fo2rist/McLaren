@@ -6,7 +6,8 @@ import com.github.fo2rist.mclaren.web.RemoteConfigService
 class FakeRemoteConfigService internal constructor(
     override val calendar: String = "",
     override val circuits: String = "",
-    override val drivers: String = ""
+    override val drivers: String = "",
+    override val driversOrderList: String = ""
 ) : RemoteConfigService {
     override fun fetchConfig() {}
 }

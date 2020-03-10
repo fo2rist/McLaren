@@ -3,30 +3,38 @@ package com.github.fo2rist.mclaren.ui.models
 /**
  * IDs of all known drivers.
  */
-enum class DriverId constructor(var id: String) {
+enum class DriverId constructor(
+    /**
+     * Unique string identifier associated with [DriverId].
+     * Used as filesystem name to store external resources.
+     */
+    var filesystemId: String
+) {
     ALONSO("alonso"),
     BUTTON("button"),
     CAMARA("camara"),
     NORRIS("norris"),
     SAINZ("sainz"),
     TURVEY("turvey"),
-    //removed resources
+
+    //region removed resources
     //the IDs can not be removed now, before the remote config that mentions these drivers is removed
     //and the app updated to the new version and the app updated so no user have the app with one of these drivers
     DEVRIES("devries"),
     MATSUSHITA("matsushita"),
     VANBUREN("vanburen"),
     VANDOORNE("vandoorne"),
+    //endregion
 }
 
 /**
  * Driver info for UI layer.
  */
 data class Driver(
-    private val id: DriverId,
+    val id: DriverId,
     private val properties: Map<DriverProperty, String>
 ) {
     operator fun get(property: DriverProperty) = properties[property]
 
-    fun getId(): String = id.id
+    fun getFilesystemId(): String = id.filesystemId
 }

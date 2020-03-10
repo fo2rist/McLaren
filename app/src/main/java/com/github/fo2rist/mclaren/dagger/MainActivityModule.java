@@ -5,6 +5,7 @@ import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.MainPresenter;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
+import com.github.fo2rist.mclaren.ui.driversscreen.DriversFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
 import dagger.Binds;
@@ -24,6 +25,10 @@ abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector
     abstract CircuitsFragment circuitsFragmentInjector();
+
+    @Scopes.PerFragment
+    @ContributesAndroidInjector
+    abstract DriversFragment driversFragmentInjector();
 
     @Scopes.PerFragment
     @ContributesAndroidInjector

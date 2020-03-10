@@ -165,12 +165,12 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
 
     @NonNull
     private Uri makePortraitResUri(Driver driverModel) {
-        return ResourcesUtils.getDriverPortraitResUri(driverModel.getId());
+        return ResourcesUtils.getDriverPortraitResUri(driverModel.getFilesystemId());
     }
 
     @DrawableRes
     private int makeHelmetImageRes(Driver driverModel) {
-        return ResourcesUtils.getHelmetResId(getResources(), driverModel.getId());
+        return ResourcesUtils.getHelmetResId(getResources(), driverModel.getFilesystemId());
     }
 
     @Override

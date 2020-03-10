@@ -4,6 +4,7 @@ import com.github.fo2rist.mclaren.testdata.DUMMY_URL
 import com.github.fo2rist.mclaren.testdata.FakeRemoteConfigService
 import com.github.fo2rist.mclaren.ui.models.Driver
 import com.github.fo2rist.mclaren.ui.models.DriverId.ALONSO
+import com.github.fo2rist.mclaren.ui.models.DriverId.BUTTON
 import com.github.fo2rist.mclaren.ui.models.DriverProperty
 import com.github.fo2rist.mclaren.ui.models.DriverProperty.DateOfBirth
 import com.github.fo2rist.mclaren.ui.models.DriverProperty.Name
@@ -16,7 +17,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-private val TEST_DRIVER = ALONSO
+private val DRIVER_A = ALONSO
+private val DRIVER_B = BUTTON
 
 private const val NAME = "Some Name"
 private const val DOB = "29.07.1981"
@@ -31,8 +33,7 @@ private const val POINTS = "5"
 private const val FINISHES = """1st x 23"""
 private const val PODIUMS = "100"
 
-val SINGLE_DRIVER_JSON = """{
-    "$TEST_DRIVER": {
+private const val DRIVER_PROPERTIES = """{
         "Name": "$NAME",
         "DateOfBirth": "$DOB",
         "Nationality": "$NATIONALITY",
@@ -47,8 +48,26 @@ val SINGLE_DRIVER_JSON = """{
         "Points": "$POINTS",
         "BestFinish": "$FINISHES",
         "Podiums": "$PODIUMS"
-    }
+    }"""
+
+private val ONE_DRIVER_INFO_MODEL = """{
+    "$DRIVER_A": $DRIVER_PROPERTIES
 }"""
+
+private val TWO_DRIVERS_INFO_MODEL = """{
+    "$DRIVER_A": $DRIVER_PROPERTIES,
+    "$DRIVER_B": $DRIVER_PROPERTIES
+}"""
+
+private val SINGLE_DRIVER_LIST = """[
+    $DRIVER_A
+]"""
+
+private val TWO_DRIVERS_LIST_REVERSED = """[
+    $DRIVER_B,
+    $DRIVER_A
+]"""
+
 
 @RunWith(JUnit4::class)
 class DriversRepositoryImplTest {
@@ -57,16 +76,34 @@ class DriversRepositoryImplTest {
     fun `empty config produces empty model`() {
         val driversRepository = DriversRepositoryImpl(FakeRemoteConfigService())
 
-        assertEquals(0, driversRepository.drivers.size)
+        assertEquals(0, driversRepository.driversList.size)
     }
 
     @Test
-    fun `single driver model contains all mandatory and optional fields`() {
+    fun `unknown drivers aren't added to the list`() {
         val driversRepository = DriversRepositoryImpl(
-                FakeRemoteConfigService(drivers = SINGLE_DRIVER_JSON))
+                FakeRemoteConfigService(drivers = ONE_DRIVER_INFO_MODEL, driversOrderList = TWO_DRIVERS_LIST_REVERSED))
+
+        assertEquals(1, driversRepository.driversList.size)
+    }
+
+    @Test
+    fun `driversList preserves drivers order`() {
+        val driversRepository = DriversRepositoryImpl(
+                FakeRemoteConfigService(drivers = TWO_DRIVERS_INFO_MODEL, driversOrderList = TWO_DRIVERS_LIST_REVERSED))
+
+        assertEquals(2, driversRepository.driversList.size)
+        assertEquals(DRIVER_B, driversRepository.driversList.first())
+        assertEquals(DRIVER_A, driversRepository.driversList.last())
+    }
+
+    @Test
+    fun `getDriver result contains all mandatory and optional fields`() {
+        val driversRepository = DriversRepositoryImpl(
+                FakeRemoteConfigService(drivers = ONE_DRIVER_INFO_MODEL, driversOrderList = SINGLE_DRIVER_LIST))
 
         assertEquals(1, driversRepository.drivers.size)
-        driversRepository.getDriver(TEST_DRIVER).let { alonsoModel ->
+        driversRepository.getDriver(DRIVER_A).let { alonsoModel ->
             assertEquals(NAME, alonsoModel[Name])
             assertEquals(DOB, alonsoModel[DateOfBirth])
             assertEquals(NATIONALITY, alonsoModel[DriverProperty.Nationality])
