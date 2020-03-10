@@ -5,35 +5,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.github.fo2rist.mclaren.ui.models.DriverId;
-
-import static com.github.fo2rist.mclaren.ui.models.DriverId.CAMARA;
-import static com.github.fo2rist.mclaren.ui.models.DriverId.NORRIS;
-import static com.github.fo2rist.mclaren.ui.models.DriverId.SAINZ;
-import static com.github.fo2rist.mclaren.ui.models.DriverId.TURVEY;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represent "tabs" on drivers page.
  */
 public class DriversPagerAdapter extends FragmentStatePagerAdapter {
-    private DriverId[] driverIds = new DriverId[]{SAINZ, NORRIS, TURVEY, CAMARA};
 
-    private DriverSubFragment[] pages = new DriverSubFragment[driverIds.length];
+    private ArrayList<DriverSubFragment> pages = new ArrayList<>();
 
-    public DriversPagerAdapter(FragmentManager fm) {
+    DriversPagerAdapter(FragmentManager fm, List<DriverId> driversList) {
         super(fm);
-        for (int i = 0; i < driverIds.length; i++) {
-            pages[i] = DriverSubFragment.newInstance(driverIds[i]);
+
+        for (DriverId driver: driversList) {
+            pages.add(DriverSubFragment.newInstance(driver));
         }
     }
 
     @Override
     public Fragment getItem(int position) {
-        return pages[position];
+        return pages.get(position);
     }
 
     @Override
     public int getCount() {
-        return pages.length;
+        return pages.size();
     }
 
 }

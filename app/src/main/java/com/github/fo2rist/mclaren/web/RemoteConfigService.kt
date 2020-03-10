@@ -31,6 +31,11 @@ interface RemoteConfigService {
      * Drivers info JSON.
      */
     val drivers: String
+
+    /**
+     * Drivers display order list JSON.
+     */
+    val driversOrderList: String
 }
 
 /**
@@ -74,9 +79,13 @@ class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigService {
     override val drivers: String
         get() = firebaseConfig.getString(DRIVERS)
 
+    override val driversOrderList: String
+        get() = firebaseConfig.getString(DRIVERS_ORDER_LIST)
+
     private companion object ConfigKeys {
         const val RACE_CALENDAR = "calendar"
         const val CIRCUITS = "circuits"
         const val DRIVERS = "drivers"
+        const val DRIVERS_ORDER_LIST = "drivers_order_list"
     }
 }
