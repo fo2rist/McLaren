@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.testutilities;
 
 import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.rule.ActivityTestRule;
 
-import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static androidx.test.espresso.web.sugar.Web.onWebView;
 
 /**
  * Activity Test Rule that enables JS on Web View to allow its content testing.

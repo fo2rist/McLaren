@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.web.feed
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatButton
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.utils.formatRemainingTimeShort
 import org.joda.time.DateTime
@@ -13,7 +14,7 @@ import org.joda.time.Period
  */
 class UpcomingEventButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : android.support.v7.widget.AppCompatButton(context, attrs, defStyleAttr) {
+) : AppCompatButton(context, attrs, defStyleAttr) {
 
     fun setUpcomingEvent(eventName: String, timeOfEvent: DateTime) {
         text = context.getString(

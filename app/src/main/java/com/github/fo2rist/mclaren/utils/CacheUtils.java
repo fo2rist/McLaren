@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import okhttp3.Cache;

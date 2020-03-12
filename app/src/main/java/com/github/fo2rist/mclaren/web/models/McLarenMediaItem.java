@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.web.models;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 

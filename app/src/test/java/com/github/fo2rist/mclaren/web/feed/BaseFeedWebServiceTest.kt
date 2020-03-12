@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.web.feed
 
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import com.github.fo2rist.mclaren.testutilities.overrideAnswersToSuccess
 import com.github.fo2rist.mclaren.web.feed.BaseFeedWebService
 import com.nhaarman.mockitokotlin2.any

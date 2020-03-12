@@ -3,10 +3,10 @@ package com.github.fo2rist.mclaren.tests.utils
 import android.app.Activity
 import android.app.Instrumentation
 import android.content.Intent
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasAction
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.ui.MainActivity
 import com.github.fo2rist.mclaren.utils.IntentUtils
 import org.hamcrest.Matchers.any

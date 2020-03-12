@@ -4,9 +4,9 @@ import android.app.Activity
 import android.app.Instrumentation.ActivityResult
 import android.content.Context
 import android.content.Intent
-import android.support.annotation.CallSuper
-import android.support.test.espresso.intent.Intents
-import android.support.test.rule.ActivityTestRule
+import androidx.annotation.CallSuper
+import androidx.test.espresso.intent.Intents
+import androidx.test.rule.ActivityTestRule
 import com.github.fo2rist.mclaren.pages.MainPage
 import com.github.fo2rist.mclaren.ui.MainActivity
 import org.hamcrest.Matchers.any

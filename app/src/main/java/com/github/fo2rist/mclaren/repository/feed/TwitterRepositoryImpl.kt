@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository.feed
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_MCLAREN_F1
 import com.github.fo2rist.mclaren.repository.converters.FeedConverter
@@ -9,7 +9,6 @@ import com.github.fo2rist.mclaren.utils.toDescendingList
 import com.github.fo2rist.mclaren.web.feed.TwitterWebServiceBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import twitter4j.Paging
 import twitter4j.ResponseList

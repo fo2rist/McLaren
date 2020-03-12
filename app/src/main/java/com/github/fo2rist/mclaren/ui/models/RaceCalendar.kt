@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.ui.models
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 import org.joda.time.DateTime
 import org.joda.time.Period
 

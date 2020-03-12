@@ -4,20 +4,15 @@ import android.app.Activity.RESULT_OK
 import android.app.Instrumentation.ActivityResult
 import android.content.Context
 import android.net.Uri
-import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.intent.Intents.intended
-import android.support.test.espresso.intent.Intents.intending
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasData
-import android.support.test.espresso.intent.rule.IntentsTestRule
-import android.support.test.espresso.matcher.ViewMatchers.withText
-import android.support.test.runner.AndroidJUnit4
-import com.github.fo2rist.mclaren.models.Circuit
-import com.github.fo2rist.mclaren.models.Event
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.pages.CircuitDetailsPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity
-import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import org.hamcrest.Matchers.any
-import org.joda.time.DateTime
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,7 +29,7 @@ class CircuitDetailsPageTest {
 
     @Before
     fun setUp() {
-        this.context = InstrumentationRegistry.getTargetContext()
+        this.context = InstrumentationRegistry.getInstrumentation().targetContext
         launchActivity()
     }
 

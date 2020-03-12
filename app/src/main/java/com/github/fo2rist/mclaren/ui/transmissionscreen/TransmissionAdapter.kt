@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
-import android.support.annotation.StringRes
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
