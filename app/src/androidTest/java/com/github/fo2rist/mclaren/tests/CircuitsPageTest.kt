@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.tests
 
-import android.support.test.espresso.intent.Intents.intended
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.CircuitsPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity

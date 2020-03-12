@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.repository.converters.utils;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.github.fo2rist.mclaren.models.ImageUrl;
 

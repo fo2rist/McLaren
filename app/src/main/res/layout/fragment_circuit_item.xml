@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_one"
         android:orientation="vertical">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -91,7 +91,7 @@
                 style="@style/TextLightSubheader"
                 tools:text="Monte Carlo >> Circuit de Monaco"
                 />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE

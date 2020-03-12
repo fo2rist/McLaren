@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.webkit.URLUtil;
 
 public class IntentUtils {

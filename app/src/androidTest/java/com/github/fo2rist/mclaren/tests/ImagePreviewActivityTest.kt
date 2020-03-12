@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.tests
 
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.pages.PreviewPage
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import com.github.fo2rist.mclaren.testutilities.ActivityTestBase

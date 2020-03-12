@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import android.content.Intent
-import android.support.design.widget.CollapsingToolbarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import com.github.fo2rist.mclaren.R
@@ -19,7 +19,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
-class PreviewActivityTest : BasePreviewActivityTest() {
+class PreviewActivityTest {
 
     private val context by lazy { RuntimeEnvironment.application.applicationContext }
 

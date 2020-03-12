@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.ui.models
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.github.fo2rist.mclaren.R
 
 /**

@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.mvp;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import java.util.List;

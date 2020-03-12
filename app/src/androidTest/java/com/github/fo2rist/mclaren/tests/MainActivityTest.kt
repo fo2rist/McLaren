@@ -1,11 +1,11 @@
 package com.github.fo2rist.mclaren.tests
 
 import android.net.Uri
-import android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
-import android.support.test.espresso.intent.Intents.intended
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import android.support.test.espresso.intent.matcher.IntentMatchers.hasData
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.FeedPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity

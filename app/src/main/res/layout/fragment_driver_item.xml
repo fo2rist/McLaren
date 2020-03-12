@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_one"
         android:orientation="vertical">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -50,7 +50,7 @@
                 style="@style/TextLightSubheader"
                 tools:text="10th / 54pts"
                 />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/team_link_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/heritage_link_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

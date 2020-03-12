@@ -3,9 +3,9 @@ package com.github.fo2rist.mclaren.ui.circuitsscreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.viewpager.widget.ViewPager
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
 import dagger.android.AndroidInjection

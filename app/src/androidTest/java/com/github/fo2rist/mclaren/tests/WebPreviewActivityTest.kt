@@ -1,10 +1,10 @@
 package com.github.fo2rist.mclaren.tests
 
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.web.assertion.WebViewAssertions.webContent
-import android.support.test.espresso.web.matcher.DomMatchers.hasElementWithXpath
-import android.support.test.espresso.web.webdriver.Locator
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.web.assertion.WebViewAssertions.webContent
+import androidx.test.espresso.web.matcher.DomMatchers.hasElementWithXpath
+import androidx.test.espresso.web.webdriver.Locator
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.agoda.kakao.web.WebElementBuilder
 import com.github.fo2rist.mclaren.pages.PreviewPage
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS

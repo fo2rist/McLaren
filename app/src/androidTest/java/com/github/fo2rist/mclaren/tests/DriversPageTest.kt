@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.tests
 
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.DriversPage
 import com.github.fo2rist.mclaren.ui.models.DriverProperty

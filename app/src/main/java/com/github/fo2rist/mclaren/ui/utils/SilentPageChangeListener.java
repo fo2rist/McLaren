@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.ui.utils;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Default empty implementation of {@link ViewPager.OnPageChangeListener}

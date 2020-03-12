@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.testutilities;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
 
@@ -10,6 +10,6 @@ public class ActivityTestBase {
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
     }
 }
