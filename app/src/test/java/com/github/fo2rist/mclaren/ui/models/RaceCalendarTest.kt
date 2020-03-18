@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.ui.models
 
+import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.junit.Assert.assertEquals
@@ -19,8 +20,8 @@ class RaceCalendarTest {
         private const val FIRST_EVENT_MONTH = 3
         private const val SECOND_EVENT_MONTH = 5
         private const val FIRST_DAY = 1
-        private const val FIRST_HOUR = 0
-        private const val LAST_HOUR = 23
+        private const val FIRST_HOUR = 1
+        private const val LAST_HOUR = 3
     }
 
     private lateinit var raceCalendar: RaceCalendar
@@ -36,10 +37,8 @@ class RaceCalendarTest {
     private fun dateTime(month: Int, day: Int, hour: Int = FIRST_HOUR, timeZone: DateTimeZone = DateTimeZone.UTC) =
             DateTime(YEAR, month, day, hour, 0, timeZone)
 
-    private fun dummyEventFor(id: String, date: DateTime): CalendarEvent {
-        return CalendarEvent(id,
-                "", "", "", "", 0, 0.0, 0.0, "", 0, "", date)
-    }
+    private fun dummyEventFor(id: String, date: DateTime): CalendarEvent =
+            createDummyEvent(id, practice1DateTime = date, raceDateTime = date.plusDays(2))
 
     @Test
     fun testKnownDates() {

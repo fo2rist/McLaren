@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Race Circuit's (Race Track) info model.
+ * !Used as model for storage!
  */
 data class Circuit(
     var id: String, // e.g "austria"
@@ -15,8 +16,6 @@ data class Circuit(
     var length: Double,
     var distance: Double,
     var seasons: String, // e.g "2009–2016",
-    // serializable name is acceptable here because json is shipped with code and not coming from the outside
-    // the class is not a networking or DB data transfer object
     @SerializedName("gp_held")
     var gpHeld: Int,
     @SerializedName("wiki_link")

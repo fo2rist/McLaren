@@ -11,6 +11,8 @@ import android.support.test.espresso.intent.matcher.IntentMatchers.hasData
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.runner.AndroidJUnit4
+import com.github.fo2rist.mclaren.models.Circuit
+import com.github.fo2rist.mclaren.models.Event
 import com.github.fo2rist.mclaren.pages.CircuitDetailsPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
@@ -106,9 +108,12 @@ class CircuitDetailsPageTest {
         private const val SEASONS = "2001"
         private const val GP_HELD = 1111
         private const val WIKI_LINK = "http://wiki.link"
-        private val START_DATE = DateTime(1, 1, 1, 0, 0)
+        private val ANY_DATE = DateTime.now()
 
-        private val EVENT = CalendarEvent(ID,
-                COUNTRY_CODE, TRACK_NAME, CITY, GP_NAME, LAPS, LENGTH, DISTANCE, SEASONS, GP_HELD, WIKI_LINK, START_DATE)
+        private val EVENT = CalendarEvent(
+                Circuit(ID,
+                        COUNTRY_CODE, TRACK_NAME, CITY, GP_NAME, LAPS, LENGTH, DISTANCE, SEASONS, GP_HELD, WIKI_LINK),
+                Event(ID,
+                        ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toDate()))
     }
 }
