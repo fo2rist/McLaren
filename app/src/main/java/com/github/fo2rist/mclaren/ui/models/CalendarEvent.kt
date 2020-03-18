@@ -7,10 +7,15 @@ import org.joda.time.DateTime
 import java.io.Serializable
 
 /**
+ * Limit on race duration.
+ */
+const val RACE_DURATION_H = 2
+
+/**
  * Grand Prix event full UI model.
  * Includes track information and the dates.
  */
-data class CalendarEvent @VisibleForTesting constructor(
+data class CalendarEvent private constructor(
     val circuitId: String,
     val countryCode: String,
     val trackName: String,
@@ -23,9 +28,15 @@ data class CalendarEvent @VisibleForTesting constructor(
     val gpHeld: Int,
     val wikiLink: String,
 
-    val startDate: DateTime
+    val practice1DateTime: DateTime,
+    val practice2DateTime: DateTime,
+    val practice3DateTime: DateTime,
+    val qualifyingDateTime: DateTime,
+    val raceDateTime: DateTime
 ) : Serializable {
-    val endDate: DateTime by lazy { calculateEndDate(startDate) }
+
+    val startDate: DateTime by lazy { practice1DateTime.withTimeAtStartOfDay() }
+    val endDate: DateTime by lazy { raceDateTime.withTimeAtStartOfDay() }
 
     constructor(circuit: Circuit, grandPrixEvent: Event) : this(
             circuitId = circuit.id,
@@ -39,19 +50,18 @@ data class CalendarEvent @VisibleForTesting constructor(
             seasons = circuit.seasons,
             gpHeld = circuit.gpHeld,
             wikiLink = circuit.wikiLink,
-            startDate = DateTime(grandPrixEvent.date)
+            practice1DateTime = DateTime.parse(grandPrixEvent.practice1Time),
+            practice2DateTime = DateTime.parse(grandPrixEvent.practice2Time),
+            practice3DateTime = DateTime.parse(grandPrixEvent.practice3Time),
+            qualifyingDateTime =DateTime.parse(grandPrixEvent.qualifyingTime),
+            raceDateTime = DateTime.parse(grandPrixEvent.raceTime)
     ) {
         require(circuit.id == grandPrixEvent.circuit_id)
     }
 
     /** Is race weekend started or recently over. */
     fun isActiveAt(time: DateTime): Boolean {
-        return time >= startDate && time <= endDate.plusHours(23)
-        // +23H to cover all time zones
+        return time >= practice1DateTime && time <= raceDateTime.plusHours(RACE_DURATION_H)
     }
-
 }
 
-private fun calculateEndDate(startDate: DateTime): DateTime {
-    return startDate.plusDays(2)
-}

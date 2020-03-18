@@ -9,20 +9,50 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-private val JAN_1 = DateTime.parse("2100-01-01T00:00Z")
-private val JAN_2 = DateTime.parse("2100-01-02T00:00Z")
-private val JAN_3 = DateTime.parse("2100-01-03T00:00Z")
-private val JAN_31 = DateTime.parse("2100-01-31T00:00Z")
-private val FEB_2 = DateTime.parse("2100-02-02T00:00Z")
+private const val T_0AM = "00:00Z"
+private const val T_1AM = "01:00Z"
 
-private val TEST_EVENT_JAN_1 = createDummyEvent(JAN_1)
-private val TEST_EVENT_JAN_31 = createDummyEvent(JAN_31)
+private val JAN_1 = DateTime.parse("2100-01-01T$T_0AM")
+private val JAN_2 = DateTime.parse("2100-01-02T$T_0AM")
+private val JAN_3 = DateTime.parse("2100-01-03T$T_0AM")
+private val JAN_3_1AM = DateTime.parse("2100-01-03T$T_1AM")
+
+private val JAN_31 = DateTime.parse("2100-01-31T$T_0AM")
+private val FEB_2 = DateTime.parse("2100-02-02T$T_0AM")
+private val FEB_2_1AM = DateTime.parse("2100-02-02T$T_1AM")
+
+/** An event within the same month. */
+private val TEST_EVENT_JAN_1 = createDummyEvent(
+        practice1DateTime = JAN_1.plusHours(1),
+        practice2DateTime = JAN_1.plusHours(2),
+        practice3DateTime = JAN_2.plusHours(1),
+        qualifyingDateTime = JAN_2.plusHours(2),
+        raceDateTime = JAN_3_1AM)
+/** An event that spans two months. */
+private val TEST_EVENT_JAN_31 = createDummyEvent(
+        practice1DateTime = JAN_31.plusHours(1),
+        practice2DateTime = JAN_31.plusHours(2),
+        practice3DateTime = JAN_31.plusHours(25),
+        qualifyingDateTime = JAN_31.plusHours(26),
+        raceDateTime = FEB_2_1AM)
 
 @RunWith(JUnit4::class)
 class CalendarEventTest {
 
     @Test
-    fun `test endDate calculated properly`() {
+    fun `startDate is the day of practice 1`() {
+
+        assertEquals(
+                JAN_1,
+                TEST_EVENT_JAN_1.startDate)
+
+        assertEquals(
+                JAN_31,
+                TEST_EVENT_JAN_31.startDate)
+    }
+
+    @Test
+    fun `endDate is the day of race`() {
 
         assertEquals(
                 JAN_3,
@@ -34,32 +64,30 @@ class CalendarEventTest {
     }
 
     @Test
-    fun `test isActive at start date`() {
-        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_1))
-    }
-
-    @Test
-    fun `test isActive between start and end`() {
+    fun `isActive between practice and race time inclusive`() {
+        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_1.plusHours(1)))
         assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_2))
+        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM))
+
+        assertTrue(TEST_EVENT_JAN_31.isActiveAt(JAN_31.plusHours(1)))
+        assertTrue(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM))
     }
 
     @Test
-    fun `test isActive at end date`() {
-        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3))
+    fun `isActive 2h after race start time`() {
+        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM.plusHours(2)))
+        assertTrue(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM.plusHours(2)))
     }
 
     @Test
-    fun `test isActive 20h after end date`() {
-        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3.plusHours(20)))
+    fun `not isActive day before practice time`() {
+        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_1))
+        assertFalse(TEST_EVENT_JAN_31.isActiveAt(JAN_31))
     }
 
     @Test
-    fun `test not isActive day after end date`() {
-        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_3.plusDays(1)))
-    }
-
-    @Test
-    fun `test not isActive day before start date`() {
-        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_1.minusDays(1)))
+    fun `not isActive more than 2h after race start time`() {
+        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM.plusHours(2).plusMinutes(1)))
+        assertFalse(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM.plusHours(2).plusMinutes(1)))
     }
 }
