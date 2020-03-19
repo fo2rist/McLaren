@@ -12,11 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment.OnCircuitsFragmentInteractionListener;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
+import com.github.fo2rist.mclaren.utils.DateTimeUtils;
 import org.joda.time.DateTime;
 
 import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitImageUriById;
@@ -48,7 +47,6 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
     }
 
     private Context context;
-    private SimpleDateFormat dateFormatter;
     private final RaceCalendar calendarEvents;
     private final OnCircuitsFragmentInteractionListener listener;
 
@@ -56,7 +54,6 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     CircuitsAdapter(Context context, RaceCalendar calendarEvents, OnCircuitsFragmentInteractionListener listener) {
         this.context = context;
-        this.dateFormatter = new SimpleDateFormat(context.getString(R.string.calendar_event_date_format), Locale.US);
         this.calendarEvents = calendarEvents;
         this.listener = listener;
     }
@@ -87,13 +84,11 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
         holder.textGrandPrixName.setText(event.getGrandPrixName());
         holder.textDetails.setText(formatDetails(event));
 
-        holder.rootView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (null != listener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    listener.onCircuitSelected(holder.item, holder.getAdapterPosition());
-                }
+        holder.rootView.setOnClickListener(view -> {
+            if (null != listener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                listener.onCircuitSelected(holder.item, holder.getAdapterPosition());
             }
         });
 
@@ -106,8 +101,8 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     @NonNull
     private String formatDetails(CalendarEvent event) {
-        String start = dateFormatter.format(event.getStartDate().toDate());
-        String end = dateFormatter.format(event.getEndDate().toDate());
+        String start = DateTimeUtils.formatShort(context, event.getStartDate());
+        String end = DateTimeUtils.formatShort(context, event.getEndDate());
         return context.getString(R.string.calendar_event_details_format, event.getCity(), start, end);
     }
 
