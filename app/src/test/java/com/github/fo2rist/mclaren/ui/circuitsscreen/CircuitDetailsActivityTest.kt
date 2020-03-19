@@ -15,7 +15,7 @@ class CircuitDetailsActivityTest {
     private val context by lazy { RuntimeEnvironment.application.applicationContext }
 
     @Test
-    fun `test starts with circut details fragment`() {
+    fun `test starts with circuit details fragment`() {
         val circuitDetailsActivity = Robolectric.buildActivity(
                 CircuitDetailsActivity::class.java, CircuitDetailsActivity.createIntent(context, createDummyEvent())
         ).setup().get()
