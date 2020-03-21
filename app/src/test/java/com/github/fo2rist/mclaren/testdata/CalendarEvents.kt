@@ -7,14 +7,16 @@ import org.joda.time.DateTime
 
 object CalendarEvents {
 
+    fun createDummyEvent() =
+            createDummyEvent("", DateTime(), DateTime(), DateTime(), DateTime(), DateTime())
+
     fun createDummyEvent(
         id: String = "",
-
-        practice1DateTime: DateTime = DateTime(),
-        practice2DateTime: DateTime = DateTime(),
-        practice3DateTime: DateTime = DateTime(),
-        qualifyingDateTime: DateTime = DateTime(),
-        raceDateTime: DateTime = DateTime()
+        practice1DateTime: DateTime,
+        practice2DateTime: DateTime,
+        practice3DateTime: DateTime,
+        qualifyingDateTime: DateTime,
+        raceDateTime: DateTime
     ): CalendarEvent {
         return CalendarEvent(
                 Circuit(

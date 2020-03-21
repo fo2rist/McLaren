@@ -4,6 +4,9 @@ import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.models.Circuit
 import com.github.fo2rist.mclaren.models.Event
 import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.Interval
+import org.joda.time.Period
 import java.io.Serializable
 
 /**
@@ -63,5 +66,11 @@ data class CalendarEvent private constructor(
     fun isActiveAt(time: DateTime): Boolean {
         return time >= practice1DateTime && time <= raceDateTime.plusHours(RACE_DURATION_H)
     }
+
+    /**
+     * Time to the beginning of weekend (1st practice) as [Period].
+     * @return period with all standard fields, negative if current time is greater than practice start time.
+     */
+    fun timeToFirstPractice(): Period = Period(DateTime.now(), practice1DateTime)
 }
 
