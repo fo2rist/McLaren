@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.models
 
 import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
 import org.joda.time.DateTime
+import org.joda.time.DateTimeUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -41,26 +42,16 @@ class CalendarEventTest {
 
     @Test
     fun `startDate is the day of practice 1`() {
+        assertEquals(JAN_1, TEST_EVENT_JAN_1.startDate)
 
-        assertEquals(
-                JAN_1,
-                TEST_EVENT_JAN_1.startDate)
-
-        assertEquals(
-                JAN_31,
-                TEST_EVENT_JAN_31.startDate)
+        assertEquals(JAN_31, TEST_EVENT_JAN_31.startDate)
     }
 
     @Test
     fun `endDate is the day of race`() {
+        assertEquals(JAN_3, TEST_EVENT_JAN_1.endDate)
 
-        assertEquals(
-                JAN_3,
-                TEST_EVENT_JAN_1.endDate)
-
-        assertEquals(
-                FEB_2,
-                TEST_EVENT_JAN_31.endDate)
+        assertEquals(FEB_2, TEST_EVENT_JAN_31.endDate)
     }
 
     @Test
@@ -89,5 +80,23 @@ class CalendarEventTest {
     fun `not isActive more than 2h after race start time`() {
         assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM.plusHours(2).plusMinutes(1)))
         assertFalse(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM.plusHours(2).plusMinutes(1)))
+    }
+
+    @Test
+    fun `timeToFirstPractice returns precise non-zero period for event in the future`() {
+        DateTimeUtils.setCurrentMillisFixed(JAN_31.plusHours(1).minusMinutes(1).millis)
+
+        assertEquals(60, TEST_EVENT_JAN_31.timeToFirstPractice().toStandardSeconds().seconds)
+
+        DateTimeUtils.setCurrentMillisSystem()
+    }
+
+    @Test
+    fun `timeToFirstPractice returns negative period for event in the past`() {
+        DateTimeUtils.setCurrentMillisFixed(FEB_2_1AM.plusDays(1).millis)
+
+        assertTrue(TEST_EVENT_JAN_31.timeToFirstPractice().toStandardSeconds().seconds < 0)
+
+        DateTimeUtils.setCurrentMillisSystem()
     }
 }
