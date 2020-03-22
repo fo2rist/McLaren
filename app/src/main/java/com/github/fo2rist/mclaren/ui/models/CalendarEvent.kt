@@ -56,7 +56,7 @@ data class CalendarEvent private constructor(
             practice1DateTime = DateTime.parse(grandPrixEvent.practice1Time),
             practice2DateTime = DateTime.parse(grandPrixEvent.practice2Time),
             practice3DateTime = DateTime.parse(grandPrixEvent.practice3Time),
-            qualifyingDateTime =DateTime.parse(grandPrixEvent.qualifyingTime),
+            qualifyingDateTime = DateTime.parse(grandPrixEvent.qualifyingTime),
             raceDateTime = DateTime.parse(grandPrixEvent.raceTime)
     ) {
         require(circuit.id == grandPrixEvent.circuit_id)

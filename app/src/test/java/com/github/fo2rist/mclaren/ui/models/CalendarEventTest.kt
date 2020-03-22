@@ -1,7 +1,15 @@
 package com.github.fo2rist.mclaren.ui.models
 
 import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
-import org.joda.time.DateTime
+import com.github.fo2rist.mclaren.testdata.FEB_2
+import com.github.fo2rist.mclaren.testdata.FEB_2_1AM
+import com.github.fo2rist.mclaren.testdata.JAN_1
+import com.github.fo2rist.mclaren.testdata.JAN_2
+import com.github.fo2rist.mclaren.testdata.JAN_3
+import com.github.fo2rist.mclaren.testdata.JAN_31
+import com.github.fo2rist.mclaren.testdata.JAN_3_1AM
+import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_1
+import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_31
 import org.joda.time.DateTimeUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -10,32 +18,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-private const val T_0AM = "00:00Z"
-private const val T_1AM = "01:00Z"
-
-private val JAN_1 = DateTime.parse("2100-01-01T$T_0AM")
-private val JAN_2 = DateTime.parse("2100-01-02T$T_0AM")
-private val JAN_3 = DateTime.parse("2100-01-03T$T_0AM")
-private val JAN_3_1AM = DateTime.parse("2100-01-03T$T_1AM")
-
-private val JAN_31 = DateTime.parse("2100-01-31T$T_0AM")
-private val FEB_2 = DateTime.parse("2100-02-02T$T_0AM")
-private val FEB_2_1AM = DateTime.parse("2100-02-02T$T_1AM")
-
-/** An event within the same month. */
-private val TEST_EVENT_JAN_1 = createDummyEvent(
-        practice1DateTime = JAN_1.plusHours(1),
-        practice2DateTime = JAN_1.plusHours(2),
-        practice3DateTime = JAN_2.plusHours(1),
-        qualifyingDateTime = JAN_2.plusHours(2),
-        raceDateTime = JAN_3_1AM)
-/** An event that spans two months. */
-private val TEST_EVENT_JAN_31 = createDummyEvent(
-        practice1DateTime = JAN_31.plusHours(1),
-        practice2DateTime = JAN_31.plusHours(2),
-        practice3DateTime = JAN_31.plusHours(25),
-        qualifyingDateTime = JAN_31.plusHours(26),
-        raceDateTime = FEB_2_1AM)
 
 @RunWith(JUnit4::class)
 class CalendarEventTest {
