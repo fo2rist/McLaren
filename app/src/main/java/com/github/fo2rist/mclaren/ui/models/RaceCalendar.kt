@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.models
 
 import android.support.annotation.VisibleForTesting
 import org.joda.time.DateTime
+import org.joda.time.Period
 
 class RaceCalendar : ArrayList<CalendarEvent>() {
 
@@ -12,6 +13,16 @@ class RaceCalendar : ArrayList<CalendarEvent>() {
     fun getActiveEvent(): CalendarEvent? {
         val now = DateTime.now()
         return findEventByTime(now)
+    }
+
+    /**
+     * Get next event in current season as [Period].
+     * @return null if past season end.
+     */
+    fun getNextEvent(): CalendarEvent? {
+        val now = DateTime.now()
+        //first event in future
+        return this.firstOrNull { now < it.practice1DateTime }
     }
 
     @VisibleForTesting
