@@ -235,4 +235,10 @@ public class MainActivity extends AppCompatActivity
         buttonUpcomingEvent.setText(grandPrixName);
         buttonUpcomingEvent.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void hideFloatingButtons() {
+        floatingButtonTransmission.hide();
+        buttonUpcomingEvent.setVisibility(View.GONE);
+    }
 }
