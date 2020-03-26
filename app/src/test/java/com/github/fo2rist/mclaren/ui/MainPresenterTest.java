@@ -71,6 +71,7 @@ public class MainPresenterTest {
         presenter.onCircuitsClicked();
 
         verify(mockView).openCircuits();
+        verify(mockView).hideFloatingButtons();
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 
@@ -79,6 +80,7 @@ public class MainPresenterTest {
         presenter.onDriversClicked();
 
         verify(mockView).openDrivers();
+        verify(mockView).hideFloatingButtons();
         verify(mockEventsLogger).logViewEvent(any(Events.class));
     }
 

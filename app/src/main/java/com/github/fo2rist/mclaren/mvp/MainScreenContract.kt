@@ -22,6 +22,7 @@ interface MainScreenContract {
 
         fun showTransmissionButton()
         fun showUpcomingEventButton(grandPrixName: String, beginningTime: DateTime)
+        fun hideFloatingButtons()
     }
 
     interface Presenter : BasePresenter<View> {

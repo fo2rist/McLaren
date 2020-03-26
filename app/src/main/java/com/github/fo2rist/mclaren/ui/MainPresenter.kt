@@ -18,6 +18,14 @@ class MainPresenter @Inject constructor(
     private val raceCalendar: RaceCalendar by lazy { raceCalendarRepository.loadCalendar() }
 
     override fun onStart() {
+        openStories()
+    }
+
+    override fun onStoriesClicked() {
+        openStories()
+    }
+
+    private fun openStories() {
         view.openStories()
 
         val activeEvent = raceCalendar.getActiveEvent()
@@ -29,20 +37,19 @@ class MainPresenter @Inject constructor(
         } else if (upcomingEvent != null) {
             view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime)
         }
-    }
 
-    override fun onStoriesClicked() {
-        view.openStories()
         eventsLogger.logViewEvent(Events.MENU_STORIES)
     }
 
     override fun onCircuitsClicked() {
         view.openCircuits()
+        view.hideFloatingButtons();
         eventsLogger.logViewEvent(Events.MENU_CALENDAR)
     }
 
     override fun onDriversClicked() {
         view.openDrivers()
+        view.hideFloatingButtons();
         eventsLogger.logViewEvent(Events.MENU_DRIVERS)
     }
 
