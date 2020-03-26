@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
@@ -33,6 +34,8 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
+import org.joda.time.DateTime;
 import timber.log.Timber;
 
 import static com.github.fo2rist.mclaren.ui.utils.AnimationUtils.startActivityWithRevealAnimation;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
     private DrawerLayout menuDrawer;
     private FloatingActionButton floatingButtonTransmission;
+    private Button buttonUpcomingEvent;
 
     @Override
     public AndroidInjector<Object> androidInjector() {
@@ -89,12 +93,16 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationViewMain = findViewById(R.id.nav_view_main);
-        NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
-        floatingButtonTransmission = findViewById(R.id.floating_button_transmission);
-
         navigationViewMain.setNavigationItemSelectedListener(this);
+
+        NavigationView navigationViewFooter = findViewById(R.id.nav_view_footer);
         navigationViewFooter.setNavigationItemSelectedListener(this);
+
+        floatingButtonTransmission = findViewById(R.id.floating_button_transmission);
         floatingButtonTransmission.setOnClickListener(this);
+
+        buttonUpcomingEvent = findViewById(R.id.floating_button_upcoming_event);
+        buttonUpcomingEvent.setOnClickListener(this);
     }
 
     @Override
@@ -150,14 +158,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View sender) {
-        if (sender.getId() == R.id.floating_button_transmission) {
-            presenter.onTransmissionCenterClicked();
+        switch (sender.getId()) {
+            case R.id.floating_button_transmission:
+                presenter.onTransmissionCenterClicked();
+                break;
+            case R.id.floating_button_upcoming_event:
+                presenter.onUpcomingEventClicked();
+                break;
         }
     }
 
     @Override
-    public void onCircuitSelected(CalendarEvent event, int number) {
-        startActivity(CircuitDetailsActivity.createIntent(this, event));
+    public void onCircuitSelected(@NonNull CalendarEvent event) {
+        openCircuitScreen(event);
     }
 
     @Override
@@ -181,6 +194,11 @@ public class MainActivity extends AppCompatActivity
     public void openDrivers() {
         openNewFragment(
                 DriversFragment.newInstance());
+    }
+
+    @Override
+    public void openCircuitScreen(@NonNull CalendarEvent event) {
+        startActivity(CircuitDetailsActivity.createIntent(this, event));
     }
 
     @Override
@@ -210,5 +228,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void showTransmissionButton() {
         floatingButtonTransmission.show();
+    }
+
+    @Override
+    public void showUpcomingEventButton(@NotNull String grandPrixName, @NotNull DateTime beginningTime) {
+        buttonUpcomingEvent.setText(grandPrixName);
+        buttonUpcomingEvent.setVisibility(View.VISIBLE);
     }
 }

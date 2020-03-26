@@ -40,4 +40,21 @@
         android:visibility="gone"
         tools:visibility="visible"
         />
+
+    <Button
+        android:id="@+id/floating_button_upcoming_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin_two"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:tint="@android:color/white"
+        android:background="@drawable/bg_fab"
+        style="@style/Widget.MaterialComponents.Button"
+        android:textAppearance="@style/TextLightHeader"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="11D to Melbourne Grad Prix"
+        />
 </android.support.design.widget.CoordinatorLayout>

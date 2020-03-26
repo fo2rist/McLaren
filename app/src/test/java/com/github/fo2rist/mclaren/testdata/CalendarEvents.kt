@@ -37,11 +37,14 @@ val TEST_EVENT_JAN_31 = CalendarEvents.createDummyEvent(
 
 object CalendarEvents {
 
-    fun createDummyEvent() =
-            createDummyEvent("", DateTime(), DateTime(), DateTime(), DateTime(), DateTime())
+    @JvmStatic
+    @JvmOverloads
+    fun createDummyEvent(sameTime: DateTime = DateTime.now()): CalendarEvent {
+        return createDummyEvent("id", sameTime, sameTime, sameTime, sameTime, sameTime)
+    }
 
     fun createDummyEvent(
-        id: String = "",
+        id: String = "id",
         practice1DateTime: DateTime,
         practice2DateTime: DateTime,
         practice3DateTime: DateTime,

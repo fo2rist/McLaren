@@ -19,14 +19,16 @@ class MainPresenter @Inject constructor(
 
     override fun onStart() {
         view.openStories()
-        if (isRaceActive()) {
-            // can notify users about the race in progress
-            // do nothing for now (used to launch transmission screen)
-        }
-    }
 
-    private fun isRaceActive(): Boolean {
-        return raceCalendar.getActiveEvent() != null
+        val activeEvent = raceCalendar.getActiveEvent()
+        val upcomingEvent = raceCalendar.getNextEvent()
+        if (activeEvent != null) {
+            // can notify users about the race in progress
+            // via view.showTransmissionButton()
+            // do nothing for now (used to launch transmission screen)
+        } else if (upcomingEvent != null) {
+            view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime)
+        }
     }
 
     override fun onStoriesClicked() {
@@ -64,6 +66,14 @@ class MainPresenter @Inject constructor(
 
     override fun onTransmissionCenterClicked() {
         view.openTransmissionCenter()
-        eventsLogger.logViewEvent(Events.MENU_TRANSMISSION_CENTER)
+        eventsLogger.logViewEvent(Events.TRANSMISSION_CENTER)
+    }
+
+    override fun onUpcomingEventClicked() {
+        val eventToOpen = raceCalendar.getNextEvent()
+                ?: raceCalendar.getActiveEvent()
+                ?: return
+        view.openCircuitScreen(eventToOpen)
+        eventsLogger.logViewEvent(Events.DETAILS_CIRCUIT)
     }
 }

@@ -8,7 +8,9 @@ public enum Events {
     MENU_CAR("Car"),
     MENU_SITE("Official site"),
     MENU_ABOUT("About"),
-    MENU_TRANSMISSION_CENTER("Transmission Center"),
+
+    TRANSMISSION_CENTER("Transmission Center"),
+    DETAILS_CIRCUIT("Circuit"),
 
     VIEW_IMAGES("View Images"),
     VIEW_ARTICLE("View Article"),

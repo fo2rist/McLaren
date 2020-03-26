@@ -18,7 +18,7 @@ class DateTimeUtilsTest {
     fun `formatShort formats as short Month and double digit day`() {
         val context = RuntimeEnvironment.application.applicationContext
 
-        assertEquals("Jan 01", formatShort(context, ONE_DIGIT_DAY_DATE))
-        assertEquals("Jan 31", formatShort(context, TWO_DIGIT_DAY_DATE))
+        assertEquals("01 Jan", formatShort(context, ONE_DIGIT_DAY_DATE))
+        assertEquals("31 Jan", formatShort(context, TWO_DIGIT_DAY_DATE))
     }
 }

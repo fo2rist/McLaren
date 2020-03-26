@@ -8,8 +8,11 @@ import android.support.test.espresso.intent.matcher.IntentMatchers.hasData
 import android.support.test.runner.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.pages.FeedPage
+import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
+import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity
 import org.hamcrest.Matchers.any
+import org.joda.time.DateTime
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -29,6 +32,36 @@ class MainActivityTest : BaseMainActivityTest() {
             menuCar { isDisplayed() }
             menuOfficialSite { isDisplayed() }
         }
+    }
+
+    @Test
+    fun testFloatingButtonUpcoingEvent() {
+        val upcomingEventName = "TEST UPCOMING GP"
+        val upcomingEventTime = DateTime().plusHours(1)
+        interceptIntents()
+        activity.runOnUiThread { activity.showUpcomingEventButton(upcomingEventName, upcomingEventTime) }
+
+        mainPage {
+            upcomingEventButton {
+                isDisplayed()
+                matches { withText(upcomingEventName) }
+                perform { click() }
+            }
+        }
+        intended(hasComponent(CircuitDetailsActivity::class.java.name))
+    }
+
+    @Test
+    fun testfloatingButtonTransmission() {
+        interceptIntents()
+        activity.runOnUiThread { activity.showTransmissionButton() }
+        mainPage {
+            transmissionButton {
+                isDisplayed()
+                perform { click() }
+            }
+        }
+        intended(hasComponent(TransmissionActivity::class.java.name))
     }
 
     @Test
