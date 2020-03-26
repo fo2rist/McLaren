@@ -11,6 +11,7 @@ import com.github.fo2rist.mclaren.pages.FeedPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity
+import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.any
 import org.joda.time.DateTime
 import org.junit.Test
@@ -37,14 +38,17 @@ class MainActivityTest : BaseMainActivityTest() {
     @Test
     fun testFloatingButtonUpcoingEvent() {
         val upcomingEventName = "TEST UPCOMING GP"
-        val upcomingEventTime = DateTime().plusHours(1)
+        val upcomingEventTime = DateTime().plusMinutes(61)
         interceptIntents()
         activity.runOnUiThread { activity.showUpcomingEventButton(upcomingEventName, upcomingEventTime) }
 
         mainPage {
             upcomingEventButton {
                 isDisplayed()
-                matches { withText(upcomingEventName) }
+                matches {
+                    containsText(upcomingEventName)
+                    containsText("1H")
+                }
                 perform { click() }
             }
         }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="time_unit_month_format">%dM</string>
+    <string name="time_unit_week_format">%dW</string>
+    <string name="time_unit_day_format">%dD</string>
+    <string name="time_unit_hour_format">%dH</string>
+    <string name="time_unit_minute_format">%dMin</string>
+    <string name="time_unit_seconds">seconds</string>
+</resources>
