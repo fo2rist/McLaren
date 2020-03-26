@@ -33,9 +33,8 @@ public class CircuitsFragment extends Fragment {
     public interface OnCircuitsFragmentInteractionListener {
         /**
          * Circuit with given name and number selected
-         * @param number 1-based number of circuit in the current championship
          */
-        void onCircuitSelected(CalendarEvent event, int number);
+        void onCircuitSelected(CalendarEvent event);
     }
 
     private static final String ARG_COLUMN_COUNT = "column-count";

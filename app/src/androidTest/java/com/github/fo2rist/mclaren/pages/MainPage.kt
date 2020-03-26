@@ -21,19 +21,23 @@ class MainPage : Screen<MainPage>() {
 
     val optionMenuAbout: KView = KView { withText(R.string.action_about) }
 
+    val transmissionButton: KView = KView { withId(R.id.floating_button_transmission) }
+
+    val upcomingEventButton: KView = KView { withId(R.id.floating_button_upcoming_event) }
+
     fun openNavigationDrawer() = KDrawerView { withId(R.id.drawer_layout) }.open()
 
     fun navigateToMenuItem(menuItemId: Int) {
         openNavigationDrawer()
-        onNavigationView.navigateTo(menuItemId)
+        navigationView.navigateTo(menuItemId)
     }
 
-    private val onNavigationView = KNavigationView { withId(R.id.nav_view_main) }
+    private val navigationView = KNavigationView { withId(R.id.nav_view_main) }
 
     fun navigateToFooterMenuItem(menuItemId: Int) {
         openNavigationDrawer()
-        onFooterNavigationView.navigateTo(menuItemId)
+        footerNavigationView.navigateTo(menuItemId)
     }
 
-    private val onFooterNavigationView = KNavigationView { withId(R.id.nav_view_footer) }
+    private val footerNavigationView = KNavigationView { withId(R.id.nav_view_footer) }
 }

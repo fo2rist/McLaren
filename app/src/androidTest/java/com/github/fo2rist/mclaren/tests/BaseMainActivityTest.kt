@@ -18,6 +18,7 @@ open class BaseMainActivityTest {
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
 
+    protected val activity: MainActivity by lazy { activityRule.activity }
     protected val context: Context by lazy { activityRule.activity }
     protected val mainPage = MainPage()
 

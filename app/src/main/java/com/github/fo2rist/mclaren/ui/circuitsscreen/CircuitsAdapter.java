@@ -88,7 +88,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
             if (null != listener) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
-                listener.onCircuitSelected(holder.item, holder.getAdapterPosition());
+                listener.onCircuitSelected(holder.item);
             }
         });
 
