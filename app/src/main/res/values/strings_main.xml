@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Open navigation menu</string>
+    <string name="navigation_drawer_close">Close navigation menu</string>
+
+    <string name="action_about">About</string>
+
+    <string name="navigation_item_stories">Stories</string>
+    <string name="navigation_item_calendar">Calendar</string>
+    <string name="navigation_item_drivers">Drivers</string>
+    <string name="navigation_item_car">Car</string>
+    <string name="navigation_item_official_site">Official site</string>
+
+    <string name="format_race_in_time_units">%1$s in %2$s</string>
+</resources>

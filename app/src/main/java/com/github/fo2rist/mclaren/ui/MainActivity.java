@@ -29,6 +29,7 @@ import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
+import com.github.fo2rist.mclaren.utils.DateTimeUtils;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -36,6 +37,7 @@ import dagger.android.HasAndroidInjector;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
+import org.joda.time.Period;
 import timber.log.Timber;
 
 import static com.github.fo2rist.mclaren.ui.utils.AnimationUtils.startActivityWithRevealAnimation;
@@ -232,7 +234,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showUpcomingEventButton(@NotNull String grandPrixName, @NotNull DateTime beginningTime) {
-        buttonUpcomingEvent.setText(grandPrixName);
+        buttonUpcomingEvent.setText(getString(
+                R.string.format_race_in_time_units,
+                grandPrixName,
+                DateTimeUtils.formatRemainingTimeShort(this, new Period(DateTime.now(), beginningTime))));
         buttonUpcomingEvent.setVisibility(View.VISIBLE);
     }
 
