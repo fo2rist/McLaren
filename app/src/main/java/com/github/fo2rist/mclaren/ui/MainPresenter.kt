@@ -35,7 +35,7 @@ class MainPresenter @Inject constructor(
             // via view.showTransmissionButton()
             // do nothing for now (used to launch transmission screen)
         } else if (upcomingEvent != null) {
-            view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime)
+            view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime!!)
         }
 
         eventsLogger.logViewEvent(Events.MENU_STORIES)

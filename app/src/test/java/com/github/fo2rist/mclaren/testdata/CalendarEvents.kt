@@ -34,6 +34,13 @@ val TEST_EVENT_JAN_31 = CalendarEvents.createDummyEvent(
         practice3DateTime = JAN_31.plusHours(25),
         qualifyingDateTime = JAN_31.plusHours(26),
         raceDateTime = FEB_2_1AM)
+/** An event without dates. */
+val TEST_EVENT_NO_DATES = CalendarEvents.createDummyEvent("unknown",
+        practice1DateTime = null,
+        practice2DateTime = null,
+        practice3DateTime = null,
+        qualifyingDateTime = null,
+        raceDateTime = null)
 
 object CalendarEvents {
 
@@ -45,11 +52,11 @@ object CalendarEvents {
 
     fun createDummyEvent(
         id: String = "id",
-        practice1DateTime: DateTime,
-        practice2DateTime: DateTime,
-        practice3DateTime: DateTime,
-        qualifyingDateTime: DateTime,
-        raceDateTime: DateTime
+        practice1DateTime: DateTime?,
+        practice2DateTime: DateTime?,
+        practice3DateTime: DateTime?,
+        qualifyingDateTime: DateTime?,
+        raceDateTime: DateTime?
     ): CalendarEvent {
         return CalendarEvent(
                 Circuit(
@@ -66,12 +73,12 @@ object CalendarEvents {
                         wikiLink = ""),
                 Event(
                         circuit_id = id,
-                        practice1Time = practice1DateTime.toString(),
-                        practice2Time = practice2DateTime.toString(),
-                        practice3Time = practice3DateTime.toString(),
-                        qualifyingTime = qualifyingDateTime.toString(),
-                        raceTime = raceDateTime.toString(),
-                        date = raceDateTime.withTimeAtStartOfDay().toDate())
+                        practice1Time = practice1DateTime?.toString(),
+                        practice2Time = practice2DateTime?.toString(),
+                        practice3Time = practice3DateTime?.toString(),
+                        qualifyingTime = qualifyingDateTime?.toString(),
+                        raceTime = raceDateTime?.toString(),
+                        date = raceDateTime?.withTimeAtStartOfDay()?.toDate())
         )
     }
 }

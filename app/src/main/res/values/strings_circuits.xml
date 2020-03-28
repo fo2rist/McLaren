@@ -6,7 +6,7 @@
     <string name="circuit_details_seasons">Seasons</string>
     <string name="circuit_details_gp_held">Grand Prix Held</string>
 
-    <string name="calendar_event_details_format">%1$s\n%2$s – %3$s</string>
+    <string name="calendar_event_dates_format">%1$s – %2$s</string>
     <string name="calendar_event_date_format">dd MMM</string>
     <string name="circuit_details_format">%1$s >> %2$s</string>
     <string name="distance_km_format">%.3f km</string>

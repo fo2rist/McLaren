@@ -22,7 +22,7 @@ class RaceCalendar : ArrayList<CalendarEvent>() {
     fun getNextEvent(): CalendarEvent? {
         val now = DateTime.now()
         //first event in future
-        return this.firstOrNull { now < it.practice1DateTime }
+        return this.firstOrNull { it.practice1DateTime != null && it.practice1DateTime >= now }
     }
 
     @VisibleForTesting

@@ -10,9 +10,13 @@ import com.github.fo2rist.mclaren.testdata.JAN_31
 import com.github.fo2rist.mclaren.testdata.JAN_3_1AM
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_1
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_31
+import com.github.fo2rist.mclaren.testdata.TEST_EVENT_NO_DATES
+import org.joda.time.DateTime
 import org.joda.time.DateTimeUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,10 +69,15 @@ class CalendarEventTest {
     }
 
     @Test
+    fun `not isActive if dates are unknown`() {
+        assertFalse(TEST_EVENT_NO_DATES.isActiveAt(DateTime()))
+    }
+
+    @Test
     fun `timeToFirstPractice returns precise non-zero period for event in the future`() {
         DateTimeUtils.setCurrentMillisFixed(JAN_31.plusHours(1).minusMinutes(1).millis)
 
-        assertEquals(60, TEST_EVENT_JAN_31.timeToFirstPractice().toStandardSeconds().seconds)
+        assertEquals(60, TEST_EVENT_JAN_31.timeToFirstPractice()!!.toStandardSeconds().seconds)
 
         DateTimeUtils.setCurrentMillisSystem()
     }
@@ -77,8 +86,13 @@ class CalendarEventTest {
     fun `timeToFirstPractice returns negative period for event in the past`() {
         DateTimeUtils.setCurrentMillisFixed(FEB_2_1AM.plusDays(1).millis)
 
-        assertTrue(TEST_EVENT_JAN_31.timeToFirstPractice().toStandardSeconds().seconds < 0)
+        assertTrue(TEST_EVENT_JAN_31.timeToFirstPractice()!!.toStandardSeconds().seconds < 0)
 
         DateTimeUtils.setCurrentMillisSystem()
+    }
+
+    @Test
+    fun `timeToFirstPractice returns negative null when dates are unknown`() {
+        assertNull(TEST_EVENT_NO_DATES.timeToFirstPractice())
     }
 }

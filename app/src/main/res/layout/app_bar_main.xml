@@ -41,7 +41,7 @@
         tools:visibility="visible"
         />
 
-    <Button
+    <com.github.fo2rist.mclaren.ui.widgets.UpcomingEventButton
         android:id="@+id/floating_button_upcoming_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
