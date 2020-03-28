@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.FrameLayout
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 
@@ -24,6 +25,7 @@ class CircuitDetailsActivity : AppCompatActivity() {
         }
 
         setupToolBar()
+        setContentView(R.layout.activity_circuit_details)
         setContentFragment(CircuitDetailsFragment.newInstance(extras))
     }
 
@@ -36,7 +38,7 @@ class CircuitDetailsActivity : AppCompatActivity() {
     private fun setContentFragment(fragment: Fragment) {
         supportFragmentManager
                 .beginTransaction()
-                .replace(android.R.id.content, fragment)
+                .replace(R.id.content_frame, fragment)
                 .commit()
     }
 
