@@ -8,8 +8,8 @@ import com.github.fo2rist.mclaren.testdata.JAN_3
 import com.github.fo2rist.mclaren.testdata.JAN_31
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_1
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_31
+import com.github.fo2rist.mclaren.testdata.TEST_EVENT_NO_DATES
 import org.joda.time.DateTimeUtils
-import org.joda.time.Period
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -26,6 +26,7 @@ class RaceCalendarTest {
     fun setUp() {
         raceCalendar = RaceCalendar().apply {
             add(TEST_EVENT_JAN_1)
+            add(TEST_EVENT_NO_DATES)
             add(TEST_EVENT_JAN_31)
         }
     }
