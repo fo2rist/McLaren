@@ -4,6 +4,7 @@ import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -16,12 +17,18 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink;
 import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
 import static com.nhaarman.mockitokotlin2.VerificationKt.never;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
 @RunWith(JUnit4.class)
 public class MainPresenterTest {
+    private static CalendarEvent activeEvent = createDummyEvent(new DateTime());
+    private static CalendarEvent nextEvent = createDummyEvent(new DateTime().plusHours(1));
+    private static int activeEventNumber = 1;
+    private static int nextEventNumber = 2;
 
     private MainPresenter presenter;
 
@@ -36,6 +43,8 @@ public class MainPresenterTest {
         mockCalendar = mock(RaceCalendar.class);
         RaceCalendarRepository mockCalendarRepository = mock(RaceCalendarRepository.class);
         when(mockCalendarRepository.loadCalendar()).thenReturn(mockCalendar);
+        when(mockCalendar.indexOf(activeEvent)).thenReturn(activeEventNumber);
+        when(mockCalendar.indexOf(nextEvent)).thenReturn(nextEventNumber);
 
         presenter = new MainPresenter(mockView, mockEventsLogger, mockCalendarRepository);
     }
@@ -117,12 +126,30 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void test_onUpcomingEventClicked() {
-        when(mockCalendar.getNextEvent()).thenReturn(createDummyEvent(new DateTime().plusHours(1)));
+    public void test_onUpcomingEventClicked_doesNothing_whenThereIsNoEvent() {
+        presenter.onUpcomingEventClicked();
+
+        verify(mockView, never()).openCircuitScreen(anyInt());
+    }
+
+    @Test
+    public void test_onUpcomingEventClicked_openNextEvent_ifThereIsNoActiveEvent() {
+        when(mockCalendar.getNextEvent()).thenReturn(nextEvent);
 
         presenter.onUpcomingEventClicked();
 
-        verify(mockView).openCircuitScreen(any());
+        verify(mockView).openCircuitScreen(nextEventNumber);
+        verify(mockEventsLogger).logViewEvent(Events.DETAILS_CIRCUIT);
+    }
+
+    @Test
+    public void test_onUpcomingEventClicked_opensActiveEvent_ifItsActive() {
+        when(mockCalendar.getActiveEvent()).thenReturn(activeEvent);
+        when(mockCalendar.getNextEvent()).thenReturn(nextEvent);
+
+        presenter.onUpcomingEventClicked();
+
+        verify(mockView).openCircuitScreen(activeEventNumber);
         verify(mockEventsLogger).logViewEvent(Events.DETAILS_CIRCUIT);
     }
 }

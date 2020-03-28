@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
-import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
@@ -32,9 +31,10 @@ public class CircuitsFragment extends Fragment {
      */
     public interface OnCircuitsFragmentInteractionListener {
         /**
-         * Circuit with given name and number selected
+         * Circuit with given name and number selected.
+         * @param eventNumber 0-based number of event in calendar.
          */
-        void onCircuitSelected(CalendarEvent event);
+        void onCircuitSelected(int eventNumber);
     }
 
     private static final String ARG_COLUMN_COUNT = "column-count";

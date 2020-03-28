@@ -1,7 +1,5 @@
 package com.github.fo2rist.mclaren.mvp
 
-import android.support.annotation.NonNull
-import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import org.joda.time.DateTime
 
 /**
@@ -14,7 +12,7 @@ interface MainScreenContract {
         fun openCircuits()
         fun openDrivers()
 
-        fun openCircuitScreen(event: CalendarEvent)
+        fun openCircuitScreen(eventNumber: Int)
         fun openAboutScreen()
         fun openTransmissionCenter()
 

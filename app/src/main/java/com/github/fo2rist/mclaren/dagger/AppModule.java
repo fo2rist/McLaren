@@ -18,6 +18,7 @@ import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus;
 import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.repository.DriversRepositoryImpl;
+import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService;
@@ -40,7 +41,7 @@ import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
 @Module(includes = AndroidSupportInjectionModule.class)
-public abstract class AppModule {
+abstract class AppModule {
     //region Activity injectors
     @Scopes.PerActivity
     @ContributesAndroidInjector(modules = MainActivityModule.class)
@@ -53,6 +54,10 @@ public abstract class AppModule {
     @Scopes.PerActivity
     @ContributesAndroidInjector(modules = TransmissionActivityModule.class)
     abstract TransmissionActivity transmissionActivityInjector();
+
+    @Scopes.PerActivity
+    @ContributesAndroidInjector
+    abstract CircuitDetailsActivity circuitDetailsActivityInjector();
     //endregion
 
     //region global level providers

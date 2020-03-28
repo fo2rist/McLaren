@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.circuitsscreen.CircuitDetailsActivity"
     >
-    <FrameLayout
-        android:id="@+id/content_frame"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/circuits_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
