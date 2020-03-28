@@ -6,74 +6,35 @@
             [
                 {
                 "circuit_id": "australia_melbourne",
-                "practice_1_time": "2020-03-13T01:00:00Z",
-                "practice_2_time": "2020-03-13T05:00:00Z",
-                "practice_3_time": "2020-03-14T03:00:00Z",
-                "qualifying_time": "2020-03-14T06:00:00Z",
-                "race_time": "2020-03-15T05:10:00Z",
                 "date": "2020-03-13"
                 },
                 {
                 "circuit_id": "bahrain_sakhir",
-                "practice_1_time": "2020-03-20T11:00:00Z",
-                "practice_2_time": "2020-03-20T15:00:00Z",
-                "practice_3_time": "2020-03-21T12:00:00Z",
-                "qualifying_time": "2020-03-21T15:00:00Z",
-                "race_time": "2020-03-22T15:10:00Z",
                 "date": "2020-03-20"
                 },
                 {
                 "circuit_id": "vietnam_hanoi",
-                "practice_1_time": "2020-04-03T05:00:00Z",
-                "practice_2_time": "2020-04-03T09:00:00Z",
-                "practice_3_time": "2020-04-04T06:00:00Z",
-                "qualifying_time": "2020-04-04T09:00:00Z",
-                "race_time": "2020-04-05T08:10:00Z",
                 "date": "2020-04-03"
                 },
                 {
                 "circuit_id": "china_shanghai",
-                "practice_1_time": "2020-04-17T04:00:00Z",
-                "practice_2_time": "2020-04-17T08:00:00Z",
-                "practice_3_time": "2020-04-18T05:00:00Z",
-                "qualifying_time": "2020-04-18T08:00:00Z",
-                "race_time": "2020-04-19T07:10:00Z",
                 "date": "2020-04-17"
                 },
                 {
                 "circuit_id": "netherlands_zandvoort",
-                "practice_1_time": "2020-05-01T10:00:00Z",
-                "practice_2_time": "2020-05-01T14:00:00Z",
-                "practice_3_time": "2020-05-02T11:00:00Z",
-                "qualifying_time": "2020-05-02T14:00:00Z",
-                "race_time": "2020-05-03T14:10:00Z",
                 "date": "2020-05-01"
                 },
                 {
                 "circuit_id": "spain_barcelona",
-                "practice_1_time": "2020-05-08T10:00:00Z",
-                "practice_2_time": "2020-05-08T14:00:00Z",
-                "practice_3_time": "2020-05-09T11:00:00Z",
-                "qualifying_time": "2020-05-09T14:00:00Z",
-                "race_time": "2020-05-10T14:10:00Z",
                 "date": "2020-05-08"
                 },
                 {
                 "circuit_id": "monaco_monte_carlo",
-                "practice_1_time": "2020-05-21T10:00:00Z",
-                "practice_2_time": "2020-05-21T14:00:00Z",
-                "practice_3_time": "2020-05-23T11:00:00Z",
-                "qualifying_time": "2020-05-23T14:00:00Z",
                 "race_time": "2020-05-24T14:10:00Z",
                 "date": "2020-05-22"
                 },
                 {
                 "circuit_id": "azerbaijan_baku",
-                "practice_1_time": "2020-06-05T10:00:00Z",
-                "practice_2_time": "2020-06-05T14:00:00Z",
-                "practice_3_time": "2020-06-06T11:00:00Z",
-                "qualifying_time": "2020-06-06T14:00:00Z",
-                "race_time": "2020-06-07T13:10:00Z",
                 "date": "2020-06-05"
                 },
                 {
