@@ -165,6 +165,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.floating_button_upcoming_event:
                 presenter.onUpcomingEventClicked();
                 break;
+            default:
+                Timber.e("Unknown view clicked: %s", sender);
+                break;
         }
     }
 

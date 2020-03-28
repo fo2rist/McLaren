@@ -19,18 +19,19 @@ fun formatShort(context: Context, startDate: DateTime): String {
  * Doesn't support years.
  */
 fun formatRemainingTimeShort(context: Context, remainingTime: Period): String {
-    if (remainingTime.months > 0) {
-        return context.getString(R.string.time_unit_month_format, remainingTime.months)
-    } else if (remainingTime.weeks > 0) {
-        return context.getString(R.string.time_unit_week_format, remainingTime.weeks)
-    } else if (remainingTime.days > 0) {
-        return context.getString(R.string.time_unit_day_format, remainingTime.days)
-    } else if (remainingTime.hours > 0) {
-        return context.getString(R.string.time_unit_hour_format, remainingTime.hours)
-    } else if (remainingTime.minutes > 0) {
-        return context.getString(R.string.time_unit_minute_format, remainingTime.minutes)
-    } else {
-        return context.getString(R.string.time_unit_seconds)
+    return when {
+        remainingTime.months > 0 ->
+            context.getString(R.string.time_unit_month_format, remainingTime.months)
+        remainingTime.weeks > 0 ->
+            context.getString(R.string.time_unit_week_format, remainingTime.weeks)
+        remainingTime.days > 0 ->
+            context.getString(R.string.time_unit_day_format, remainingTime.days)
+        remainingTime.hours > 0 ->
+            context.getString(R.string.time_unit_hour_format, remainingTime.hours)
+        remainingTime.minutes > 0 ->
+            context.getString(R.string.time_unit_minute_format, remainingTime.minutes)
+        else ->
+            context.getString(R.string.time_unit_seconds)
     }
 }
 
