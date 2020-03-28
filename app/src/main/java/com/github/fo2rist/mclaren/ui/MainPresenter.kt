@@ -81,10 +81,10 @@ class MainPresenter @Inject constructor(
     }
 
     override fun onUpcomingEventClicked() {
-        val eventToOpen = raceCalendar.getNextEvent()
-                ?: raceCalendar.getActiveEvent()
+        val eventToOpen = raceCalendar.getActiveEvent()
+                ?: raceCalendar.getNextEvent()
                 ?: return
-        view.openCircuitScreen(eventToOpen)
+        view.openCircuitScreen(raceCalendar.indexOf(eventToOpen)) //the index is never out of bounds here
         eventsLogger.logViewEvent(Events.DETAILS_CIRCUIT)
     }
 }

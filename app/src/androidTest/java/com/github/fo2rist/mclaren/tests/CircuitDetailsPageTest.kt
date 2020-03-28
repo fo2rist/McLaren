@@ -28,17 +28,18 @@ class CircuitDetailsPageTest {
 
     @get:Rule
     var rule = IntentsTestRule(CircuitDetailsActivity::class.java, false, false)
-    private val page = CircuitDetailsPage()
+
     private lateinit var context: Context
+    private val page = CircuitDetailsPage()
 
     @Before
     fun setUp() {
         this.context = InstrumentationRegistry.getTargetContext()
-        launchActivity(EVENT)
+        launchActivity()
     }
 
-    private fun launchActivity(event: CalendarEvent) {
-        rule.launchActivity(CircuitDetailsActivity.createIntent(context, event))
+    private fun launchActivity() {
+        rule.launchActivity(CircuitDetailsActivity.createIntent(context, 0))
     }
 
     @Test
@@ -46,7 +47,7 @@ class CircuitDetailsPageTest {
         page {
             title {
                 isDisplayed()
-                hasText(GP_NAME)
+                hasText("Australian Grand Prix") // usually the first GP each year
             }
 
             circuitImage {
@@ -55,33 +56,34 @@ class CircuitDetailsPageTest {
 
             circuitDetails {
                 isDisplayed()
-                containsText(CITY)
-                containsText(TRACK_NAME)
+                containsText("Melbourne")
+                containsText(" >> ")     //GP name and location separator
+                containsText("Melbourne Grand Prix Circuit")
             }
 
             detailsItemLaps {
                 scrollTo()
-                withText("$LAPS")
+                hasText("58")
             }
 
             detailsItemLength {
                 scrollTo()
-                withText(String.format("%.3f km", LENGTH))
+                hasText("5.303 km")
             }
 
             detailsItemDistance {
                 scrollTo()
-                withText(String.format("%.3f km", DISTANCE))
+                hasText("307.574 km")
             }
 
             detailsItemSeasons {
                 scrollTo()
-                withText(SEASONS)
+                containsText("1996")
             }
 
             detailsItemGpHeld {
                 scrollTo()
-                withText("$GP_HELD")
+                hasAnyText()
             }
         }
     }
@@ -95,25 +97,8 @@ class CircuitDetailsPageTest {
         intended(hasData(any(Uri::class.java)))
     }
 
-    companion object TestData {
-
-        private const val ID = "monaco_monte_carlo"
-        private const val COUNTRY_CODE = "CODE"
-        private const val TRACK_NAME = "track name"
-        private const val CITY = "City"
-        private const val GP_NAME = "GP name"
-        private const val LAPS = 11
-        private const val LENGTH = 12.34
-        private const val DISTANCE = 56.789
-        private const val SEASONS = "2001"
-        private const val GP_HELD = 1111
-        private const val WIKI_LINK = "http://wiki.link"
-        private val ANY_DATE = DateTime.now()
-
-        private val EVENT = CalendarEvent(
-                Circuit(ID,
-                        COUNTRY_CODE, TRACK_NAME, CITY, GP_NAME, LAPS, LENGTH, DISTANCE, SEASONS, GP_HELD, WIKI_LINK),
-                Event(ID,
-                        ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toString(), ANY_DATE.toDate()))
+    @Test
+    fun testCanSwipeToNextCircuit() {
+        page.swipeLeft()
     }
 }

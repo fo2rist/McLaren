@@ -25,7 +25,6 @@ import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriversFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
-import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import com.github.fo2rist.mclaren.ui.widgets.UpcomingEventButton;
@@ -172,8 +171,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCircuitSelected(@NonNull CalendarEvent event) {
-        openCircuitScreen(event);
+    public void onCircuitSelected(int eventNumber) {
+        openCircuitScreen(eventNumber);
     }
 
     @Override
@@ -200,8 +199,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void openCircuitScreen(@NonNull CalendarEvent event) {
-        startActivity(CircuitDetailsActivity.createIntent(this, event));
+    public void openCircuitScreen(int eventNumber) {
+        startActivity(CircuitDetailsActivity.createIntent(this, eventNumber));
     }
 
     @Override

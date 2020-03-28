@@ -35,6 +35,7 @@ class PreviewActivity : AppCompatActivity(), PreviewContract.View, HasAndroidInj
 
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Any>
+
     @Inject
     lateinit var presenter: PreviewContract.Presenter
 

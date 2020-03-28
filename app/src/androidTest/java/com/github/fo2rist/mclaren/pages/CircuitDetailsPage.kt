@@ -2,16 +2,32 @@ package com.github.fo2rist.mclaren.pages
 
 import android.support.annotation.StringRes
 import com.agoda.kakao.image.KImageView
+import com.agoda.kakao.pager.KViewPager
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KTextView
 import com.github.fo2rist.mclaren.R
 
 class CircuitDetailsPage : Screen<CircuitDetailsPage>() {
-    val title = KTextView { withId(R.id.circuit_title) }
+    private val viewPager = KViewPager { withId(R.id.circuits_pager) }
 
-    val circuitImage = KImageView{ withId(R.id.circuit_image) }
+    fun swipeLeft() {
+        viewPager.swipeLeft()
+    }
 
-    val circuitDetails = KTextView { withId(R.id.circuit_details)}
+    val title = KTextView {
+        withId(R.id.circuit_title)
+        withParent { isDisplayed() }
+    }
+
+    val circuitImage = KImageView {
+        withId(R.id.circuit_image)
+        withParent { isDisplayed() }
+    }
+
+    val circuitDetails = KTextView {
+        withId(R.id.circuit_details)
+        withParent { isDisplayed() }
+    }
 
     val detailsItemLaps = detailsItem(R.string.circuit_details_laps)
     val detailsItemLength = detailsItem(R.string.circuit_details_length)
@@ -22,5 +38,6 @@ class CircuitDetailsPage : Screen<CircuitDetailsPage>() {
     private fun detailsItem(@StringRes title: Int) = KTextView {
         withId(R.id.value)
         withSibling { withText(title) }
+        withParent { isDisplayed() }
     }
 }
