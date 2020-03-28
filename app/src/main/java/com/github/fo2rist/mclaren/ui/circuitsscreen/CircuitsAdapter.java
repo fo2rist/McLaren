@@ -2,6 +2,7 @@ package com.github.fo2rist.mclaren.ui.circuitsscreen;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +27,7 @@ import static com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitImageUri
  */
 public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder> {
 
-
-    class CircuitViewHolder extends RecyclerView.ViewHolder {
+    static class CircuitViewHolder extends RecyclerView.ViewHolder {
         final View rootView;
         final ImageView imageCircuitMap;
         final TextView textGrandPrixName;
@@ -101,9 +101,15 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     @NonNull
     private String formatDetails(CalendarEvent event) {
-        String start = DateTimeUtils.formatShort(context, event.getStartDate());
-        String end = DateTimeUtils.formatShort(context, event.getEndDate());
-        return context.getString(R.string.calendar_event_details_format, event.getCity(), start, end);
+        @Nullable DateTime startDate = event.getStartDate();
+        @Nullable DateTime endDate = event.getEndDate();
+        if (startDate != null && endDate != null) {
+            return event.getCity() + "\n" + context.getString(R.string.calendar_event_dates_format,
+                    DateTimeUtils.formatShort(context, startDate),
+                    DateTimeUtils.formatShort(context, endDate));
+        } else {
+            return event.getCity();
+        }
     }
 
     private boolean needToAnimateItemAtPosition(int position) {
