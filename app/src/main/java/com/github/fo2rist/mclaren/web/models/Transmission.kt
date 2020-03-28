@@ -3,6 +3,9 @@ package com.github.fo2rist.mclaren.web.models
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+/**
+ * Model for whole race life transmission (team communications).
+ */
 data class Transmission(
     val id: Long = 0,
     val name: String = "", // eg "Australian Grand Prix"
@@ -10,11 +13,17 @@ data class Transmission(
     val commentaries: List<TransmissionItem> = emptyList()
 )
 
+/**
+ * Extended info about drivers current telemetry.
+ */
 data class Telemetry(
     val driverA: Driver = Driver(),
     val driverB: Driver = Driver()
 )
 
+/**
+ * Models for Driver info including position in [Transmission].
+ */
 data class Driver(
     val driverName: String = "",
     val lap: String = "", // eg. "58 / 58",
@@ -22,6 +31,9 @@ data class Driver(
     val tyre: String = "" // eg. "s-soft"
 )
 
+/**
+ * Item (message) in [Transmission].
+ */
 data class TransmissionItem(
     val id: Long,
     val sourceId: Long,
@@ -34,6 +46,9 @@ data class TransmissionItem(
     val type: TransmissionMessageType?
 )
 
+/**
+ * Type of race session transmission belongs to.
+ */
 enum class TransmissionSession {
     @SerializedName("Practice")
     PRACTICE,
@@ -45,6 +60,9 @@ enum class TransmissionSession {
     RACE
 }
 
+/**
+ * Type of message (sender and receiver) in transmission.
+ */
 enum class TransmissionMessageType {
     ATP, // racer A to pit
     BTP, // racer B to pit

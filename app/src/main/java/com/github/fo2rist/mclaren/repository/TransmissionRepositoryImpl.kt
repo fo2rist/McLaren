@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TransmissionRepositoryImpl @Inject constructor(
+internal class TransmissionRepositoryImpl @Inject constructor(
     private val webService: TransmissionWebService,
     private val eventBus: TransmissionRepositoryEventBus
 ) : TransmissionRepository {

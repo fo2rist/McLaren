@@ -9,6 +9,10 @@ import com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink
 import com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link
 import javax.inject.Inject
 
+/**
+ * Presenter for [MainActivity].
+ * Controls high-level navigation to other components of the screen.
+ */
 class MainPresenter @Inject constructor(
     override var view: MainScreenContract.View,
     private val eventsLogger: EventsLogger,

@@ -9,7 +9,7 @@ import com.github.fo2rist.mclaren.web.RemoteConfigService
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
 
-class RaceCalendarRepositoryImpl
+internal class RaceCalendarRepositoryImpl
 @Inject constructor(
     private val remoteConfigService: RemoteConfigService
 ) : RaceCalendarRepository {

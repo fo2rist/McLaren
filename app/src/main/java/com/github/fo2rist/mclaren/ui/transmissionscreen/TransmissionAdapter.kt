@@ -20,7 +20,10 @@ import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_A
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_B
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_EVERYONE
 
-class TransmissionAdapter(
+/**
+ * Adapter for messages in the race life transmission (team communications).
+ */
+internal class TransmissionAdapter(
     private val items: ArrayList<TransmissionItem> = ArrayList()
 ) : RecyclerView.Adapter<TransmissionAdapter.TransmissionViewHolder>() {
 
@@ -135,8 +138,10 @@ class TransmissionAdapter(
         return items[0].dateTime < newItems[0].dateTime
     }
 
-    //TODO duplicates [FeedAdapter]. exctract common code.
-    private fun createComparisonCallback(oldItems: List<TransmissionItem>, newItems: List<TransmissionItem>) = object : DiffUtil.Callback() {
+    //TODO duplicates [FeedAdapter]. Extract common code.
+    private fun createComparisonCallback(
+        oldItems: List<TransmissionItem>, newItems: List<TransmissionItem>
+    ) = object : DiffUtil.Callback() {
         override fun getOldListSize() = oldItems.size
 
 

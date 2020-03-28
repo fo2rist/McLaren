@@ -31,8 +31,10 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
     // initially set it to the page way in the future (we assume)
+    @Suppress("MagicNumber")
     private var newestCheckedPage = PageStatus(LATEST_KNOWN_PAGE * 100, false)
     private var oldestCheckedPage = PageStatus(LATEST_KNOWN_PAGE, true)
+
     // First page that contains items older than latest feed page.
     private var firstHistoryPage = UNKNOWN_PAGE
 
