@@ -1,3 +1,4 @@
+@file:Suppress("MaxLineLength")
 package com.github.fo2rist.mclaren.testdata
 
 val CONTENT_ARTICLE_HTML_WITH_TABLES = """

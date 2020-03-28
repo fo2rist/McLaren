@@ -4,6 +4,9 @@ import android.support.annotation.VisibleForTesting
 import org.joda.time.DateTime
 import org.joda.time.Period
 
+/**
+ * Model for season calendar, a list of [CalendarEvent].
+ */
 class RaceCalendar : ArrayList<CalendarEvent>() {
 
     /**

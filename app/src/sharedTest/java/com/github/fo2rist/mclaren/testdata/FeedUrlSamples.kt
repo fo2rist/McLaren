@@ -1,3 +1,4 @@
+@file:Suppress("MaxLineLength")
 package com.github.fo2rist.mclaren.testdata
 
 const val IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_0 =
