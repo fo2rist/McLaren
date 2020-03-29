@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.DriversRepository;
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepository;
 import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;

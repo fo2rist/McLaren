@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository
+package com.github.fo2rist.mclaren.repository.transmission
 
 /**
  * Race Team radio & News repository.

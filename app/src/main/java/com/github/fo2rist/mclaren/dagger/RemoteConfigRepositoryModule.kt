@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.dagger
 
-import com.github.fo2rist.mclaren.repository.DriversRepository
-import com.github.fo2rist.mclaren.repository.DriversRepositoryImpl
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepository
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepositoryImpl
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepository
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepositoryImpl
+import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
+import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepositoryImpl
 import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService
 import com.github.fo2rist.mclaren.web.RemoteConfigService
 import dagger.Binds

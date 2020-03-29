@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository
+package com.github.fo2rist.mclaren.repository.remoteconfig
 
 import com.github.fo2rist.mclaren.ui.models.Driver
 import com.github.fo2rist.mclaren.ui.models.DriverId

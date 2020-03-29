@@ -4,9 +4,9 @@ import com.github.fo2rist.mclaren.analytics.Events
 import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.mvp.FeedContract
-import com.github.fo2rist.mclaren.repository.FeedRepository
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent
+import com.github.fo2rist.mclaren.repository.feed.FeedRepository
+import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.utils.LinkUtils.getFeedMentionLink
 import com.github.fo2rist.mclaren.utils.LinkUtils.getMediaLink
 import org.greenrobot.eventbus.Subscribe

@@ -1,6 +1,7 @@
-package com.github.fo2rist.mclaren.repository
+package com.github.fo2rist.mclaren.repository.transmission
 
 import com.github.fo2rist.mclaren.models.TransmissionInfo
+import com.github.fo2rist.mclaren.repository.EventBusConnector
 
 /**
  * Even bus for Transmission repository.

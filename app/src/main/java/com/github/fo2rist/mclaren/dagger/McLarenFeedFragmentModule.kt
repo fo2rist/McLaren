@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.dagger
 
 import com.github.fo2rist.mclaren.mvp.FeedContract
-import com.github.fo2rist.mclaren.repository.FeedRepository
+import com.github.fo2rist.mclaren.repository.feed.FeedRepository
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment
 import dagger.Binds
 import dagger.Module

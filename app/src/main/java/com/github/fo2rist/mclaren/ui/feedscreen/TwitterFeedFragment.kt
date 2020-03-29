@@ -1,9 +1,7 @@
 package com.github.fo2rist.mclaren.ui.feedscreen
 
-import android.os.Bundle
 import com.github.fo2rist.mclaren.mvp.FeedContract
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus
-import dagger.android.support.AndroidSupportInjection
+import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus
 import javax.inject.Inject
 
 /**

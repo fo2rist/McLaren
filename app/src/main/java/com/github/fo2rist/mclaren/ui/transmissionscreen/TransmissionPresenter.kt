@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
-import com.github.fo2rist.mclaren.repository.TransmissionRepository
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepository
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus.LoadingEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.Timer

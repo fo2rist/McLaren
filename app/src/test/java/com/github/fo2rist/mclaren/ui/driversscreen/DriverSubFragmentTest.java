@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.DriversRepositoryImpl;
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
