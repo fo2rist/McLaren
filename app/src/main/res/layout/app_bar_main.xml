@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:tint="@android:color/white"
-        android:background="@drawable/bg_fab"
+        android:background="@drawable/bg_transparent_fab"
         style="@style/Widget.MaterialComponents.Button"
         android:textAppearance="@style/TextLightHeader"
         android:visibility="gone"
