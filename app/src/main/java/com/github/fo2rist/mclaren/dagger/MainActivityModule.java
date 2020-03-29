@@ -8,6 +8,7 @@ import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriversFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.McLarenFeedFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
+import com.github.fo2rist.mclaren.ui.feedscreen.TwitterFeedFragment;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -21,6 +22,10 @@ abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = StoriesFragmentModule.class)
     abstract StoriesFeedFragment storiesFragmentInjector();
+
+    @Scopes.PerFragment
+    @ContributesAndroidInjector(modules = TwitterFeedFragmentModule.class)
+    abstract TwitterFeedFragment twitterFeedFragmentInjector();
 
     @Scopes.PerFragment
     @ContributesAndroidInjector
