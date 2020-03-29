@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.repository
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.repository.converters.FeedConverter
+import com.github.fo2rist.mclaren.utils.toDescendingList
 import com.github.fo2rist.mclaren.web.DEFAULT_PAGE
 import com.github.fo2rist.mclaren.web.FeedWebService
 import com.github.fo2rist.mclaren.web.SafeJsonParser
@@ -10,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.util.ArrayList
 import java.util.TreeSet
 
 /**
@@ -42,7 +42,7 @@ abstract class BaseFeedRepository<T>(
     protected val repositoryEventBus: FeedRepositoryEventBus,
     @JvmField
     protected val responseParser: SafeJsonParser<T>
-): FeedRepository {
+) : FeedRepository {
 
     companion object {
         protected const val UNKNOWN_PAGE = -1
@@ -72,7 +72,7 @@ abstract class BaseFeedRepository<T>(
         mainScope.launch {
             publishLoadingStarted()
             try {
-                val feed= webService.requestLatestFeed()
+                val feed = webService.requestLatestFeed()
                 updateDataAndPublishLoadingSuccess(DEFAULT_PAGE, feed)
             } catch (exc: IOException) {
                 publishLoadingFailure()
@@ -105,7 +105,7 @@ abstract class BaseFeedRepository<T>(
 
     private fun publishCachedFeed() {
         if (!feedItems.isEmpty()) {
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toDescendingList()))
         }
     }
 
@@ -126,7 +126,7 @@ abstract class BaseFeedRepository<T>(
         if (!pageItems.isEmpty()) {
             feedItems.addAll(pageItems)
 
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toOrderedList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toDescendingList()))
         }
     }
 
@@ -134,8 +134,4 @@ abstract class BaseFeedRepository<T>(
         val feedData = responseParser.parse(response)
         return feedConverter.convertFeed(feedData)
     }
-}
-
-private fun TreeSet<FeedItem>.toOrderedList(): List<FeedItem> {
-    return ArrayList(this.descendingSet())
 }
