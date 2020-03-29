@@ -15,7 +15,7 @@ import kotlin.coroutines.resumeWithException
  * @throws ConnectException if networking error occurs
  * @throws BadResponse if server responds with 4xx-5xx code
  */
-suspend fun Call.executeAsync(): String? {
+suspend fun Call.executeSuspend(): String? {
     return suspendCancellableCoroutine { continuation ->
         enqueue(object : OkHttpCallbackWrapper() {
             override fun onOkHttpSuccess(url: URL, responseCode: Int, responseBody: String?) {

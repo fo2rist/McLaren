@@ -43,7 +43,7 @@ internal class McLarenWebServiceImpl @Inject internal constructor(
     }
 
     override suspend fun requestTransmission(): String? {
-        return executeAsync(createTransmissionRequest())
+        return execute(createTransmissionRequest())
     }
 
     private fun createTransmissionRequest(): Request {
