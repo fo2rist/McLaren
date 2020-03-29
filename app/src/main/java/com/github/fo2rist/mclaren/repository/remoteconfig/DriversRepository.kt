@@ -4,7 +4,7 @@ import com.github.fo2rist.mclaren.ui.models.Driver
 import com.github.fo2rist.mclaren.ui.models.DriverId
 import com.github.fo2rist.mclaren.ui.models.DriverProperty
 import com.github.fo2rist.mclaren.utils.parseJson
-import com.github.fo2rist.mclaren.web.RemoteConfigService
+import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
 

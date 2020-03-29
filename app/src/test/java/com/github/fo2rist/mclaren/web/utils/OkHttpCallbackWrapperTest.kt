@@ -1,6 +1,5 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.utils
 
-import com.github.fo2rist.mclaren.web.utils.OkHttpCallbackWrapper
 import okhttp3.Call
 import okhttp3.Request
 import okhttp3.Response

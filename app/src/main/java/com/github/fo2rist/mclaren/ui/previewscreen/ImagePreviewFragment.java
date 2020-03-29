@@ -19,7 +19,7 @@ import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
 import javax.inject.Inject;
 
-import static com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit;
+import static com.github.fo2rist.mclaren.ui.tools.McLarenImageDownloader.ImageSizeLimit;
 
 /**
  * Displays list of images or a single one with zoom controls.

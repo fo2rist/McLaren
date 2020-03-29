@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.repository.feed;
 
 import com.github.fo2rist.mclaren.repository.converters.StoryStreamConverter;
-import com.github.fo2rist.mclaren.web.SafeJsonParser;
-import com.github.fo2rist.mclaren.web.StoryStreamWebService;
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
+import com.github.fo2rist.mclaren.web.feed.StoryStreamWebService;
 import com.github.fo2rist.mclaren.web.models.StoryStream;
 import javax.inject.Inject;
 import javax.inject.Singleton;

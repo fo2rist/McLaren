@@ -5,7 +5,7 @@ import com.github.fo2rist.mclaren.models.Event
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar
 import com.github.fo2rist.mclaren.utils.parseJson
-import com.github.fo2rist.mclaren.web.RemoteConfigService
+import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
 

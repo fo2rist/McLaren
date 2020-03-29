@@ -2,8 +2,8 @@ package com.github.fo2rist.mclaren.repository.transmission
 
 import com.github.fo2rist.mclaren.models.TransmissionInfo
 import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus.LoadingEvent
-import com.github.fo2rist.mclaren.web.SafeJsonParser
-import com.github.fo2rist.mclaren.web.TransmissionWebService
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser
+import com.github.fo2rist.mclaren.web.transmission.TransmissionWebService
 import com.github.fo2rist.mclaren.web.models.Transmission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.ImageUrl;
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader;
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit;
+import com.github.fo2rist.mclaren.ui.tools.McLarenImageDownloader;
+import com.github.fo2rist.mclaren.ui.tools.McLarenImageDownloader.ImageSizeLimit;
 import java.util.List;
 
 /**

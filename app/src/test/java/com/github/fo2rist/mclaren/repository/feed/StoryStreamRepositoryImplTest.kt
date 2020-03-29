@@ -2,7 +2,7 @@ package com.github.fo2rist.mclaren.repository.feed
 
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.StoryStreamResponse.REAL_FEED_RESPONSE
-import com.github.fo2rist.mclaren.web.StoryStreamWebService
+import com.github.fo2rist.mclaren.web.feed.StoryStreamWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn

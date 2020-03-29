@@ -4,9 +4,9 @@ import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.repository.converters.FeedConverter
 import com.github.fo2rist.mclaren.utils.toDescendingList
-import com.github.fo2rist.mclaren.web.DEFAULT_PAGE
-import com.github.fo2rist.mclaren.web.FeedWebService
-import com.github.fo2rist.mclaren.web.SafeJsonParser
+import com.github.fo2rist.mclaren.web.feed.DEFAULT_PAGE
+import com.github.fo2rist.mclaren.web.feed.FeedWebService
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

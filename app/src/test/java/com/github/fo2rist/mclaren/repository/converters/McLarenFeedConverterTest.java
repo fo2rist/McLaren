@@ -5,7 +5,7 @@ import com.github.fo2rist.mclaren.models.FeedItem.SourceType;
 import com.github.fo2rist.mclaren.models.ImageUrl;
 import com.github.fo2rist.mclaren.models.Size;
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
-import com.github.fo2rist.mclaren.web.SafeJsonParser;
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import java.util.List;
 import org.joda.time.DateTime;

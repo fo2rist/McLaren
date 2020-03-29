@@ -1,5 +1,6 @@
-package com.github.fo2rist.mclaren.web;
+package com.github.fo2rist.mclaren.web.utils;
 
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.Test;
