@@ -1,0 +1,27 @@
+package com.github.fo2rist.mclaren.dagger
+
+import com.github.fo2rist.mclaren.repository.RepositoryEventBusImpl
+import com.github.fo2rist.mclaren.repository.TransmissionRepository
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl
+import com.github.fo2rist.mclaren.web.McLarenWebServiceImpl
+import com.github.fo2rist.mclaren.web.TransmissionWebService
+import dagger.Binds
+import dagger.Module
+import javax.inject.Singleton
+
+@Module
+internal interface TransmissionRepositoryModule {
+
+    @Binds
+    @Singleton
+    fun provideTransmissionRepository(repository: TransmissionRepositoryImpl): TransmissionRepository
+
+    @Binds
+    @Singleton
+    fun provideTransmissionWebService(webService: McLarenWebServiceImpl): TransmissionWebService
+
+    @Binds
+    @Singleton
+    fun provideTransmissionRepositoryEventBus(eventBus: RepositoryEventBusImpl): TransmissionRepositoryEventBus
+}
