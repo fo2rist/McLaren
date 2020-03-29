@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.feed
 
 import com.github.fo2rist.mclaren.BuildConfig
 import okhttp3.Headers

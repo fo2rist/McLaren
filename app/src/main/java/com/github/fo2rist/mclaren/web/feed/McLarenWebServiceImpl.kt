@@ -1,7 +1,8 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.feed
 
 import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
+import com.github.fo2rist.mclaren.web.transmission.TransmissionWebService
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient

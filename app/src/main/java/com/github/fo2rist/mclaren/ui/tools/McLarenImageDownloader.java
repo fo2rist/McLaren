@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web;
+package com.github.fo2rist.mclaren.ui.tools;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.github.fo2rist.mclaren.BuildConfig;
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.ImageUrl;
+import com.github.fo2rist.mclaren.web.OkHttpClientFactory;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import java.util.List;

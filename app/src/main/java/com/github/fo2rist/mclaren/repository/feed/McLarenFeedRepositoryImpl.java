@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.repository.feed;
 
 import com.github.fo2rist.mclaren.repository.converters.McLarenFeedConverter;
-import com.github.fo2rist.mclaren.web.FeedHistoryPredictor;
-import com.github.fo2rist.mclaren.web.McLarenFeedWebService;
-import com.github.fo2rist.mclaren.web.SafeJsonParser;
+import com.github.fo2rist.mclaren.web.feed.FeedHistoryPredictor;
+import com.github.fo2rist.mclaren.web.feed.McLarenFeedWebService;
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
 import javax.inject.Inject;
 import javax.inject.Singleton;

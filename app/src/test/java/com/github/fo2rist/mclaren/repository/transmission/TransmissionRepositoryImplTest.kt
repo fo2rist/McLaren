@@ -2,7 +2,7 @@ package com.github.fo2rist.mclaren.repository.transmission
 
 import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
-import com.github.fo2rist.mclaren.web.TransmissionWebService
+import com.github.fo2rist.mclaren.web.transmission.TransmissionWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn

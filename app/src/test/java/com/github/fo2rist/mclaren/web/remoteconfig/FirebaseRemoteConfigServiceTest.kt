@@ -1,5 +1,6 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.remoteconfig
 
+import com.github.fo2rist.mclaren.web.remoteconfig.FirebaseRemoteConfigService
 import com.google.firebase.FirebaseApp
 import org.json.JSONArray
 import org.json.JSONObject

@@ -1,5 +1,8 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.feed
 
+import com.github.fo2rist.mclaren.web.feed.BaseFeedWebService
+import com.github.fo2rist.mclaren.web.feed.BaseFeedWebServiceTest
+import com.github.fo2rist.mclaren.web.feed.McLarenWebServiceImpl
 import com.nhaarman.mockitokotlin2.any
 import kotlinx.coroutines.runBlocking
 import org.junit.Before

@@ -6,7 +6,7 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.github.fo2rist.mclaren.dagger.DaggerAppComponent;
-import com.github.fo2rist.mclaren.web.RemoteConfigService;
+import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;

@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.repository.transmission
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE_SIZE
-import com.github.fo2rist.mclaren.web.SafeJsonParser
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser
 import com.github.fo2rist.mclaren.web.models.Transmission
 import org.joda.time.DateTime
 import org.junit.Assert.assertEquals

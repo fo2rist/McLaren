@@ -20,7 +20,7 @@ import com.github.fo2rist.mclaren.mvp.PreviewContract
 import com.github.fo2rist.mclaren.ui.models.Orientation
 import com.github.fo2rist.mclaren.ui.models.PreviewContent
 import com.github.fo2rist.mclaren.ui.previewscreen.ImageGalleryAdapter.ImageViewType
-import com.github.fo2rist.mclaren.web.McLarenImageDownloader.ImageSizeLimit
+import com.github.fo2rist.mclaren.ui.tools.McLarenImageDownloader.ImageSizeLimit
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

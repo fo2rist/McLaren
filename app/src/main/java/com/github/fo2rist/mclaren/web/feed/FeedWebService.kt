@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.feed
 
 import com.github.fo2rist.mclaren.web.utils.BadResponse
 import java.net.ConnectException

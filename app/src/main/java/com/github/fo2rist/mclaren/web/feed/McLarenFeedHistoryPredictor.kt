@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web
+package com.github.fo2rist.mclaren.web.feed
 
 import android.support.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.web.utils.BadResponse
@@ -146,8 +146,10 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
         // As of 2019.01.21 it was 615
         @VisibleForTesting
         const val LATEST_KNOWN_PAGE = 615
+
         @JvmStatic
         private val LATEST_KNOWN_DATE = LocalDate(2019, 1, 21)
+
         private const val APPROXIMATED_DAYS_PER_PAGE = 3
         private const val APPROXIMATED_EXTRA_PAGES_BUFFER = 10
 

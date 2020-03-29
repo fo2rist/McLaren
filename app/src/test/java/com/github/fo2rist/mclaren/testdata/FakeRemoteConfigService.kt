@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.testdata
 
-import com.github.fo2rist.mclaren.web.RemoteConfigService
+import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService
 
 /** [RemoteConfigService] implementation that provides default empty values for every field. */
 class FakeRemoteConfigService internal constructor(

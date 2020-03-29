@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.web.models;
 
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse;
-import com.github.fo2rist.mclaren.web.SafeJsonParser;
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem.Source;
 import com.github.fo2rist.mclaren.web.models.McLarenFeedItem.Type;
 import org.joda.time.DateTime;

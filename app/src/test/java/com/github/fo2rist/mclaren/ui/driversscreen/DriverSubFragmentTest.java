@@ -10,7 +10,7 @@ import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;
-import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService;
+import com.github.fo2rist.mclaren.web.remoteconfig.FirebaseRemoteConfigService;
 import com.google.firebase.FirebaseApp;
 import org.junit.Before;
 import org.junit.Test;

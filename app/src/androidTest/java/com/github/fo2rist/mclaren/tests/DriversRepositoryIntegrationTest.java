@@ -4,7 +4,7 @@ import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;
-import com.github.fo2rist.mclaren.web.FirebaseRemoteConfigService;
+import com.github.fo2rist.mclaren.web.remoteconfig.FirebaseRemoteConfigService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

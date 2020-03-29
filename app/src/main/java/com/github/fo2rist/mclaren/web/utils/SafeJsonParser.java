@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.web;
+package com.github.fo2rist.mclaren.web.utils;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
