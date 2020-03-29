@@ -84,7 +84,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                     AutoLinkMode.MODE_MENTION,
                     AutoLinkMode.MODE_URL,
                     AutoLinkMode.MODE_CUSTOM);
-            textView.setCustomRegex("\\b(mclrn.co\\S*)\\b");
+            textView.setCustomRegex("\\b(\\S+\\.)+\\w+\\/\\S*[^.…](\\s|$)");
             textView.setMentionModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
             textView.setHashtagModeColor(ContextCompat.getColor(context, R.color.textSecondaryBlack));
             textView.setUrlModeColor(ContextCompat.getColor(context, R.color.colorAccent));
