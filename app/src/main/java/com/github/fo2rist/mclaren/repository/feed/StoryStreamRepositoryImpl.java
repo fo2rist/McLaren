@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.repository;
+package com.github.fo2rist.mclaren.repository.feed;
 
 import com.github.fo2rist.mclaren.repository.converters.StoryStreamConverter;
 import com.github.fo2rist.mclaren.web.SafeJsonParser;

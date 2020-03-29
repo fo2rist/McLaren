@@ -1,6 +1,7 @@
-package com.github.fo2rist.mclaren.repository
+package com.github.fo2rist.mclaren.repository.feed
 
 import com.github.fo2rist.mclaren.models.FeedItem
+import com.github.fo2rist.mclaren.repository.EventBusConnector
 
 /**
  * Event bus for Feed repository.

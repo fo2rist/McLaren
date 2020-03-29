@@ -1,8 +1,8 @@
 package com.github.fo2rist.mclaren.ui.transmissionscreen
 
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
-import com.github.fo2rist.mclaren.repository.TransmissionRepository
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepository
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus
 import com.github.fo2rist.mclaren.testutilities.anyKotlinObject
 import org.junit.Before
 import org.junit.Test

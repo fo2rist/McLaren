@@ -1,11 +1,11 @@
 package com.github.fo2rist.mclaren.dagger
 
-import com.github.fo2rist.mclaren.repository.FeedRepository
-import com.github.fo2rist.mclaren.repository.FeedRepositoryEventBus
-import com.github.fo2rist.mclaren.repository.McLarenFeedRepositoryImpl
+import com.github.fo2rist.mclaren.repository.feed.FeedRepository
+import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.feed.McLarenFeedRepositoryImpl
 import com.github.fo2rist.mclaren.repository.RepositoryEventBusImpl
-import com.github.fo2rist.mclaren.repository.StoryStreamRepositoryImpl
-import com.github.fo2rist.mclaren.repository.TwitterRepositoryImpl
+import com.github.fo2rist.mclaren.repository.feed.StoryStreamRepositoryImpl
+import com.github.fo2rist.mclaren.repository.feed.TwitterRepositoryImpl
 import com.github.fo2rist.mclaren.web.FeedHistoryPredictor
 import com.github.fo2rist.mclaren.web.McLarenFeedHistoryPredictor
 import com.github.fo2rist.mclaren.web.McLarenFeedWebService

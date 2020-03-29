@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.tests;
 
-import com.github.fo2rist.mclaren.repository.DriversRepositoryImpl;
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepositoryImpl;
 import com.github.fo2rist.mclaren.ui.models.Driver;
 import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;

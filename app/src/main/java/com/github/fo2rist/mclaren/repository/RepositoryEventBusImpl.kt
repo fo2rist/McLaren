@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.repository
 
+import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Singleton

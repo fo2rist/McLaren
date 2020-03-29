@@ -1,9 +1,9 @@
 package com.github.fo2rist.mclaren.dagger
 
 import com.github.fo2rist.mclaren.repository.RepositoryEventBusImpl
-import com.github.fo2rist.mclaren.repository.TransmissionRepository
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryImpl
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepository
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryImpl
 import com.github.fo2rist.mclaren.web.McLarenWebServiceImpl
 import com.github.fo2rist.mclaren.web.TransmissionWebService
 import dagger.Binds

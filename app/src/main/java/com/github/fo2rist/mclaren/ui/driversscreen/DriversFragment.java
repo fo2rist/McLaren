@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.repository.DriversRepository;
+import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepository;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
 

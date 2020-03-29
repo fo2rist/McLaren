@@ -3,7 +3,7 @@ package com.github.fo2rist.mclaren.ui
 import com.github.fo2rist.mclaren.analytics.Events
 import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.mvp.MainScreenContract
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepository
+import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar
 import com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenCarLink
 import com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link

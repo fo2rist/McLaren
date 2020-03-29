@@ -1,6 +1,6 @@
-package com.github.fo2rist.mclaren.repository
+package com.github.fo2rist.mclaren.repository.transmission
 
-import com.github.fo2rist.mclaren.repository.TransmissionRepositoryEventBus.LoadingEvent
+import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.web.TransmissionWebService
 import com.github.fo2rist.mclaren.web.utils.BadResponse

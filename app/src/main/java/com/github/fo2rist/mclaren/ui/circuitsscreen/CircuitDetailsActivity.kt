@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.github.fo2rist.mclaren.R
-import com.github.fo2rist.mclaren.repository.RaceCalendarRepository
+import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
