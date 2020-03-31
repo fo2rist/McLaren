@@ -11,9 +11,9 @@ import javax.inject.Named
 interface TwitterFeedFragmentModule {
     @Binds
     @Scopes.PerFragment
-    fun provideMcLarenFeedView(view: TwitterFeedFragment): FeedContract.View
+    fun provideTwitterFeedView(view: TwitterFeedFragment): FeedContract.View
 
     @Binds
     @Scopes.PerFragment
-    fun provideMcLarenFeedRepository(@Named("twitter-feed") repository: FeedRepository): FeedRepository
+    fun provideTwitterFeedRepository(@Named("twitter-feed") repository: FeedRepository): FeedRepository
 }

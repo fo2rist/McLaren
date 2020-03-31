@@ -21,16 +21,18 @@ import static junit.framework.Assert.assertNotNull;
 public class McLarenFeedConverterTest {
     private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
+    private McLarenFeedConverter converter = new McLarenFeedConverter();
+    
     @Test
     public void testRealDataFilteredByHiddenFlag() {
-        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
+        List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         assertEquals(McLarenFeedResponse.VISIBLE_ITEMS_IN_FEED, feed.size());
     }
 
     @Test
     public void testLikExtractedFromTweetText() {
-        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
+        List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
 
         assertEquals(1, feed.size());
         assertEquals(McLarenFeedResponse.HIDDEN_LINK, feed.get(0).getEmbeddedMediaLink());
@@ -38,7 +40,7 @@ public class McLarenFeedConverterTest {
 
     @Test
     public void testSomeItemsParsing() {
-        List<FeedItem> feed = McLarenFeedConverter.INSTANCE.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
+        List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
 
         checkItemFields(feed.get(0),
                 22549,

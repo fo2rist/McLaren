@@ -1,10 +1,10 @@
 package com.github.fo2rist.mclaren.repository.feed;
 
-import com.github.fo2rist.mclaren.repository.converters.McLarenFeedConverter;
+import com.github.fo2rist.mclaren.repository.converters.FeedConverter;
 import com.github.fo2rist.mclaren.web.feed.FeedHistoryPredictor;
 import com.github.fo2rist.mclaren.web.feed.McLarenFeedWebService;
-import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import com.github.fo2rist.mclaren.web.models.McLarenFeed;
+import com.github.fo2rist.mclaren.web.utils.SafeJsonParser;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -23,8 +23,10 @@ public class McLarenFeedRepositoryImpl extends BaseFeedRepository<McLarenFeed> {
     McLarenFeedRepositoryImpl(
             McLarenFeedWebService webService,
             FeedRepositoryEventBus repositoryEventBus,
-            FeedHistoryPredictor historyPredictor) {
-        super(webService, McLarenFeedConverter.INSTANCE, repositoryEventBus, new SafeJsonParser<>(McLarenFeed.class));
+            FeedHistoryPredictor historyPredictor,
+            FeedConverter<McLarenFeed> converter
+    ) {
+        super(webService, converter, repositoryEventBus, new SafeJsonParser<>(McLarenFeed.class));
         this.historyPredictor = historyPredictor;
     }
 

@@ -16,13 +16,14 @@ import com.github.fo2rist.mclaren.web.models.StoryStreamItem.ImageSize
 import com.github.fo2rist.mclaren.web.models.StoryStreamWrappingItem
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
 private const val HTTP = "http"
 
 /**
  * Converts StoryStream API feed web-model to app models.
  */
-object StoryStreamConverter : FeedConverter<StoryStream> {
+class StoryStreamConverter @Inject constructor() : FeedConverter<StoryStream> {
 
     override fun convertFeed(feedWebModel: StoryStream): List<FeedItem> {
         return feedWebModel.items?.mapNotNull {

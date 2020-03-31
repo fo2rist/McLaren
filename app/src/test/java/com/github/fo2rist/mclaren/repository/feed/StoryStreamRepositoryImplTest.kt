@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.repository.feed
 
+import com.github.fo2rist.mclaren.repository.converters.StoryStreamConverter
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.StoryStreamResponse.REAL_FEED_RESPONSE
 import com.github.fo2rist.mclaren.web.feed.StoryStreamWebService
@@ -31,7 +32,7 @@ class StoryStreamRepositoryImplTest {
         mockWebService = mock(StoryStreamWebService::class.java)
         mockEventBus = mock(FeedRepositoryEventBus::class.java)
 
-        repository = StoryStreamRepositoryImpl(mockWebService, mockEventBus)
+        repository = StoryStreamRepositoryImpl(mockWebService, mockEventBus, StoryStreamConverter())
     }
 
     @Test
