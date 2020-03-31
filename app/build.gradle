@@ -90,6 +90,10 @@ android {
         setConfigProperty(variant, properties, 'MCLAREN_TAB_API_AUTH')
         setConfigProperty(variant, properties, 'STORYSTREAM_FEED_URL')
         setConfigProperty(variant, properties, 'STORYSTREAM_TOKEN')
+        setConfigProperty(variant, properties, 'TWITTER_CONSUMER_KEY')
+        setConfigProperty(variant, properties, 'TWITTER_CONSUMER_SECRET')
+        setConfigProperty(variant, properties, 'TWITTER_ACCESS_TOKEN')
+        setConfigProperty(variant, properties, 'TWITTER_ACCESS_TOKEN_SECRET')
     }
 }
 

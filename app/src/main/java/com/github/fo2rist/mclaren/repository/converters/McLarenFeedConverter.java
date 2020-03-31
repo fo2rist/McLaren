@@ -16,15 +16,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
+import javax.inject.Inject;
 
 /**
  * Converts McLaren Feed API web-models to app models.
  */
 public final class McLarenFeedConverter implements FeedConverter<McLarenFeed> {
 
-    public static final McLarenFeedConverter INSTANCE = new McLarenFeedConverter();
-
-    private McLarenFeedConverter() {
+    @Inject
+    public McLarenFeedConverter() {
     }
 
     @NonNull
@@ -148,6 +148,5 @@ public final class McLarenFeedConverter implements FeedConverter<McLarenFeed> {
                     Size.valueOf(mediaItem.width, mediaItem.height)));
         }
         return result;
-
     }
 }

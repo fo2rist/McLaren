@@ -4,9 +4,9 @@ import com.github.fo2rist.mclaren.models.FeedItem
 
 /**
  * Convert web-model to app Feed model.
- * @param T type of the resulting feed.
+ * @param I type of the input feed model.
  */
-interface FeedConverter<T> {
+interface FeedConverter<I> {
     /** Create list of all parsed items from the web data model. */
-    fun convertFeed(feedWebModel: T): List<FeedItem>
+    fun convertFeed(feedWebModel: I): List<FeedItem>
 }

@@ -1,5 +1,6 @@
 package com.github.fo2rist.mclaren.repository.feed
 
+import com.github.fo2rist.mclaren.repository.converters.McLarenFeedConverter
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.testdata.McLarenFeedResponse.REAL_FEED_RESPONSE
 import com.github.fo2rist.mclaren.web.feed.FeedHistoryPredictor
@@ -29,8 +30,10 @@ class McLarenFeedRepositoryImplTest {
 
     @Mock
     private lateinit var mockWebService: McLarenFeedWebService
+
     @Mock
     private lateinit var mockEventBus: FeedRepositoryEventBus
+
     @Mock
     private lateinit var mockHistoryPredictor: FeedHistoryPredictor
 
@@ -40,7 +43,8 @@ class McLarenFeedRepositoryImplTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        repository = McLarenFeedRepositoryImpl(mockWebService, mockEventBus, mockHistoryPredictor)
+        repository = McLarenFeedRepositoryImpl(
+                mockWebService, mockEventBus, mockHistoryPredictor, McLarenFeedConverter())
     }
 
     @Test
