@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository.remoteconfig
 
-import com.github.fo2rist.mclaren.testdata.FakeRemoteConfigService
+import com.github.fo2rist.mclaren.testutilities.fakes.FakeRemoteConfigService
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
