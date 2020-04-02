@@ -1,4 +1,4 @@
-package com.github.fo2rist.mclaren.testdata
+package com.github.fo2rist.mclaren.testutilities.fakes
 
 import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService
 

@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.repository.remoteconfig
 
 import com.github.fo2rist.mclaren.testdata.DUMMY_URL
-import com.github.fo2rist.mclaren.testdata.FakeRemoteConfigService
+import com.github.fo2rist.mclaren.testutilities.fakes.FakeRemoteConfigService
 import com.github.fo2rist.mclaren.ui.models.Driver
 import com.github.fo2rist.mclaren.ui.models.DriverId.ALONSO
 import com.github.fo2rist.mclaren.ui.models.DriverId.BUTTON

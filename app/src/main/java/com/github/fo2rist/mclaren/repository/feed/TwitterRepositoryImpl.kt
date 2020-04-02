@@ -3,6 +3,7 @@ package com.github.fo2rist.mclaren.repository.feed
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.models.ImageUrl
 import com.github.fo2rist.mclaren.models.Size
+import com.github.fo2rist.mclaren.repository.converters.FeedConverter
 import com.github.fo2rist.mclaren.repository.converters.TwitterConverter
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.utils.toDescendingList
@@ -23,7 +24,7 @@ import java.util.TreeSet
 class TwitterRepositoryImpl @Inject constructor(
     private val repositoryEventBus: FeedRepositoryEventBus,
     private val twitterBuilder: TwitterWebServiceBuilder,
-    private val twitterConverter: TwitterConverter
+    private val twitterConverter: FeedConverter<ResponseList<Status>>
 ) : FeedRepository {
 
     override fun prepareForHistoryLoading() {
