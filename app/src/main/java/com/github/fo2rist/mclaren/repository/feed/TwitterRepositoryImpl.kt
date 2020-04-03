@@ -23,7 +23,7 @@ import java.util.TreeSet
 
 private const val DEFAULT_PAGE_SIZE = 40
 
-class TwitterRepositoryImpl @Inject constructor(
+internal class TwitterRepositoryImpl @Inject constructor(
     private val repositoryEventBus: FeedRepositoryEventBus,
     private val twitterBuilder: TwitterWebServiceBuilder,
     private val twitterConverter: FeedConverter<ResponseList<Status>>

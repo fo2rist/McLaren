@@ -134,9 +134,11 @@ class McLarenFeedHistoryPredictor @Inject internal constructor(
         }
     }
 
-    private fun isFirstPageDetected(): Boolean = ((newestCheckedPage.pageNumber - oldestCheckedPage.pageNumber) == 1
-            && !newestCheckedPage.exists
-            && oldestCheckedPage.exists)
+    private fun isFirstPageDetected(): Boolean {
+        return newestCheckedPage.pageNumber - oldestCheckedPage.pageNumber == 1
+                && !newestCheckedPage.exists
+                && oldestCheckedPage.exists
+    }
 
 
     companion object {

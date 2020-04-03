@@ -43,7 +43,7 @@ class CircuitDetailsPageTest {
     }
 
     @Test
-    fun testMonacoLayoutPresent() {
+    fun testFirstGpLayoutPresent() {
         page {
             title {
                 isDisplayed()

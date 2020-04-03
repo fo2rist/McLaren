@@ -49,7 +49,6 @@ private fun TransmissionMessageType?.toMessageTypeModel(): TransmissionItem.Type
         else ->
             TransmissionItem.Type.MESSAGE_GENERAL
     }
-        
 }
 
 private fun TransmissionSession?.toSessionModel(): TransmissionItem.Session {
