@@ -12,8 +12,7 @@ import com.nhaarman.mockitokotlin2.stubbing
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Before
@@ -27,7 +26,6 @@ import twitter4j.Status
 import twitter4j.Twitter
 import twitter4j.TwitterException
 
-@ExperimentalCoroutinesApi
 class TwitterRepositoryImplTest {
     @get:Rule
     val rule: MockitoRule = MockitoJUnit.rule()
@@ -52,7 +50,7 @@ class TwitterRepositoryImplTest {
     }
 
     @Test
-    fun `loadAndNotify onSuccess start reader finish events`() = runBlockingTest {
+    fun `loadAndNotify onSuccess start reader finish events`() = runBlocking {
         stubbing(mockTwitterService) {
             on { getUserTimeline(anyString(), any()) }.doReturn(FakeTwitterResponse())
         }
@@ -65,7 +63,7 @@ class TwitterRepositoryImplTest {
     }
 
     @Test
-    fun `loadAndNotify onError fires start error finish`() = runBlockingTest {
+    fun `loadAndNotify onError fires start error finish`() = runBlocking {
         stubbing(mockTwitterService) {
             on { getUserTimeline(anyString(), any()) }.doThrow(TwitterException("anything"))
         }

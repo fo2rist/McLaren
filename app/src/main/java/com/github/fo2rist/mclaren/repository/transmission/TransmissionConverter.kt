@@ -26,7 +26,7 @@ object TransmissionConverter {
     }
 }
 
-@Suppress("Detekt.ComplexMethod")
+@Suppress("ComplexMethod", "LongMethod")
 private fun TransmissionMessageType?.toMessageTypeModel(): TransmissionItem.Type {
     return when(this) {
         TransmissionMessageType.ATP ->
