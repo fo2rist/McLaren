@@ -45,6 +45,12 @@ class MainPresenter @Inject constructor(
         eventsLogger.logViewEvent(Events.MENU_STORIES)
     }
 
+    override fun onTeeamTwitterClicked() {
+        view.openTweets()
+        view.hideFloatingButtons();
+        eventsLogger.logViewEvent(Events.MENU_TEAM_TWITTER)
+    }
+
     override fun onCircuitsClicked() {
         view.openCircuits()
         view.hideFloatingButtons();

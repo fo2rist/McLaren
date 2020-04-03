@@ -9,6 +9,7 @@ interface MainScreenContract {
 
     interface View : BaseView {
         fun openStories()
+        fun openTweets()
         fun openCircuits()
         fun openDrivers()
 
@@ -34,5 +35,6 @@ interface MainScreenContract {
         fun onAboutClicked()
         fun onTransmissionCenterClicked()
         fun onUpcomingEventClicked()
+        fun onTeeamTwitterClicked()
     }
 }

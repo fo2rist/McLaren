@@ -28,6 +28,7 @@ class MainActivityTest : BaseMainActivityTest() {
             openNavigationDrawer()
 
             menuStories { isDisplayed() }
+            menuTeamTwitter { isDisplayed() }
             menuCircuits { isDisplayed() }
             menuDrivers { isDisplayed() }
             menuCar { isDisplayed() }
@@ -36,7 +37,7 @@ class MainActivityTest : BaseMainActivityTest() {
     }
 
     @Test
-    fun testFloatingButtonUpcoingEvent() {
+    fun testFloatingButtonUpcomingEvent() {
         val upcomingEventName = "TEST UPCOMING GP"
         val upcomingEventTime = DateTime().plusMinutes(61)
         interceptIntents()
@@ -56,7 +57,7 @@ class MainActivityTest : BaseMainActivityTest() {
     }
 
     @Test
-    fun testfloatingButtonTransmission() {
+    fun testFloatingButtonTransmission() {
         interceptIntents()
         activity.runOnUiThread { activity.showTransmissionButton() }
         mainPage {

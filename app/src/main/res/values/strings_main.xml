@@ -6,6 +6,7 @@
     <string name="action_about">About</string>
 
     <string name="navigation_item_stories">Stories</string>
+    <string name="navigation_item_team_twitter">Team twitter</string>
     <string name="navigation_item_calendar">Calendar</string>
     <string name="navigation_item_drivers">Drivers</string>
     <string name="navigation_item_car">Car</string>

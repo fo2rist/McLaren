@@ -25,6 +25,7 @@ import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriverSubFragment;
 import com.github.fo2rist.mclaren.ui.driversscreen.DriversFragment;
 import com.github.fo2rist.mclaren.ui.feedscreen.StoriesFeedFragment;
+import com.github.fo2rist.mclaren.ui.feedscreen.TwitterFeedFragment;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import com.github.fo2rist.mclaren.ui.widgets.UpcomingEventButton;
@@ -140,6 +141,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_stories) {
             presenter.onStoriesClicked();
+        } else if (id == R.id.nav_twitter_team) {
+            presenter.onTeeamTwitterClicked();
         } else if (id == R.id.nav_circuits) {
             presenter.onCircuitsClicked();
         } else if (id == R.id.nav_drivers) {
@@ -184,6 +187,11 @@ public class MainActivity extends AppCompatActivity
     public void openStories() {
         openNewFragment(
                 StoriesFeedFragment.newInstance());
+    }
+
+    @Override
+    public void openTweets() {
+        openNewFragment(TwitterFeedFragment.newInstance());
     }
 
     @Override
