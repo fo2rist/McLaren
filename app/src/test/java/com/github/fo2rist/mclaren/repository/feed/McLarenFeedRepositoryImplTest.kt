@@ -48,11 +48,11 @@ class McLarenFeedRepositoryImplTest {
     }
 
     @Test
-    fun test_loadLatest_startLoading_and_firesLoadStartEvent() = runBlocking<Unit> {
+    fun test_loadLatest_startLoading_and_firesLoadStartEvent() {
         repository.loadLatestPage()
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
-        verify(mockWebService).requestLatestFeed()
+        verifyBlocking(mockWebService) { requestLatestFeed() }
     }
 
     @Test
@@ -67,7 +67,7 @@ class McLarenFeedRepositoryImplTest {
     }
 
     @Test
-    fun testHistoryLoadingCallPredictedPage() = runBlocking<Unit> {
+    fun testHistoryLoadingCallPredictedPage() {
         whenever(mockHistoryPredictor.isFirstHistoryPageKnown).thenReturn(true)
         whenever(mockHistoryPredictor.firstHistoryPage).thenReturn(1000)
 
@@ -75,7 +75,7 @@ class McLarenFeedRepositoryImplTest {
 
         verify(mockHistoryPredictor, never()).startPrediction()
         verify(mockHistoryPredictor).firstHistoryPage
-        verify(mockWebService).requestFeedPage(anyInt())
+        verifyBlocking(mockWebService) { requestFeedPage(anyInt()) }
     }
 
     @Test

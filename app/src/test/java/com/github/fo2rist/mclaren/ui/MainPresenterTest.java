@@ -76,6 +76,14 @@ public class MainPresenterTest {
     }
 
     @Test
+    public void test_onTeamTwitterClicked() {
+        presenter.onTeeamTwitterClicked();
+
+        verify(mockView).openTweets();
+        verify(mockEventsLogger).logViewEvent(any(Events.class));
+    }
+
+    @Test
     public void test_onCircuitsClicked() {
         presenter.onCircuitsClicked();
 
