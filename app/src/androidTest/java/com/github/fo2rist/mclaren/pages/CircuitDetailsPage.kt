@@ -38,6 +38,9 @@ class CircuitDetailsPage : Screen<CircuitDetailsPage>() {
     private fun detailsItem(@StringRes title: Int) = KTextView {
         withId(R.id.value)
         withSibling { withText(title) }
-        withParent { isDisplayed() }
+        isDescendantOfA {
+            withId(R.id.circuit_details_root)
+            isDisplayed()
+        }
     }
 }
