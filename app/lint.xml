@@ -18,4 +18,8 @@
     <issue id="RtlHardcoded" severity="ignore" />
     <issue id="RtlCompat" severity="ignore" />
 	<issue id="RtlEnabled" severity="ignore" />
+    <!--  Lint complains on some package referenced from twitter library  -->
+    <issue id="InvalidPackage">
+        <ignore path="**/twitter4j-core*" />
+    </issue>
 </lint>
