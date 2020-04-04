@@ -11,10 +11,11 @@ const val MEDIA_TYPE_VIDEO = "video"
 const val MEDIA_TYPE_PHOTO = "photo"
 const val MEDIA_TYPE_GIF = "animated_gif"
 
+private val TRAILING_URL_REGEX = """\shttps?:\/\/t.co\/\w+$""".toRegex()
+
 /**
  * Converts response from [twitter4j.Twitter] into app models.
  * TODO list
- * - remove tweet's own URL at the end
  * - support retweets of quotes
  * - handle display URLs that aren't complete (e.g retweets of quotes can be trimmed)
  * - wrap URLs into proper HTML
@@ -61,10 +62,22 @@ class TwitterConverter @Inject constructor() : FeedConverter<ResponseList<Status
     }
 
     private fun Status.fetchText(): String {
-        //Replace all URL with display versions in text
-        return this.urlEntities.fold(this.text) { text, url ->
-            text.replace(url.url, url.displayURL)
+        var text = this.text ?: ""
+        //remove trailing URL that's not present in URL entities, such URL is the link to the tweet itself
+        val trailingUrl = TRAILING_URL_REGEX.find(text, 0)?.value?.trimStart()
+        if (trailingUrl != null && this.urlEntities.none { it.url == trailingUrl }) {
+            text = text.replace(TRAILING_URL_REGEX, "")
         }
+        //Replace all short URLs with display versions in text
+        this.urlEntities.filter { it.displayURL != null }
+                //only if the display version is not shortened itself
+                //this check can be removed later with proper HTML support
+                //so text can be replaced with link
+                .filter { !it.displayURL.endsWith(".") && !it.displayURL.endsWith("…") }
+                .forEach { url ->
+                    text = text.replace(url.url, url.displayURL)
+                }
+        return text
     }
 
     private fun fetchVideoUrl(
