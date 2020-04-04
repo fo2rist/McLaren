@@ -1,15 +1,23 @@
 package com.github.fo2rist.mclaren.repository.converters
 
 import com.github.fo2rist.mclaren.models.FeedItem
+import com.github.fo2rist.mclaren.testdata.DISPLAY_LINK_URL
+import com.github.fo2rist.mclaren.testdata.LINK_TWEET_WITH_EMPTY_EXTENDED_LINK
+import com.github.fo2rist.mclaren.testdata.LINK_TWEET_WITH_EXTENDED_LINK
+import com.github.fo2rist.mclaren.testdata.LINK_TWEET_WITH_SHORTENED_EXTENDED_LINK
 import com.github.fo2rist.mclaren.testdata.ONE_IMAGE_TWEET
 import com.github.fo2rist.mclaren.testdata.ONE_VIDEO_TWEET
 import com.github.fo2rist.mclaren.testdata.PLAIN_TWEET
 import com.github.fo2rist.mclaren.testdata.PLAIN_TWEET_TEXT
+import com.github.fo2rist.mclaren.testdata.PLAIN_TWEET_WITH_KNOWN_LINK
+import com.github.fo2rist.mclaren.testdata.PLAIN_TWEET_WITH_TRAILING_SOURCE_LINK
 import com.github.fo2rist.mclaren.testdata.QUOTE_OF_PLAIN_TWEET
 import com.github.fo2rist.mclaren.testutilities.fakes.FakeTwitterResponse
 import com.github.fo2rist.mclaren.testdata.REPLY_TWEET
 import com.github.fo2rist.mclaren.testdata.RETWEET_OF_PLAIN_TWEET
+import com.github.fo2rist.mclaren.testdata.SHORT_LINK_URL
 import com.github.fo2rist.mclaren.testdata.TWO_IMAGES_TWEET
+import com.github.fo2rist.mclaren.testutilities.CustomAssertions.assertStartsWith
 import com.github.fo2rist.mclaren.testutilities.fakes.MEDIA_URL_DEFAULT
 import com.github.fo2rist.mclaren.testutilities.fakes.SIZE_LARGE
 import org.junit.Test
@@ -36,6 +44,31 @@ class TwitterConverterTest {
 
         assertEquals(PLAIN_TWEET_TEXT, result[0].text)
         assertEquals(PLAIN_TWEET_TEXT, result[1].text)
+    }
+
+    @Test
+    fun `convertFeed removes trailing URL if it's not present in URL entities`() {
+        val result = TwitterConverter().convertFeed(FakeTwitterResponse(
+                PLAIN_TWEET_WITH_TRAILING_SOURCE_LINK,
+                PLAIN_TWEET_WITH_KNOWN_LINK
+        ))
+
+        assertEquals(PLAIN_TWEET_TEXT, result[0].text)
+        assertStartsWith(PLAIN_TWEET_TEXT, result[1].text)
+        assertNotEquals(PLAIN_TWEET_TEXT, result[1].text)
+    }
+
+    @Test
+    fun `convertFeed replaces short URLs with display versions if they aren't short`() {
+        val result = TwitterConverter().convertFeed(FakeTwitterResponse(
+                LINK_TWEET_WITH_EXTENDED_LINK,
+                LINK_TWEET_WITH_EMPTY_EXTENDED_LINK,
+                LINK_TWEET_WITH_SHORTENED_EXTENDED_LINK
+        ))
+
+        assertEquals(DISPLAY_LINK_URL, result[0].text)
+        assertEquals(SHORT_LINK_URL, result[1].text)
+        assertEquals(SHORT_LINK_URL, result[2].text)
     }
 
     @Test
