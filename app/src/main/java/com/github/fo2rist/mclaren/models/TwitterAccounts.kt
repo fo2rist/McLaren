@@ -5,6 +5,7 @@ package com.github.fo2rist.mclaren.models
  */
 object TwitterAccounts {
 
-    @JvmField
-    val TWITTER_MCLAREN_F1 = "mclarenf1"
+    const val TWITTER_MCLAREN_F1 = "mclarenf1"
+    const val TWITTER_LANDO_NORRIS = "LandoNorris"
+    const val TWITTER_DANIEL_RICCIARDO = "danielricciardo"
 }

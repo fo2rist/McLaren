@@ -41,6 +41,11 @@ public interface FeedContract {
     }
 
     interface Presenter extends BasePresenter<View>, Stoppable, OnFeedInteractionListener, OnFeedScrollingListener {
+        /**
+         * Set account for the presenter.
+         * MUST be called prior to onStart if the service has the notion of account.
+         */
+        void setAccount(@NonNull String account);
         void onStart();
         void onRefreshRequested();
     }

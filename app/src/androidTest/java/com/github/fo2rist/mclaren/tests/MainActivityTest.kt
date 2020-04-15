@@ -28,6 +28,8 @@ class MainActivityTest : BaseMainActivityTest() {
             openNavigationDrawer()
 
             menuStories { isDisplayed() }
+            menuLandoTwitter { isDisplayed() }
+            menuDanielTwitter { isDisplayed() }
             menuTeamTwitter { isDisplayed() }
             menuCircuits { isDisplayed() }
             menuDrivers { isDisplayed() }

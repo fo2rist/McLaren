@@ -6,7 +6,9 @@
     <string name="action_about">About</string>
 
     <string name="navigation_item_stories">Stories</string>
-    <string name="navigation_item_team_twitter">Team twitter</string>
+    <string name="navigation_item_team_twitter">\@McLarenF1</string>
+    <string name="navigation_item_lando_twitter">\@Lando</string>
+    <string name="navigation_item_daniel_twitter">\@Daniel</string>
     <string name="navigation_item_season_calendar">Calendar</string>
     <string name="navigation_item_drivers">Drivers</string>
     <string name="navigation_item_car">Car</string>

@@ -9,7 +9,9 @@ interface MainScreenContract {
 
     interface View : BaseView {
         fun openStories()
-        fun openTweets()
+        fun openTweetsMcLaren()
+        fun openTweetsLando()
+        fun openTweetsDaniel()
         fun openCircuits()
         fun openDrivers()
 
@@ -29,6 +31,8 @@ interface MainScreenContract {
 
         fun onStoriesClicked()
         fun onTeamTwitterClicked()
+        fun onLandoTwitterClicked()
+        fun onDanielTwitterClicked()
         fun onSeasonCalendarClicked()
         fun onDriversClicked()
         fun onCarClicked()

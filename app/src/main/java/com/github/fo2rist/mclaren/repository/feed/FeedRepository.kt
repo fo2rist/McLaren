@@ -21,10 +21,10 @@ interface FeedRepository {
     fun prepareForHistoryLoading()
 
     /** Requests the next portion of not loaded yet items in feed.  */
-    fun loadNextPage()
+    fun loadNextPage(account: String = "")
 
     /** Request the latest entries from feed.  */
-    fun loadLatestPage()
+    fun loadLatestPage(account: String = "")
 }
 
 /**
@@ -66,7 +66,7 @@ abstract class BaseFeedRepository<T>(
     @JvmField
     protected var feedItems = TreeSet<FeedItem>()
 
-    override fun loadLatestPage() {
+    override fun loadLatestPage(account: String) {
         publishCachedFeed() // publish cached data to respond immediately and then load
 
         mainScope.launch {
@@ -81,7 +81,7 @@ abstract class BaseFeedRepository<T>(
         }
     }
 
-    override fun loadNextPage() {
+    override fun loadNextPage(account: String) {
         val pageToLoad = getNextPageNumber()
         if (pageToLoad == UNKNOWN_PAGE) {
             return

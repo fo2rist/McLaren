@@ -33,6 +33,12 @@ public class BaseFeedFragment
     @Inject
     FeedContract.Presenter presenter;
 
+    /**
+     * Account identified for a feed, in case repo supports multiple accounts.
+     * Can be empty if it only supports one default account.
+     */
+    private String account;
+
     private RecyclerView feedRecyclerView;
     private LinearLayoutManager feedLayoutManger;
     private SwipeRefreshLayout listRefreshLayout;
@@ -44,6 +50,9 @@ public class BaseFeedFragment
     public void onCreate(Bundle savedInstanceState) {
         AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
+
+        Bundle arguments = getArguments();
+        account = arguments == null ? "" : arguments.getString("account", "");
     }
 
     @Override
@@ -53,6 +62,7 @@ public class BaseFeedFragment
         bindViews(rootView);
         setupViews();
 
+        presenter.setAccount(account);
         presenter.onStart();
         return rootView;
     }
