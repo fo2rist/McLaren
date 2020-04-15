@@ -43,10 +43,18 @@ class MainPresenter @Inject constructor(
     }
 
     override fun onTeamTwitterClicked() {
-        view.openTweets()
+        view.openTweetsMcLaren()
         analytics.overrideScreenName(Events.Screen.TEAM_TWITTER)
 
         view.hideFloatingButtons();
+    }
+
+    override fun onLandoTwitterClicked() {
+        view.openTweetsLando()
+    }
+
+    override fun onDanielTwitterClicked() {
+        view.openTweetsDaniel()
     }
 
     override fun onSeasonCalendarClicked() {

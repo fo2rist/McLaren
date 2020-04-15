@@ -7,6 +7,14 @@
             android:title="@string/navigation_item_stories"
             android:checked="true"/>
         <item
+            android:id="@+id/nav_twitter_lando"
+            android:icon="@drawable/ic_menu_twitter"
+            android:title="@string/navigation_item_lando_twitter" />
+        <item
+            android:id="@+id/nav_twitter_daniel"
+            android:icon="@drawable/ic_menu_twitter"
+            android:title="@string/navigation_item_daniel_twitter" />
+        <item
             android:id="@+id/nav_twitter_team"
             android:icon="@drawable/ic_menu_twitter"
             android:title="@string/navigation_item_team_twitter" />

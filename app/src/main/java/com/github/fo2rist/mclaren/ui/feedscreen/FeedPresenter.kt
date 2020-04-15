@@ -19,10 +19,21 @@ class FeedPresenter @Inject constructor(
     private val feedRepository: FeedRepository,
     private val repositoryEventBus: FeedRepositoryEventBus
 ) : FeedContract.Presenter {
+    /**
+     * Account withing a service the presenter is displaying.
+     * Can be empty if the service doesn't have notion of accounts, but must be initialized for services with multiple
+     * accounts, e.g Twitter.
+     * TODO move it to the interface when interface is converted to kotlin.
+     */
+    private var account: String = ""
+
+    override fun setAccount(account: String) {
+        this.account = account
+    }
 
     override fun onStart() {
         repositoryEventBus.subscribe(this)
-        feedRepository.loadLatestPage()
+        feedRepository.loadLatestPage(account)
     }
 
     override fun onStop() {
@@ -38,7 +49,7 @@ class FeedPresenter @Inject constructor(
                 navigateViewToPreviewScreen(item)
             FeedItem.Type.Article ->
                 navigateViewToPreviewScreen(item)
-            FeedItem.Type.Message -> { }
+            FeedItem.Type.Message -> Unit // no need to do anything, for click on text message
         }
     }
 
@@ -65,7 +76,7 @@ class FeedPresenter @Inject constructor(
     }
 
     override fun onRefreshRequested() {
-        feedRepository.loadLatestPage()
+        feedRepository.loadLatestPage(account)
     }
 
     override fun onScrolledToSecondThird() {
@@ -73,7 +84,7 @@ class FeedPresenter @Inject constructor(
     }
 
     override fun onScrolledToBottom() {
-        feedRepository.loadNextPage()
+        feedRepository.loadNextPage(account)
     }
 
     /** EventBus message receiver for Loading start event. */

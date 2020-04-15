@@ -37,6 +37,9 @@ import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import timber.log.Timber;
 
+import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_DANIEL_RICCIARDO;
+import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_LANDO_NORRIS;
+import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_MCLAREN_F1;
 import static com.github.fo2rist.mclaren.ui.utils.AnimationUtils.startActivityWithRevealAnimation;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 
@@ -140,6 +143,10 @@ public class MainActivity extends AppCompatActivity
             presenter.onStoriesClicked();
         } else if (id == R.id.nav_twitter_team) {
             presenter.onTeamTwitterClicked();
+        } else if (id == R.id.nav_twitter_lando) {
+            presenter.onLandoTwitterClicked();
+        } else if (id == R.id.nav_twitter_daniel) {
+            presenter.onDanielTwitterClicked();
         } else if (id == R.id.nav_season_calendar) {
             presenter.onSeasonCalendarClicked();
         } else if (id == R.id.nav_drivers) {
@@ -187,8 +194,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void openTweets() {
-        openNewFragment(TwitterFeedFragment.newInstance());
+    public void openTweetsMcLaren() {
+        openNewFragment(TwitterFeedFragment.newInstance(TWITTER_MCLAREN_F1));
+    }
+
+    @Override
+    public void openTweetsLando() {
+        openNewFragment(TwitterFeedFragment.newInstance(TWITTER_LANDO_NORRIS));
+    }
+
+    @Override
+    public void openTweetsDaniel() {
+        openNewFragment(TwitterFeedFragment.newInstance(TWITTER_DANIEL_RICCIARDO));
     }
 
     @Override

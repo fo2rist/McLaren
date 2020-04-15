@@ -81,7 +81,7 @@ public class MainPresenterTest {
     public void test_onTeamTwitterClicked() {
         presenter.onTeamTwitterClicked();
 
-        verify(mockView).openTweets();
+        verify(mockView).openTweetsMcLaren();
         verify(mockAnalytics).overrideScreenName(Events.Screen.TEAM_TWITTER);
     }
 

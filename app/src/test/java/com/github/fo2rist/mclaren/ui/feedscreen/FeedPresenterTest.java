@@ -18,8 +18,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+
 @RunWith(JUnit4.class)
 public class FeedPresenterTest {
+    private static final String DEFAULT_ACCOUNT = "";
+
     private FeedPresenter presenter;
     private FeedContract.View mockView;
     private FeedRepository mockRepository;
@@ -38,7 +41,7 @@ public class FeedPresenterTest {
         presenter.onStart();
 
         verify(mockEventBus).subscribe(any());
-        verify(mockRepository).loadLatestPage();
+        verify(mockRepository).loadLatestPage(DEFAULT_ACCOUNT);
     }
 
     @Test
@@ -109,7 +112,7 @@ public class FeedPresenterTest {
     public void test_onRefreshRequested_loadsFeed() {
         presenter.onRefreshRequested();
 
-        verify(mockRepository).loadLatestPage();
+        verify(mockRepository).loadLatestPage(DEFAULT_ACCOUNT);
     }
 
     @Test
@@ -123,6 +126,6 @@ public class FeedPresenterTest {
     public void test_onScrolledToBottom_loadsHistory() {
         presenter.onScrolledToBottom();
 
-        verify(mockRepository).loadNextPage();
+        verify(mockRepository).loadNextPage(DEFAULT_ACCOUNT);
     }
 }

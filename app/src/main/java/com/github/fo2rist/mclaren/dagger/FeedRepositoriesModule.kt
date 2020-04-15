@@ -46,7 +46,7 @@ internal interface FeedRepositoriesModule {
     fun provideMclarenFeedStreamConverter(converter: McLarenFeedConverter): FeedConverter<McLarenFeed>
     //endregion
 
-    //region sotry-stream API feed
+    //region story-stream API feed
     @Binds
     @Named("storystream-feed")
     @Singleton
