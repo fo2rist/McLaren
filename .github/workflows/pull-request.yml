@@ -4,6 +4,15 @@ on: [push]
 jobs:
   unitTest:
     runs-on: ubuntu-latest
+    env:
+      FIRST_NAME: stub_for_pr_builds
+      CRASHLYTICS_KEY: http://dummy.url
+      MCLAREN_FEED_URL: http://dummy.url
+      MCLAREN_RACE_INFO_URL: http://dummy.url
+      MCLAREN_RACE_LIFE_DATA_URL: http://dummy.url
+      STORYSTREAM_FEED_URL: http://dummy.url
+      STORYSTREAM_TOKEN: dummy
+
     steps:
     - uses: actions/checkout@v1
 
