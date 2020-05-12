@@ -1,24 +1,36 @@
 name: Android Pull Request Check
 on: [push]
 
+env:
+  FIRST_NAME: stub_for_pr_builds
+  CRASHLYTICS_KEY: http://dummy.url
+  MCLAREN_FEED_URL: http://dummy.url
+  MCLAREN_RACE_INFO_URL: http://dummy.url
+  MCLAREN_RACE_LIFE_DATA_URL: http://dummy.url
+  STORYSTREAM_FEED_URL: http://dummy.url
+  STORYSTREAM_TOKEN: dummy
+
 jobs:
   unitTest:
     runs-on: ubuntu-latest
-    env:
-      FIRST_NAME: stub_for_pr_builds
-      CRASHLYTICS_KEY: http://dummy.url
-      MCLAREN_FEED_URL: http://dummy.url
-      MCLAREN_RACE_INFO_URL: http://dummy.url
-      MCLAREN_RACE_LIFE_DATA_URL: http://dummy.url
-      STORYSTREAM_FEED_URL: http://dummy.url
-      STORYSTREAM_TOKEN: dummy
 
     steps:
     - uses: actions/checkout@v1
 
     - name: Unit Test
       run: ./gradlew jacocoTestDebugUnitTestReport --continue
-      continue-on-error: true # IMPORTANT: allow pipeline to continue to Android Test Report step
-    
+      continue-on-error: true # IMPORTANT: allow pipeline to continue to Test Report step
+
     - name: Unit Test Report
       uses: asadmansr/android-test-report-action@v1.2.0
+
+  uiTest:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: UI Test
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
