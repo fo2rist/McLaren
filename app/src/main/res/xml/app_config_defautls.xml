@@ -25,10 +25,6 @@
                 "date": "2020-05-01"
                 },
                 {
-                "circuit_id": "spain_barcelona",
-                "date": "2020-05-08"
-                },
-                {
                 "circuit_id": "monaco_monte_carlo",
                 "race_time": "2020-05-24T14:10:00Z",
                 "date": "2020-05-22"
@@ -43,11 +39,6 @@
                 },
                 {
                 "circuit_id": "france_le_castellet",
-                "practice_1_time": "2020-06-26T10:00:00Z",
-                "practice_2_time": "2020-06-26T14:00:00Z",
-                "practice_3_time": "2020-06-27T11:00:00Z",
-                "qualifying_time": "2020-06-27T14:00:00Z",
-                "race_time": "2020-06-28T14:10:00Z",
                 "date": "2020-06-26"
                 },
                 {
@@ -60,22 +51,49 @@
                 "date": "2020-07-03"
                 },
                 {
-                "circuit_id": "britain_silverstone",
-                "practice_1_time": "2020-07-17T11:00:00Z",
-                "practice_2_time": "2020-07-17T15:00:00Z",
-                "practice_3_time": "2020-07-18T12:00:00Z",
-                "qualifying_time": "2020-07-18T15:00:00Z",
-                "race_time": "2020-07-19T15:10:00Z",
-                "date": "2020-07-17"
+                "circuit_id": "austria_spielberg",
+                "practice_1_time": "2020-07-10T10:00:00Z",
+                "practice_2_time": "2020-07-10T14:00:00Z",
+                "practice_3_time": "2020-07-11T11:00:00Z",
+                "qualifying_time": "2020-07-11T14:00:00Z",
+                "race_time": "2020-07-12T14:10:00Z",
+                "date": "2020-07-10"
                 },
                 {
                 "circuit_id": "hungary_budapest",
-                "practice_1_time": "2020-07-31T10:00:00Z",
-                "practice_2_time": "2020-07-31T14:00:00Z",
-                "practice_3_time": "2020-08-01T11:00:00Z",
-                "qualifying_time": "2020-08-01T14:00:00Z",
-                "race_time": "2020-08-02T14:10:00Z",
+                "practice_1_time": "2020-07-17T10:00:00Z",
+                "practice_2_time": "2020-07-17T14:00:00Z",
+                "practice_3_time": "2020-07-18T11:00:00Z",
+                "qualifying_time": "2020-07-18T14:00:00Z",
+                "race_time": "2020-07-19T14:10:00Z",
+                "date": "2020-07-17"
+                },
+                {
+                "circuit_id": "britain_silverstone",
+                "practice_1_time": "2020-07-31T11:00:00Z",
+                "practice_2_time": "2020-07-31T15:00:00Z",
+                "practice_3_time": "2020-08-01T12:00:00Z",
+                "qualifying_time": "2020-08-01T15:00:00Z",
+                "race_time": "2020-08-02T15:10:00Z",
                 "date": "2020-07-31"
+                },
+                {
+                "circuit_id": "britain_silverstone",
+                "practice_1_time": "2020-08-07T11:00:00Z",
+                "practice_2_time": "2020-08-07T15:00:00Z",
+                "practice_3_time": "2020-08-08T12:00:00Z",
+                "qualifying_time": "2020-08-08T15:00:00Z",
+                "race_time": "2020-08-09T15:10:00Z",
+                "date": "2020-08-07"
+                },
+                {
+                "circuit_id": "spain_barcelona",
+                "practice_1_time": "2020-08-14T10:00:00Z",
+                "practice_2_time": "2020-08-14T14:00:00Z",
+                "practice_3_time": "2020-08-15T11:00:00Z",
+                "qualifying_time": "2020-08-15T14:00:00Z",
+                "race_time": "2020-08-16T14:10:00Z",
+                "date": "2020-08-14"
                 },
                 {
                 "circuit_id": "belgium_spa",
