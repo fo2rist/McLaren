@@ -7,10 +7,12 @@ import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@Ignore("Need to rewrite test for AndroidX fragment scenarios")
 class ImagePreviewFragmentTest {
     private val activity: FragmentActivity? = null
 
