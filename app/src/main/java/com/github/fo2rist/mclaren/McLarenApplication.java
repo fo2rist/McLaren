@@ -1,16 +1,14 @@
 package com.github.fo2rist.mclaren;
 
-
 import android.app.Application;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
 import com.github.fo2rist.mclaren.dagger.DaggerAppComponent;
 import com.github.fo2rist.mclaren.web.remoteconfig.RemoteConfigService;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
-import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -43,12 +41,10 @@ public class McLarenApplication extends Application implements HasAndroidInjecto
             //Setup logger and crashlytics
             if (BuildConfig.DEBUG) {
                 Timber.plant(new Timber.DebugTree());
-            } else {
-                Fabric.with(this,
-                        new Crashlytics(),
-                        new Answers());
-            }
 
+                FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
+                FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false);
+            }
             remoteConfigService.fetchConfig();
         }
     }

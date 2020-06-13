@@ -3,7 +3,6 @@ on: [push]
 
 env:
   FIRST_NAME: stub_for_pr_builds
-  CRASHLYTICS_KEY: http://dummy.url
   MCLAREN_FEED_URL: http://dummy.url
   MCLAREN_RACE_INFO_URL: http://dummy.url
   MCLAREN_RACE_LIFE_DATA_URL: http://dummy.url

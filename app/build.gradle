@@ -2,17 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: '../versions.gradle'
 apply from: '../jacoco.gradle'
 
 buildscript { //for crashlytics
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
+
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.28.0'
+
     }
 }
 
@@ -45,7 +46,6 @@ android {
         versionCode project.APP_VERSION_CODE
         versionName project.APP_VERSION_NAME
         vectorDrawables.useSupportLibrary = true
-        manifestPlaceholders = [crashlyticsKey: readProperty(properties, 'CRASHLYTICS_KEY')]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -140,10 +140,9 @@ dependencies {
     // logger
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // crashlytics by fabric
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {
-        transitive = true;
-    }
+    // crashlytics & analytics
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
     // dependency injection
     implementation 'com.google.dagger:dagger-android-support:2.25.3'
@@ -177,9 +176,6 @@ dependencies {
     androidTestImplementation 'com.agoda.kakao:kakao:2.0.0'
     androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 }
-
-// Must be the last of all statements in this file
-apply plugin: 'com.google.gms.google-services'
 
 /**
  * Load bunc of properties from file.

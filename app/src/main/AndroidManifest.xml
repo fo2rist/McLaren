@@ -37,9 +37,6 @@
             android:name=".ui.transmissionscreen.TransmissionActivity"
             android:theme="@style/AppTheme.Transparent"
             />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="${crashlyticsKey}" />
     </application>
 
 </manifest>
