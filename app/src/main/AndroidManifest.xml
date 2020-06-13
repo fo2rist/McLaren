@@ -37,6 +37,11 @@
             android:name=".ui.transmissionscreen.TransmissionActivity"
             android:theme="@style/AppTheme.Transparent"
             />
+
+        <!-- Disable collection of AdID and AndroidID by Firebase Analytics -->
+        <!-- See https://firebase.google.com/docs/analytics/configure-data-collection?platform=android -->
+        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+        <meta-data android:name="google_analytics_ssaid_collection_enabled" android:value="false" />
     </application>
 
 </manifest>
