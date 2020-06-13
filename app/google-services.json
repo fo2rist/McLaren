@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "422478919578-5ajsqrj2cipu7ojjjanlsrqr5170u7bq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.fo2rist.mclaren",
+            "certificate_hash": "e5dd6a9638b9d52f9eae0c89712aa0ce183957cc"
+          }
+        },
+        {
           "client_id": "422478919578-u7vtdpijlf2hd2ndniuqfln5ijnicaod.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -25,15 +33,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422478919578-u7vtdpijlf2hd2ndniuqfln5ijnicaod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
