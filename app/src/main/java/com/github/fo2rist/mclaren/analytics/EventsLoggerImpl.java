@@ -1,27 +1,26 @@
 package com.github.fo2rist.mclaren.analytics;
 
+import android.content.Context;
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.AnswersEvent;
-import com.crashlytics.android.answers.ContentViewEvent;
-import io.fabric.sdk.android.Fabric;
+import com.github.fo2rist.mclaren.BuildConfig;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+// TODO Firebase analytics automatically track screen views, so manual tracking is only required for items on screens.
+//  and set screen names manually via https://firebase.google.com/docs/analytics/screenviews#java
+//  2020.06.13
 public class EventsLoggerImpl implements EventsLogger {
 
-    private final boolean isFabricInitialized;
-    @Nullable
-    private Answers answersInstance;
+    @NonNull
+    private FirebaseAnalytics analyticsInstance;
 
     @Inject
-    EventsLoggerImpl() {
-        isFabricInitialized = Fabric.isInitialized();
-        if (isFabricInitialized) {
-            answersInstance = Answers.getInstance();
-        }
+    EventsLoggerImpl(Context context) {
+        analyticsInstance = FirebaseAnalytics.getInstance(context.getApplicationContext());
     }
 
     @Override
@@ -31,15 +30,19 @@ public class EventsLoggerImpl implements EventsLogger {
 
     @Override
     public void logViewEvent(@NonNull Events event, @Nullable String contentId) {
-        ContentViewEvent viewEvent = new ContentViewEvent().putContentName(event.name);
+        Bundle viewEvent = new Bundle();
+        viewEvent.putString(FirebaseAnalytics.Param.METHOD, event.name);
+
         if (contentId != null) {
-            viewEvent.putContentId(truncateContentId(contentId));
+            viewEvent.putString(FirebaseAnalytics.Param.CONTENT_TYPE, truncateContentId(contentId));
         }
-        logContentViewEvent(viewEvent);
+
+        logDebug(event.name, contentId);
+        analyticsInstance.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewEvent);
     }
 
     private String truncateContentId(@NonNull String contentId) {
-        //Actual fabric limitation is non null <100 symbols string
+        // Parameter value limitation is 100 characters https://support.google.com/firebase/answer/9237506?hl=en
         if (contentId.length() > 98) {
             return contentId.substring(0, 98);
         } else {
@@ -47,15 +50,9 @@ public class EventsLoggerImpl implements EventsLogger {
         }
     }
 
-    private void logContentViewEvent(@NonNull ContentViewEvent event) {
-        if (isFabricInitialized) {
-            answersInstance.logContentView(event);
-        } else {
-            logDebug(event);
+    private void logDebug(String eventName, String eventExtraData) {
+        if (BuildConfig.DEBUG) {
+            Timber.d("Analytics. Logged: '%s' with data '%s'", eventName, eventExtraData);
         }
-    }
-
-    private void logDebug(AnswersEvent<?> event) {
-        Timber.d("Analytics. Logged: %s", event);
     }
 }
