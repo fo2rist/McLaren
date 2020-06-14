@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import com.github.fo2rist.mclaren.analytics.Events
-import com.github.fo2rist.mclaren.analytics.EventsLogger
+import com.github.fo2rist.mclaren.analytics.Analytics
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.models.FeedItem.Type
 import com.github.fo2rist.mclaren.models.ImageUrl
@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 class PreviewPresenter @Inject constructor(
     override val view: PreviewContract.View,
-    private val analytics: EventsLogger
+    private val analytics: Analytics
 ) : PreviewContract.Presenter {
 
     private lateinit var content: PreviewContent

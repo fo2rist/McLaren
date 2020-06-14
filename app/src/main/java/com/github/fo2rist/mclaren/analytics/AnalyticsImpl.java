@@ -10,33 +10,33 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-public class EventsLoggerImpl implements EventsLogger {
+public class AnalyticsImpl implements Analytics {
 
     @NonNull
-    private FirebaseAnalytics analyticsInstance;
+    private FirebaseAnalytics firebaseAnalyticsInstance;
 
     @NonNull
     private Activity activity;
 
     @Inject
-    EventsLoggerImpl(Activity activity) {
+    AnalyticsImpl(Activity activity) {
         this.activity = activity;
-        this.analyticsInstance = FirebaseAnalytics.getInstance(activity.getApplicationContext());
+        this.firebaseAnalyticsInstance = FirebaseAnalytics.getInstance(activity.getApplicationContext());
     }
 
     @Override
     public void overrideScreenName(Events.Screen screen) {
-        analyticsInstance.setCurrentScreen(activity, screen.name(), null);
+        firebaseAnalyticsInstance.setCurrentScreen(activity, screen.name(), null);
     }
 
     @Override
     public void logInternalAction(Events.Action event) {
-        logNavigation(event.name, null);
+        logNavigation(event.getActionName(), null);
     }
 
     @Override
     public void logExternalNavigation(Events.Screen event, String destination) {
-        logNavigation(event.name, destination);
+        logNavigation(event.getScreenName(), destination);
     }
 
     private void logNavigation(@NonNull String eventName, @Nullable String destination) {
@@ -48,7 +48,7 @@ public class EventsLoggerImpl implements EventsLogger {
         }
 
         logDebug(eventName, destination);
-        analyticsInstance.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewEvent);
+        firebaseAnalyticsInstance.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewEvent);
     }
 
     private String truncateContentId(@NonNull String contentId) {

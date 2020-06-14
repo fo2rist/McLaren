@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui
 
 import com.github.fo2rist.mclaren.analytics.Events
-import com.github.fo2rist.mclaren.analytics.EventsLogger
+import com.github.fo2rist.mclaren.analytics.Analytics
 import com.github.fo2rist.mclaren.mvp.MainScreenContract
 import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar
@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 class MainPresenter @Inject constructor(
     override var view: MainScreenContract.View,
-    private val eventsLogger: EventsLogger,
+    private val analytics: Analytics,
     private val raceCalendarRepository: RaceCalendarRepository
 ) : MainScreenContract.Presenter {
 
@@ -31,7 +31,7 @@ class MainPresenter @Inject constructor(
 
     private fun openStories() {
         view.openStories()
-        eventsLogger.overrideScreenName(Events.Screen.MENU_STORIES)
+        analytics.overrideScreenName(Events.Screen.STORIES)
 
         val activeEvent = raceCalendar.getActiveEvent()
         val upcomingEvent = raceCalendar.getNextEvent()
@@ -47,21 +47,21 @@ class MainPresenter @Inject constructor(
 
     override fun onTeamTwitterClicked() {
         view.openTweets()
-        eventsLogger.overrideScreenName(Events.Screen.MENU_TEAM_TWITTER)
+        analytics.overrideScreenName(Events.Screen.TEAM_TWITTER)
 
         view.hideFloatingButtons();
     }
 
     override fun onSeasonCalendarClicked() {
         view.openCircuits()
-        eventsLogger.overrideScreenName(Events.Screen.MENU_CALENDAR)
+        analytics.overrideScreenName(Events.Screen.SEASON_CALENDAR)
 
         view.hideFloatingButtons();
     }
 
     override fun onDriversClicked() {
         view.openDrivers()
-        eventsLogger.overrideScreenName(Events.Screen.MENU_DRIVERS)
+        analytics.overrideScreenName(Events.Screen.DRIVERS)
 
         view.hideFloatingButtons();
     }
@@ -69,13 +69,13 @@ class MainPresenter @Inject constructor(
     override fun onCarClicked() {
         val mcLarenCarPageLink = getMcLarenCarLink()
         view.navigateTo(mcLarenCarPageLink)
-        eventsLogger.logExternalNavigation(Events.Screen.MENU_CAR, mcLarenCarPageLink)
+        analytics.logExternalNavigation(Events.Screen.CAR_WEB_PAGE, mcLarenCarPageLink)
     }
 
     override fun onOfficialSiteClicked() {
         val mcLarenF1PageLink = getMcLarenFormula1Link()
         view.navigateTo(mcLarenF1PageLink)
-        eventsLogger.logExternalNavigation(Events.Screen.MENU_SITE, mcLarenF1PageLink)
+        analytics.logExternalNavigation(Events.Screen.TEAM_WEB_PAGE, mcLarenF1PageLink)
     }
 
     override fun onAboutClicked() {
@@ -84,7 +84,7 @@ class MainPresenter @Inject constructor(
 
     override fun onTransmissionCenterClicked() {
         view.openTransmissionCenter()
-        eventsLogger.overrideScreenName(Events.Screen.TRANSMISSION_CENTER)
+        analytics.overrideScreenName(Events.Screen.TRANSMISSION_CENTER)
     }
 
     override fun onUpcomingEventClicked() {

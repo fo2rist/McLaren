@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui;
 
 import com.github.fo2rist.mclaren.analytics.Events;
-import com.github.fo2rist.mclaren.analytics.EventsLogger;
+import com.github.fo2rist.mclaren.analytics.Analytics;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository;
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
@@ -35,20 +35,20 @@ public class MainPresenterTest {
     private MainPresenter presenter;
 
     private MainScreenContract.View mockView;
-    private EventsLogger mockEventsLogger;
+    private Analytics mockAnalytics;
     private RaceCalendar mockCalendar;
 
     @Before
     public void setUp() {
         mockView = mock(MainScreenContract.View.class);
-        mockEventsLogger = mock(EventsLogger.class);
+        mockAnalytics = mock(Analytics.class);
         mockCalendar = mock(RaceCalendar.class);
         RaceCalendarRepository mockCalendarRepository = mock(RaceCalendarRepository.class);
         when(mockCalendarRepository.loadCalendar()).thenReturn(mockCalendar);
         when(mockCalendar.indexOf(activeEvent)).thenReturn(activeEventNumber);
         when(mockCalendar.indexOf(nextEvent)).thenReturn(nextEventNumber);
 
-        presenter = new MainPresenter(mockView, mockEventsLogger, mockCalendarRepository);
+        presenter = new MainPresenter(mockView, mockAnalytics, mockCalendarRepository);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class MainPresenterTest {
         presenter.onStoriesClicked();
 
         verify(mockView).openStories();
-        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_STORIES);
+        verify(mockAnalytics).overrideScreenName(Events.Screen.STORIES);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class MainPresenterTest {
         presenter.onTeamTwitterClicked();
 
         verify(mockView).openTweets();
-        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_TEAM_TWITTER);
+        verify(mockAnalytics).overrideScreenName(Events.Screen.TEAM_TWITTER);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class MainPresenterTest {
 
         verify(mockView).openCircuits();
         verify(mockView).hideFloatingButtons();
-        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_CALENDAR);
+        verify(mockAnalytics).overrideScreenName(Events.Screen.SEASON_CALENDAR);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class MainPresenterTest {
 
         verify(mockView).openDrivers();
         verify(mockView).hideFloatingButtons();
-        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_DRIVERS);
+        verify(mockAnalytics).overrideScreenName(Events.Screen.DRIVERS);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class MainPresenterTest {
         presenter.onAboutClicked();
 
         verify(mockView).navigateToAboutScreen();
-        verifyNoMoreInteractions(mockEventsLogger);
+        verifyNoMoreInteractions(mockAnalytics);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class MainPresenterTest {
         presenter.onCarClicked();
 
         verify(mockView).navigateTo(getMcLarenCarLink());
-        verify(mockEventsLogger).logExternalNavigation(eq(Events.Screen.MENU_CAR), any());
+        verify(mockAnalytics).logExternalNavigation(eq(Events.Screen.CAR_WEB_PAGE), any());
     }
 
     @Test
@@ -124,7 +124,7 @@ public class MainPresenterTest {
         presenter.onOfficialSiteClicked();
 
         verify(mockView).navigateTo(getMcLarenFormula1Link());
-        verify(mockEventsLogger).logExternalNavigation(eq(Events.Screen.MENU_SITE), any());
+        verify(mockAnalytics).logExternalNavigation(eq(Events.Screen.TEAM_WEB_PAGE), any());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class MainPresenterTest {
         presenter.onTransmissionCenterClicked();
 
         verify(mockView).openTransmissionCenter();
-        verify(mockEventsLogger).overrideScreenName(Events.Screen.TRANSMISSION_CENTER);
+        verify(mockAnalytics).overrideScreenName(Events.Screen.TRANSMISSION_CENTER);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class MainPresenterTest {
         presenter.onUpcomingEventClicked();
 
         verify(mockView).navigateToCircuitScreen(nextEventNumber);
-        verifyNoMoreInteractions(mockEventsLogger);
+        verifyNoMoreInteractions(mockAnalytics);
     }
 
     @Test
@@ -160,6 +160,6 @@ public class MainPresenterTest {
         presenter.onUpcomingEventClicked();
 
         verify(mockView).navigateToCircuitScreen(activeEventNumber);
-        verifyNoMoreInteractions(mockEventsLogger);
+        verifyNoMoreInteractions(mockAnalytics);
     }
 }
