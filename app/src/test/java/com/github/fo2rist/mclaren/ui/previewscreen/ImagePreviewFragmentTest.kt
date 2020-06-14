@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
@@ -19,7 +18,7 @@ class ImagePreviewFragmentTest {
     @Before
     fun setUp() {
         val fragment = ImagePreviewFragment.newInstanceForFeedItem(TWITTER_GALLERY_ITEM)
-        launchFragmentInContainer<ImagePreviewFragment>()
+        //launchFragmentInContainer<ImagePreviewFragment>()
     }
 
     @Test

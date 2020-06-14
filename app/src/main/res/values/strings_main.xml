@@ -7,7 +7,7 @@
 
     <string name="navigation_item_stories">Stories</string>
     <string name="navigation_item_team_twitter">Team twitter</string>
-    <string name="navigation_item_calendar">Calendar</string>
+    <string name="navigation_item_season_calendar">Calendar</string>
     <string name="navigation_item_drivers">Drivers</string>
     <string name="navigation_item_car">Car</string>
     <string name="navigation_item_official_site">Official site</string>

@@ -31,6 +31,7 @@ class MainPresenter @Inject constructor(
 
     private fun openStories() {
         view.openStories()
+        eventsLogger.overrideScreenName(Events.Screen.MENU_STORIES)
 
         val activeEvent = raceCalendar.getActiveEvent()
         val upcomingEvent = raceCalendar.getNextEvent()
@@ -42,55 +43,54 @@ class MainPresenter @Inject constructor(
             view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime!!)
         }
 
-        eventsLogger.logViewEvent(Events.MENU_STORIES)
     }
 
-    override fun onTeeamTwitterClicked() {
+    override fun onTeamTwitterClicked() {
         view.openTweets()
+        eventsLogger.overrideScreenName(Events.Screen.MENU_TEAM_TWITTER)
+
         view.hideFloatingButtons();
-        eventsLogger.logViewEvent(Events.MENU_TEAM_TWITTER)
     }
 
-    override fun onCircuitsClicked() {
+    override fun onSeasonCalendarClicked() {
         view.openCircuits()
+        eventsLogger.overrideScreenName(Events.Screen.MENU_CALENDAR)
+
         view.hideFloatingButtons();
-        eventsLogger.logViewEvent(Events.MENU_CALENDAR)
     }
 
     override fun onDriversClicked() {
         view.openDrivers()
+        eventsLogger.overrideScreenName(Events.Screen.MENU_DRIVERS)
+
         view.hideFloatingButtons();
-        eventsLogger.logViewEvent(Events.MENU_DRIVERS)
     }
 
     override fun onCarClicked() {
-        view.navigateTo(
-                getMcLarenCarLink())
-
-        eventsLogger.logViewEvent(Events.MENU_CAR)
+        val mcLarenCarPageLink = getMcLarenCarLink()
+        view.navigateTo(mcLarenCarPageLink)
+        eventsLogger.logExternalNavigation(Events.Screen.MENU_CAR, mcLarenCarPageLink)
     }
 
     override fun onOfficialSiteClicked() {
-        view.navigateTo(
-                getMcLarenFormula1Link())
-        eventsLogger.logViewEvent(Events.MENU_SITE)
+        val mcLarenF1PageLink = getMcLarenFormula1Link()
+        view.navigateTo(mcLarenF1PageLink)
+        eventsLogger.logExternalNavigation(Events.Screen.MENU_SITE, mcLarenF1PageLink)
     }
 
     override fun onAboutClicked() {
-        view.openAboutScreen()
-        eventsLogger.logViewEvent(Events.MENU_ABOUT)
+        view.navigateToAboutScreen()
     }
 
     override fun onTransmissionCenterClicked() {
         view.openTransmissionCenter()
-        eventsLogger.logViewEvent(Events.TRANSMISSION_CENTER)
+        eventsLogger.overrideScreenName(Events.Screen.TRANSMISSION_CENTER)
     }
 
     override fun onUpcomingEventClicked() {
         val eventToOpen = raceCalendar.getActiveEvent()
                 ?: raceCalendar.getNextEvent()
                 ?: return
-        view.openCircuitScreen(raceCalendar.indexOf(eventToOpen)) //the index is never out of bounds here
-        eventsLogger.logViewEvent(Events.DETAILS_CIRCUIT)
+        view.navigateToCircuitScreen(raceCalendar.indexOf(eventToOpen)) //the index is never out of bounds here
     }
 }

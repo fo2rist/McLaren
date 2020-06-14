@@ -11,7 +11,7 @@ class MainPage : Screen<MainPage>() {
 
     val menuStories: KView = KView { withText(R.string.navigation_item_stories) }
 
-    val menuCircuits: KView = KView { withText(R.string.navigation_item_calendar) }
+    val menuCircuits: KView = KView { withText(R.string.navigation_item_season_calendar) }
 
     val menuTeamTwitter: KView = KView { withText(R.string.navigation_item_team_twitter) }
 

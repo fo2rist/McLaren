@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.analytics;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,34 +10,44 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-// TODO Firebase analytics automatically track screen views, so manual tracking is only required for items on screens.
-//  and set screen names manually via https://firebase.google.com/docs/analytics/screenviews#java
-//  2020.06.13
 public class EventsLoggerImpl implements EventsLogger {
 
     @NonNull
     private FirebaseAnalytics analyticsInstance;
 
+    @NonNull
+    private Activity activity;
+
     @Inject
-    EventsLoggerImpl(Context context) {
-        analyticsInstance = FirebaseAnalytics.getInstance(context.getApplicationContext());
+    EventsLoggerImpl(Activity activity) {
+        this.activity = activity;
+        this.analyticsInstance = FirebaseAnalytics.getInstance(activity.getApplicationContext());
     }
 
     @Override
-    public void logViewEvent(@NonNull Events event) {
-        logViewEvent(event, null);
+    public void overrideScreenName(Events.Screen screen) {
+        analyticsInstance.setCurrentScreen(activity, screen.name(), null);
     }
 
     @Override
-    public void logViewEvent(@NonNull Events event, @Nullable String contentId) {
+    public void logInternalAction(Events.Action event) {
+        logNavigation(event.name, null);
+    }
+
+    @Override
+    public void logExternalNavigation(Events.Screen event, String destination) {
+        logNavigation(event.name, destination);
+    }
+
+    private void logNavigation(@NonNull String eventName, @Nullable String destination) {
         Bundle viewEvent = new Bundle();
-        viewEvent.putString(FirebaseAnalytics.Param.METHOD, event.name);
+        viewEvent.putString(FirebaseAnalytics.Param.METHOD, eventName);
 
-        if (contentId != null) {
-            viewEvent.putString(FirebaseAnalytics.Param.CONTENT_TYPE, truncateContentId(contentId));
+        if (destination != null) {
+            viewEvent.putString(FirebaseAnalytics.Param.DESTINATION, truncateContentId(destination));
         }
 
-        logDebug(event.name, contentId);
+        logDebug(eventName, destination);
         analyticsInstance.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewEvent);
     }
 

@@ -17,7 +17,7 @@ class CircuitsPageTest : BaseMainActivityTest() {
 
     @Before
     fun setUp() {
-        mainPage.navigateToMenuItem(R.id.nav_circuits)
+        mainPage.navigateToMenuItem(R.id.nav_season_calendar)
     }
 
     @Test

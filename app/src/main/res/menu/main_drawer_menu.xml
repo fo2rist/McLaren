@@ -11,9 +11,9 @@
             android:icon="@drawable/ic_menu_twitter"
             android:title="@string/navigation_item_team_twitter" />
         <item
-            android:id="@+id/nav_circuits"
+            android:id="@+id/nav_season_calendar"
             android:icon="@drawable/ic_menu_circuit"
-            android:title="@string/navigation_item_calendar" />
+            android:title="@string/navigation_item_season_calendar" />
         <item
             android:id="@+id/nav_drivers"
             android:icon="@drawable/ic_menu_driver"

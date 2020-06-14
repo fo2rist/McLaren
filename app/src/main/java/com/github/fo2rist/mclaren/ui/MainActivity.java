@@ -3,22 +3,19 @@ package com.github.fo2rist.mclaren.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.github.fo2rist.mclaren.R;
-import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitsFragment;
@@ -29,6 +26,8 @@ import com.github.fo2rist.mclaren.ui.feedscreen.TwitterFeedFragment;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity;
 import com.github.fo2rist.mclaren.ui.widgets.UpcomingEventButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -54,8 +53,6 @@ public class MainActivity extends AppCompatActivity
     DispatchingAndroidInjector<Object> fragmentInjector;
     @Inject
     MainScreenContract.Presenter presenter;
-    @Inject
-    EventsLogger eventsLogger;
 
     private DrawerLayout menuDrawer;
     private FloatingActionButton floatingButtonTransmission;
@@ -142,9 +139,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_stories) {
             presenter.onStoriesClicked();
         } else if (id == R.id.nav_twitter_team) {
-            presenter.onTeeamTwitterClicked();
-        } else if (id == R.id.nav_circuits) {
-            presenter.onCircuitsClicked();
+            presenter.onTeamTwitterClicked();
+        } else if (id == R.id.nav_season_calendar) {
+            presenter.onSeasonCalendarClicked();
         } else if (id == R.id.nav_drivers) {
             presenter.onDriversClicked();
         } else if (id == R.id.nav_car) {
@@ -175,7 +172,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCircuitSelected(int eventNumber) {
-        openCircuitScreen(eventNumber);
+        navigateToCircuitScreen(eventNumber);
     }
 
     @Override
@@ -207,20 +204,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void openCircuitScreen(int eventNumber) {
-        startActivity(CircuitDetailsActivity.createIntent(this, eventNumber));
-    }
-
-    @Override
-    public void openAboutScreen() {
-        startActivity(PreviewActivity.createUrlIntent(this, "file:///android_asset/about.html"));
-    }
-
-    @Override
     public void openTransmissionCenter() {
         Intent intent = new Intent(this, TransmissionActivity.class);
 
         startActivityWithRevealAnimation(this, intent, floatingButtonTransmission);
+    }
+
+    @Override
+    public void navigateToCircuitScreen(int eventNumber) {
+        startActivity(CircuitDetailsActivity.createIntent(this, eventNumber));
+    }
+
+    @Override
+    public void navigateToAboutScreen() {
+        startActivity(PreviewActivity.createUrlIntent(this, "file:///android_asset/about.html"));
     }
 
     @Override

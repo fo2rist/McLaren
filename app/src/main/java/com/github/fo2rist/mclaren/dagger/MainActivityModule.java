@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.dagger;
 
+import android.app.Activity;
+
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.MainPresenter;
@@ -13,7 +15,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
-@Module
+@Module(includes = AnalyticsModule.class)
 abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector(modules = McLarenFeedFragmentModule.class)
@@ -38,6 +40,10 @@ abstract class MainActivityModule {
     @Scopes.PerFragment
     @ContributesAndroidInjector
     abstract DriverSubFragment driverSubFragmentInjector();
+
+    @Binds
+    @Scopes.PerActivity
+    abstract Activity provideActivity(MainActivity activity);
 
     @Binds
     @Scopes.PerActivity

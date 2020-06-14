@@ -1,7 +1,6 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.fo2rist.mclaren.R
 import org.junit.Assert.assertNotNull
@@ -19,7 +18,7 @@ class WebPreviewFragmentTest {
     @Before
     fun setUp() {
         val fragment = WebPreviewFragment.newInstanceForMcLarenHtml("<html></html>")
-        launchFragmentInContainer<WebPreviewFragment>()
+        //launchFragmentInContainer<WebPreviewFragment>()
     }
 
     @Test

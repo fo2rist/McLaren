@@ -3,8 +3,8 @@ package com.github.fo2rist.mclaren.ui;
 import com.github.fo2rist.mclaren.analytics.Events;
 import com.github.fo2rist.mclaren.analytics.EventsLogger;
 import com.github.fo2rist.mclaren.mvp.MainScreenContract;
-import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository;
+import com.github.fo2rist.mclaren.ui.models.CalendarEvent;
 import com.github.fo2rist.mclaren.ui.models.RaceCalendar;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -18,8 +18,10 @@ import static com.github.fo2rist.mclaren.utils.LinkUtils.getMcLarenFormula1Link;
 import static com.nhaarman.mockitokotlin2.VerificationKt.never;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 
@@ -72,24 +74,24 @@ public class MainPresenterTest {
         presenter.onStoriesClicked();
 
         verify(mockView).openStories();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_STORIES);
     }
 
     @Test
     public void test_onTeamTwitterClicked() {
-        presenter.onTeeamTwitterClicked();
+        presenter.onTeamTwitterClicked();
 
         verify(mockView).openTweets();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_TEAM_TWITTER);
     }
 
     @Test
-    public void test_onCircuitsClicked() {
-        presenter.onCircuitsClicked();
+    public void test_onSeasonCalendarClicked() {
+        presenter.onSeasonCalendarClicked();
 
         verify(mockView).openCircuits();
         verify(mockView).hideFloatingButtons();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_CALENDAR);
     }
 
     @Test
@@ -98,15 +100,15 @@ public class MainPresenterTest {
 
         verify(mockView).openDrivers();
         verify(mockView).hideFloatingButtons();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).overrideScreenName(Events.Screen.MENU_DRIVERS);
     }
 
     @Test
     public void test_onAboutClicked(){
         presenter.onAboutClicked();
 
-        verify(mockView).openAboutScreen();
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockView).navigateToAboutScreen();
+        verifyNoMoreInteractions(mockEventsLogger);
     }
 
     @Test
@@ -114,7 +116,7 @@ public class MainPresenterTest {
         presenter.onCarClicked();
 
         verify(mockView).navigateTo(getMcLarenCarLink());
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).logExternalNavigation(eq(Events.Screen.MENU_CAR), any());
     }
 
     @Test
@@ -122,7 +124,7 @@ public class MainPresenterTest {
         presenter.onOfficialSiteClicked();
 
         verify(mockView).navigateTo(getMcLarenFormula1Link());
-        verify(mockEventsLogger).logViewEvent(any(Events.class));
+        verify(mockEventsLogger).logExternalNavigation(eq(Events.Screen.MENU_SITE), any());
     }
 
     @Test
@@ -130,14 +132,14 @@ public class MainPresenterTest {
         presenter.onTransmissionCenterClicked();
 
         verify(mockView).openTransmissionCenter();
-        verify(mockEventsLogger).logViewEvent(Events.TRANSMISSION_CENTER);
+        verify(mockEventsLogger).overrideScreenName(Events.Screen.TRANSMISSION_CENTER);
     }
 
     @Test
     public void test_onUpcomingEventClicked_doesNothing_whenThereIsNoEvent() {
         presenter.onUpcomingEventClicked();
 
-        verify(mockView, never()).openCircuitScreen(anyInt());
+        verify(mockView, never()).navigateToCircuitScreen(anyInt());
     }
 
     @Test
@@ -146,8 +148,8 @@ public class MainPresenterTest {
 
         presenter.onUpcomingEventClicked();
 
-        verify(mockView).openCircuitScreen(nextEventNumber);
-        verify(mockEventsLogger).logViewEvent(Events.DETAILS_CIRCUIT);
+        verify(mockView).navigateToCircuitScreen(nextEventNumber);
+        verifyNoMoreInteractions(mockEventsLogger);
     }
 
     @Test
@@ -157,7 +159,7 @@ public class MainPresenterTest {
 
         presenter.onUpcomingEventClicked();
 
-        verify(mockView).openCircuitScreen(activeEventNumber);
-        verify(mockEventsLogger).logViewEvent(Events.DETAILS_CIRCUIT);
+        verify(mockView).navigateToCircuitScreen(activeEventNumber);
+        verifyNoMoreInteractions(mockEventsLogger);
     }
 }

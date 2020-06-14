@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
+import com.github.fo2rist.mclaren.analytics.Events
+import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.models.FeedItem.Type
 import com.github.fo2rist.mclaren.models.ImageUrl
@@ -13,7 +15,8 @@ import javax.inject.Inject
  * Controls activity specific parameters such as toolbar, doesn't affect preview content.
  */
 class PreviewPresenter @Inject constructor(
-    override val view: PreviewContract.View
+    override val view: PreviewContract.View,
+    private val analytics: EventsLogger
 ) : PreviewContract.Presenter {
 
     private lateinit var content: PreviewContent
@@ -22,6 +25,7 @@ class PreviewPresenter @Inject constructor(
         content = PreviewContent.Url(url)
 
         view.displayFragment(content)
+        analytics.overrideScreenName(Events.Screen.PREVIEW_URL)
     }
 
     override fun onStartWith(orientation: Orientation, feedItem: FeedItem) {
@@ -60,6 +64,7 @@ class PreviewPresenter @Inject constructor(
 
         content = PreviewContent.Html(contentHtml)
         view.displayFragment(content)
+        analytics.overrideScreenName(Events.Screen.PREVIEW_ARTICLE)
     }
 
     private fun startWithImageGallery(
@@ -76,5 +81,6 @@ class PreviewPresenter @Inject constructor(
 
         content = PreviewContent.FeedItem(feedItem)
         view.displayFragment(content)
+        analytics.overrideScreenName(Events.Screen.PREVIEW_IMAGES)
     }
 }
