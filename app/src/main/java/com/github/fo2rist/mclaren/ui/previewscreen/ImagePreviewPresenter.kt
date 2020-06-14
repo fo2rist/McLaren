@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import com.github.fo2rist.mclaren.analytics.Events
-import com.github.fo2rist.mclaren.analytics.EventsLogger
+import com.github.fo2rist.mclaren.analytics.Analytics
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.mvp.ImagePreviewContract
 import javax.inject.Inject
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 internal class ImagePreviewPresenter @Inject constructor(
     override val view: ImagePreviewContract.View,
-    private val eventsLogger: EventsLogger
+    private val analytics: Analytics
 ) : ImagePreviewContract.Presenter {
 
     private var lastKnownGalleryPosition = 0
@@ -24,9 +24,9 @@ internal class ImagePreviewPresenter @Inject constructor(
 
     override fun onScrolledTo(position: Int) {
         if (position > lastKnownGalleryPosition) {
-            eventsLogger.logInternalAction(Events.Action.GALLERY_NEXT)
+            analytics.logInternalAction(Events.Action.GALLERY_NEXT)
         } else if (position < lastKnownGalleryPosition) {
-            eventsLogger.logInternalAction(Events.Action.GALLERY_PREV)
+            analytics.logInternalAction(Events.Action.GALLERY_PREV)
         }
         lastKnownGalleryPosition = position
     }

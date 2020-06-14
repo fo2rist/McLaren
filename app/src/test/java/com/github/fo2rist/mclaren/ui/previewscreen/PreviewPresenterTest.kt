@@ -1,7 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import com.github.fo2rist.mclaren.analytics.Events
-import com.github.fo2rist.mclaren.analytics.EventsLogger
+import com.github.fo2rist.mclaren.analytics.Analytics
 import com.github.fo2rist.mclaren.mvp.PreviewContract
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
 import com.github.fo2rist.mclaren.testdata.FeedItems.MEDIA_LINK
@@ -21,7 +21,7 @@ import org.junit.Test
 class PreviewPresenterTest{
 
     private val viewMock: PreviewContract.View = mock()
-    private val analyticsMock: EventsLogger = mock()
+    private val analyticsMock: Analytics = mock()
 
     private val presenter = PreviewPresenter(viewMock, analyticsMock)
 

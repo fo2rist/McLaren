@@ -1,14 +1,13 @@
 package com.github.fo2rist.mclaren.dagger
 
-import com.github.fo2rist.mclaren.analytics.EventsLogger
-import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl
+import com.github.fo2rist.mclaren.analytics.Analytics
+import com.github.fo2rist.mclaren.analytics.AnalyticsImpl
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
 
 @Module
 interface AnalyticsModule {
     @Binds
     @Scopes.PerActivity
-    fun provideEventsLogger(logger: EventsLoggerImpl): EventsLogger
+    fun provideEventsLogger(analytics: AnalyticsImpl): Analytics
 }
