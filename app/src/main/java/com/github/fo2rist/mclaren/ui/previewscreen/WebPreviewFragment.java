@@ -2,14 +2,14 @@ package com.github.fo2rist.mclaren.ui.previewscreen;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.utils.McLarenHtmlUtils;
@@ -86,7 +86,7 @@ public class WebPreviewFragment extends Fragment {
                     return false;
                 } else {
                     allowExit = false; //don't allow immediate exit on return back
-                    openInBrowser(getContext(), url);
+                    openInBrowser(requireContext(), url);
                     return true;
                 }
             }

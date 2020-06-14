@@ -1,11 +1,11 @@
 package com.github.fo2rist.mclaren.ui.previewscreen;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.fo2rist.mclaren.R;
@@ -29,12 +29,18 @@ public class ImageGalleryAdapter extends PagerAdapter {
         INTERACTIVE,
     }
 
+    @NonNull
     private final List<ImageUrl> imageUris;
+    @NonNull
     private final ImageViewType viewType;
+    @NonNull
     private final ImageSizeLimit sizeLimit;
 
     public ImageGalleryAdapter(
-            Context context, List<ImageUrl> imageUris, ImageSizeLimit sizeLimit, ImageViewType viewType
+            @NonNull Context context,
+            @NonNull List<ImageUrl> imageUris,
+            @NonNull ImageSizeLimit sizeLimit,
+            @NonNull ImageViewType viewType
     ) {
         this.imageUris = imageUris;
         this.sizeLimit = sizeLimit;

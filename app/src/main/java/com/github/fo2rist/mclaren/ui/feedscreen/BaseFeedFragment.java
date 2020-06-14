@@ -1,16 +1,16 @@
 package com.github.fo2rist.mclaren.ui.feedscreen;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.models.FeedItem;
@@ -64,9 +64,9 @@ public class BaseFeedFragment
     }
 
     private void setupViews() {
-        feedLayoutManger = new LinearLayoutManager(getContext());
+        feedLayoutManger = new LinearLayoutManager(requireContext());
         feedRecyclerView.setLayoutManager(feedLayoutManger);
-        feedAdapter = new FeedAdapter(getContext(), presenter, presenter);
+        feedAdapter = new FeedAdapter(requireContext(), presenter, presenter);
         feedRecyclerView.setAdapter(feedAdapter);
         listRefreshLayout.setOnRefreshListener(this);
     }
@@ -109,16 +109,16 @@ public class BaseFeedFragment
 
     @Override
     public void navigateToBrowser(@NonNull String link) {
-        openInBrowser(getContext(), link);
+        openInBrowser(requireContext(), link);
     }
 
     @Override
     public void navigateToPreview(@NonNull String link) {
-        startActivity(PreviewActivity.createUrlIntent(getContext(), link));
+        startActivity(PreviewActivity.createUrlIntent(requireContext(), link));
     }
 
     @Override
     public void navigateToPreview(@NonNull FeedItem item) {
-        startActivity(PreviewActivity.createFeedItemIntent(getContext(), item));
+        startActivity(PreviewActivity.createFeedItemIntent(requireContext(), item));
     }
 }
