@@ -84,7 +84,7 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
     @Override
     public void showImages(List<ImageUrl> imageUrls) {
         ImageGalleryAdapter galleryAdapter = new ImageGalleryAdapter(
-                getContext(),
+                requireContext(),
                 imageUrls,
                 ImageSizeLimit.FULLSCREEN,
                 ImageGalleryAdapter.ImageViewType.INTERACTIVE);
