@@ -48,7 +48,7 @@ class ImagePreviewPresenterTest {
         presenter.onScrolledTo(1)
         presenter.onScrolledTo(0)
 
-        verify(mockEventsLogger).logViewEvent(Events.GALLERY_NEXT)
-        verify(mockEventsLogger).logViewEvent(Events.GALLERY_PREV)
+        verify(mockEventsLogger).logInternalAction(Events.Action.GALLERY_NEXT)
+        verify(mockEventsLogger).logInternalAction(Events.Action.GALLERY_PREV)
     }
 }

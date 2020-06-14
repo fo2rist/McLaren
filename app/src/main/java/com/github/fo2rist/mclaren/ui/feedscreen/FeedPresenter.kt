@@ -1,7 +1,5 @@
 package com.github.fo2rist.mclaren.ui.feedscreen
 
-import com.github.fo2rist.mclaren.analytics.Events
-import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.models.FeedItem
 import com.github.fo2rist.mclaren.mvp.FeedContract
 import com.github.fo2rist.mclaren.repository.feed.FeedRepository
@@ -19,8 +17,7 @@ import javax.inject.Inject
 class FeedPresenter @Inject constructor(
     override val view: FeedContract.View,
     private val feedRepository: FeedRepository,
-    private val repositoryEventBus: FeedRepositoryEventBus,
-    private val eventsLogger: EventsLogger
+    private val repositoryEventBus: FeedRepositoryEventBus
 ) : FeedContract.Presenter {
 
     override fun onStart() {
@@ -38,9 +35,9 @@ class FeedPresenter @Inject constructor(
                 getMediaLink(item)?.let { navigateViewToVideoPreviewScreen(it) }
             FeedItem.Type.Image,
             FeedItem.Type.Gallery ->
-                navigateViewToPreviewScreen(item, Events.VIEW_IMAGES)
+                navigateViewToPreviewScreen(item)
             FeedItem.Type.Article ->
-                navigateViewToPreviewScreen(item, Events.VIEW_ARTICLE)
+                navigateViewToPreviewScreen(item)
             FeedItem.Type.Message -> { }
         }
     }
@@ -55,19 +52,16 @@ class FeedPresenter @Inject constructor(
         navigateViewToBrowser(link)
     }
 
-    private fun navigateViewToPreviewScreen(item: FeedItem, previewEventType: Events) {
+    private fun navigateViewToPreviewScreen(item: FeedItem) {
         view.navigateToPreview(item)
-        eventsLogger.logViewEvent(previewEventType)
     }
 
     private fun navigateViewToVideoPreviewScreen(link: String) {
         view.navigateToPreview(link)
-        eventsLogger.logViewEvent(Events.VIEW_VIDEO)
     }
 
     private fun navigateViewToBrowser(link: String) {
         view.navigateToBrowser(link)
-        eventsLogger.logViewEvent(Events.VIEW_EXTERNAL, link)
     }
 
     override fun onRefreshRequested() {

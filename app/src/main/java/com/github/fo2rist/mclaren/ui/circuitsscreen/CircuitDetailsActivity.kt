@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
 import com.github.fo2rist.mclaren.R
+import com.github.fo2rist.mclaren.analytics.Events
+import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.repository.remoteconfig.RaceCalendarRepository
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -18,6 +20,9 @@ class CircuitDetailsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var raceCalendarRepository: RaceCalendarRepository
+
+    @Inject
+    lateinit var analytics: EventsLogger
 
     private val circuitFragmentsPager by lazy { findViewById<ViewPager>(R.id.circuits_pager) }
 
@@ -33,6 +38,8 @@ class CircuitDetailsActivity : AppCompatActivity() {
         circuitFragmentsPager.adapter = CircuitDetailsAdapter(supportFragmentManager,
                 raceCalendarRepository.loadCalendar())
         circuitFragmentsPager.setCurrentItem(eventNumber, false)
+
+        analytics.overrideScreenName(Events.Screen.DETAILS_CIRCUIT)
     }
 
     private fun setupToolBar() {

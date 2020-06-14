@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
+import com.github.fo2rist.mclaren.analytics.Events
+import com.github.fo2rist.mclaren.analytics.EventsLogger
 import com.github.fo2rist.mclaren.mvp.PreviewContract
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
 import com.github.fo2rist.mclaren.testdata.FeedItems.MEDIA_LINK
@@ -19,8 +21,9 @@ import org.junit.Test
 class PreviewPresenterTest{
 
     private val viewMock: PreviewContract.View = mock()
+    private val analyticsMock: EventsLogger = mock()
 
-    private val presenter = PreviewPresenter(viewMock)
+    private val presenter = PreviewPresenter(viewMock, analyticsMock)
 
     @Test
     fun `test onStartWith unsupported types finishes view`() {
@@ -37,6 +40,7 @@ class PreviewPresenterTest{
         presenter.onStartWith(MEDIA_LINK)
 
         verify(viewMock).displayFragment(any<PreviewContent.Url>())
+        verify(analyticsMock).overrideScreenName(Events.Screen.PREVIEW_URL)
     }
 
     @Test
@@ -46,6 +50,7 @@ class PreviewPresenterTest{
         verify(viewMock).displayFragment(any<PreviewContent.Html>())
         verify(viewMock).setTitle(ARTICLE_ITEM_WITH_LINKS.text)
         verify(viewMock).setToolBarImage(ARTICLE_ITEM_WITH_LINKS.imageUrls)
+        verify(analyticsMock).overrideScreenName(Events.Screen.PREVIEW_ARTICLE)
     }
 
     @Test
@@ -55,6 +60,7 @@ class PreviewPresenterTest{
         verify(viewMock).displayFragment(any<PreviewContent.Html>())
         verify(viewMock).setTitle(ARTICLE_ITEM_WITH_LINKS.text)
         verify(viewMock, never()).setToolBarImage(anyOrNull())
+        verify(analyticsMock).overrideScreenName(Events.Screen.PREVIEW_ARTICLE)
     }
 
     @Test
@@ -72,6 +78,7 @@ class PreviewPresenterTest{
         verify(viewMock).enterFullScreen()
         verify(viewMock).lockToolBar()
         verify(viewMock, never()).setToolBarImage(anyOrNull())
+        verify(analyticsMock).overrideScreenName(Events.Screen.PREVIEW_IMAGES)
     }
 
     @Test
@@ -82,5 +89,6 @@ class PreviewPresenterTest{
         verify(viewMock).enterFullScreen()
         verify(viewMock).hideToolBar()
         verify(viewMock, never()).setToolBarImage(anyOrNull())
+        verify(analyticsMock).overrideScreenName(Events.Screen.PREVIEW_IMAGES)
     }
 }

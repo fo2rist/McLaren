@@ -13,10 +13,10 @@ interface MainScreenContract {
         fun openCircuits()
         fun openDrivers()
 
-        fun openCircuitScreen(eventNumber: Int)
-        fun openAboutScreen()
         fun openTransmissionCenter()
 
+        fun navigateToCircuitScreen(eventNumber: Int)
+        fun navigateToAboutScreen()
         fun navigateTo(externalUrl: String)
 
         fun showTransmissionButton()
@@ -28,13 +28,13 @@ interface MainScreenContract {
         fun onStart()
 
         fun onStoriesClicked()
-        fun onCircuitsClicked()
+        fun onTeamTwitterClicked()
+        fun onSeasonCalendarClicked()
         fun onDriversClicked()
         fun onCarClicked()
         fun onOfficialSiteClicked()
         fun onAboutClicked()
         fun onTransmissionCenterClicked()
         fun onUpcomingEventClicked()
-        fun onTeeamTwitterClicked()
     }
 }

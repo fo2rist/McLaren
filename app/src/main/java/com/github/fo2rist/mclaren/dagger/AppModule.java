@@ -3,8 +3,6 @@ package com.github.fo2rist.mclaren.dagger;
 import android.content.Context;
 
 import com.github.fo2rist.mclaren.McLarenApplication;
-import com.github.fo2rist.mclaren.analytics.EventsLogger;
-import com.github.fo2rist.mclaren.analytics.EventsLoggerImpl;
 import com.github.fo2rist.mclaren.ui.MainActivity;
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity;
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity;
@@ -40,7 +38,7 @@ abstract class AppModule {
     abstract TransmissionActivity transmissionActivityInjector();
 
     @Scopes.PerActivity
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = CircuitDetailsActivityModule.class)
     abstract CircuitDetailsActivity circuitDetailsActivityInjector();
     //endregion
 
@@ -48,10 +46,6 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract Context applicationContext(McLarenApplication application);
-
-    @Binds
-    @Singleton
-    abstract EventsLogger provideEventsLogger(EventsLoggerImpl logger);
 
     @Provides
     @Named("web-okhttp")

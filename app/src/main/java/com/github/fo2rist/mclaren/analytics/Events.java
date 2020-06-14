@@ -1,30 +1,36 @@
 package com.github.fo2rist.mclaren.analytics;
 
-public enum Events {
+public interface Events {
 
-    MENU_STORIES("Stories"),
-    MENU_TEAM_TWITTER("Team Twitter"),
-    MENU_CALENDAR("Calendar"),
-    MENU_DRIVERS("Drivers"),
-    MENU_CAR("Car"),
-    MENU_SITE("Official site"),
-    MENU_ABOUT("About"),
+    enum Screen {
+        MENU_STORIES("Stories"),
+        MENU_TEAM_TWITTER("Team Twitter"),
+        MENU_CALENDAR("Calendar"),
+        MENU_DRIVERS("Drivers"),
+        TRANSMISSION_CENTER("Transmission Center"),
+        DETAILS_CIRCUIT("Circuit"),
+        PREVIEW_IMAGES("View Images"),
+        PREVIEW_ARTICLE("View Article"),
+        PREVIEW_URL("View URL"),
+        MENU_CAR("Car"),
+        MENU_SITE("Official site"),
+        ;
+        public String name;
 
-    TRANSMISSION_CENTER("Transmission Center"),
-    DETAILS_CIRCUIT("Circuit"),
+        Screen(String screenName) {
+            this.name = screenName;
+        }
+    }
 
-    VIEW_IMAGES("View Images"),
-    VIEW_ARTICLE("View Article"),
-    VIEW_VIDEO("View Video"),
-    VIEW_EXTERNAL("View External Resource"),
+    enum Action {
+        GALLERY_NEXT("Gallery Next"),
+        GALLERY_PREV("Gallery Previous"),
+        ;
 
-    GALLERY_NEXT("Gallery Next"),
-    GALLERY_PREV("Gallery Previous"),
-    ;
+        public String name;
 
-    public String name;
-
-    Events(String eventName) {
-        this.name = eventName;
+        Action(String actionName) {
+            this.name = actionName;
+        }
     }
 }

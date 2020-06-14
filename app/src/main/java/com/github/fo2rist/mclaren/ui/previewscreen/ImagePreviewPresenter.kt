@@ -24,9 +24,9 @@ internal class ImagePreviewPresenter @Inject constructor(
 
     override fun onScrolledTo(position: Int) {
         if (position > lastKnownGalleryPosition) {
-            eventsLogger.logViewEvent(Events.GALLERY_NEXT)
+            eventsLogger.logInternalAction(Events.Action.GALLERY_NEXT)
         } else if (position < lastKnownGalleryPosition) {
-            eventsLogger.logViewEvent(Events.GALLERY_PREV)
+            eventsLogger.logInternalAction(Events.Action.GALLERY_PREV)
         }
         lastKnownGalleryPosition = position
     }
