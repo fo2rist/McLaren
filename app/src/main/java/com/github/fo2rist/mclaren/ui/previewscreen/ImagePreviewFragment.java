@@ -41,9 +41,8 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
         return fragment;
     }
 
-
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
