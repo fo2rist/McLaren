@@ -35,11 +35,11 @@ class DriversPageTest : BaseMainActivityTest() {
                     .hasText("Spanish")
 
             infoItemWithTitle(context.getString(DriverProperty.BestFinish.nameResId))
-                    .hasText("3rd")
+                    .isVisible()
             infoItemWithTitle(context.getString(DriverProperty.PolePositions.nameResId))
-                    .hasText("0")
+                    .isVisible()
             infoItemWithTitle(context.getString(DriverProperty.FastestLaps.nameResId))
-                    .hasText("0")
+                    .isVisible()
         }
     }
 
