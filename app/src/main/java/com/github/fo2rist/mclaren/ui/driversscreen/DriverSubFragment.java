@@ -4,17 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.Fragment;
 
 import com.github.fo2rist.mclaren.R;
 import com.github.fo2rist.mclaren.repository.remoteconfig.DriversRepository;
@@ -23,6 +23,7 @@ import com.github.fo2rist.mclaren.ui.models.DriverId;
 import com.github.fo2rist.mclaren.ui.models.DriverProperty;
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView;
 import com.github.fo2rist.mclaren.utils.ResourcesUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -65,14 +66,19 @@ public class DriverSubFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
+    public void onAttach(@NonNull Context context) {
+        injectDependencies();
         super.onAttach(context);
         if (context instanceof OnDriverSubFragmentInteractionListener) {
             listener = (OnDriverSubFragmentInteractionListener) context;
         } else {
             Timber.e("%s must implement OnDriverSubFragmentInteractionListener", context.toString());
         }
+    }
+
+    @VisibleForTesting
+    protected void injectDependencies() {
+        AndroidSupportInjection.inject(this);
     }
 
     @Override

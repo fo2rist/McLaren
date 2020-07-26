@@ -8,30 +8,32 @@ import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@Ignore("Need to support/avoid injection, simplest option — make class open, override injection and pass mock")
 class ImagePreviewFragmentTest {
     private val imagePager
         get() = KView { withId(R.id.images_pager) }
 
     @Before
     fun setUp() {
+        // fragment instance itself is not required, it's a way to test how intent arguments are passed
         val fragment = ImagePreviewFragment.newInstanceForFeedItem(TWITTER_GALLERY_ITEM)
-        val scenario = launchFragmentInContainer<ImagePreviewFragment>(fragment.arguments)
-        scenario.onFragment {
-            it.presenter = mock()
-        }
-
+        launchFragmentInContainer<TestImagePreviewFragment>(fragment.arguments)
     }
 
     @Test
     fun testLayoutNotEmpty() {
         imagePager {
             isDisplayed()
+        }
+    }
+
+    // special version that doesn't trigger android dagger, and inject mocks instead
+    class TestImagePreviewFragment : ImagePreviewFragment() {
+        override fun injectDependencies() {
+            presenter = mock()
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -43,8 +44,13 @@ public class ImagePreviewFragment extends Fragment implements ImagePreviewContra
 
     @Override
     public void onAttach(@NonNull Context context) {
-        AndroidSupportInjection.inject(this);
+        injectDependencies();
         super.onAttach(context);
+    }
+
+    @VisibleForTesting
+    protected void injectDependencies() {
+        AndroidSupportInjection.inject(this);
     }
 
     @Nullable
