@@ -1,4 +1,4 @@
-name: Android Pull Request Check
+name: PR Checks
 on: [push]
 
 env:
@@ -11,6 +11,7 @@ env:
 
 jobs:
   unitTest:
+    name: Unit test
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +26,7 @@ jobs:
       uses: asadmansr/android-test-report-action@v1.2.0
 
   uiTest:
+    name: UI test local
     runs-on: macos-latest
     steps:
     - name: Checkout
@@ -37,6 +39,7 @@ jobs:
         script: ./gradlew connectedCheck
 
   cloudTest:
+    name: UI test on GCloud
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
