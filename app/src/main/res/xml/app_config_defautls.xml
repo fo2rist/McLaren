@@ -114,13 +114,13 @@
                 "date": "2020-09-04"
                 },
                 {
-                "circuit_id": "singapore",
-                "practice_1_time": "2020-09-18T09:30:00Z",
-                "practice_2_time": "2020-09-18T13:30:00Z",
-                "practice_3_time": "2020-09-19T11:00:00Z",
-                "qualifying_time": "2020-09-19T14:00:00Z",
-                "race_time": "2020-09-20T13:10:00Z",
-                "date": "2020-09-18"
+                "circuit_id": "italy_mugello",
+                "practice_1_time": "2020-09-11T09:00:00Z",
+                "practice_2_time": "2020-09-11T13:00:00Z",
+                "practice_3_time": "2020-09-12T10:00:00Z",
+                "qualifying_time": "2020-09-12T13:00:00Z",
+                "race_time": "2020-09-13T13:10:00Z",
+                "date": "2020-09-11"
                 },
                 {
                 "circuit_id": "russia_sochi",
@@ -133,47 +133,22 @@
                 },
                 {
                 "circuit_id": "japan_suzuka",
-                "practice_1_time": "2020-10-09T01:00:00Z",
-                "practice_2_time": "2020-10-09T05:00:00Z",
-                "practice_3_time": "2020-10-10T03:00:00Z",
-                "qualifying_time": "2020-10-10T06:00:00Z",
-                "race_time": "2020-10-11T05:10:00Z",
                 "date": "2020-10-09"
                 },
                 {
                 "circuit_id": "united_states_austin",
-                "practice_1_time": "2020-10-23T16:00:00Z",
-                "practice_2_time": "2020-10-23T20:00:00Z",
-                "practice_3_time": "2020-10-24T18:00:00Z",
-                "qualifying_time": "2020-10-24T21:00:00Z",
-                "race_time": "2020-10-25T18:10:00Z",
                 "date": "2020-10-23"
                 },
                 {
                 "circuit_id": "mexico_mexico_city",
-                "practice_1_time": "2020-10-30T16:00:00Z",
-                "practice_2_time": "2020-10-30T20:00:00Z",
-                "practice_3_time": "2020-10-31T15:00:00Z",
-                "qualifying_time": "2020-10-31T18:00:00Z",
-                "race_time": "2020-11-01T18:10:00Z",
                 "date": "2020-10-30"
                 },
                 {
                 "circuit_id": "brazil_sao_paulo",
-                "practice_1_time": "2020-11-13T12:00:00Z",
-                "practice_2_time": "2020-11-13T16:00:00Z",
-                "practice_3_time": "2020-11-14T13:00:00Z",
-                "qualifying_time": "2020-11-14T16:00:00Z",
-                "race_time": "2020-11-15T15:10:00Z",
                 "date": "2020-11-13"
                 },
                 {
                 "circuit_id": "emirates_abu_dhabi",
-                "practice_1_time": "2020-11-27T08:00:00Z",
-                "practice_2_time": "2020-11-27T12:00:00Z",
-                "practice_3_time": "2020-11-28T09:00:00Z",
-                "qualifying_time": "2020-11-28T12:00:00Z",
-                "race_time": "2020-11-29T12:10:00Z",
                 "date": "2020-11-27"
                 }
             ]
@@ -351,6 +326,19 @@
                 "seasons": "1950–1979, 1981–2020",
                 "gp_held": 69,
                 "wiki_link": "https://en.wikipedia.org/wiki/Autodromo_Nazionale_Monza"
+                },
+                {
+                "id": "italy_mugello",
+                "country": "ITA",
+                "track": "Mugello Circuit",
+                "city": "Scarperia e San Piero",
+                "name": "Tuscan Grand Prix",
+                "laps": 59,
+                "length": 5.245,
+                "distance": 309.46,
+                "seasons": "2020",
+                "gp_held": 0,
+                "wiki_link": "hhttps://en.wikipedia.org/wiki/Mugello_Circuit"
                 },
                 {
                 "id": "singapore",
