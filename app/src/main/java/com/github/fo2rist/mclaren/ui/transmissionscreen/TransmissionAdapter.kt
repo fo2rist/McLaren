@@ -13,12 +13,10 @@ import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.DRIVER_A_TO_PIT
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.DRIVER_B_TO_PIT
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_ABOUT_DRIVER_A
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_ABOUT_DRIVER_B
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_FROM_GUEST
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_GENERAL
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_A
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_B
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_EVERYONE
 
 /**
  * Adapter for messages in the race life transmission (team communications).
@@ -64,13 +62,13 @@ internal class TransmissionAdapter(
         private fun setTitleFor(item: TransmissionItem) {
             messageTitle.text = when (item.type) {
                 DRIVER_A_TO_PIT, DRIVER_B_TO_PIT ->
-                    item.driverName ?: ""
+                    item.name ?: ""
                 PIT_TO_DRIVER_A, PIT_TO_DRIVER_B ->
-                    getString(R.string.title_pit_to_racer_format, item.driverName ?: "")
-                PIT_TO_EVERYONE ->
-                    getString(R.string.title_pitwall)
-                MESSAGE_ABOUT_DRIVER_A, MESSAGE_ABOUT_DRIVER_B, MESSAGE_GENERAL ->
-                    getString(R.string.title_announcement)
+                    getString(R.string.transmission_item_title_pit_to_racer_format, item.name ?: "")
+                MESSAGE_GENERAL ->
+                    getString(R.string.transmission_item_title_pitwall)
+                MESSAGE_FROM_GUEST ->
+                    getString(R.string.transmission_item_title_guest_format, item.name ?: "")
             }
         }
 

@@ -4,7 +4,7 @@ import com.github.fo2rist.mclaren.models.TransmissionInfo
 import com.github.fo2rist.mclaren.repository.transmission.TransmissionRepositoryEventBus.LoadingEvent
 import com.github.fo2rist.mclaren.web.utils.SafeJsonParser
 import com.github.fo2rist.mclaren.web.transmission.TransmissionWebService
-import com.github.fo2rist.mclaren.web.models.Transmission
+import com.github.fo2rist.mclaren.web.models.TransmissionData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -56,6 +56,6 @@ internal class TransmissionRepositoryImpl @Inject constructor(
 
 /* Takes raw transmission response as string and parses it. */
 private fun String?.parse(): TransmissionInfo {
-    val parsedWebResponse = SafeJsonParser<Transmission>(Transmission::class.java).parse(this)
+    val parsedWebResponse = SafeJsonParser(TransmissionData::class.java).parse(this)
     return TransmissionConverter.convert(parsedWebResponse)
 }

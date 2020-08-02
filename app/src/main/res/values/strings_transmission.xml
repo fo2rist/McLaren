@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_pitwall">Pitwall</string>
-    <string name="title_pit_to_racer_format" formatted="true">Pit to %s</string>
-    <string name="title_announcement"> — — — </string>
-    <string name="message_no_transmission">No active transmission yet</string>
+    <string name="transmission_item_title_pitwall">Pitwall</string>
+    <string name="transmission_item_title_pit_to_racer_format" formatted="true">Pit to %s</string>
+    <string name="transmission_item_title_guest_format" formatted="true">— %s —</string>
+
+    <string name="transmission_message_no_transmission">No active transmission yet</string>
+
+    <string name="transmission_session_practice_1">Practice 1</string>
+    <string name="transmission_session_practice_2">Practice 2</string>
+    <string name="transmission_session_practice_3">Practice 3</string>
+    <string name="transmission_session_qualification">Qualification</string>
+    <string name="transmission_session_race">Race</string>
 </resources>

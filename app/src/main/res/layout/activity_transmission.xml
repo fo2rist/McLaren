@@ -38,7 +38,7 @@
         android:id="@+id/empty_list_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/message_no_transmission"
+        android:text="@string/transmission_message_no_transmission"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/transmission_list"
         app:layout_constraintTop_toTopOf="@id/transmission_list"

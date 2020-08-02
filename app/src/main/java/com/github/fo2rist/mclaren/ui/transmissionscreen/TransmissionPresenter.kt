@@ -55,7 +55,7 @@ internal class TransmissionPresenter @Inject constructor(
 
         view.displayTransmission(transmissionInfo.messages)
         view.setNoTransmissionStubVisible(transmissionInfo.messages.isEmpty())
-        view.displayCurrentSession(transmissionInfo.raceName)
+        view.displayCurrentSession(transmissionInfo.currentSession)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
