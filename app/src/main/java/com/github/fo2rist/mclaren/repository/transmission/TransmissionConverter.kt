@@ -3,7 +3,6 @@ package com.github.fo2rist.mclaren.repository.transmission
 import com.github.fo2rist.mclaren.models.TransmissionInfo
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.web.models.TransmissionData
-import com.github.fo2rist.mclaren.web.models.TransmissionItemData
 import com.github.fo2rist.mclaren.web.models.TransmissionMessageType
 import com.github.fo2rist.mclaren.web.models.TransmissionMessageType.*
 import com.github.fo2rist.mclaren.web.models.TransmissionSession
@@ -19,7 +18,7 @@ object TransmissionConverter {
                 TransmissionItem(
                         id = it.date.time,
                         dateTime = DateTime(it.date, DateTimeZone.UTC),
-                        name = it.toName(),
+                        guestName = it.guestName,
                         message = it.message,
                         session = session.toSessionModel(),
                         type = it.source.toMessageTypeModel())
@@ -30,28 +29,17 @@ object TransmissionConverter {
     }
 }
 
-private fun TransmissionItemData?.toName(): String? {
-    return when (this?.source) {
-        SAI_TO_PIT,
-        PIT_TO_SAI -> "SAI"
-        NOR_TO_PIT,
-        PIT_TO_NOR -> "NOR"
-        GUEST -> this.guestName
-        else -> null
-    }
-}
-
 @Suppress("ComplexMethod", "LongMethod")
 private fun TransmissionMessageType?.toMessageTypeModel(): TransmissionItem.Type {
     return when (this) {
         SAI_TO_PIT ->
-            TransmissionItem.Type.DRIVER_A_TO_PIT
+            TransmissionItem.Type.SAINZ_TO_PIT
         NOR_TO_PIT ->
-            TransmissionItem.Type.DRIVER_B_TO_PIT
+            TransmissionItem.Type.NORRIS_TO_PIT
         PIT_TO_SAI ->
-            TransmissionItem.Type.PIT_TO_DRIVER_A
+            TransmissionItem.Type.PIT_TO_SAINZ
         PIT_TO_NOR ->
-            TransmissionItem.Type.PIT_TO_DRIVER_B
+            TransmissionItem.Type.PIT_TO_NORRIS
         GUEST ->
             TransmissionItem.Type.MESSAGE_FROM_GUEST
         COMMENTARY ->
