@@ -8,8 +8,8 @@ import org.joda.time.DateTime
 data class TransmissionItem(
     val id: Long,
     val dateTime: DateTime,
-    /** Name of the driver or the guest speaker if it's communication with driver or guest. */
-    val name: String?,
+    /** Name of guest with guest [Type.MESSAGE_FROM_GUEST], empty otherwise. */
+    val guestName: String,
     val message: String,
     val session: Session,
     val type: Type
@@ -30,10 +30,10 @@ data class TransmissionItem(
      * Type (direction) of transmissions message.
      */
     enum class Type {
-        DRIVER_A_TO_PIT,
-        DRIVER_B_TO_PIT,
-        PIT_TO_DRIVER_A,
-        PIT_TO_DRIVER_B,
+        SAINZ_TO_PIT,
+        NORRIS_TO_PIT,
+        PIT_TO_SAINZ,
+        PIT_TO_NORRIS,
         MESSAGE_GENERAL,
         MESSAGE_FROM_GUEST,
     }

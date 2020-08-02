@@ -11,12 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.models.TransmissionItem
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.DRIVER_A_TO_PIT
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.DRIVER_B_TO_PIT
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.SAINZ_TO_PIT
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.NORRIS_TO_PIT
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_FROM_GUEST
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_GENERAL
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_A
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_DRIVER_B
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_SAINZ
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_NORRIS
 
 /**
  * Adapter for messages in the race life transmission (team communications).
@@ -40,11 +40,11 @@ internal class TransmissionAdapter(
 
         private fun alignTextFor(item: TransmissionItem) {
             when (item.type) {
-                DRIVER_A_TO_PIT, DRIVER_B_TO_PIT -> {
+                SAINZ_TO_PIT, NORRIS_TO_PIT -> {
                     messageTitle.gravity = Gravity.RIGHT
                     messageText.gravity = Gravity.RIGHT
                 }
-                PIT_TO_DRIVER_A, PIT_TO_DRIVER_B -> {
+                PIT_TO_SAINZ, PIT_TO_NORRIS -> {
                     messageTitle.gravity = Gravity.LEFT
                     messageText.gravity = Gravity.LEFT
                 }
@@ -60,33 +60,40 @@ internal class TransmissionAdapter(
         }
 
         private fun setTitleFor(item: TransmissionItem) {
+
             messageTitle.text = when (item.type) {
-                DRIVER_A_TO_PIT, DRIVER_B_TO_PIT ->
-                    item.name ?: ""
-                PIT_TO_DRIVER_A, PIT_TO_DRIVER_B ->
-                    getString(R.string.transmission_item_title_pit_to_racer_format, item.name ?: "")
+                SAINZ_TO_PIT ->
+                    getString(R.string.transmission_short_name_sainz)
+                NORRIS_TO_PIT ->
+                    getString(R.string.transmission_short_name_norris)
+                PIT_TO_SAINZ ->
+                    getString(
+                            R.string.transmission_item_title_pit_to_racer_format,
+                            getString(R.string.transmission_short_name_sainz))
+                PIT_TO_NORRIS ->
+                    getString(
+                            R.string.transmission_item_title_pit_to_racer_format,
+                            getString(R.string.transmission_short_name_norris))
                 MESSAGE_GENERAL ->
                     getString(R.string.transmission_item_title_pitwall)
                 MESSAGE_FROM_GUEST ->
-                    getString(R.string.transmission_item_title_guest_format, item.name ?: "")
+                    getString(R.string.transmission_item_title_guest_format, item.guestName ?: "")
             }
         }
 
         private fun setImagesFor(item: TransmissionItem) {
             driverImage.setImageResource(when (item.type) {
-                //TODO there must be a concept of primary/secondary driver with all resources available for the through
-                // one place. 2019-02-26
-                DRIVER_A_TO_PIT -> R.drawable.driver_portrait_sainz
-                DRIVER_B_TO_PIT -> R.drawable.driver_portrait_norris
+                SAINZ_TO_PIT -> R.drawable.driver_portrait_sainz
+                NORRIS_TO_PIT -> R.drawable.driver_portrait_norris
                 else -> 0
             })
 
             when (item.type) {
-                DRIVER_A_TO_PIT, DRIVER_B_TO_PIT -> {
+                SAINZ_TO_PIT, NORRIS_TO_PIT -> {
                     driverImage.visibility = View.VISIBLE
                     pitwallImage.visibility = View.INVISIBLE
                 }
-                PIT_TO_DRIVER_A, PIT_TO_DRIVER_B -> {
+                PIT_TO_SAINZ, PIT_TO_NORRIS -> {
                     driverImage.visibility = View.INVISIBLE
                     pitwallImage.visibility = View.VISIBLE
                 }

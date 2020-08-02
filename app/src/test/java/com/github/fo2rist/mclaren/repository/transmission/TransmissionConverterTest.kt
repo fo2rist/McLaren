@@ -37,17 +37,17 @@ class TransmissionConverterTest {
                 TransmissionItem(
                         1595170265000,
                         DateTime.parse("2020-07-19T14:51:05+00:00"),
-                        "NOR",
+                        "",
                         "No worries dude. ",
                         TransmissionItem.Session.RACE,
-                        TransmissionItem.Type.PIT_TO_DRIVER_B),
+                        TransmissionItem.Type.PIT_TO_NORRIS),
                 transmissionModel.messages[1])
 
         assertEquals(
                 TransmissionItem(
                         1594996531000,
                         DateTime.parse("2020-07-17T14:35:31+00:00"),
-                        null,
+                        "",
                         "And that's it from us today. Not the most stimulating of afternoon sessions, but plenty more to come tomorrow. Stick with TEAMStream this afternoon. The drivers will be along shortly with their assessment of conditions on this first day in Hungary. We'll be back with live commentary tomorrow at 1145 CEST / 1045 BST , 15min before the start of FP3.",
                         TransmissionItem.Session.PRACTICE_2,
                         TransmissionItem.Type.MESSAGE_GENERAL),
