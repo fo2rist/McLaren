@@ -36,13 +36,10 @@ class MainPresenter @Inject constructor(
         val activeEvent = raceCalendar.getActiveEvent()
         val upcomingEvent = raceCalendar.getNextEvent()
         if (activeEvent != null) {
-            // can notify users about the race in progress
-            // via view.showTransmissionButton()
-            // do nothing for now (used to launch transmission screen)
+            view.showTransmissionButton()
         } else if (upcomingEvent != null) {
             view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime!!)
         }
-
     }
 
     override fun onTeamTwitterClicked() {

@@ -87,8 +87,15 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     private fun firstItemIsVisible() = (transmissionLayoutManager.findFirstVisibleItemPosition() <= 0)
 
 
-    override fun displayCurrentSession(sessionName: String) {
-        title_text.text = sessionName
+    override fun displayCurrentSession(session: TransmissionItem.Session) {
+        title_text.text = when (session) {
+            TransmissionItem.Session.UNKNOWN -> ""
+            TransmissionItem.Session.PRACTICE_1 -> getString(R.string.transmission_session_practice_1)
+            TransmissionItem.Session.PRACTICE_2 -> getString(R.string.transmission_session_practice_2)
+            TransmissionItem.Session.PRACTICE_3 -> getString(R.string.transmission_session_practice_3)
+            TransmissionItem.Session.QUALIFICATION -> getString(R.string.transmission_session_qualification)
+            TransmissionItem.Session.RACE -> getString(R.string.transmission_session_race)
+        }
     }
 
     override fun showProgress() {
