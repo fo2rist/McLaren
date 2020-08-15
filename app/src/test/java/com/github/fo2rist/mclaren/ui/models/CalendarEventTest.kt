@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.ui.models
 
-import com.github.fo2rist.mclaren.testdata.CalendarEvents.createDummyEvent
 import com.github.fo2rist.mclaren.testdata.FEB_2
 import com.github.fo2rist.mclaren.testdata.FEB_2_1AM
 import com.github.fo2rist.mclaren.testdata.JAN_1
@@ -11,11 +10,11 @@ import com.github.fo2rist.mclaren.testdata.JAN_3_1AM
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_1
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_31
 import com.github.fo2rist.mclaren.testdata.TEST_EVENT_NO_DATES
+import com.github.fo2rist.mclaren.testdata.TEST_EVENT_JAN_1_ONE_PRACTICE
 import org.joda.time.DateTime
 import org.joda.time.DateTimeUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -41,6 +40,12 @@ class CalendarEventTest {
     }
 
     @Test
+    fun `not isActive day before practice time`() {
+        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_1))
+        assertFalse(TEST_EVENT_JAN_31.isActiveAt(JAN_31))
+    }
+
+    @Test
     fun `isActive between practice and race time inclusive`() {
         assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_1.plusHours(1)))
         assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_2))
@@ -51,15 +56,16 @@ class CalendarEventTest {
     }
 
     @Test
-    fun `isActive 2h after race start time`() {
-        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM.plusHours(2)))
-        assertTrue(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM.plusHours(2)))
+    fun `isActive between practice and race time when other practices are missing`() {
+        assertTrue(TEST_EVENT_JAN_1_ONE_PRACTICE.isActiveAt(JAN_1.plusHours(1)))
+        assertTrue(TEST_EVENT_JAN_1_ONE_PRACTICE.isActiveAt(JAN_2))
+        assertTrue(TEST_EVENT_JAN_1_ONE_PRACTICE.isActiveAt(JAN_3_1AM))
     }
 
     @Test
-    fun `not isActive day before practice time`() {
-        assertFalse(TEST_EVENT_JAN_1.isActiveAt(JAN_1))
-        assertFalse(TEST_EVENT_JAN_31.isActiveAt(JAN_31))
+    fun `isActive 2h after race start time`() {
+        assertTrue(TEST_EVENT_JAN_1.isActiveAt(JAN_3_1AM.plusHours(2)))
+        assertTrue(TEST_EVENT_JAN_31.isActiveAt(FEB_2_1AM.plusHours(2)))
     }
 
     @Test
