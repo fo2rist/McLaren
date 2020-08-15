@@ -26,6 +26,7 @@ val TEST_EVENT_JAN_1 = CalendarEvents.createDummyEvent(
         practice3DateTime = JAN_2.plusHours(1),
         qualifyingDateTime = JAN_2.plusHours(2),
         raceDateTime = JAN_3_1AM)
+
 /** An event that spans two months. */
 val TEST_EVENT_JAN_31 = CalendarEvents.createDummyEvent(
         "event_jan_31_circuit_id",
@@ -34,6 +35,7 @@ val TEST_EVENT_JAN_31 = CalendarEvents.createDummyEvent(
         practice3DateTime = JAN_31.plusHours(25),
         qualifyingDateTime = JAN_31.plusHours(26),
         raceDateTime = FEB_2_1AM)
+
 /** An event without dates. */
 val TEST_EVENT_NO_DATES = CalendarEvents.createDummyEvent("unknown",
         practice1DateTime = null,
@@ -41,6 +43,14 @@ val TEST_EVENT_NO_DATES = CalendarEvents.createDummyEvent("unknown",
         practice3DateTime = null,
         qualifyingDateTime = null,
         raceDateTime = null)
+
+/** An event 2 practices absent. */
+val TEST_EVENT_JAN_1_ONE_PRACTICE = CalendarEvents.createDummyEvent("partial events",
+        practice1DateTime = JAN_1.plusHours(1),
+        practice2DateTime = null,
+        practice3DateTime = null,
+        qualifyingDateTime = JAN_2.plusHours(2),
+        raceDateTime = JAN_3_1AM)
 
 object CalendarEvents {
 

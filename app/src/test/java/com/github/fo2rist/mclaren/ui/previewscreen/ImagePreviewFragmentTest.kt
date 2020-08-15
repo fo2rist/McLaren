@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.agoda.kakao.common.views.KView
