@@ -132,24 +132,31 @@
                 "date": "2020-09-25"
                 },
                 {
-                "circuit_id": "japan_suzuka",
+                "circuit_id": "germany_nurburg",
+                "practice_1_time": "2020-10-09T09:00:00Z",
+                "practice_2_time": "2020-10-09T13:00:00Z",
+                "practice_3_time": "2020-10-10T10:00:00Z",
+                "qualifying_time": "2020-10-10T13:00:00Z",
+                "race_time": "2020-10-11T12:10:00Z",
                 "date": "2020-10-09"
                 },
                 {
-                "circuit_id": "united_states_austin",
+                "circuit_id": "portugal_portimao",
+                "practice_1_time": "2020-10-23T10:00:00Z",
+                "practice_2_time": "2020-10-23T14:00:00Z",
+                "practice_3_time": "2020-10-24T10:00:00Z",
+                "qualifying_time": "2020-10-24T13:00:00Z",
+                "race_time": "2020-10-25T13:10:00Z",
                 "date": "2020-10-23"
                 },
                 {
-                "circuit_id": "mexico_mexico_city",
-                "date": "2020-10-30"
-                },
-                {
-                "circuit_id": "brazil_sao_paulo",
-                "date": "2020-11-13"
-                },
-                {
-                "circuit_id": "emirates_abu_dhabi",
-                "date": "2020-11-27"
+                "circuit_id": "italy_imola",
+                "practice_1_time": "2020-10-31T09:00:00Z",
+                "practice_2_time": null,
+                "practice_3_time": null,
+                "qualifying_time": "2020-10-31T13:00:00Z",
+                "race_time": "2020-11-01T13:10:00Z",
+                "date": "2020-10-31"
                 }
             ]
         </value>
@@ -315,6 +322,19 @@
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps"
                 },
                 {
+                "id": "italy_imola",
+                "country": "ITA",
+                "track": "Imola",
+                "city": "Imola",
+                "name": "Emilia Romagna Grand Prix",
+                "laps": 63,
+                "length": 4.909,
+                "distance": 309.267,
+                "seasons": "1980–2006, 2020",
+                "gp_held": 27,
+                "wiki_link": "https://en.wikipedia.org/wiki/Autodromo_Internazionale_Enzo_e_Dino_Ferrari"
+                },
+                {
                 "id": "italy_monza",
                 "country": "ITA",
                 "track": "Autodromo Nazionale Monza",
@@ -456,6 +476,32 @@
                 "seasons": "1970, 1977–1984, 1986–2006, 2008, 2010, 2012, 2014, 2016, 2018–2019",
                 "gp_held": 37,
                 "wiki_link": "https://en.wikipedia.org/wiki/Hockenheimring"
+                },
+                {
+                "id": "germany_nurburg",
+                "country": "DEU",
+                "track": "Nürburgring",
+                "city": "Nürburg",
+                "name": "Eifel Grand Prix",
+                "laps": 60,
+                "length": 5.148,
+                "distance": 308.880,
+                "seasons": "1950–1954, 1956–1958, 1961–1969, 1971–1976, 1984, 1985, 1995–2007, 2009, 2011, 2013, 2020",
+                "gp_held": 38,
+                "wiki_link": "https://en.wikipedia.org/wiki/Nürburgring"
+                },
+                {
+                "id": "portugal_portimao",
+                "country": "PRT",
+                "track": "Portimão",
+                "city": "Portimão",
+                "name": "Portuguese Grand Prix",
+                "laps": 66,
+                "length": 4.692,
+                "distance": 309.672,
+                "seasons": "2020",
+                "gp_held": 0,
+                "wiki_link": "https://en.wikipedia.org/wiki/Algarve_International_Circuit"
                 },
                 {
                 "id": "netherlands_zandvoort",
