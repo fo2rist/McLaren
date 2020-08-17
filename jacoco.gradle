@@ -36,12 +36,12 @@ task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUni
             excludes: fileFilter
     )
 
-    classDirectories = files([javaClasses], [kotlinClasses])
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
-    executionData = fileTree(dir: "$buildDir", includes: [
+    getClassDirectories().setFrom(files([javaClasses], [kotlinClasses]))
+    getAdditionalClassDirs().setFrom(files(coverageSourceDirs))
+    getSourceDirectories().setFrom(files(coverageSourceDirs))
+    getExecutionData().setFrom(fileTree(dir: "$buildDir", includes: [
             "jacoco/testDebugUnitTest.exec"
-    ])
+    ]))
 
     reports {
         xml.enabled = true
