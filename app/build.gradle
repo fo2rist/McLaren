@@ -109,11 +109,14 @@ dependencies {
     implementation "com.google.android.material:material:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    // firebase cloud config
-    implementation 'com.google.firebase:firebase-config:16.5.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
+
+    // firebase cloud config, crashlytics & analytics
+    implementation 'com.google.firebase:firebase-config:19.2.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
     //twitter client
     implementation "org.twitter4j:twitter4j-core:4.0.7"
@@ -139,10 +142,6 @@ dependencies {
 
     // logger
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
-    // crashlytics & analytics
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
-    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
     // dependency injection
     implementation 'com.google.dagger:dagger-android-support:2.28.3'
