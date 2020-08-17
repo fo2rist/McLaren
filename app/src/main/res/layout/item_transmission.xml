@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_mic"
-        android:tint="@color/papaya"
+        app:tint="@color/papaya"
         android:contentDescription="@null"
         />
     <TextView

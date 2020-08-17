@@ -23,7 +23,7 @@
         app:layout_constraintDimensionRatio="H,1:1"
         android:scaleType="centerInside"
         android:contentDescription="@null"
-        android:tint="@color/primary_white_highlightable"
+        app:tint="@color/primary_white_highlightable"
         tools:src="@drawable/circuit_monaco"
         />
     <TextView

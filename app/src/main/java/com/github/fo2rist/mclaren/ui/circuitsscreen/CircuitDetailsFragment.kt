@@ -93,7 +93,7 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         @SuppressWarnings("UnsafeCallOnNullableType")
         if (view.id == R.id.circuit_title) {
-            IntentUtils.launchSafely(context!!, IntentUtils.createBrowserIntent(event.wikiLink))
+            IntentUtils.launchSafely(requireContext(), IntentUtils.createBrowserIntent(event.wikiLink))
         }
     }
 
