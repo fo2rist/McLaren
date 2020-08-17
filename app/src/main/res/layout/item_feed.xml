@@ -30,7 +30,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="@dimen/margin_half"
-                android:tint="@color/textPrimaryWhite"
+                app:tint="@color/textPrimaryWhite"
                 tools:src="@drawable/ic_video"
                 tools:ignore="ContentDescription"
                 />
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:srcCompat="@drawable/ic_media_play"
-                android:tint="@color/transparentWhite"
+                app:tint="@color/transparentWhite"
                 android:contentDescription="@string/content_description_play"
                 />
         </RelativeLayout>
@@ -115,8 +115,8 @@
                 android:id="@+id/image_source"
                 android:layout_width="@dimen/margin_two"
                 android:layout_height="@dimen/margin_two"
-                android:tint="@color/textSecondaryBlack"
                 android:layout_marginRight="@dimen/margin_half"
+                app:tint="@color/textSecondaryBlack"
                 tools:src="@drawable/ic_share"
                 tools:ignore="ContentDescription"
                 />
