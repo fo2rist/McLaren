@@ -40,7 +40,7 @@ internal class TwitterRepositoryImpl @Inject constructor(
     }
 
     override fun loadNextPage() {
-        ioScope.launch{ loadAndNotify(lastLoadedPage + 1) }
+        ioScope.launch { loadAndNotify(lastLoadedPage + 1) }
     }
 
     override fun loadLatestPage() {
@@ -52,7 +52,7 @@ internal class TwitterRepositoryImpl @Inject constructor(
         repositoryEventBus.publish(LoadingEvent.LoadingStarted())
 
         try {
-            val newTweets =loadTweets(page)
+            val newTweets = loadTweets(page)
             cachedTweets.addAll(newTweets)
             repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(cachedTweets.toDescendingList()))
         } catch (exc: TwitterException) {
