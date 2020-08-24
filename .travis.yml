@@ -3,8 +3,8 @@ jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_API_LEVEL=28
-    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+    - ANDROID_API_LEVEL=29
+    - ANDROID_BUILD_TOOLS_VERSION=29.0.2
 
 android:
   licenses:
@@ -28,9 +28,6 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-$ANDROID_API_LEVEL
 
-    # Emulato system image for tests
-    #- sys-img-armeabi-v7a-google_apis-25
-
 before_script:
     # Prepare pre-accepted licenses to not be promted at installation
     - mkdir -p "$ANDROID_HOME/licenses"
@@ -41,7 +38,7 @@ before_script:
     #- android-wait-for-emulator
     #- adb shell input keyevent 82 &
 script:
-    - ./gradlew build check jacocoTestDebugUnitTestReport
+    - ./gradlew lint assembleRelease assembleDebug testDebugUnitTest jacocoTestDebugUnitTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
