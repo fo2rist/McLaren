@@ -1,10 +1,8 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.agoda.kakao.common.views.KView
-import com.agoda.kakao.screen.Screen
 import com.github.fo2rist.mclaren.R
 import org.junit.Before
 import org.junit.Test

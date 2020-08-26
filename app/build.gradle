@@ -121,7 +121,7 @@ dependencies {
     implementation "org.twitter4j:twitter4j-core:4.0.7"
 
     // zoom image view
-    implementation 'com.github.chrisbanes:PhotoView:2.0.0' // 2.2 conflicts with old support lib on manifest merge
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     // auto link for text view embedded links
     implementation 'com.github.armcha:AutoLinkTextView:0.3.0'
     // dot indicator view
