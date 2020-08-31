@@ -88,7 +88,7 @@
                 android:contentDescription="@string/content_description_play"
                 />
         </RelativeLayout>
-        <com.luseen.autolinklibrary.AutoLinkTextView
+        <io.github.armcha.autolink.AutoLinkTextView
             android:id="@+id/text_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

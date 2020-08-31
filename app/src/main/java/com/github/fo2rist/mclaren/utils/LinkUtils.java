@@ -95,6 +95,6 @@ public class LinkUtils {
     private static String purify(@NonNull String tag) {
         return tag
                 .trim()
-                .replaceAll("^.?(@|#)", "");
+                .replaceAll("^.?([@#])", "");
     }
 }
