@@ -11,7 +11,7 @@
         tools:text="Date of Birth"
         tools:background="@color/colorMediumDark"
         />
-    <com.luseen.autolinklibrary.AutoLinkTextView
+    <io.github.armcha.autolink.AutoLinkTextView
         android:id="@+id/value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

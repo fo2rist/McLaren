@@ -123,7 +123,7 @@ dependencies {
     // zoom image view
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     // auto link for text view embedded links
-    implementation 'com.github.armcha:AutoLinkTextView:0.3.0'
+    implementation 'com.github.armcha:AutoLinkTextViewV2:2.1.1'
     // dot indicator view
     implementation 'me.relex:circleindicator:1.2.2'
 
@@ -131,6 +131,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation 'com.squareup.picasso:picasso:2.5.2' // 2.71828 uses support lib 27.1.0 incompatible with 27.1.1
+                                                        // 2.8 doesn't load some images,
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
     // event bus
