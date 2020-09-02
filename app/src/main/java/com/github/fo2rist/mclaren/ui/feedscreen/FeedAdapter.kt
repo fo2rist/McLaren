@@ -43,6 +43,7 @@ class FeedAdapter internal constructor(
     scrollingListener: OnFeedScrollingListener
 ) : RecyclerView.Adapter<FeedViewHolder>() {
 
+    @Suppress("UndocumentedPublicClass")
     inner class FeedViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView), View.OnClickListener {
 
         private lateinit var rootView: View
@@ -238,20 +239,15 @@ class FeedAdapter internal constructor(
         }
     }
 
-    private val interactionListenerReference: WeakReference<OnFeedInteractionListener>
-    private val scrollingListenerReference: WeakReference<OnFeedScrollingListener>
     private val items: MutableList<FeedItem> = ArrayList()
 
-    private val defaultImageHeight: Int
+    private val interactionListenerReference = WeakReference(interactionListener)
+    private val scrollingListenerReference = WeakReference(scrollingListener)
+
+    private val defaultImageHeight = context.resources.getDimensionPixelSize(R.dimen.feed_image_height)
 
     /** Stores last known width of image to be used for preliminary image size adjustment.  */
     private var imageWidth = 0
-
-    init {
-        interactionListenerReference = WeakReference(interactionListener)
-        scrollingListenerReference = WeakReference(scrollingListener)
-        defaultImageHeight = context.resources.getDimensionPixelSize(R.dimen.feed_image_height)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         cacheImageWidth(parent)
@@ -276,9 +272,11 @@ class FeedAdapter internal constructor(
     }
 
     private fun notifyAboutScrollEventsIfNecessary(position: Int) {
+        @Suppress("MagicNumber") // notify after one third is scrolled
         if (position == itemCount / 3 + 1) {
             notifyItemFromSecondThirdDisplayed()
         }
+        // then after the last item is shown
         if (position == itemCount - 1) {
             notifyLastItemDisplayed()
         }
@@ -297,9 +295,8 @@ class FeedAdapter internal constructor(
         return hasNewerItems
     }
 
-    private fun hasNewerItems(
-        newFeedItems: List<FeedItem>
-    ): Boolean {
+    @Suppress("ReturnCount")
+    private fun hasNewerItems(newFeedItems: List<FeedItem>): Boolean {
         if (items.isEmpty()) {
             return newFeedItems.isNotEmpty()
         }

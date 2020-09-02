@@ -131,11 +131,11 @@ internal class TransmissionAdapter(
         return hasNewerItems
     }
 
+    @Suppress("ReturnCount")
     private fun hasNewerItems(newItems: List<TransmissionItem>): Boolean {
         if (items.isEmpty()) {
-            return !newItems.isEmpty()
+            return newItems.isNotEmpty()
         }
-
         if (newItems.isEmpty()) {
             return false
         }
