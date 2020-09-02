@@ -63,7 +63,7 @@ comments:
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
-    active: true
+    active: false
   EndOfSentenceFormat:
     active: false
     endOfSentenceFormat: ([.?!][ \t\n\r\f<])|([.?!]$)
@@ -350,7 +350,7 @@ style:
     active: false
   ReturnCount:
     active: true
-    max: 2
+    max: 3
     excludedFunctions: "equals"
   SafeCast:
     active: true
