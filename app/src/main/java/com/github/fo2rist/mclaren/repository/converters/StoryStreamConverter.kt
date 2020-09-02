@@ -80,14 +80,15 @@ class StoryStreamConverter @Inject constructor() : FeedConverter<StoryStream> {
     private val List<*>?.len: Int
         get() = this?.size ?: 0
 
-    @Suppress("DEPRECATION") //Html.fromHtml is deprecated but new version is only available on SDK 24
+//    @Suppress("DEPRECATION") //Html.fromHtml is deprecated but new version is only available on SDK 24
     private fun fetchText(storyStreamItem: StoryStreamItem): String {
         val rawBody = storyStreamItem.body
                 ?: return ""
 
         if (storyStreamItem.feedType == FeedType.Custom) {
-            val textBody = Html.fromHtml(rawBody)
-                    .toString()
+            val textBody = rawBody
+//                    Html.fromHtml(rawBody)
+//                    .toString()
                     .replace("\\n+".toRegex(), " ")
 
             val textTitle = storyStreamItem.title
@@ -100,7 +101,7 @@ class StoryStreamConverter @Inject constructor() : FeedConverter<StoryStream> {
             return text.trimmed()
         } else {
             //TODO We are loosing links that way. HTML should be preserved and then handled on the UI side. 2018.03.09
-            return Html.fromHtml(rawBody).toString()
+            return rawBody // Html.fromHtml(rawBody).toString()
         }
     }
 

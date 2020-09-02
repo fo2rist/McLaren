@@ -31,28 +31,28 @@ public class LinkUtilsTagsTest {
     public String targetTag;
 
     @Test
-    public void testTwitterMentionResolved() throws Exception {
+    public void testTwitterMentionResolved() {
         String link = LinkUtils.getFeedMentionLink(FeedItems.TWITTER_GALLERY_ITEM, sourceTag);
 
         assertEquals("https://twitter.com/" + targetTag, link);
     }
 
     @Test
-    public void testInstagramMentionResolved() throws Exception {
+    public void testInstagramMentionResolved() {
         String link = LinkUtils.getFeedMentionLink(FeedItems.INSTAGRAM_GALLERY_ITEM, sourceTag);
 
         assertEquals("https://www.instagram.com/" + targetTag, link);
     }
 
     @Test
-    public void testTwitterHashTagResolved() throws Exception {
+    public void testTwitterHashTagResolved() {
         String link = LinkUtils.getFeedHashtagLink(FeedItems.TWITTER_GALLERY_ITEM, sourceTag);
 
         assertEquals("https://twitter.com/hashtag/" + targetTag, link);
     }
 
     @Test
-    public void testInstagramHashTagResolved() throws Exception {
+    public void testInstagramHashTagResolved() {
         String link = LinkUtils.getFeedHashtagLink(FeedItems.INSTAGRAM_GALLERY_ITEM, sourceTag);
 
         assertEquals("https://www.instagram.com/explore/tags/" + targetTag, link);

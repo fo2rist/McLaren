@@ -1,6 +1,7 @@
 package com.github.fo2rist.mclaren.ui.feedscreen
 
 import android.content.Context
+import android.text.Html
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -84,20 +85,30 @@ class FeedAdapter internal constructor(
 
         private fun setupAutoLinkTextView(textView: AutoLinkTextView) {
             textView.addAutoLinkMode(
+                    // simplistic regex for <a href links with quotes or double quotes around link and any text
+                    MODE_CUSTOM("""<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1.*>(.*)<\s*\/a\s*>"""),
                     MODE_HASHTAG,
                     MODE_MENTION,
                     MODE_URL,
-                    MODE_CUSTOM("\\b(\\S+\\.)+\\w+\\/\\S*[^.…](\\s|$)"))
+                    // regex for incomplete pseudo URL "words/more-words" that appeared in stream response
+                    MODE_CUSTOM("""\b(\S+\.)+\w+\/\S*[^.…](\s|$)"""))
             textView.mentionModeColor = ContextCompat.getColor(context, R.color.textSecondaryBlack)
             textView.hashTagModeColor = ContextCompat.getColor(context, R.color.textSecondaryBlack)
             textView.urlModeColor = ContextCompat.getColor(context, R.color.colorAccent)
             textView.customModeColor = ContextCompat.getColor(context, R.color.colorAccent)
+            // that only works with URL type, not with custom
+            // possible options:
+            // - fix the library to preserve original spans
+            // - swap URL text to actual URLs, store original text, then use processor to restore
+            textView.attachUrlProcessor { originalUrl ->
+                originalUrl
+            }
         }
 
         private fun setupViewListeners() {
             imageSwitcher.setOnClickListener(this)
             containerSource.setOnClickListener(this)
-            this.textViewContent.onAutoLinkClick(this::onAutoLinkTextClick)
+            textViewContent.onAutoLinkClick(this::onAutoLinkTextClick)
             textViewContent.setOnClickListener(this)
         }
 
@@ -189,6 +200,7 @@ class FeedAdapter internal constructor(
             }.exhaustive
         }
 
+        @Suppress("Deprecation") // new Html.fromHtml only available in API 24+
         private fun displayText(feedItem: FeedItem) {
             textViewContent.text = feedItem.text
         }
