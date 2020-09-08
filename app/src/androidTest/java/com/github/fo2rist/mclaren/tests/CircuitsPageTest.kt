@@ -36,7 +36,7 @@ class CircuitsPageTest : BaseMainActivityTest() {
         interceptIntents()
 
         circuitsPage {
-            onCircuitsList.childAt<CircuitsPage.CircuitItem>(20) { click() }
+            onCircuitsList.childAt<CircuitsPage.CircuitItem>(15) { click() } // usually 20+, but not in 2020
         }
 
         intended(hasComponent(CircuitDetailsActivity::class.java.name))
