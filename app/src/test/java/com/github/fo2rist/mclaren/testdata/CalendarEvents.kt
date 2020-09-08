@@ -4,7 +4,30 @@ import com.github.fo2rist.mclaren.models.Circuit
 import com.github.fo2rist.mclaren.models.Event
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import org.joda.time.DateTime
+import java.sql.Date
 
+val DUMMY_CIRCUIT = Circuit(
+        id = "some_id",
+        country = "",
+        track = "",
+        city = "",
+        gpName = "",
+        laps = 1,
+        length = 0.0,
+        distance = 0.0,
+        seasons = "",
+        gpHeld = 0,
+        wikiLink = "")
+
+val DUMMY_EVENT = Event(
+        name = null,
+        circuit_id = DUMMY_CIRCUIT.id,
+        practice1Time = null,
+        practice2Time = null,
+        practice3Time = null,
+        qualifyingTime = null,
+        raceTime = null,
+        date = Date.valueOf("2020-10-01"))
 
 private const val T_0AM = "00:00Z"
 private const val T_1AM = "01:00Z"
@@ -69,18 +92,7 @@ object CalendarEvents {
         raceDateTime: DateTime?
     ): CalendarEvent {
         return CalendarEvent(
-                Circuit(
-                        id = id,
-                        country = "",
-                        track = "",
-                        city = "",
-                        name = "",
-                        laps = 1,
-                        length = 0.0,
-                        distance = 0.0,
-                        seasons = "",
-                        gpHeld = 0,
-                        wikiLink = ""),
+                DUMMY_CIRCUIT.copy(id = id),
                 Event(
                         circuit_id = id,
                         practice1Time = practice1DateTime?.toString(),

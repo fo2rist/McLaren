@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.ui.models
 
+import com.github.fo2rist.mclaren.testdata.DUMMY_CIRCUIT
+import com.github.fo2rist.mclaren.testdata.DUMMY_EVENT
 import com.github.fo2rist.mclaren.testdata.FEB_2
 import com.github.fo2rist.mclaren.testdata.FEB_2_1AM
 import com.github.fo2rist.mclaren.testdata.JAN_1
@@ -24,6 +26,24 @@ import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 class CalendarEventTest {
+
+    @Test
+    fun `grandPrixName takes value of event when track's event name also present`() {
+        val raceEvent = CalendarEvent(
+                DUMMY_CIRCUIT.copy(gpName = "P2"),
+                DUMMY_EVENT.copy(name = "P1"))
+
+        assertEquals("P1", raceEvent.grandPrixName)
+    }
+
+    @Test
+    fun `grandPrixName ignores empyt event's name`() {
+        val raceEvent = CalendarEvent(
+                DUMMY_CIRCUIT.copy(gpName = "P2"),
+                DUMMY_EVENT.copy(name = null))
+
+        assertEquals("P2", raceEvent.grandPrixName)
+    }
 
     @Test
     fun `startDate is the day of practice 1`() {

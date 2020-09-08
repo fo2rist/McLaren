@@ -5,6 +5,7 @@
         <value>
             [
                 {
+                "name": "Austrian Grand Prix",
                 "circuit_id": "austria_spielberg",
                 "practice_1_time": "2020-07-03T09:00:00Z",
                 "practice_2_time": "2020-07-03T13:00:00Z",
@@ -14,6 +15,7 @@
                 "date": "2020-07-03"
                 },
                 {
+                "name": "Styrian Grand Prix ",
                 "circuit_id": "austria_spielberg",
                 "practice_1_time": "2020-07-10T09:00:00Z",
                 "practice_2_time": "2020-07-10T13:00:00Z",
@@ -23,6 +25,7 @@
                 "date": "2020-07-10"
                 },
                 {
+                "name": "Hungarian Grand Prix",
                 "circuit_id": "hungary_budapest",
                 "practice_1_time": "2020-07-17T09:00:00Z",
                 "practice_2_time": "2020-07-17T13:00:00Z",
@@ -32,6 +35,7 @@
                 "date": "2020-07-17"
                 },
                 {
+                "name": "British Grand Prix",
                 "circuit_id": "britain_silverstone",
                 "practice_1_time": "2020-07-31T11:00:00Z",
                 "practice_2_time": "2020-07-31T15:00:00Z",
@@ -41,6 +45,7 @@
                 "date": "2020-07-31"
                 },
                 {
+                "name": "70th Anniversary Grand Prix",
                 "circuit_id": "britain_silverstone",
                 "practice_1_time": "2020-08-07T10:00:00Z",
                 "practice_2_time": "2020-08-07T14:00:00Z",
@@ -50,6 +55,7 @@
                 "date": "2020-08-07"
                 },
                 {
+                "name": "Spanish Grand Prix",
                 "circuit_id": "spain_barcelona",
                 "practice_1_time": "2020-08-14T09:00:00Z",
                 "practice_2_time": "2020-08-14T13:00:00Z",
@@ -59,6 +65,7 @@
                 "date": "2020-08-14"
                 },
                 {
+                "name": "Belgian Grand Prix",
                 "circuit_id": "belgium_spa",
                 "practice_1_time": "2020-08-28T09:00:00Z",
                 "practice_2_time": "2020-08-28T13:00:00Z",
@@ -68,6 +75,7 @@
                 "date": "2020-08-28"
                 },
                 {
+                "name": "Italian Grand Prix",
                 "circuit_id": "italy_monza",
                 "practice_1_time": "2020-09-04T09:00:00Z",
                 "practice_2_time": "2020-09-04T13:00:00Z",
@@ -77,6 +85,7 @@
                 "date": "2020-09-04"
                 },
                 {
+                "name": "Tuscan Grand Prix",
                 "circuit_id": "italy_mugello",
                 "practice_1_time": "2020-09-11T09:00:00Z",
                 "practice_2_time": "2020-09-11T13:00:00Z",
@@ -86,6 +95,7 @@
                 "date": "2020-09-11"
                 },
                 {
+                "name": "Russian Grand Prix",
                 "circuit_id": "russia_sochi",
                 "practice_1_time": "2020-09-25T08:00:00Z",
                 "practice_2_time": "2020-09-25T12:00:00Z",
@@ -95,6 +105,7 @@
                 "date": "2020-09-25"
                 },
                 {
+                "name": "Eifel Grand Prix",
                 "circuit_id": "germany_nurburg",
                 "practice_1_time": "2020-10-09T09:00:00Z",
                 "practice_2_time": "2020-10-09T13:00:00Z",
@@ -104,6 +115,7 @@
                 "date": "2020-10-09"
                 },
                 {
+                "name": "Portuguese Grand Prix",
                 "circuit_id": "portugal_portimao",
                 "practice_1_time": "2020-10-23T10:00:00Z",
                 "practice_2_time": "2020-10-23T14:00:00Z",
@@ -113,6 +125,7 @@
                 "date": "2020-10-23"
                 },
                 {
+                "name": "Emilia Romagna Grand Prix ",
                 "circuit_id": "italy_imola",
                 "practice_1_time": "2020-10-31T09:00:00Z",
                 "practice_2_time": "2020-10-31T12:00:00Z",
@@ -122,6 +135,7 @@
                 "date": "2020-10-31"
                 },
                 {
+                "name": "Turkish Grand Prix",
                 "circuit_id": "turkey_instanbul",
                 "practice_1_time": "2020-11-13T09:00:00Z",
                 "practice_2_time": "2020-11-13T13:00:00Z",
