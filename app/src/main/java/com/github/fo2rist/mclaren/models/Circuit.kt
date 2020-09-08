@@ -11,7 +11,9 @@ data class Circuit(
     var country: String, // e.g "AUS"
     var track: String, // e.g "Melbourne Grand Prix Circuit"
     var city: String, // e.g "Melbourne"
-    var name: String, // e.g "Australian Grand Prix"
+    /** Default grand prix name for a circuit. */
+    @SerializedName("name")
+    var gpName: String, // e.g "Australian Grand Prix"
     var laps: Int,
     var length: Double,
     var distance: Double,

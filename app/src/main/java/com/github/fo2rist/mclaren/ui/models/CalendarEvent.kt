@@ -44,7 +44,7 @@ data class CalendarEvent private constructor(
             countryCode = circuit.country,
             trackName = circuit.track,
             city = circuit.city,
-            grandPrixName = circuit.name,
+            grandPrixName = grandPrixEvent.name ?: circuit.gpName,
             laps = circuit.laps,
             length = circuit.length,
             distance = circuit.distance,

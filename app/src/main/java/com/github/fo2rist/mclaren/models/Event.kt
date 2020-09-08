@@ -8,6 +8,9 @@ import java.util.Date
  * !Used as model for storage!
  */
 data class Event(
+    @SerializedName("name")
+    var name: String? = null, // e.g "Australian Grand Prix"
+
     @SerializedName("circuit_id")
     var circuit_id: String, // e.g "china_shanghai"
 
