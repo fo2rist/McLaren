@@ -5,43 +5,6 @@
         <value>
             [
                 {
-                "circuit_id": "australia_melbourne",
-                "date": "2020-03-13"
-                },
-                {
-                "circuit_id": "bahrain_sakhir",
-                "date": "2020-03-20"
-                },
-                {
-                "circuit_id": "vietnam_hanoi",
-                "date": "2020-04-03"
-                },
-                {
-                "circuit_id": "china_shanghai",
-                "date": "2020-04-17"
-                },
-                {
-                "circuit_id": "netherlands_zandvoort",
-                "date": "2020-05-01"
-                },
-                {
-                "circuit_id": "monaco_monte_carlo",
-                "race_time": "2020-05-24T14:10:00Z",
-                "date": "2020-05-22"
-                },
-                {
-                "circuit_id": "azerbaijan_baku",
-                "date": "2020-06-05"
-                },
-                {
-                "circuit_id": "canada_montreal",
-                "date": "2020-06-12"
-                },
-                {
-                "circuit_id": "france_le_castellet",
-                "date": "2020-06-26"
-                },
-                {
                 "circuit_id": "austria_spielberg",
                 "practice_1_time": "2020-07-03T09:00:00Z",
                 "practice_2_time": "2020-07-03T13:00:00Z",
@@ -152,11 +115,50 @@
                 {
                 "circuit_id": "italy_imola",
                 "practice_1_time": "2020-10-31T09:00:00Z",
-                "practice_2_time": null,
-                "practice_3_time": null,
+                "practice_2_time": "2020-10-31T12:00:00Z",
+                "practice_3_time": "2020-10-31T12:30:00Z",
                 "qualifying_time": "2020-10-31T13:00:00Z",
                 "race_time": "2020-11-01T13:10:00Z",
                 "date": "2020-10-31"
+                },
+                {
+                "circuit_id": "turkey_instanbul",
+                "practice_1_time": "2020-11-13T09:00:00Z",
+                "practice_2_time": "2020-11-13T13:00:00Z",
+                "practice_3_time": "2020-11-14T10:00:00Z",
+                "qualifying_time": "2020-11-14T13:00:00Z",
+                "race_time": "2020-11-15T13:10:00Z",
+                "date": "2020-11-13"
+                },
+                {
+                "name": "Bahrain Grand Prix",
+                "circuit_id": "bahrain_sakhir",
+                "practice_1_time": "2020-11-27T11:00:00Z",
+                "practice_2_time": "2020-11-27T15:00:00Z",
+                "practice_3_time": "2020-11-28T12:00:00Z",
+                "qualifying_time": "2020-11-28T15:00:00Z",
+                "race_time": "2020-11-29T15:10:00Z",
+                "date": "2020-11-27"
+                },
+                {
+                "name": "Sakhir Grand Prix ",
+                "circuit_id": "bahrain_sakhir",
+                "practice_1_time": "2020-12-04T11:00:00Z",
+                "practice_2_time": "2020-12-04T15:00:00Z",
+                "practice_3_time": "2020-12-05T12:00:00Z",
+                "qualifying_time": "2020-12-05T15:00:00Z",
+                "race_time": "2020-12-06T15:10:00Z",
+                "date": "2020-12-04"
+                },
+                {
+                "name": "Abu Dhabi Grand Prix",
+                "circuit_id": "emirates_abu_dhabi",
+                "practice_1_time": "2020-12-11T09:00:00Z",
+                "practice_2_time": "2020-12-11T13:00:00Z",
+                "practice_3_time": "2020-12-12T10:00:00Z",
+                "qualifying_time": "2020-12-12T13:00:00Z",
+                "race_time": "2020-12-13T13:10:00Z",
+                "date": "2020-12-11"
                 }
             ]
         </value>
@@ -514,6 +516,19 @@
                 "distance": 306.144,
                 "seasons": "1952–1953, 1955, 1958––1971, 1973–1985, 2020",
                 "gp_held": 30,
+                "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Zandvoort"
+                },
+                {
+                "id": "turkey_instanbul",
+                "country": "TUR",
+                "track": "Istanbul Park",
+                "city": "Zandvoort",
+                "name": "Turkish Grand Prix",
+                "laps": 58,
+                "length": 5.338,
+                "distance": 309.396,
+                "seasons": "2005-2011, 2020",
+                "gp_held": 7,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Zandvoort"
                 },
                 {
