@@ -536,14 +536,14 @@
                 "id": "turkey_instanbul",
                 "country": "TUR",
                 "track": "Istanbul Park",
-                "city": "Zandvoort",
+                "city": "Istanbul",
                 "name": "Turkish Grand Prix",
                 "laps": 58,
                 "length": 5.338,
                 "distance": 309.396,
                 "seasons": "2005-2011, 2020",
                 "gp_held": 7,
-                "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Zandvoort"
+                "wiki_link": "https://en.wikipedia.org/wiki/Intercity_Istanbul_Park"
                 },
                 {
                 "id": "vietnam_hanoi",
