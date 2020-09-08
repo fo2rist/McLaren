@@ -42,7 +42,7 @@ class CircuitDetailsPageTest {
         page {
             title {
                 isDisplayed()
-                hasText("Australian Grand Prix") // usually the first GP each year
+                hasText("Austrian Grand Prix") // usually the first GP each year is Australian, but not 2020
             }
 
             circuitImage {
@@ -51,29 +51,29 @@ class CircuitDetailsPageTest {
 
             circuitDetails {
                 isDisplayed()
-                containsText("Melbourne")
+                containsText("Spielberg")
                 containsText(" >> ")     //GP name and location separator
-                containsText("Melbourne Grand Prix Circuit")
+                containsText("Red Bull Ring")
             }
 
             detailsItemLaps {
                 scrollTo()
-                hasText("58")
+                hasText("71")
             }
 
             detailsItemLength {
                 scrollTo()
-                hasText("5.303 km")
+                hasText("4.326 km")
             }
 
             detailsItemDistance {
                 scrollTo()
-                hasText("307.574 km")
+                hasText("307.020 km")
             }
 
             detailsItemSeasons {
                 scrollTo()
-                containsText("1996")
+                containsText("1970")
             }
 
             detailsItemGpHeld {
