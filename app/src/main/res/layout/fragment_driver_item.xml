@@ -25,7 +25,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                tools:src="@drawable/driver_sainz"
+                tools:src="@drawable/driver_norris"
                 tools:ignore="ContentDescription"
                 />
             <TextView
@@ -37,7 +37,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 style="@style/TextLightHeader"
-                tools:text="#CS5"
+                android:textColor="@color/textPrimaryBlack"
+                tools:text="#LN4"
                 />
             <TextView
                 android:id="@+id/driver_result_text"
@@ -48,6 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@id/driver_number_text"
                 app:layout_constraintRight_toRightOf="parent"
                 style="@style/TextLightSubheader"
+                android:textColor="@color/textPrimaryBlack"
                 tools:text="10th / 54pts"
                 />
             <com.google.android.material.floatingactionbutton.FloatingActionButton

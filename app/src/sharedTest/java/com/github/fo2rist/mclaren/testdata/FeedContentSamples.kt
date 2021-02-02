@@ -13,7 +13,7 @@ val CONTENT_ARTICLE_HTML_WITH_TABLES = """
                 At the start, both drivers made excellent progress from their grid slots and quickly made their way through the pack. For Fernando, the progress was short-lived, as he struggled with upshifts due to an issue with the gearbox sensors. He drove an aggressive race despite a car that was difficult to manage, and fought his way up to 11th place before his one and only pit-stop of the race. The gearbox issue progressively worsened and the team lost the ability to monitor it due to the sensor issues, and opted to retire his car on lap 51 as a precaution.
             </p>\r\n
             <p>
-                Conversely, Stoffel – who also made a great start – was running strongly from the first lap, making solid progress through the pack, including a decisive move on Sainz. He ran much of his race inside the all-important points-paying top 10, reaching as high as seventh on lap 19. Cruelly he was robbed of any reward for his strong performance, as he reported a loss of power owing to a further suspected MGU-K issue within the new power unit. He retired from the race on lap 34.
+                Conversely, Stof – who also made a great start – was running strongly from the first lap, making solid progress through the pack, including a decisive move. He ran much of his race inside the all-important points-paying top 10, reaching as high as seventh on lap 19. Cruelly he was robbed of any reward for his strong performance, as he reported a loss of power owing to a further suspected MGU-K issue within the new power unit. He retired from the race on lap 34.
             </p>\r\n
             <p> </p>\r\n
             <h2><strong>FERNANDO ALONSO, McLaren Honda Driver, MCL32-05</strong></h2>\r\n

@@ -13,7 +13,7 @@ import org.robolectric.RuntimeEnvironment
 private const val EXISTING_CIRCUIT = "monaco_monte_carlo"
 private const val NOT_EXISTING_CIRCUIT = "something that does not exist"
 
-private const val EXISTING_DRIVER = "sainz"
+private const val EXISTING_DRIVER = "norris"
 
 @RunWith(RobolectricTestRunner::class)
 class ResourcesUtilsTest {

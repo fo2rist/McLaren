@@ -30,9 +30,9 @@ data class TransmissionItem(
      * Type (direction) of transmissions message.
      */
     enum class Type {
-        SAINZ_TO_PIT,
+        RICCIARDO_TO_PIT,
         NORRIS_TO_PIT,
-        PIT_TO_SAINZ,
+        PIT_TO_RICCIARDO,
         PIT_TO_NORRIS,
         MESSAGE_GENERAL,
         MESSAGE_FROM_GUEST,

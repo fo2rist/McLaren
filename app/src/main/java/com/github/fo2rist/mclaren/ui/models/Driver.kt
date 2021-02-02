@@ -15,6 +15,7 @@ enum class DriverId constructor(
     CAMARA("camara"),
     NORRIS("norris"),
     SAINZ("sainz"),
+    RICCIARDO("ricciardo"),
     TURVEY("turvey"),
 
     //region removed resources

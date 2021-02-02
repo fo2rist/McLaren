@@ -22,17 +22,17 @@ class DriversPageTest : BaseMainActivityTest() {
     @Test
     fun testFirstPageContent() {
         driversPage {
-            driverNumber.hasText("#CS55")
+            driverNumber.hasText("#LN4")
             driverPageLink.isDisplayed()
 
             infoItemWithTitle(context.getString(DriverProperty.Name.nameResId))
-                    .hasText("Carlos Sainz")
+                    .hasText("Lando Norris")
             infoItemWithTitle(context.getString(DriverProperty.Twitter.nameResId))
-                    .hasText("@Carlossainz55")
+                    .hasText("@LandoNorris")
             infoItemWithTitle(context.getString(DriverProperty.DateOfBirth.nameResId))
-                    .hasText("01.09.1994")
+                    .hasText("13.11.1999")
             infoItemWithTitle(context.getString(DriverProperty.Nationality.nameResId))
-                    .hasText("Spanish")
+                    .hasText("British")
 
             infoItemWithTitle(context.getString(DriverProperty.BestFinish.nameResId))
                     .isVisible()

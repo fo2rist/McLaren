@@ -32,12 +32,12 @@ object TransmissionConverter {
 @Suppress("ComplexMethod", "LongMethod")
 private fun TransmissionMessageType?.toMessageTypeModel(): TransmissionItem.Type {
     return when (this) {
-        SAI_TO_PIT ->
-            TransmissionItem.Type.SAINZ_TO_PIT
+        RIC_TO_PIT ->
+            TransmissionItem.Type.RICCIARDO_TO_PIT
         NOR_TO_PIT ->
             TransmissionItem.Type.NORRIS_TO_PIT
-        PIT_TO_SAI ->
-            TransmissionItem.Type.PIT_TO_SAINZ
+        PIT_TO_RIC ->
+            TransmissionItem.Type.PIT_TO_RICCIARDO
         PIT_TO_NOR ->
             TransmissionItem.Type.PIT_TO_NORRIS
         GUEST ->

@@ -625,7 +625,7 @@
                 "laps": 55,
                 "length": 308.385,
                 "distance": 5.607,
-                "seasons": "2020",
+                "seasons": "",
                 "gp_held": 0,
                 "wiki_link": "https://en.wikipedia.org/wiki/Hanoi_Street_Circuit"
                 }
@@ -641,7 +641,7 @@
                     "DateOfBirth": "29.07.1981",
                     "Nationality": "Spanish",
                     "Twitter": "@alo_official",
-                    "Tag": "#FA14",
+
                     "HeritagePageLink": "http://www.mclaren.com/formula1/heritage/driver/fernando-alonso/",
                     "WorldChampionships": "2",
                     "PolePositions": "22",
@@ -703,6 +703,20 @@
                     "FastestLaps": "2"
                 },
 
+                "RICCIARDO": {
+                    "Name": "Daniel Ricciardo",
+                    "DateOfBirth": "01.07.1989",
+                    "Nationality": "Australian",
+                    "Twitter": "@danielricciardo",
+
+                    "TeamPageLink": "https://www.mclaren.com/racing/team/daniel-ricciardo/",
+                    "Tag": "#DR3",
+
+                    "BestFinish": "1st x 7",
+                    "PolePositions": "3",
+                    "FastestLaps": "15"
+                },
+
                 "SAINZ": {
                     "Name": "Carlos Sainz",
                     "DateOfBirth": "01.09.1994",
@@ -730,9 +744,7 @@
                     "Name": "Rudy van Buren",
                     "DateOfBirth": "04.04.1992",
                     "Nationality": "Dutch",
-                    "Twitter": "@RvBuren",
-
-                    "TeamPageLink": "https://www.mclaren.com/formula1/team/rudy-van-buren/"
+                    "Twitter": "@RvBuren"
                 },
 
                 "VANDOORNE": {
@@ -741,10 +753,9 @@
                     "Nationality": "Belgian",
                     "Twitter": "@svandoorne",
 
-                    "TeamPageLink": "http://www.mclaren.com/formula1/team/stoffel-vandoorne/",
+                    "HeritagePageLink": "https://www.mclaren.com/racing/heritage/driver/stoffel-vandoorne/",
                     "Tag": "#SV2",
-                    "WorldChampionships": "0",
-                    "BestFinish": "7th x 2",
+                    "BestFinish": "7th",
                     "Podiums": "0",
                     "PolePositions": "0",
                     "FastestLaps": "0"
@@ -756,7 +767,7 @@
         <key>drivers_order_list</key>
         <value>
             [
-                "SAINZ",
+                "RICCIARDO",
                 "NORRIS",
                 "TURVEY"
             ]

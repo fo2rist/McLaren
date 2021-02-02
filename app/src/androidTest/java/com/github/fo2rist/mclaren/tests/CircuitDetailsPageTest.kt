@@ -42,7 +42,7 @@ class CircuitDetailsPageTest {
         page {
             title {
                 isDisplayed()
-                hasText("Austrian Grand Prix") // usually the first GP each year is Australian, but not 2020
+                hasText("Bahrain Grand Prix") // usually the first GP each year is Australian, but not 2021
             }
 
             circuitImage {
@@ -51,29 +51,29 @@ class CircuitDetailsPageTest {
 
             circuitDetails {
                 isDisplayed()
-                containsText("Spielberg")
+                containsText("Sakhir")
                 containsText(" >> ")     //GP name and location separator
-                containsText("Red Bull Ring")
+                containsText("Bahrain International Circuit")
             }
 
             detailsItemLaps {
                 scrollTo()
-                hasText("71")
+                hasText("57")
             }
 
             detailsItemLength {
                 scrollTo()
-                hasText("4.326 km")
+                hasText("5.412 km")
             }
 
             detailsItemDistance {
                 scrollTo()
-                hasText("307.020 km")
+                hasText("308.238 km")
             }
 
             detailsItemSeasons {
                 scrollTo()
-                containsText("1970")
+                containsText("2020")
             }
 
             detailsItemGpHeld {
