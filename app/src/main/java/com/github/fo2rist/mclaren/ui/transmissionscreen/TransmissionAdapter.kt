@@ -11,12 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.models.TransmissionItem
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.SAINZ_TO_PIT
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.NORRIS_TO_PIT
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_FROM_GUEST
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.MESSAGE_GENERAL
-import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_SAINZ
 import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_NORRIS
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.PIT_TO_RICCIARDO
+import com.github.fo2rist.mclaren.models.TransmissionItem.Type.RICCIARDO_TO_PIT
 
 /**
  * Adapter for messages in the race life transmission (team communications).
@@ -40,11 +40,11 @@ internal class TransmissionAdapter(
 
         private fun alignTextFor(item: TransmissionItem) {
             when (item.type) {
-                SAINZ_TO_PIT, NORRIS_TO_PIT -> {
+                RICCIARDO_TO_PIT, NORRIS_TO_PIT -> {
                     messageTitle.gravity = Gravity.RIGHT
                     messageText.gravity = Gravity.RIGHT
                 }
-                PIT_TO_SAINZ, PIT_TO_NORRIS -> {
+                PIT_TO_RICCIARDO, PIT_TO_NORRIS -> {
                     messageTitle.gravity = Gravity.LEFT
                     messageText.gravity = Gravity.LEFT
                 }
@@ -62,14 +62,14 @@ internal class TransmissionAdapter(
         private fun setTitleFor(item: TransmissionItem) {
 
             messageTitle.text = when (item.type) {
-                SAINZ_TO_PIT ->
-                    getString(R.string.transmission_short_name_sainz)
+                RICCIARDO_TO_PIT ->
+                    getString(R.string.transmission_short_name_ricciardo)
                 NORRIS_TO_PIT ->
                     getString(R.string.transmission_short_name_norris)
-                PIT_TO_SAINZ ->
+                PIT_TO_RICCIARDO ->
                     getString(
                             R.string.transmission_item_title_pit_to_racer_format,
-                            getString(R.string.transmission_short_name_sainz))
+                            getString(R.string.transmission_short_name_ricciardo))
                 PIT_TO_NORRIS ->
                     getString(
                             R.string.transmission_item_title_pit_to_racer_format,
@@ -83,17 +83,17 @@ internal class TransmissionAdapter(
 
         private fun setImagesFor(item: TransmissionItem) {
             driverImage.setImageResource(when (item.type) {
-                SAINZ_TO_PIT -> R.drawable.driver_portrait_sainz
+                RICCIARDO_TO_PIT -> R.drawable.driver_portrait_ricciardo
                 NORRIS_TO_PIT -> R.drawable.driver_portrait_norris
                 else -> 0
             })
 
             when (item.type) {
-                SAINZ_TO_PIT, NORRIS_TO_PIT -> {
+                RICCIARDO_TO_PIT, NORRIS_TO_PIT -> {
                     driverImage.visibility = View.VISIBLE
                     pitwallImage.visibility = View.INVISIBLE
                 }
-                PIT_TO_SAINZ, PIT_TO_NORRIS -> {
+                PIT_TO_RICCIARDO, PIT_TO_NORRIS -> {
                     driverImage.visibility = View.INVISIBLE
                     pitwallImage.visibility = View.VISIBLE
                 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="transmission_short_name_sainz">Carlos</string>
+    <string name="transmission_short_name_ricciardo">Daniel</string>
     <string name="transmission_short_name_norris">Lando</string>
 
     <string name="transmission_item_title_pitwall">Pitwall</string>

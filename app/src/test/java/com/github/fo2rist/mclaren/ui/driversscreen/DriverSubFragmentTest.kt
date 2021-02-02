@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
 // TODO ideally this test can be independent from Firebase if we can inject the drivers repo to the fragment
 private val repository by lazy { DriversRepositoryImpl(FirebaseRemoteConfigService()) }
 
-private val DRIVER_ID = DriverId.SAINZ
+private val DRIVER_ID = DriverId.NORRIS
 private val DRIVER_MODEL: Driver by lazy { repository.getDriver(DRIVER_ID) }
 
 /**

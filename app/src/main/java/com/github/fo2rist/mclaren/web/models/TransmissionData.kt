@@ -54,14 +54,14 @@ enum class TransmissionSession {
  * Type of message (sender and receiver) in transmission.
  */
 enum class TransmissionMessageType {
-    @SerializedName("d_SAI")
-    SAI_TO_PIT, // Sainz to pit
+    @SerializedName("d_RIC")
+    RIC_TO_PIT, // Racer A to pit
 
     @SerializedName("d_NOR")
-    NOR_TO_PIT, // Norris to pit
+    NOR_TO_PIT, // Racer B to pit
 
-    @SerializedName("p_SAI")
-    PIT_TO_SAI, // pit to racer A
+    @SerializedName("p_RIC")
+    PIT_TO_RIC, // pit to racer A
 
     @SerializedName("p_NOR")
     PIT_TO_NOR, // pit to racer B
