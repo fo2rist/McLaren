@@ -59,15 +59,25 @@ private val TWO_DRIVERS_INFO_MODEL = """{
     "$DRIVER_B": $DRIVER_PROPERTIES
 }"""
 
+private val ONE_KNOWN_ONE_UNKNOWN_DRIVER_INFO_MODEL = """{
+    "$DRIVER_A": $DRIVER_PROPERTIES,
+    "NON_EXISTENT_DRIVER": $DRIVER_PROPERTIES
+}"""
+
+
 private val SINGLE_DRIVER_LIST = """[
-    $DRIVER_A
+    "$DRIVER_A"
 ]"""
 
 private val TWO_DRIVERS_LIST_REVERSED = """[
-    $DRIVER_B,
-    $DRIVER_A
+    "$DRIVER_B",
+    "$DRIVER_A"
 ]"""
 
+private val ONE_KNOWN_ONE_UNKNOWN_DRIVER_LIST = """[
+    "$DRIVER_A",
+    "NON_EXISTENT_DRIVER"
+]"""
 
 @RunWith(JUnit4::class)
 class DriversRepositoryImplTest {
@@ -80,9 +90,19 @@ class DriversRepositoryImplTest {
     }
 
     @Test
-    fun `unknown drivers aren't added to the list`() {
+    fun `drivers without info aren't added to the list`() {
         val driversRepository = DriversRepositoryImpl(
                 FakeRemoteConfigService(drivers = ONE_DRIVER_INFO_MODEL, driversOrderList = TWO_DRIVERS_LIST_REVERSED))
+
+        assertEquals(1, driversRepository.driversList.size)
+    }
+
+    @Test
+    fun `non existing drivers aren't added to the list`() {
+        val driversRepository = DriversRepositoryImpl(
+                FakeRemoteConfigService(
+                        drivers = ONE_KNOWN_ONE_UNKNOWN_DRIVER_INFO_MODEL,
+                        driversOrderList = ONE_KNOWN_ONE_UNKNOWN_DRIVER_LIST))
 
         assertEquals(1, driversRepository.driversList.size)
     }

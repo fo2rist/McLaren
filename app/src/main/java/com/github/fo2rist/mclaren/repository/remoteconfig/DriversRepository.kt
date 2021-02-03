@@ -26,7 +26,7 @@ interface DriversRepository {
 }
 
 private typealias DriverPropertiesConfigModel = Map<DriverProperty, String>
-private typealias DriversConfigModel = Map<DriverId, DriverPropertiesConfigModel>
+private typealias DriversConfigModel = Map<DriverId?, DriverPropertiesConfigModel>
 
 internal class DriversRepositoryImpl @Inject constructor(
     private val remoteConfigService: RemoteConfigService
@@ -36,15 +36,18 @@ internal class DriversRepositoryImpl @Inject constructor(
 
     private fun loadDrivers(): List<Driver> {
         val driversModelTypeToken = object : TypeToken<DriversConfigModel>() {}
-        val driversListTypeToken = object : TypeToken<List<DriverId>>() {}
+        val driversListTypeToken = object : TypeToken<List<DriverId?>>() {}
 
+        // get DriverId - DriverInfo mapping
         val driversInfoMap = parseJson(remoteConfigService.drivers, driversModelTypeToken)
+                ?.filter { (id, _) -> id != null }
                 ?.mapValues { (id, properties) ->
-                    Driver(id, properties)
+                    Driver(id!!, properties)
                 } ?: emptyMap()
+        // get DriverIds to display
         val driversOrderList = parseJson(remoteConfigService.driversOrderList, driversListTypeToken)
                 ?: emptyList()
-
+        // for each DriverId put info to resulting list
         return driversOrderList.mapNotNull {
             driversInfoMap[it]
         }
