@@ -17,6 +17,11 @@ import org.junit.Test
 class ImageUrlParserTest {
 
     @Test
+    fun `test null url interpreted as empty`() {
+        assertEquals("", ImageUrlParser.convertToInternalUrl(null));
+    }
+
+    @Test
     fun `test plain url not modified`() {
         val validUrl = "http://some_valid.url/image"
 

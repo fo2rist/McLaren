@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.repository.converters.utils;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import com.github.fo2rist.mclaren.models.ImageUrl;
@@ -38,7 +38,11 @@ public class ImageUrlParser {
      * @param serverApiImageUrl any URL that API return
      * @return same URL if it's static or URL with internal unified placeholder if it's dynamic.
      */
-    public static String convertToInternalUrl(@NonNull String serverApiImageUrl) {
+    public static String convertToInternalUrl(@Nullable String serverApiImageUrl) {
+        if (serverApiImageUrl == null) {
+            return "";
+        }
+
         if (isMcLarenTabApiDynamicLink(serverApiImageUrl)) {
             String normalizedTabApiUrl = normalizeTabApiUrl(serverApiImageUrl);
             return replaceWidthHeight(normalizedTabApiUrl,

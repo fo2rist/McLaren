@@ -22,7 +22,7 @@ public class McLarenFeedConverterTest {
     private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
     private McLarenFeedConverter converter = new McLarenFeedConverter();
-    
+
     @Test
     public void testRealDataFilteredByHiddenFlag() {
         List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.REAL_FEED_RESPONSE));
@@ -32,7 +32,7 @@ public class McLarenFeedConverterTest {
 
     @Test
     public void testLikExtractedFromTweetText() {
-        List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.SINGLE_ITEM_FEED_WITH_HIDDEN_LINK));
+        List<FeedItem> feed = converter.convertFeed(parser.parse(McLarenFeedResponse.HIDDEN_LINK_IN_ONE_ITEM_FEED_RESPONSE));
 
         assertEquals(1, feed.size());
         assertEquals(McLarenFeedResponse.HIDDEN_LINK, feed.get(0).getEmbeddedMediaLink());

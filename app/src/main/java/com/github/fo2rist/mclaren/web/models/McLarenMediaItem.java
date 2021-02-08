@@ -27,6 +27,7 @@ public class McLarenMediaItem {
     public Type type;
     @Nullable
     public Source source;
+    @Nullable
     public String url;
     public int width;
     public int height;
