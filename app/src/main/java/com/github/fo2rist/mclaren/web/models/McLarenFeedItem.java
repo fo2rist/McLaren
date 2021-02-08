@@ -1,5 +1,7 @@
 package com.github.fo2rist.mclaren.web.models;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,19 +40,28 @@ public class McLarenFeedItem implements Serializable {
         INSTAGRAM,
     }
 
+    @Nullable
     public Type type;
+    @Nullable
     public String author;
     public int id;
     public int likes;
     public int likeStep;
+    @Nullable
     public String origin;
     public boolean hidden;
     public boolean promotional;
+    @Nullable
     public Date publicationDate;
+    @Nullable
     public Source source;
+    @Nullable
     public String title;
+    @Nullable
     public String content;
+    @Nullable
     public String body;
+    @Nullable
     public String tweetText;
     public ArrayList<McLarenMediaItem> media;
 }
