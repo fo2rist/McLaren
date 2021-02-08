@@ -1,11 +1,11 @@
 package com.github.fo2rist.mclaren.ui.driversscreen;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.github.fo2rist.mclaren.ui.models.DriverId;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,24 +13,22 @@ import java.util.List;
  */
 public class DriversPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<DriverSubFragment> pages = new ArrayList<>();
+    @NonNull
+    private final List<DriverId> driverIds;
 
-    DriversPagerAdapter(FragmentManager fm, List<DriverId> driversList) {
-        super(fm);
-
-        for (DriverId driver: driversList) {
-            pages.add(DriverSubFragment.newInstance(driver));
-        }
+    DriversPagerAdapter(@NonNull FragmentManager fm, @NonNull List<DriverId> driversList) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        driverIds = driversList;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-        return pages.get(position);
+        return DriverSubFragment.newInstance(driverIds.get(position));
     }
 
     @Override
     public int getCount() {
-        return pages.size();
+        return driverIds.size();
     }
-
 }
