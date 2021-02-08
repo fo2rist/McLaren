@@ -14,12 +14,16 @@ object TransmissionConverter {
     @JvmStatic
     fun convert(webDataModel: TransmissionData): TransmissionInfo {
         val commentaries = webDataModel.flatMap { (session, transmissionFeed) ->
-            transmissionFeed.map {
+            transmissionFeed.mapNotNull {
+                // if one of mandatory fields is missing ignore the item
+                if (it.date == null || it.message == null) {
+                    return@mapNotNull null
+                }
                 TransmissionItem(
                         id = it.date.time,
-                        dateTime = DateTime(it.date, DateTimeZone.UTC),
-                        guestName = it.guestName,
                         message = it.message,
+                        dateTime = DateTime(it.date, DateTimeZone.UTC),
+                        guestName = it.guestName ?: "",
                         session = session.toSessionModel(),
                         type = it.source.toMessageTypeModel())
             }

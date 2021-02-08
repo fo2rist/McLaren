@@ -1,14 +1,14 @@
 package com.github.fo2rist.mclaren.repository.transmission
 
 import com.github.fo2rist.mclaren.models.TransmissionItem
+import com.github.fo2rist.mclaren.testdata.DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE
+import com.github.fo2rist.mclaren.testdata.DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE_CORRECT_ITEMS
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE
 import com.github.fo2rist.mclaren.testdata.REAL_TRANSMISSION_RESPONSE_SIZE
 import com.github.fo2rist.mclaren.web.utils.SafeJsonParser
 import com.github.fo2rist.mclaren.web.models.TransmissionData
-import com.github.fo2rist.mclaren.web.models.TransmissionSession
 import org.joda.time.DateTime
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,19 +17,27 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class TransmissionConverterTest {
     private val converter = TransmissionConverter
-    private lateinit var webDataModel: TransmissionData
+
+    private fun parseTestData(data: String): TransmissionData {
+        val webDataModel = SafeJsonParser(TransmissionData::class.java).parse(data)
+
+        return requireNotNull(webDataModel)
+    }
 
     @Before
-    fun setUp() {
-        webDataModel = SafeJsonParser(TransmissionData::class.java).parse(REAL_TRANSMISSION_RESPONSE)
-        assertNotNull(webDataModel)
-        assertNotNull(webDataModel[TransmissionSession.RACE])
-        assertNotNull(webDataModel[TransmissionSession.QUALIFICATION])
-        assertEquals(REAL_TRANSMISSION_RESPONSE_SIZE, webDataModel.flatMap { it.value }.size)
+    fun `convert fetches All session types`() {
+        val webDataModel = parseTestData(REAL_TRANSMISSION_RESPONSE)
+
+        val transmissionModel = converter.convert(webDataModel)
+
+        assertEquals(REAL_TRANSMISSION_RESPONSE_SIZE, transmissionModel.messages.size)
+        assertEquals(TransmissionItem.Session.RACE, transmissionModel.currentSession)
     }
 
     @Test
-    fun testBasicConversion() {
+    fun `convert can parse All item types from Correct data`() {
+        val webDataModel = parseTestData(REAL_TRANSMISSION_RESPONSE)
+
         val transmissionModel = converter.convert(webDataModel)
 
         assertEquals(REAL_TRANSMISSION_RESPONSE_SIZE, transmissionModel.messages.size)
@@ -62,5 +70,15 @@ class TransmissionConverterTest {
                         TransmissionItem.Session.PRACTICE_1,
                         TransmissionItem.Type.MESSAGE_FROM_GUEST),
                 transmissionModel.messages[32])
+    }
+
+    @Test
+    fun `convert Missing fields`(){
+        val webDataModel = parseTestData(DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE)
+
+        val transmissionModel = converter.convert(webDataModel)
+
+        assertEquals(DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE_CORRECT_ITEMS, transmissionModel.messages.size)
+        assertEquals(TransmissionItem.Session.QUALIFICATION, transmissionModel.currentSession)
     }
 }
