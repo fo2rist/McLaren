@@ -77,7 +77,7 @@ internal class TransmissionAdapter(
                 MESSAGE_GENERAL ->
                     getString(R.string.transmission_item_title_pitwall)
                 MESSAGE_FROM_GUEST ->
-                    getString(R.string.transmission_item_title_guest_format, item.guestName ?: "")
+                    getString(R.string.transmission_item_title_guest_format, item.guestName)
             }
         }
 

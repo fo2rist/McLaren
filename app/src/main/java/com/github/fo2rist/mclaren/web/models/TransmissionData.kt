@@ -21,13 +21,13 @@ class TransmissionData : HashMap<TransmissionSession, List<TransmissionItemData>
  */
 data class TransmissionItemData(
     @SerializedName("published_time")
-    val date: Date, // eg. "2018-03-23T00:47:08Z",
+    val date: Date?, // eg. "2018-03-23T00:47:08Z",
     @SerializedName("source")
-    val source: TransmissionMessageType,
+    val source: TransmissionMessageType?,
     @SerializedName("commentary")
-    val message: String,
+    val message: String?,
     @SerializedName("guest_name")
-    val guestName: String
+    val guestName: String?
 )
 
 /**

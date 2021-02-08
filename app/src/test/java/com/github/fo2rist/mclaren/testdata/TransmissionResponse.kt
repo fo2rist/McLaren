@@ -311,3 +311,69 @@ const val REAL_TRANSMISSION_RESPONSE = """
     ]
 }
 """
+
+const val DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE_CORRECT_ITEMS = 5
+// missing one different field in each item, one by one
+const val DIFFERENT_FIELDS_MISSING_TRANSMISSION_RESPONSE = """
+{
+    "Q": [
+        {
+            "published_time": null,
+            "source": "cm",
+            "guest_name": "",
+            "commentary": "Some message",
+            "sticky": false,
+            "sticky_until": null
+        },
+        {
+            "published_time": "2020-07-18T12:31:45Z",
+            "source": null,
+            "guest_name": "",
+            "commentary": "Some message",
+            "sticky": false,
+            "sticky_until": null
+        },
+        {
+            "published_time": "2020-07-18T14:05:21Z",
+            "source": "cm",
+            "guest_name": null,
+            "commentary": "Some message",
+            "sticky": false,
+            "sticky_until": null
+        },
+        {
+            "published_time": "2020-07-18T14:05:21Z",
+            "source": "cm",
+            "guest_name": "",
+            "commentary": null,
+            "sticky": false,
+            "sticky_until": null
+        },
+        {
+            "published_time": "2020-07-18T12:31:45Z",
+            "source": "cm",
+            "guest_name": "",
+            "commentary": "Some message",
+            "sticky": null,
+            "sticky_until": null
+        },
+        {
+            "published_time": "2020-07-18T12:31:45Z",
+            "source": "cm",
+            "guest_name": "",
+            "commentary": "Some message",
+            "sticky": false,
+            "sticky_until": null
+        }
+    ],
+    "X": [
+        {
+            "published_time": "1999-07-18T12:31:45Z",
+            "source": "cm",
+            "guest_name": "",
+            "commentary": "Some message",
+            "sticky": false,
+            "sticky_until": null
+        }
+    ]
+}"""
