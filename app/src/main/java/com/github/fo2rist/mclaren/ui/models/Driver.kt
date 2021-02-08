@@ -12,18 +12,14 @@ enum class DriverId constructor(
 ) {
     ALONSO("alonso"),
     BUTTON("button"),
-    CAMARA("camara"),
     NORRIS("norris"),
-    SAINZ("sainz"),
     RICCIARDO("ricciardo"),
+    SAINZ("sainz"),
     TURVEY("turvey"),
 
     //region removed resources
     //the IDs can not be removed now, before the remote config that mentions these drivers is removed
     //and the app updated to the new version and the app updated so no user have the app with one of these drivers
-    DEVRIES("devries"),
-    MATSUSHITA("matsushita"),
-    VANBUREN("vanburen"),
     VANDOORNE("vandoorne"),
     //endregion
 }
