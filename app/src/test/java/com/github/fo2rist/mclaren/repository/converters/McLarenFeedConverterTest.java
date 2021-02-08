@@ -19,9 +19,9 @@ import static junit.framework.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class McLarenFeedConverterTest {
-    private SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
+    private final SafeJsonParser<McLarenFeed> parser = new SafeJsonParser<>(McLarenFeed.class);
 
-    private McLarenFeedConverter converter = new McLarenFeedConverter();
+    private final McLarenFeedConverter converter = new McLarenFeedConverter();
 
     @Test
     public void testRealDataFilteredByHiddenFlag() {
@@ -55,7 +55,7 @@ public class McLarenFeedConverterTest {
                         Size.valueOf(640, 640))
         );
 
-        checkItemFields(feed.get(3),
+        checkItemFields(feed.get(4),
                 22541,
                 FeedItem.Type.Article,
                 "The ultimate F1 summer holiday quiz",

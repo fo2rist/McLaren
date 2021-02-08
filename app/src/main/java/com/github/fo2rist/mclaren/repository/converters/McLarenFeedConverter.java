@@ -1,8 +1,9 @@
 package com.github.fo2rist.mclaren.repository.converters;
 
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Patterns;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.models.ImageUrl;
@@ -72,19 +73,23 @@ public final class McLarenFeedConverter implements FeedConverter<McLarenFeed> {
         }
     }
 
+    @NonNull
     private static String fetchText(McLarenFeedItem mcLarenFeedItem) {
-        switch (mcLarenFeedItem.type) {
-            case ARTICLE:
-                return mcLarenFeedItem.title;
-            case GALLERY:
-                return TextUtils.isEmpty(mcLarenFeedItem.title)
-                        ? mcLarenFeedItem.content
-                        : mcLarenFeedItem.title;
-            default:
-               return mcLarenFeedItem.content;
+        @Nullable final String potentialText;
+        if (mcLarenFeedItem.type == McLarenFeedItem.Type.ARTICLE) {
+            potentialText = mcLarenFeedItem.title;
+        } else if (mcLarenFeedItem.type == McLarenFeedItem.Type.GALLERY) {
+            potentialText = TextUtils.isEmpty(mcLarenFeedItem.title)
+                    ? mcLarenFeedItem.content
+                    : mcLarenFeedItem.title;
+        } else {
+            potentialText = mcLarenFeedItem.content;
         }
+
+        return (potentialText != null) ? potentialText : "";
     }
 
+    @Nullable
     private static String fetchContent(McLarenFeedItem mcLarenFeedItem) {
         return mcLarenFeedItem.content;
     }
