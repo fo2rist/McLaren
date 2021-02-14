@@ -5,6 +5,7 @@ import com.github.fo2rist.mclaren.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.internal.ConfigFetchHandler.DEFAULT_MINIMUM_FETCH_INTERVAL_IN_SECONDS
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -51,21 +52,20 @@ class FirebaseRemoteConfigService @Inject constructor() : RemoteConfigService {
     private fun FirebaseRemoteConfig.init() {
         // set low latency debug mode for debug builds
         val configSettings = FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .setMinimumFetchIntervalInSeconds(
+                        if (BuildConfig.DEBUG) 30 else DEFAULT_MINIMUM_FETCH_INTERVAL_IN_SECONDS)
                 .build()
-        this.setConfigSettings(configSettings)
-        this.setDefaults(R.xml.app_config_defautls)
+        this.setConfigSettingsAsync(configSettings)
+        this.setDefaultsAsync(R.xml.app_config_defautls)
     }
 
     override fun fetchConfig() {
-        firebaseConfig.fetch()
+        firebaseConfig.fetchAndActivate()
                 .addOnCompleteListener(this::onRemoteConfigFetched)
     }
 
-    private fun onRemoteConfigFetched(task: Task<Void>) {
-        if (task.isSuccessful) {
-            firebaseConfig.activate()
-        } else {
+    private fun onRemoteConfigFetched(task: Task<Boolean>) {
+        if (!task.isSuccessful) {
             Timber.e(task.exception, "Unable to fetch config from Firebase")
         }
     }
