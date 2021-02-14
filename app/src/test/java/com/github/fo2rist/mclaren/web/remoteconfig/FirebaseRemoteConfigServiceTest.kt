@@ -1,6 +1,6 @@
 package com.github.fo2rist.mclaren.web.remoteconfig
 
-import com.github.fo2rist.mclaren.web.remoteconfig.FirebaseRemoteConfigService
+import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
 import org.json.JSONArray
 import org.json.JSONObject
@@ -9,7 +9,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class FirebaseRemoteConfigServiceTest {
@@ -18,7 +17,7 @@ class FirebaseRemoteConfigServiceTest {
     fun setUp() {
         // in tests Firebase is not initialized by default, so have to do that manually
         // this will load default config XML supplied with the app
-        FirebaseApp.initializeApp(RuntimeEnvironment.application)
+        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
     }
 
     @Test
