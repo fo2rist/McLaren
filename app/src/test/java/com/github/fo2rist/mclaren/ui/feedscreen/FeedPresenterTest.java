@@ -1,6 +1,5 @@
 package com.github.fo2rist.mclaren.ui.feedscreen;
 
-import com.github.fo2rist.mclaren.models.FeedItem;
 import com.github.fo2rist.mclaren.mvp.FeedContract;
 import com.github.fo2rist.mclaren.repository.feed.FeedRepository;
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus;
@@ -17,11 +16,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 
 @RunWith(JUnit4.class)
 public class FeedPresenterTest {
-    private static final String DEFAULT_ACCOUNT = "";
+    private static final String TEST_ACCOUNT = "account_name";
 
     private FeedPresenter presenter;
     private FeedContract.View mockView;
@@ -34,6 +34,7 @@ public class FeedPresenterTest {
         mockRepository = mock(FeedRepository.class);
         mockEventBus = mock(FeedRepositoryEventBus.class);
         presenter = new FeedPresenter(mockView, mockRepository, mockEventBus);
+        presenter.setAccount(TEST_ACCOUNT);
     }
 
     @Test
@@ -41,7 +42,7 @@ public class FeedPresenterTest {
         presenter.onStart();
 
         verify(mockEventBus).subscribe(any());
-        verify(mockRepository).loadLatestPage(DEFAULT_ACCOUNT);
+        verify(mockRepository).loadLatestPage(TEST_ACCOUNT);
     }
 
     @Test
@@ -53,23 +54,32 @@ public class FeedPresenterTest {
 
     @Test
     public void test_onFeedUpdateReceived_setFeedToView() {
-        presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(new ArrayList<FeedItem>()));
+        presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(TEST_ACCOUNT, new ArrayList<>()));
 
         verify(mockView).displayFeed(any(List.class));
     }
 
     @Test
     public void test_onLoadingStarted_showProgress() {
-        presenter.onLoadingStarted(new LoadingEvent.LoadingStarted());
+        presenter.onLoadingStarted(new LoadingEvent.LoadingStarted(TEST_ACCOUNT));
 
         verify(mockView).showProgress();
     }
 
     @Test
     public void test_onLoadingFinished_hideProgress() {
-        presenter.onLoadingFinished(new LoadingEvent.LoadingFinished());
+        presenter.onLoadingFinished(new LoadingEvent.LoadingFinished(TEST_ACCOUNT));
 
         verify(mockView).hideProgress();
+    }
+
+    @Test
+    public void test_onLoadingXyzEvents_ignoreIncorrectAccount() {
+        presenter.onLoadingStarted(new LoadingEvent.LoadingStarted("non_existent_account"));
+        presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady("non_existent_account", new ArrayList<>()));
+        presenter.onLoadingFinished(new LoadingEvent.LoadingFinished("non_existent_account"));
+
+        verifyZeroInteractions(mockView);
     }
 
     @Test
@@ -112,7 +122,7 @@ public class FeedPresenterTest {
     public void test_onRefreshRequested_loadsFeed() {
         presenter.onRefreshRequested();
 
-        verify(mockRepository).loadLatestPage(DEFAULT_ACCOUNT);
+        verify(mockRepository).loadLatestPage(TEST_ACCOUNT);
     }
 
     @Test
@@ -126,6 +136,6 @@ public class FeedPresenterTest {
     public void test_onScrolledToBottom_loadsHistory() {
         presenter.onScrolledToBottom();
 
-        verify(mockRepository).loadNextPage(DEFAULT_ACCOUNT);
+        verify(mockRepository).loadNextPage(TEST_ACCOUNT);
     }
 }

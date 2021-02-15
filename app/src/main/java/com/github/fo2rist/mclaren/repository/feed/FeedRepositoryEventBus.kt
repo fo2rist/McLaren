@@ -12,24 +12,27 @@ interface FeedRepositoryEventBus : EventBusConnector {
     /** Send event to all active subscribers. */
     fun publish(event: LoadingEvent)
 
-    /** [FeedRepositoryEventBus] event. */
+    /**
+     * [FeedRepositoryEventBus] event.
+     * Each contains the account ID the event belongs to and optional data.
+     */
     interface LoadingEvent {
         /** Loading result event. */
-        data class FeedUpdateReady(var feed: List<FeedItem>) : LoadingEvent
+        data class FeedUpdateReady(val account: String, val feed: List<FeedItem>) : LoadingEvent
 
         /** Networking operation failure. */
-        class LoadingError : LoadingEvent
+        class LoadingError(val account: String) : LoadingEvent
 
         /**
          * Networking operation start event.
          * Should be sent before any other event.
          */
-        class LoadingStarted : LoadingEvent
+        class LoadingStarted(val account: String) : LoadingEvent
 
         /**
          * Networking operation end with success or failure.
          * Should be sent after [FeedUpdateReady] or [LoadingError]
          */
-        class LoadingFinished : LoadingEvent
+        class LoadingFinished(val account: String) : LoadingEvent
     }
 }

@@ -48,7 +48,7 @@ class McLarenFeedRepositoryImplTest {
 
     @Test
     fun test_loadLatest_startLoading_and_firesLoadStartEvent() {
-        repository.loadLatestPage()
+        repository.loadLatestPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verifyBlocking(mockWebService) { requestLatestFeed() }
@@ -59,7 +59,7 @@ class McLarenFeedRepositoryImplTest {
         whenever(mockHistoryPredictor.isFirstHistoryPageKnown).thenReturn(false)
         whenever(mockHistoryPredictor.firstHistoryPage).thenReturn(-1)
 
-        repository.loadNextPage()
+        repository.loadNextPage("")
 
         verify(mockHistoryPredictor).startPrediction()
         verifyBlocking(mockWebService, never()) { requestFeedPage(anyInt()) }
@@ -70,7 +70,7 @@ class McLarenFeedRepositoryImplTest {
         whenever(mockHistoryPredictor.isFirstHistoryPageKnown).thenReturn(true)
         whenever(mockHistoryPredictor.firstHistoryPage).thenReturn(1000)
 
-        repository.loadNextPage()
+        repository.loadNextPage("")
 
         verify(mockHistoryPredictor, never()).startPrediction()
         verify(mockHistoryPredictor).firstHistoryPage
@@ -101,7 +101,7 @@ class McLarenFeedRepositoryImplTest {
             onBlocking { requestLatestFeed() }.doReturn(REAL_FEED_RESPONSE)
         }
 
-        repository.loadLatestPage()
+        repository.loadLatestPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockEventBus).publish(any<LoadingEvent.FeedUpdateReady>())
@@ -114,7 +114,7 @@ class McLarenFeedRepositoryImplTest {
             onBlocking { requestLatestFeed() }.doThrow(BadResponse(URL("http://empty.url"), 400))
         }
 
-        repository.loadLatestPage()
+        repository.loadLatestPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockEventBus).publish(any<LoadingEvent.LoadingError>())

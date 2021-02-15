@@ -21,11 +21,10 @@ class FeedPresenter @Inject constructor(
 ) : FeedContract.Presenter {
     /**
      * Account withing a service the presenter is displaying.
-     * Can be empty if the service doesn't have notion of accounts, but must be initialized for services with multiple
-     * accounts, e.g Twitter.
+     * For services with a single account it help with uniquely distinguishing services.
      * TODO move it to the interface when interface is converted to kotlin.
      */
-    private var account: String = ""
+    private var account: String = "_undefined_account_that_matches_nothing_"
 
     override fun setAccount(account: String) {
         this.account = account
@@ -89,19 +88,28 @@ class FeedPresenter @Inject constructor(
 
     /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onLoadingStarted(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingStarted) {
+    fun onLoadingStarted(event: LoadingEvent.LoadingStarted) {
+        if (event.account != account) {
+            return
+        }
         view.showProgress()
     }
 
     /** EventBus message receiver for data update event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFeedUpdateReceived(event: LoadingEvent.FeedUpdateReady) {
+        if (event.account != account) {
+            return
+        }
         view.displayFeed(event.feed)
     }
 
     /** EventBus message receiver for Loading start event. */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadingFinished(@Suppress("UNUSED_PARAMETER") event: LoadingEvent.LoadingFinished) {
+        if (event.account != account) {
+            return
+        }
         view.hideProgress()
     }
 }

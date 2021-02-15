@@ -21,10 +21,10 @@ interface FeedRepository {
     fun prepareForHistoryLoading()
 
     /** Requests the next portion of not loaded yet items in feed.  */
-    fun loadNextPage(account: String = "")
+    fun loadNextPage(account: String)
 
     /** Request the latest entries from feed.  */
-    fun loadLatestPage(account: String = "")
+    fun loadLatestPage(account: String)
 }
 
 /**
@@ -67,17 +67,17 @@ abstract class BaseFeedRepository<T>(
     protected var feedItems = TreeSet<FeedItem>()
 
     override fun loadLatestPage(account: String) {
-        publishCachedFeed() // publish cached data to respond immediately and then load
+        publishCachedFeed(account) // publish cached data to respond immediately and then load
 
         mainScope.launch {
-            publishLoadingStarted()
+            publishLoadingStarted(account)
             try {
                 val feed = webService.requestLatestFeed()
-                updateDataAndPublishLoadingSuccess(DEFAULT_PAGE, feed)
+                updateDataAndPublishLoadingSuccess(account, DEFAULT_PAGE, feed)
             } catch (exc: IOException) {
-                publishLoadingFailure()
+                publishLoadingFailure(account)
             }
-            publishLoadingFinished()
+            publishLoadingFinished(account)
         }
     }
 
@@ -88,45 +88,45 @@ abstract class BaseFeedRepository<T>(
         }
 
         mainScope.launch {
-            publishLoadingStarted()
+            publishLoadingStarted(account)
             try {
                 val feed = webService.requestFeedPage(pageToLoad)
-                updateDataAndPublishLoadingSuccess(pageToLoad, feed)
+                updateDataAndPublishLoadingSuccess(account, pageToLoad, feed)
             } catch (exc: IOException) {
-                publishLoadingFailure()
+                publishLoadingFailure(account)
             }
-            publishLoadingFinished()
+            publishLoadingFinished(account)
         }
     }
 
-    private fun publishLoadingStarted() {
-        repositoryEventBus.publish(LoadingEvent.LoadingStarted())
+    private fun publishLoadingStarted(account: String) {
+        repositoryEventBus.publish(LoadingEvent.LoadingStarted(account))
     }
 
-    private fun publishCachedFeed() {
+    private fun publishCachedFeed(account: String) {
         if (!feedItems.isEmpty()) {
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toDescendingList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(account, feedItems.toDescendingList()))
         }
     }
 
-    private fun publishLoadingFinished() {
-        repositoryEventBus.publish(LoadingEvent.LoadingFinished())
+    private fun publishLoadingFinished(account: String) {
+        repositoryEventBus.publish(LoadingEvent.LoadingFinished(account))
     }
 
-    private fun publishLoadingFailure() {
-        repositoryEventBus.publish(LoadingEvent.LoadingError())
+    private fun publishLoadingFailure(account: String) {
+        repositoryEventBus.publish(LoadingEvent.LoadingError(account))
     }
 
-    private fun updateDataAndPublishLoadingSuccess(requestedPage: Int, data: String?) {
+    private fun updateDataAndPublishLoadingSuccess(account: String, requestedPage: Int, data: String?) {
         if (requestedPage >= 0) {
             onPageLoaded(requestedPage)
         }
 
         val pageItems = parse(data)
-        if (!pageItems.isEmpty()) {
+        if (pageItems.isNotEmpty()) {
             feedItems.addAll(pageItems)
 
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(feedItems.toDescendingList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(account, feedItems.toDescendingList()))
         }
     }
 

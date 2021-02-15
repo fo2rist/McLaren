@@ -8,6 +8,7 @@ import com.github.fo2rist.mclaren.utils.toDescendingList
 import com.github.fo2rist.mclaren.web.feed.TwitterWebServiceBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import twitter4j.Paging
 import twitter4j.ResponseList
@@ -47,18 +48,18 @@ internal class TwitterRepositoryImpl @Inject constructor(
 
     @VisibleForTesting
     suspend fun loadAndNotify(account: String, page: Int) {
-        repositoryEventBus.publish(LoadingEvent.LoadingStarted())
+        repositoryEventBus.publish(LoadingEvent.LoadingStarted(account))
 
         try {
             val newTweets = loadTweets(account, page)
             val accountTweets = cachedTweets.getOrCreate(account, TreeSet())
             accountTweets.addAll(newTweets)
-            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(accountTweets.toDescendingList()))
+            repositoryEventBus.publish(LoadingEvent.FeedUpdateReady(account, accountTweets.toDescendingList()))
         } catch (exc: TwitterException) {
-            repositoryEventBus.publish(LoadingEvent.LoadingError())
+            repositoryEventBus.publish(LoadingEvent.LoadingError(account))
         }
 
-        repositoryEventBus.publish(LoadingEvent.LoadingFinished())
+        repositoryEventBus.publish(LoadingEvent.LoadingFinished(account))
     }
 
     /**
