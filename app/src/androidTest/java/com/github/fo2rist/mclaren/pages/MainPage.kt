@@ -19,6 +19,10 @@ class MainPage : Screen<MainPage>() {
 
     val menuTeamTwitter: KView = KView { withText(R.string.navigation_item_team_twitter) }
 
+    val menuDriver1Twitter: KView = KView { withText(R.string.navigation_item_lando_twitter) }
+
+    val menuDriver2Twitter: KView = KView { withText(R.string.navigation_item_daniel_twitter) }
+
     val menuDrivers: KView = KView { withText(R.string.navigation_item_drivers) }
 
     val menuCar: KView = KView { withText(R.string.navigation_item_car) }
