@@ -102,23 +102,13 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
         private const val ARG_EVENT = "event"
 
         /**
-         * Create bundle with circuit info to be used with [newInstance].
+         * Create fragment to display circuit/event info.
          */
         @JvmStatic
-        fun createLaunchBundle(event: CalendarEvent): Bundle {
-            val args = Bundle()
-            args.putSerializable(ARG_EVENT, event)
-            return args
-        }
-
-        /**
-         * Create fragment to display circuit.
-         */
-        @JvmStatic
-        fun newInstance(args: Bundle): CircuitDetailsFragment {
-            val fragment = CircuitDetailsFragment()
-            fragment.arguments = args
-            return fragment
+        fun newInstance(event: CalendarEvent): CircuitDetailsFragment {
+            return CircuitDetailsFragment().apply {
+                arguments = Bundle().apply { putSerializable(ARG_EVENT, event) }
+            }
         }
     }
 }
