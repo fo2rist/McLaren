@@ -11,7 +11,6 @@ import com.github.fo2rist.mclaren.pages.FeedPage
 import com.github.fo2rist.mclaren.ui.circuitsscreen.CircuitDetailsActivity
 import com.github.fo2rist.mclaren.ui.previewscreen.PreviewActivity
 import com.github.fo2rist.mclaren.ui.transmissionscreen.TransmissionActivity
-import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.any
 import org.joda.time.DateTime
 import org.junit.Test
@@ -31,6 +30,8 @@ class MainActivityTest : BaseMainActivityTest() {
             menuLandoTwitter { isDisplayed() }
             menuDanielTwitter { isDisplayed() }
             menuTeamTwitter { isDisplayed() }
+            menuDriver1Twitter { isDisplayed() }
+            menuDriver2Twitter { isDisplayed() }
             menuCircuits { isDisplayed() }
             menuDrivers { isDisplayed() }
             menuCar { isDisplayed() }
