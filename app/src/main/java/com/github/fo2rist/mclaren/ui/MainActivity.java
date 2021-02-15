@@ -37,9 +37,9 @@ import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import timber.log.Timber;
 
-import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_DANIEL_RICCIARDO;
-import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_LANDO_NORRIS;
-import static com.github.fo2rist.mclaren.models.TwitterAccounts.TWITTER_MCLAREN_F1;
+import static com.github.fo2rist.mclaren.models.FeedAccounts.TWITTER_DANIEL_RICCIARDO;
+import static com.github.fo2rist.mclaren.models.FeedAccounts.TWITTER_LANDO_NORRIS;
+import static com.github.fo2rist.mclaren.models.FeedAccounts.TWITTER_MCLAREN_F1;
 import static com.github.fo2rist.mclaren.ui.utils.AnimationUtils.startActivityWithRevealAnimation;
 import static com.github.fo2rist.mclaren.utils.IntentUtils.openInBrowser;
 

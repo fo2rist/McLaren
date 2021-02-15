@@ -37,7 +37,7 @@ class StoryStreamRepositoryImplTest {
 
     @Test
     fun test_loadNextHistory_startLoading_and_firesLoadStartEvent() {
-        repository.loadNextPage()
+        repository.loadNextPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verifyBlocking(mockWebService) { requestFeedPage(anyInt()) }
@@ -49,7 +49,7 @@ class StoryStreamRepositoryImplTest {
             onBlocking { requestLatestFeed() }.doReturn(REAL_FEED_RESPONSE)
         }
 
-        repository.loadLatestPage()
+        repository.loadLatestPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockEventBus).publish(any<LoadingEvent.FeedUpdateReady>())
@@ -62,7 +62,7 @@ class StoryStreamRepositoryImplTest {
             onBlocking { requestLatestFeed() }.doThrow(BadResponse(URL("http://empty.url"), 400))
         }
 
-        repository.loadLatestPage()
+        repository.loadLatestPage("")
 
         verify(mockEventBus).publish(any<LoadingEvent.LoadingStarted>())
         verify(mockEventBus).publish(any<LoadingEvent.LoadingError>())
