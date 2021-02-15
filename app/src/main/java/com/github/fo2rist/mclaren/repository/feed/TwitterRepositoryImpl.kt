@@ -76,7 +76,7 @@ internal class TwitterRepositoryImpl @Inject constructor(
 
 /**
  * Implementation of kotlin's new getOrDefault helper.
- * Can be removed once migrated to the new version if works for older Androids.
+ * Can be removed once migrated Android API 24+.
  */
 private fun <K, V> MutableMap<K, V>.getOrCreate(key: K, default: V): V {
     if (!this.containsKey(key)) {

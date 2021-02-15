@@ -94,10 +94,8 @@ class TwitterConverter @Inject constructor() : FeedConverter<ResponseList<Status
         primaryTweet: Status
     ): List<ImageUrl> {
         return primaryTweet.mediaEntities.map { entity ->
-            ImageUrl.create(entity.mediaURL,
-                    Size.valueOf(
-                            entity.sizes.maxBy { it.key }!!.value.width,
-                            entity.sizes.maxBy { it.key }!!.value.height))
+            val largestSize = entity.sizes.maxByOrNull { it.key }!!.value
+            ImageUrl.create(entity.mediaURL, Size.valueOf(largestSize.width, largestSize.height))
         }
     }
 }
