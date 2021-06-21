@@ -12,6 +12,7 @@ import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
 import com.nhaarman.mockitokotlin2.spy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -25,6 +26,13 @@ class PreviewActivityTest {
 
     private lateinit var activity: PreviewActivity
     private lateinit var presenterSpy: PreviewContract.Presenter
+
+    @Before
+    fun setUp() {
+        // workaround for missing PKCS#12 KeyStore that OkHttp tries to access when it makes request under Robolectric
+        // may be fixed in version after 4.3.1
+        System.setProperty("javax.net.ssl.trustStore", "NONE")
+    }
 
     @Test
     fun `test start for Url starts with default title not in fullscreen`() {
