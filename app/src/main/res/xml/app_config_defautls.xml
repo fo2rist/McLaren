@@ -67,12 +67,12 @@
                 {
                 "name": "French Grand Prix",
                 "circuit_id": "france_le_castellet",
-                "practice_1_time": "2021-06-25T10:30:00Z",
-                "practice_2_time": "2021-06-25T14:00:00Z",
-                "practice_3_time": "2021-06-26T11:00:00Z",
-                "qualifying_time": "2021-06-26T14:00:00Z",
-                "race_time": "2021-06-27T14:00:00Z",
-                "date": "2021-06-27"
+                "practice_1_time": "2021-06-18T10:30:00Z",
+                "practice_2_time": "2021-06-18T14:00:00Z",
+                "practice_3_time": "2021-06-19T11:00:00Z",
+                "qualifying_time": "2021-06-19T14:00:00Z",
+                "race_time": "2021-06-20T14:00:00Z",
+                "date": "2021-06-20"
                 },
                 {
                 "name": "Steiermark Grand Prix",
