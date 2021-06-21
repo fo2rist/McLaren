@@ -21,20 +21,20 @@ abstract class OkHttpCallbackWrapper : okhttp3.Callback {
      */
     abstract fun onOkHttpSuccess(url: URL, responseCode: Int, responseBody: String?)
 
-    override fun onFailure(call: Call, exc: IOException?) {
-        onOkHttpFailure(getUrl(call), connectionError = exc)
+    override fun onFailure(call: Call, e: IOException) {
+        onOkHttpFailure(getUrl(call), connectionError = e)
     }
 
     override fun onResponse(call: Call, response: Response) {
         val url = getUrl(call)
         if (response.isSuccessful) {
-            onOkHttpSuccess(url, response.code(), response.body()?.string())
+            onOkHttpSuccess(url, response.code, response.body?.string())
         } else {
-            onOkHttpFailure(url, response.code())
+            onOkHttpFailure(url, response.code)
         }
     }
 
     private fun getUrl(call: Call): URL {
-        return call.request().url().url()
+        return call.request().url.toUrl()
     }
 }

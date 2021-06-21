@@ -2,7 +2,9 @@ package com.github.fo2rist.mclaren.web.feed
 
 import com.github.fo2rist.mclaren.BuildConfig
 import okhttp3.Headers
+import okhttp3.Headers.Companion.headersOf
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
@@ -36,11 +38,11 @@ internal class StoryStreamWebServiceImpl @Inject internal constructor(
 
     companion object {
 
-        private val FEED_URL = HttpUrl.get(BuildConfig.STORYSTREAM_FEED_URL)
+        private val FEED_URL = BuildConfig.STORYSTREAM_FEED_URL.toHttpUrl()
         private const val ACCESS_TOKEN = BuildConfig.STORYSTREAM_TOKEN
         private const val STORIES_PER_PAGE = 20
         private const val INCLUDE_ALL_MEDIA = true
-        private val DEFAULT_HEADERS = Headers.of(
+        private val DEFAULT_HEADERS = headersOf(
                 "Content-Type", "application/json; charset=utf-8"
         )
     }

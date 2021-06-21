@@ -33,7 +33,7 @@ class OkHttpCallbackWrapperTest {
     @Test
     fun testOnSuccessDelivered() {
         `when`(mockResponse.isSuccessful).thenReturn(true)
-        `when`(mockResponse.code()).thenReturn(200)
+        `when`(mockResponse.code).thenReturn(200)
 
         val responseWrapper = createTestWrapper(
                 doOnFailure = { _, _, _ ->
@@ -49,7 +49,7 @@ class OkHttpCallbackWrapperTest {
     @Test
     fun testBadResponseDelivered() {
         `when`(mockResponse.isSuccessful).thenReturn(false)
-        `when`(mockResponse.code()).thenReturn(500)
+        `when`(mockResponse.code).thenReturn(500)
 
         val responseWrapper = createTestWrapper(
                 doOnFailure = { _, code, _ ->
@@ -76,8 +76,8 @@ class OkHttpCallbackWrapperTest {
     }
 
     private fun createTestWrapper(
-            doOnSuccess: (url: URL, responseCode: Int, responseBody: String?) -> Unit,
-            doOnFailure: (url: URL, responseCode: Int, connectionError: IOException?) -> Unit
+        doOnSuccess: (url: URL, responseCode: Int, responseBody: String?) -> Unit,
+        doOnFailure: (url: URL, responseCode: Int, connectionError: IOException?) -> Unit
     ): OkHttpCallbackWrapper {
         return object : OkHttpCallbackWrapper() {
             override fun onOkHttpFailure(url: URL, responseCode: Int, connectionError: IOException?) {

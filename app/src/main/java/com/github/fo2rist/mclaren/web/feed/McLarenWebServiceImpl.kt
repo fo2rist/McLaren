@@ -4,19 +4,21 @@ import androidx.annotation.VisibleForTesting
 import com.github.fo2rist.mclaren.BuildConfig
 import com.github.fo2rist.mclaren.web.transmission.TransmissionWebService
 import okhttp3.Headers
+import okhttp3.Headers.Companion.headersOf
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
-private val FEED_URL = HttpUrl.get(BuildConfig.MCLAREN_FEED_URL)
-private val MCLAREN_RACE_LIFE_DATA_URL = HttpUrl.get(BuildConfig.MCLAREN_RACE_LIFE_DATA_URL)
-private val DEFAULT_CDN_HEADERS = Headers.of(
+private val FEED_URL = BuildConfig.MCLAREN_FEED_URL.toHttpUrl()
+private val MCLAREN_RACE_LIFE_DATA_URL = BuildConfig.MCLAREN_RACE_LIFE_DATA_URL.toHttpUrl()
+private val DEFAULT_CDN_HEADERS = headersOf(
         "Content-Type", "application/json; charset=utf-8",
         "Authorization", BuildConfig.MCLAREN_CDN_AUTH)
-private val CONTENT_JSON_HEADERS = Headers.of(
+private val CONTENT_JSON_HEADERS = headersOf(
         "Content-Type", "application/json; charset=utf-8")
 
 /**
