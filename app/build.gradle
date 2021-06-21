@@ -123,7 +123,7 @@ dependencies {
     // auto link for text view embedded links
     implementation 'com.github.armcha:AutoLinkTextViewV2:3.0.0'
     // dot indicator view
-    implementation (name: 'circleindicator-1.2.2', ext: 'aar')
+    implementation 'me.relex:circleindicator:2.1.6'
 
     // networking
     implementation 'com.google.code.gson:gson:2.8.6'

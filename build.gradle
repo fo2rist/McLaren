@@ -30,7 +30,6 @@ allprojects {
         maven { url "https://jitpack.io" } // for PhotoView
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" } //for robolectric
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' } // for org.jetbrains.trove4j
-        flatDir { dirs 'libs' } // for libs temporarily downloaded locally from jcenter
     }
 }
 
