@@ -112,8 +112,8 @@ dependencies {
 
     // firebase cloud config, crashlytics & analytics
     implementation 'com.google.firebase:firebase-config:19.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.0.1'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
 
     //twitter client
     implementation "org.twitter4j:twitter4j-core:4.0.7"
