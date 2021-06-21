@@ -5,6 +5,6 @@ project.ext {
     BUILD_TOOLS_VERSION = '29.0.2'
     KOTLIN_VERSION = '1.4.30'
 
-    APP_VERSION_CODE = 29
-    APP_VERSION_NAME = '2.5.0'
+    APP_VERSION_CODE = 30
+    APP_VERSION_NAME = '2.6.0'
 }
