@@ -20,7 +20,6 @@ jobs:
 
     - name: Unit Test
       run: ./gradlew jacocoTestDebugUnitTestReport --continue
-      continue-on-error: true # IMPORTANT: allow pipeline to continue to Test Report step
 
     - name: Unit Test Report
       uses: asadmansr/android-test-report-action@v1.2.0
