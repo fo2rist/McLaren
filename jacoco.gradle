@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = '0.8.3'
+    toolVersion = '0.8.7'
 }
 
 tasks.withType(Test) {
@@ -45,8 +45,8 @@ task jacocoTestDebugUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUni
     ]))
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.getRequired().set(true)
+        html.getRequired().set(true)
     }
 }
 
