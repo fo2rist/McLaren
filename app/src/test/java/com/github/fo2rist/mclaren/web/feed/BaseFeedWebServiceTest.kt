@@ -2,7 +2,6 @@ package com.github.fo2rist.mclaren.web.feed
 
 import androidx.annotation.CallSuper
 import com.github.fo2rist.mclaren.testutilities.overrideAnswersToSuccess
-import com.github.fo2rist.mclaren.web.feed.BaseFeedWebService
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.spy
@@ -11,21 +10,16 @@ import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 abstract class BaseFeedWebServiceTest {
     /** Http client which [OkHttpClient.newCall] return calls that immediately respond with 200 once executed. */
-    @Mock
-    protected lateinit var httpClientMock: OkHttpClient
+    protected var httpClientMock: OkHttpClient = mock()
 
     /** Service to be tested, should be provided by the client. */
     protected abstract var webservice: BaseFeedWebService
 
     @CallSuper
     open fun setUp() {
-        MockitoAnnotations.initMocks(this)
-
         httpClientMock.overrideAnswersToSuccess()
     }
 

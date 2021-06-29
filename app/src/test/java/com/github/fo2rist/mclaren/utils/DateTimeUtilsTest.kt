@@ -1,20 +1,20 @@
 package com.github.fo2rist.mclaren.utils
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import org.joda.time.DateTime
 import org.joda.time.Period
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 private val ONE_DIGIT_DAY_DATE = DateTime.parse("2000-01-01")
 private val TWO_DIGIT_DAY_DATE = DateTime.parse("2000-01-31")
 
 @RunWith(RobolectricTestRunner::class)
 class DateTimeUtilsTest {
-    private val context by lazy { RuntimeEnvironment.application.applicationContext }
+    private val context: Context by lazy { ApplicationProvider.getApplicationContext() }
 
     @Test
     fun `formatShort formats as short Month and double digit day`() {
