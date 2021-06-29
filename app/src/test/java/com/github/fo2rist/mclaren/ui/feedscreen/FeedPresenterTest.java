@@ -6,13 +6,13 @@ import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus;
 import com.github.fo2rist.mclaren.repository.feed.FeedRepositoryEventBus.LoadingEvent;
 import com.github.fo2rist.mclaren.testdata.FeedItems;
 import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -56,7 +56,7 @@ public class FeedPresenterTest {
     public void test_onFeedUpdateReceived_setFeedToView() {
         presenter.onFeedUpdateReceived(new LoadingEvent.FeedUpdateReady(TEST_ACCOUNT, new ArrayList<>()));
 
-        verify(mockView).displayFeed(any(List.class));
+        verify(mockView).displayFeed(anyList());
     }
 
     @Test

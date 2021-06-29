@@ -9,6 +9,7 @@ import com.github.fo2rist.mclaren.web.utils.BadResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.stubbing
 import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
@@ -27,21 +28,14 @@ import java.net.URL
 @RunWith(RobolectricTestRunner::class)
 class McLarenFeedRepositoryImplTest {
 
-    @Mock
-    private lateinit var mockWebService: McLarenFeedWebService
-
-    @Mock
-    private lateinit var mockEventBus: FeedRepositoryEventBus
-
-    @Mock
-    private lateinit var mockHistoryPredictor: FeedHistoryPredictor
+    private var mockWebService: McLarenFeedWebService = mock()
+    private var mockEventBus: FeedRepositoryEventBus = mock()
+    private var mockHistoryPredictor: FeedHistoryPredictor = mock()
 
     private lateinit var repository: McLarenFeedRepositoryImpl
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
-
         repository = McLarenFeedRepositoryImpl(
                 mockWebService, mockEventBus, mockHistoryPredictor, McLarenFeedConverter())
     }

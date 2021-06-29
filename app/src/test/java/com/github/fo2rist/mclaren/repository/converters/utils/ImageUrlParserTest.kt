@@ -9,9 +9,9 @@ import com.github.fo2rist.mclaren.repository.converters.utils.ImageUrlParser.TAB
 import com.github.fo2rist.mclaren.testdata.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS
 import com.github.fo2rist.mclaren.testdata.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_0
 import com.github.fo2rist.mclaren.testdata.IMAGE_URL_TAB_API_WITH_PLACEHOLDERS_INCOMPLETE
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsString
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThat
 import org.junit.Test
 
 class ImageUrlParserTest {

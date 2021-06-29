@@ -2,12 +2,12 @@ package com.github.fo2rist.mclaren.utils
 
 import android.content.Context
 import android.net.Uri
+import androidx.test.core.app.ApplicationProvider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 
 private const val EXISTING_CIRCUIT = "monaco_monte_carlo"
@@ -17,7 +17,7 @@ private const val EXISTING_DRIVER = "norris"
 
 @RunWith(RobolectricTestRunner::class)
 class ResourcesUtilsTest {
-    val context: Context by lazy { RuntimeEnvironment.application.applicationContext }
+    val context: Context by lazy { ApplicationProvider.getApplicationContext() }
 
     @Test
     fun `resourceUriToId gives 0 for incorrect URI`() {

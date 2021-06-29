@@ -1,14 +1,16 @@
 package com.github.fo2rist.mclaren.ui.previewscreen
 
+import android.content.Context
 import android.content.Intent
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
+import androidx.test.core.app.ApplicationProvider
 import com.github.fo2rist.mclaren.R
 import com.github.fo2rist.mclaren.mvp.PreviewContract
 import com.github.fo2rist.mclaren.testdata.DUMMY_URL
 import com.github.fo2rist.mclaren.testdata.FeedItems.ARTICLE_ITEM_WITH_LINKS
 import com.github.fo2rist.mclaren.testdata.FeedItems.TWITTER_GALLERY_ITEM
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.nhaarman.mockitokotlin2.spy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -17,12 +19,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class PreviewActivityTest {
 
-    private val context by lazy { RuntimeEnvironment.application.applicationContext }
+    private val context: Context by lazy { ApplicationProvider.getApplicationContext() }
 
     private lateinit var activity: PreviewActivity
     private lateinit var presenterSpy: PreviewContract.Presenter
