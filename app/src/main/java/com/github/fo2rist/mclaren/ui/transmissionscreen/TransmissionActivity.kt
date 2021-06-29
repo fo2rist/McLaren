@@ -4,21 +4,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
+import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import com.github.fo2rist.mclaren.R
+import com.github.fo2rist.mclaren.databinding.ActivityTransmissionBinding
 import com.github.fo2rist.mclaren.models.TransmissionItem
 import com.github.fo2rist.mclaren.mvp.TransmissionContract
 import com.github.fo2rist.mclaren.ui.utils.animateReveal
 import com.github.fo2rist.mclaren.ui.utils.animateUnreveal
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_transmission.*
 import javax.inject.Inject
 
 /**
  * Displays live transmission as the list of messages.
  */
 class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
+    private lateinit var binding: ActivityTransmissionBinding
 
     private lateinit var adapter: TransmissionAdapter
     private lateinit var transmissionLayoutManager: LinearLayoutManager
@@ -30,11 +32,12 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
         AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_transmission)
+        binding = ActivityTransmissionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupViews()
 
         if (savedInstanceState == null) {
-            animateReveal(root_layout, intent)
+            animateReveal(binding.rootLayout, intent)
         }
 
         presenter.onStart()
@@ -43,10 +46,10 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     private fun setupViews() {
         adapter = TransmissionAdapter()
         transmissionLayoutManager = LinearLayoutManager(this)
-        transmission_list.layoutManager = transmissionLayoutManager
-        transmission_list.adapter = adapter
+        binding.transmissionList.layoutManager = transmissionLayoutManager
+        binding.transmissionList.adapter = adapter
 
-        root_layout.setOnClickListener {
+        binding.rootLayout.setOnClickListener {
             exit()
         }
     }
@@ -56,7 +59,7 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     }
 
     private fun exit() {
-        animateUnreveal(root_layout) {
+        animateUnreveal(binding.rootLayout) {
             supportFinishAfterTransition()
         }
     }
@@ -71,15 +74,15 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     override fun displayTransmission(transmissionMessages: List<TransmissionItem>) {
         val hasNewerItems = adapter.setItems(transmissionMessages)
         if (hasNewerItems && firstItemIsVisible()) {
-            transmission_list.scrollToPosition(0)
+            binding.transmissionList.scrollToPosition(0)
         }
     }
 
     override fun setNoTransmissionStubVisible(visible: Boolean) {
-        empty_list_text.visibility = if (visible) {
-            View.VISIBLE
+        binding.emptyListText.visibility = if (visible) {
+            VISIBLE
         } else {
-            View.GONE
+            GONE
         }
     }
 
@@ -88,7 +91,7 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
 
 
     override fun displayCurrentSession(session: TransmissionItem.Session) {
-        title_text.text = when (session) {
+        binding.titleText.text = when (session) {
             TransmissionItem.Session.UNKNOWN -> ""
             TransmissionItem.Session.PRACTICE_1 -> getString(R.string.transmission_session_practice_1)
             TransmissionItem.Session.PRACTICE_2 -> getString(R.string.transmission_session_practice_2)
@@ -99,10 +102,10 @@ class TransmissionActivity : AppCompatActivity(), TransmissionContract.View {
     }
 
     override fun showProgress() {
-        progress_bar.visibility = VISIBLE
+        binding.progressBar.visibility = VISIBLE
     }
 
     override fun hideProgress() {
-        progress_bar.visibility = INVISIBLE
+        binding.progressBar.visibility = INVISIBLE
     }
 }

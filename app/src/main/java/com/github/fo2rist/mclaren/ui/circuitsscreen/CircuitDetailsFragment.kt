@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.github.fo2rist.mclaren.R
+import com.github.fo2rist.mclaren.databinding.ActivityCircuitDetailsBinding
+import com.github.fo2rist.mclaren.databinding.FragmentCircuitItemBinding
 import com.github.fo2rist.mclaren.ui.models.CalendarEvent
 import com.github.fo2rist.mclaren.ui.widgets.InformationLineView
 import com.github.fo2rist.mclaren.utils.IntentUtils
@@ -15,12 +17,13 @@ import com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDetailedImageUr
 import com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitDrsImageUriById
 import com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitSectorsImageUriById
 import com.github.fo2rist.mclaren.utils.ResourcesUtils.getCircuitTurnsImageUriById
-import kotlinx.android.synthetic.main.fragment_circuit_item.*
 
 /**
  * Fragment that displays single Circuit's map and detailed info.
  */
 class CircuitDetailsFragment : Fragment(), View.OnClickListener {
+
+    private lateinit var binding: FragmentCircuitItemBinding
 
     private lateinit var event: CalendarEvent
 
@@ -31,15 +34,16 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
 
     private fun fetchBundleParameters() {
         event = arguments?.getSerializable(ARG_EVENT) as? CalendarEvent
-                ?: throw IllegalArgumentException("Required parameter `$ARG_EVENT` not present or not a CalendarEvent")
+            ?: throw IllegalArgumentException("Required parameter `$ARG_EVENT` not present or not a CalendarEvent")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_circuit_item, container, false)
+    ): View {
+        binding = FragmentCircuitItemBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,37 +53,37 @@ class CircuitDetailsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun populateMapImage() {
-        circuit_image.setImageURI(
+        binding.circuitImage.setImageURI(
                 getCircuitDetailedImageUriById(event.circuitId))
-        circuit_drs_image.setImageURI(
+        binding.circuitDrsImage.setImageURI(
                 getCircuitDrsImageUriById(event.circuitId))
-        circuit_sectors_image.setImageURI(
+        binding.circuitSectorsImage.setImageURI(
                 getCircuitSectorsImageUriById(event.circuitId))
-        circuit_turns_image.setImageURI(
+        binding.circuitTurnsImage.setImageURI(
                 getCircuitTurnsImageUriById(event.circuitId))
     }
 
     private fun populateMainInformation() {
-        circuit_title.text = event.grandPrixName
-        circuit_title.setOnClickListener(this)
+        binding.circuitTitle.text = event.grandPrixName
+        binding.circuitTitle.setOnClickListener(this)
 
-        circuit_details.text = getString(R.string.circuit_details_format, event.city, event.trackName)
+        binding.circuitDetails.text = getString(R.string.circuit_details_format, event.city, event.trackName)
     }
 
     private fun populateDetailedInformationLines() {
-        properties_linearlayout.addInformationLine(
+        binding.propertiesLinearlayout.addInformationLine(
                 R.string.circuit_details_laps,
                 event.laps.toString())
-        properties_linearlayout.addInformationLine(
+        binding.propertiesLinearlayout.addInformationLine(
                 R.string.circuit_details_length,
                 getString(R.string.distance_km_format, event.length))
-        properties_linearlayout.addInformationLine(
+        binding.propertiesLinearlayout.addInformationLine(
                 R.string.circuit_details_distance,
                 getString(R.string.distance_km_format, event.distance))
-        properties_linearlayout.addInformationLine(
+        binding.propertiesLinearlayout.addInformationLine(
                 R.string.circuit_details_seasons,
                 event.seasons)
-        properties_linearlayout.addInformationLine(
+        binding.propertiesLinearlayout.addInformationLine(
                 R.string.circuit_details_gp_held,
                 event.gpHeld.toString())
     }
