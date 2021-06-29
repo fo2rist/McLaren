@@ -165,7 +165,6 @@ dependencies {
 
     // instrumented test libraries
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation "androidx.annotation:annotation:1.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0' // update to 3.3 makes tests not run
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
