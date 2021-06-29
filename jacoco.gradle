@@ -6,6 +6,7 @@ jacoco {
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*'] // fix for crash in jacoco https://github.com/gradle/gradle/issues/5184#issuecomment-457865951
 }
 
 final SOURCE_DIRS = "$project.projectDir/src/main/java"
