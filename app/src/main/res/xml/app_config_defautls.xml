@@ -126,6 +126,7 @@
                 },
                 {
                 "name": "Dutch Grand Prix",
+                "circuit_id": "netherlands_zandvoort",
                 "practice_1_time": "2021-09-03T10:30:00Z",
                 "practice_2_time": "2021-09-03T14:00:00Z",
                 "practice_3_time": "2021-09-04T11:00:00Z",
@@ -663,7 +664,7 @@
                     "TeamPageLink": "https://www.mclaren.com/formula1/team/lando-norris/",
                     "Tag": "#LN4",
 
-                    "BestFinish": "3rd",
+                    "BestFinish": "2nd",
                     "PolePositions": "0",
                     "FastestLaps": "2"
                 },
@@ -677,9 +678,9 @@
                     "TeamPageLink": "https://www.mclaren.com/racing/team/daniel-ricciardo/",
                     "Tag": "#DR3",
 
-                    "BestFinish": "1st x 7",
+                    "BestFinish": "1st x 8",
                     "PolePositions": "3",
-                    "FastestLaps": "15"
+                    "FastestLaps": "16"
                 },
 
                 "SAINZ": {
