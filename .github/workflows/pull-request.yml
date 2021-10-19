@@ -55,3 +55,19 @@ jobs:
 
     - name: Run Instrumentation Tests in Firebase Test Lab
       run: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Pixel2,version=28,locale=en,orientation=portrait
+
+  codeCheck:
+    name: Code Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Qodana - Code Inspection
+      uses: JetBrains/qodana-action@v2.2.1-eap
+
+    - name: Qodana - Clone Finder
+      uses: JetBrains/qodana-clone-finder-action@v2.0-eap
+
+    - name: Qodana - License Audit
+      uses: JetBrains/qodana-license-audit-action@v2.0-eap
