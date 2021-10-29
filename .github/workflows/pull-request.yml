@@ -45,7 +45,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Login to Firebase (GCloud)
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@master
       with:
         service_account_key: ${{ secrets.firebase_test_lab_key }}
         project_id: ${{ secrets.firebase_project_id }}
