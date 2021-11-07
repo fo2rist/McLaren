@@ -22,17 +22,37 @@ class MainPresenter @Inject constructor(
     private val raceCalendar: RaceCalendar by lazy { raceCalendarRepository.loadCalendar() }
 
     override fun onStart() {
-        openStories()
+        // start does the same as clicking on the first item in the menu
+        onTeamTwitterClicked()
     }
 
     override fun onStoriesClicked() {
-        openStories()
-    }
-
-    private fun openStories() {
         view.openStories()
         analytics.overrideScreenName(Events.Screen.STORIES)
 
+        showFloatingButtonIfNecessary()
+    }
+
+    override fun onTeamTwitterClicked() {
+        view.openTweetsMcLaren()
+        analytics.overrideScreenName(Events.Screen.TEAM_TWITTER)
+
+        showFloatingButtonIfNecessary()
+    }
+
+    override fun onLandoTwitterClicked() {
+        view.openTweetsLando()
+
+        showFloatingButtonIfNecessary()
+    }
+
+    override fun onDanielTwitterClicked() {
+        view.openTweetsDaniel()
+
+        showFloatingButtonIfNecessary()
+    }
+
+    private fun showFloatingButtonIfNecessary() {
         val activeEvent = raceCalendar.getActiveEvent()
         val upcomingEvent = raceCalendar.getNextEvent()
         if (activeEvent != null) {
@@ -40,21 +60,6 @@ class MainPresenter @Inject constructor(
         } else if (upcomingEvent != null) {
             view.showUpcomingEventButton(upcomingEvent.grandPrixName, upcomingEvent.practice1DateTime!!)
         }
-    }
-
-    override fun onTeamTwitterClicked() {
-        view.openTweetsMcLaren()
-        analytics.overrideScreenName(Events.Screen.TEAM_TWITTER)
-
-        view.hideFloatingButtons();
-    }
-
-    override fun onLandoTwitterClicked() {
-        view.openTweetsLando()
-    }
-
-    override fun onDanielTwitterClicked() {
-        view.openTweetsDaniel()
     }
 
     override fun onSeasonCalendarClicked() {
@@ -94,8 +99,8 @@ class MainPresenter @Inject constructor(
 
     override fun onUpcomingEventClicked() {
         val eventToOpen = raceCalendar.getActiveEvent()
-                ?: raceCalendar.getNextEvent()
-                ?: return
+            ?: raceCalendar.getNextEvent()
+            ?: return
         view.navigateToCircuitScreen(raceCalendar.indexOf(eventToOpen)) //the index is never out of bounds here
     }
 }

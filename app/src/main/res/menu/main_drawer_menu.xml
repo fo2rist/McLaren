@@ -5,26 +5,33 @@
             android:id="@+id/nav_stories"
             android:icon="@drawable/ic_menu_stories"
             android:title="@string/navigation_item_stories"
-            android:checked="true"/>
-        <item
-            android:id="@+id/nav_twitter_lando"
-            android:icon="@drawable/ic_menu_twitter"
-            android:title="@string/navigation_item_lando_twitter" />
-        <item
-            android:id="@+id/nav_twitter_daniel"
-            android:icon="@drawable/ic_menu_twitter"
-            android:title="@string/navigation_item_daniel_twitter" />
+            android:visible="false"
+            />
         <item
             android:id="@+id/nav_twitter_team"
             android:icon="@drawable/ic_menu_twitter"
-            android:title="@string/navigation_item_team_twitter" />
+            android:checked="true"
+            android:title="@string/navigation_item_team_twitter"
+            />
+        <item
+            android:id="@+id/nav_twitter_lando"
+            android:icon="@drawable/ic_menu_twitter"
+            android:title="@string/navigation_item_lando_twitter"
+            />
+        <item
+            android:id="@+id/nav_twitter_daniel"
+            android:icon="@drawable/ic_menu_twitter"
+            android:title="@string/navigation_item_daniel_twitter"
+            />
         <item
             android:id="@+id/nav_season_calendar"
             android:icon="@drawable/ic_menu_circuit"
-            android:title="@string/navigation_item_season_calendar" />
+            android:title="@string/navigation_item_season_calendar"
+            />
         <item
             android:id="@+id/nav_drivers"
             android:icon="@drawable/ic_menu_driver"
-            android:title="@string/navigation_item_drivers" />
+            android:title="@string/navigation_item_drivers"
+            />
     </group>
 </menu>
