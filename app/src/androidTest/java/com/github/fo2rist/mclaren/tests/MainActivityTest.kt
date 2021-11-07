@@ -22,11 +22,11 @@ class MainActivityTest : BaseMainActivityTest() {
     @Test
     fun testSideMenu() {
         mainPage {
-            menuStories { isNotDisplayed() }
+            menuTeamTwitter { isNotDisplayed() }
 
             openNavigationDrawer()
 
-            menuStories { isDisplayed() }
+            menuStories { doesNotExist() }
             menuLandoTwitter { isDisplayed() }
             menuDanielTwitter { isDisplayed() }
             menuTeamTwitter { isDisplayed() }

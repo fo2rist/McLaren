@@ -52,10 +52,10 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void test_onStart_loadsStories() {
+    public void test_onStart_loadsTeamTweets() {
         presenter.onStart();
 
-        verify(mockView).openStories();
+        verify(mockView).openTweetsMcLaren();
         verify(mockView, never()).showUpcomingEventButton(any(), any());
         verify(mockView, never()).showTransmissionButton();
     }
