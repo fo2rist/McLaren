@@ -84,7 +84,7 @@ class CircuitDetailsPageTest {
     }
 
     @Test
-    fun testTitleInfoLeadToWebsite() {
+    fun testTitleInfoLeadsToWebsite() {
         intending(hasData(any(Uri::class.java))).respondWith(ActivityResult(RESULT_OK, null))
 
         page.title { click() }

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.github.fo2rist.mclaren">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Added instead of queries tag to allow opening 3rd party apps and browser   -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"
+        />
 
     <application
         android:allowBackup="false"
