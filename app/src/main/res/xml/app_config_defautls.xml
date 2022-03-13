@@ -266,8 +266,8 @@
                 "laps": 57,
                 "length": 5.412,
                 "distance": 308.238,
-                "seasons": "2004–2010, 2012–2020, 2020",
-                "gp_held": 17,
+                "seasons": "2004–2010, 2012–2020, 2020-2021",
+                "gp_held": 18,
                 "wiki_link": "https://en.wikipedia.org/wiki/Bahrain_International_Circuit"
                 },
                 {
@@ -279,8 +279,8 @@
                 "laps": 53,
                 "length": 5.848,
                 "distance": 309.745,
-                "seasons": "2014–2020",
-                "gp_held": 7,
+                "seasons": "2014-2021",
+                "gp_held": 8,
                 "wiki_link": "https://en.wikipedia.org/wiki/Sochi_Autodrom"
                 },
                 {
@@ -292,8 +292,8 @@
                 "laps": 66,
                 "length": 4.655,
                 "distance": 307.104,
-                "seasons": "1991–2020",
-                "gp_held": 30,
+                "seasons": "1991-2021",
+                "gp_held": 31,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya"
                 },
                 {
@@ -305,8 +305,8 @@
                 "laps": 78,
                 "length": 3.337,
                 "distance": 260.286,
-                "seasons": "1950, 1955–2019",
-                "gp_held": 66,
+                "seasons": "1950, 1955–2019, 2021",
+                "gp_held": 67,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Monaco"
                 },
                 {
@@ -331,8 +331,8 @@
                 "laps": 51,
                 "length": 6.003,
                 "distance": 306.049,
-                "seasons": "2017-2019",
-                "gp_held": 3,
+                "seasons": "2017-2019, 2021",
+                "gp_held": 4,
                 "wiki_link": "https://en.wikipedia.org/wiki/Baku_City_Circuit"
                 },
                 {
@@ -344,8 +344,8 @@
                 "laps": 71,
                 "length": 4.326,
                 "distance": 307.02,
-                "seasons": "1970–1987, 1997–2003, 2014–2020, 2020",
-                "gp_held": 33,
+                "seasons": "1970–1987, 1997–2003, 2014–2020, 2020-2021, 2021",
+                "gp_held": 35,
                 "wiki_link": "https://en.wikipedia.org/wiki/Red_Bull_Ring"
                 },
                 {
@@ -357,8 +357,8 @@
                 "laps": 52,
                 "length": 5.891,
                 "distance": 306.198,
-                "seasons": "1950–1954, 1956, 1958, 1960, 1963, 1965, 1967, 1969, 1971, 1973, 1975, 1977, 1979, 1981, 1983, 1985, 1987–2020, 2020",
-                "gp_held": 54,
+                "seasons": "1950–1954, 1956, 1958, 1960, 1963, 1965, 1967, 1969, 1971, 1973, 1975, 1977, 1979, 1981, 1983, 1985, 1987–2020, 2020-2021",
+                "gp_held": 55,
                 "wiki_link": "https://en.wikipedia.org/wiki/Silverstone_Circuit"
                 },
                 {
@@ -370,8 +370,8 @@
                 "laps": 70,
                 "length": 4.381,
                 "distance": 306.63,
-                "seasons": "1986–2020",
-                "gp_held": 35,
+                "seasons": "1986-2021",
+                "gp_held": 36,
                 "wiki_link": "https://en.wikipedia.org/wiki/Hungaroring"
                 },
                 {
@@ -383,8 +383,8 @@
                 "laps": 44,
                 "length": 7.004,
                 "distance": 308.052,
-                "seasons": "1950–1956, 1958, 1960–1968, 1970, 1983, 1985–2002, 2004–2005, 2007–2020",
-                "gp_held": 53,
+                "seasons": "1950–1956, 1958, 1960–1968, 1970, 1983, 1985–2002, 2004–2005, 2007-2021",
+                "gp_held": 54,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps"
                 },
                 {
@@ -396,8 +396,8 @@
                 "laps": 63,
                 "length": 4.909,
                 "distance": 309.267,
-                "seasons": "1980–2006, 2020",
-                "gp_held": 28,
+                "seasons": "1980–2006, 2020-2021",
+                "gp_held": 29,
                 "wiki_link": "https://en.wikipedia.org/wiki/Autodromo_Internazionale_Enzo_e_Dino_Ferrari"
                 },
                 {
@@ -409,8 +409,8 @@
                 "laps": 53,
                 "length": 5.793,
                 "distance": 306.72,
-                "seasons": "1950–1979, 1981–2020",
-                "gp_held": 70,
+                "seasons": "1950–1979, 1981-2021",
+                "gp_held": 71,
                 "wiki_link": "https://en.wikipedia.org/wiki/Autodromo_Nazionale_Monza"
                 },
                 {
@@ -474,8 +474,8 @@
                 "laps": 56,
                 "length": 5.47,
                 "distance": 308.405,
-                "seasons": "2012–2019",
-                "gp_held": 8,
+                "seasons": "2012–2019, 2021",
+                "gp_held": 9,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_of_the_Americas"
                 },
                 {
@@ -487,8 +487,8 @@
                 "laps": 71,
                 "length": 4.313,
                 "distance": 305.354,
-                "seasons": "1963–1970, 1986–1992, 2015–2019",
-                "gp_held": 20,
+                "seasons": "1963–1970, 1986–1992, 2015–2019, 2021",
+                "gp_held": 21,
                 "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez"
                 },
                 {
@@ -500,8 +500,8 @@
                 "laps": 71,
                 "length": 4.309,
                 "distance": 305.909,
-                "seasons": "1973–1977, 1979–1980, 1990–2019",
-                "gp_held": 37,
+                "seasons": "1973–1977, 1979–1980, 1990–2019, 2021",
+                "gp_held": 38,
                 "wiki_link": "https://en.wikipedia.org/wiki/Aut%C3%B3dromo_Jos%C3%A9_Carlos_Pace"
                 },
                 {
@@ -513,8 +513,8 @@
                 "laps": 55,
                 "length": 5.554,
                 "distance": 305.355,
-                "seasons": "2009–2020",
-                "gp_held": 11,
+                "seasons": "2009–2021",
+                "gp_held": 12,
                 "wiki_link": "https://en.wikipedia.org/wiki/Yas_Marina_Circuit"
                 },
                 {
@@ -526,8 +526,8 @@
                 "laps": 52,
                 "length": 5.842,
                 "distance": 303.784,
-                "seasons": "1971, 1973, 1975–1976, 1978, 1980, 1982–1983, 1985–1990, 2018–2019",
-                "gp_held": 16,
+                "seasons": "1971, 1973, 1975–1976, 1978, 1980, 1982–1983, 1985–1990, 2018–2019, 2021",
+                "gp_held": 17,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Paul_Ricard"
                 },
                 {
@@ -565,8 +565,8 @@
                 "laps": 66,
                 "length": 4.692,
                 "distance": 309.672,
-                "seasons": "2020",
-                "gp_held": 1,
+                "seasons": "2020-2021",
+                "gp_held": 2,
                 "wiki_link": "https://en.wikipedia.org/wiki/Algarve_International_Circuit"
                 },
                 {
@@ -578,8 +578,8 @@
                 "laps": 72,
                 "length": 4.252,
                 "distance": 306.144,
-                "seasons": "1952–1953, 1955, 1958––1971, 1973–1985",
-                "gp_held": 30,
+                "seasons": "1952–1953, 1955, 1958––1971, 1973–1985, 2021",
+                "gp_held": 31,
                 "wiki_link": "https://en.wikipedia.org/wiki/Circuit_Zandvoort"
                 },
                 {
@@ -590,8 +590,8 @@
                 "laps": 50,
                 "length": 6.175,
                 "distance": 308.750,
-                "seasons": "",
-                "gp_held": 0,
+                "seasons": "2021",
+                "gp_held": 1,
                 "wiki_link": "https://en.wikipedia.org/wiki/Jeddah_Street_Circuit"
                 },
                 {
@@ -603,8 +603,8 @@
                 "laps": 58,
                 "length": 5.338,
                 "distance": 309.396,
-                "seasons": "2005-2011, 2020",
-                "gp_held": 8,
+                "seasons": "2005-2011, 2020-2021",
+                "gp_held": 9,
                 "wiki_link": "https://en.wikipedia.org/wiki/Intercity_Istanbul_Park"
                 },
                 {
@@ -616,9 +616,9 @@
                 "laps": 57,
                 "length": 5.380,
                 "distance": 306.660,
-                "seasons": "",
-                "gp_held": 0,
-                "wiki_link": "https://en.wikipedia.org/wiki/Intercity_Istanbul_Park"
+                "seasons": "2021",
+                "gp_held": 1,
+                "wiki_link": "https://en.wikipedia.org/wiki/Losail_International_Circuit"
                 },
                 {
                 "id": "vietnam_hanoi",
