@@ -5,11 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!-- Added instead of queries tag to allow opening 3rd party apps and browser   -->
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission"
-        />
-
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

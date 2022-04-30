@@ -1,15 +1,15 @@
 package com.github.fo2rist.mclaren.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import androidx.annotation.NonNull;
 import android.webkit.URLUtil;
+import androidx.annotation.NonNull;
 
 public class IntentUtils {
 
     private static final String PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=";
-    private static final String MCLAREN_APP_PACKAGE = "mclaren.mobile";
 
     private IntentUtils() {
     }
@@ -36,24 +36,11 @@ public class IntentUtils {
     }
 
     public static boolean launchSafely(@NonNull Context context, @NonNull Intent intent) {
-        if (intent.resolveActivity(context.getPackageManager()) == null) {
+        try {
+            context.startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException exc) {
             return false;
         }
-        context.startActivity(intent);
-        return true;
-    }
-
-    @NonNull
-    public static Intent createAppIntent(@NonNull Context context, @NonNull String packageName) {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent == null) {
-            intent = createBrowserIntent(PLAY_STORE_URL + packageName);
-        }
-        return intent;
-    }
-
-    @NonNull
-    public static Intent createMcLarenAppIntent(@NonNull Context context) {
-        return createAppIntent(context, MCLAREN_APP_PACKAGE);
     }
 }

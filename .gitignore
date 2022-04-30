@@ -36,10 +36,13 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea
 
 # Keystore files
 *.jks
 
 #Private properties
 fabric.properties
+
+# MaxOS 
+.DS_Store

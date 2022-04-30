@@ -10,16 +10,14 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.startsWith
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 
 private const val EXISTING_PACKAGE = BuildConfig.APPLICATION_ID
-private const val NOT_EXISTING_PACKAGE = "package_that_doesnt_exist"
 
 @RunWith(RobolectricTestRunner::class)
 class IntentUtilsTest {
@@ -50,34 +48,14 @@ class IntentUtilsTest {
 
     @Test
     fun `test launchSafely launches existing app`() {
-        val launched = IntentUtils.launchSafely(context, IntentUtils.createAppIntent(context, EXISTING_PACKAGE))
+        val intent: Intent = context.packageManager.getLaunchIntentForPackage(EXISTING_PACKAGE)
+            ?: return fail("Package not resolved")
+        val launched = IntentUtils.launchSafely(context, intent)
 
         assertTrue(launched)
-        assertEquals(EXISTING_PACKAGE,
-                shadowOf(ApplicationProvider.getApplicationContext() as Application).nextStartedActivity.component!!.packageName)
-    }
-
-    @Test
-    fun `test launchSafely doesn't launch not-existing app`() {
-        val launched = IntentUtils.launchSafely(context, IntentUtils.createAppIntent(context, NOT_EXISTING_PACKAGE))
-
-        assertFalse(launched)
-    }
-
-    @Test
-    fun `test createAppIntent resolves exiting package to component`() {
-        val intent = IntentUtils.createAppIntent(context, EXISTING_PACKAGE)
-
-        assertEquals(EXISTING_PACKAGE, intent.getPackage())
-        assertNotNull(intent.component)
-        assertNull(intent.data)
-    }
-
-    @Test
-    fun `test createAppIntent NonExistingPackageResolvedToBrowser`() {
-        val intent = IntentUtils.createAppIntent(context, NOT_EXISTING_PACKAGE)
-
-        assertTrue(intent.data!!.toString().startsWith("http"))
-        assertNull(intent.component)
+        assertEquals(
+                EXISTING_PACKAGE,
+                shadowOf(ApplicationProvider.getApplicationContext() as Application).nextStartedActivity.component!!.packageName
+        )
     }
 }
